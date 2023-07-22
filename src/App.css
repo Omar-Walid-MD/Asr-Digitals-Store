@@ -4,6 +4,26 @@
   padding: 0;
   margin: 0;
 }
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+input
+{
+  border: solid;
+  outline: none;
+}
+
+
 .product-card
 {
   transition: scale 0.1s ease-out;
@@ -11,4 +31,14 @@
 .product-card:hover
 {
   scale: 1.05;
+}
+
+.product-spec
+{
+  transition: scale 0.1s ease-out;
+  cursor: pointer;
+}
+.product-spec:hover
+{
+  scale: 1.02;
 }

@@ -1,17 +1,18 @@
 import React from 'react';
 import { Button, Card } from 'react-bootstrap';
-import { BsPhoneFill } from "react-icons/bs";
-import { BsFillCartPlusFill, BsStarFill } from "react-icons/bs";
+import { BsFillCartPlusFill, BsStarFill, BsPhoneFill } from "react-icons/bs";
+import { Link } from 'react-router-dom';
+
 function ProductCard({product}) {
     return (
-        <Card className='h-100 overflow-hidden product-card'>
-            <Card.Body className='d-flex flex-column align-items-center justify-content-between p-0'>
-                <BsPhoneFill style={{fontSize: "8rem"}} className='m-3 mb-2'/>
-                <div className='d-flex flex-column align-items-center gap-3 w-100'>
-                    <div className="text-center">
+         <Card className='h-100 overflow-hidden product-card'>
+            <Card.Body  className=' p-0'>
+                <div className='d-flex flex-column align-items-center justify-content-between h-100 w-100'>
+                    <Link className="text-center text-decoration-none text-dark pb-2" to="/product">
+                        <BsPhoneFill style={{fontSize: "8rem"}} className='m-3 mb-2'/>
                         <Card.Title>{product.title}</Card.Title>
                         <Card.Text className='fs-4 fw-bold text-danger'>{product.price} EGP</Card.Text>
-                    </div>
+                    </Link>
                     <div className="d-flex w-100 justify-content-between align-items-end bg-primary-subtle p-2">
                         <p className='m-0 fs-5 d-flex fw-semibold align-items-center gap-1'>5/5 <BsStarFill className='text-warning' /></p>
                         <div className="d-flex gap-2">
