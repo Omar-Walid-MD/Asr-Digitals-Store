@@ -37,6 +37,11 @@ input
   height: 1500px;
 }
 
+.user-page-container
+{
+  height: 100vh;
+}
+
 .product-card
 {
   transition: scale 0.1s ease-out;

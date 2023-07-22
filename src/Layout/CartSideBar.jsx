@@ -27,13 +27,13 @@ function CartSideBar() {
   return (
     <>
 
-        <Button variant="primary" onClick={handleShow} style={style.btnOut} className='position-fixed p-3 ps-4 bg-dark border-4 border-light border-start-0'>
+        <Button variant="primary" onClick={handleShow} style={style.btnOut} className='position-fixed p-3 ps-4 bg-dark border-4 border-light border-start-0 shadow'>
             <BsFillCartFill className='fs-1' />
         </Button>
 
         
         <Offcanvas show={show} onHide={handleClose}>
-        <Button variant="primary" onClick={handleClose} style={style.btnIn} className='position-absolute p-3 ps-4 bg-dark border-4 border-light border-start-0'>
+        <Button variant="primary" onClick={handleClose} style={style.btnIn} className='position-absolute p-3 ps-4 bg-dark border-4 border-light border-start-0 shadow'>
             <BsFillCartFill className='fs-1' />
         </Button>
             <Offcanvas.Header closeButton>
