@@ -12,14 +12,14 @@ function CartSideBar() {
 
   const style = {
     btnOut: {
-        left: "0",
+        right: "0",
         top: "85%",
-        borderRadius: "0 0.5rem 0.5rem 0"
+        borderRadius: "0.5rem 0 0 0.5rem"
     },
     btnIn: {
-        left: "100%",
+        right: "100%",
         top: "85%",
-        borderRadius: "0 0.5rem 0.5rem 0"
+        borderRadius: "0.5rem 0 0 0.5rem"
 
     }
   }
@@ -27,13 +27,13 @@ function CartSideBar() {
   return (
     <>
 
-        <Button variant="primary" onClick={handleShow} style={style.btnOut} className='position-fixed p-3 ps-4 bg-dark border-4 border-light border-start-0 shadow'>
+        <Button variant="primary" onClick={handleShow} style={style.btnOut} className='position-fixed p-3 ps-4 bg-dark border-4 border-light border-end-0'>
             <BsFillCartFill className='fs-1' />
         </Button>
 
         
-        <Offcanvas show={show} onHide={handleClose}>
-        <Button variant="primary" onClick={handleClose} style={style.btnIn} className='position-absolute p-3 ps-4 bg-dark border-4 border-light border-start-0 shadow'>
+        <Offcanvas show={show} onHide={handleClose} className="cart-sidebar" placement='end'>
+        <Button variant="primary" onClick={handleClose} style={style.btnIn} className='position-absolute p-3 ps-4 bg-dark border-4 border-light border-end-0'>
             <BsFillCartFill className='fs-1' />
         </Button>
             <Offcanvas.Header closeButton>

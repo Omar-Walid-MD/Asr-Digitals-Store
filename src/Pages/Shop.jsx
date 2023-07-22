@@ -27,10 +27,8 @@ function Shop({}) {
                     <Container className='py-5 px-4'>
                         <Row className='gy-4'>
                             {
-                                products.map((product) =>(
-                                    <Col className='col-3'>
-                                        <ProductCard product={product} />
-                                    </Col>
+                                products.map((product) =>(                                    
+                                    <ProductCard product={product} />
                                 ))
                             }
                         </Row>

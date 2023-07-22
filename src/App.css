@@ -31,6 +31,15 @@ input
 {
   right: 0;
 }
+.bg-dark-gray-gradient
+{
+  background: linear-gradient(rgb(108,117,125) 10%, rgb(75, 75, 75)) !important;
+}
+.bg-light-gradient
+{
+  background: linear-gradient(white, rgb(212, 212, 212)) !important;
+
+}
 
 .page-container
 {
@@ -41,6 +50,38 @@ input
 {
   height: 100vh;
 }
+
+.large-title
+{
+  font-size: 5rem;
+}
+
+.navbar
+{
+  z-index: 1 !important;
+}
+.offcanvas-backdrop
+{
+  z-index: 0 !important;
+}
+
+.carousel-inner, .carousel-item
+{
+  height: 100% !important;
+}
+.carousel-control-next, .carousel-control-prev
+{
+  width: 5rem !important;
+  opacity: 1 !important;
+}
+.carousel-control-next > span, .carousel-control-prev > span
+{
+  padding: 1rem !important;
+  border-radius: 50%;
+  background-color: black !important;
+}
+
+
 
 .product-card
 {
