@@ -16,7 +16,7 @@ function Shop({}) {
 
 
     return (
-        <div style={{height: "1500px"}}>
+        <div className='page-container'>
             <Row className='h-100 m-0'>
                 <Col className='col-4 h-100 bg-secondary d-flex'>
                     <div className='w-100 mx-4 my-5 bg-dark position-sticky top-0' style={{height: "700px"}}>

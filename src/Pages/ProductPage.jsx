@@ -18,7 +18,7 @@ function ProductPage({}) {
 
 
     return (
-        <div style={{minHeight: "1500px"}} className='bg-dark'>
+        <div className='bg-dark'>
             <Container className='py-5'>
                 <Row className='m-0' style={{height: "28rem"}}>
                     <Col className='col-6 h-100 p-0'>

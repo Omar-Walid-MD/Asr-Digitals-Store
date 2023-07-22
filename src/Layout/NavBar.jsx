@@ -4,6 +4,7 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import { BsFillCartFill } from "react-icons/bs";
 
 
 function NavBar({}) {
@@ -15,10 +16,11 @@ function NavBar({}) {
                 <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
                 <Nav >
                     <Nav.Link as={NavLink} to="/shop">Shop</Nav.Link>
+                    <Nav.Link as={NavLink} to="/cart"><BsFillCartFill className='fs-4 text-secondary' /></Nav.Link>
                     <Nav.Link href="#link">About</Nav.Link>
                     <Nav.Link href="#link">Contact</Nav.Link>
 
-                    <NavDropdown title="Dropdown" id="basic-nav-dropdown">
+                    {/* <NavDropdown title="Dropdown" id="basic-nav-dropdown">
                     <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                     <NavDropdown.Item href="#action/3.2">
                         Another action
@@ -28,7 +30,7 @@ function NavBar({}) {
                     <NavDropdown.Item href="#action/3.4">
                         Separated link
                     </NavDropdown.Item>
-                    </NavDropdown>
+                    </NavDropdown> */}
                 </Nav>
                 </Navbar.Collapse>
             </Container>
