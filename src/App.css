@@ -141,6 +141,10 @@ input
   scale: 1.02;
 }
 
+.social-media-row
+{
+  width: fit-content;
+}
 .social-media-row:hover .social-media-icon::before
 {
   opacity: 0;
@@ -210,4 +214,46 @@ input
   25% {transform: translateX(0.5rem);}
   75% {transform: translateX(-0.5rem);}
   0% {transform: translateX(0);}
+}
+
+
+
+
+
+
+/* Small devices (landscape phones, 576px and up) */
+@media (max-width: 576px) 
+{
+  .header-content, .offer-content
+  {
+    width: 100% !important;
+  }
+  .large-title
+  {
+    font-size: 4.5rem;
+  }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (max-width: 768px) 
+{
+  
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (max-width: 992px) 
+{
+  
+}
+
+/* X-Large devices (large desktops, 1200px and up) */
+@media (max-width: 1200px)
+{
+  
+}
+
+/* XX-Large devices (larger desktops, 1400px and up) */
+@media (max-width: 1400px)
+{
+  
 }

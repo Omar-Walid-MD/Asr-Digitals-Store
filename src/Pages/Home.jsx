@@ -16,7 +16,7 @@ function Home({}) {
             height: "500px"
         },
         sectionLarge: {
-            height: "600px"
+            // minHeight: "600px"
         },
         sectionSmall: {
             height: "350px"
@@ -27,9 +27,9 @@ function Home({}) {
 
     return (
         <div>
-            <header className='bg-secondary d-flex align-items-center' style={style.header}>
-                <div className='p-5 m-5 w-50 d-flex flex-column gap-3 align-items-start'>
-                    <h1 className='large-title'>Asr Digitals</h1>
+            <header className='bg-secondary d-flex align-items-center justify-content-center justify-content-sm-start' style={style.header}>
+                <div className='header-content p-0 m-5 w-50 w-md-50 d-flex flex-column gap-3 align-items-center align-items-sm-start'>
+                    <h1 className='large-title text-center text-sm-start'>Asr Digitals</h1>
                     <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eveniet obcaecati tenetur libero perspiciatis! Quisquam illo esse.</p>
                     <Button className='btn-dark fs-5 p-3 px-4 text-uppercase fw-semibold'>Shop now!</Button>
                 </div>
@@ -38,21 +38,21 @@ function Home({}) {
 
             <section className='bg-white d-flex flex-column' style={style.sectionLarge}>
                 <div className="w-100 bg-dark-gray-gradient fs-2 fw-semibold"><div className='section-title bg-white d-inline-block m-0 h-100 p-2 ps-4 pe-3'>Why Choose Us</div></div>
-                <Container className='d-flex align-items-center justify-content-center h-100'>
-                    <Row>
-                        <Col className='col-3'>
+                <Container className='d-flex align-items-center justify-content-center py-5 h-100'>
+                    <Row className='gy-4 p-3 py-4'>
+                        <Col className='col-12 col-sm-6 col-lg-3'>
                             <h4>Feature Title</h4>
                             <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam, est. Corrupti placeat sequi fugit in sed atque accusantium, eaque architecto! Pariatur, dolor non! Vitae iusto, exercitationem ratione neque cumque sapiente!</p>
                         </Col>
-                        <Col className='col-3'>
+                        <Col className='col-12 col-sm-6 col-lg-3'>
                             <h4>Feature Title</h4>
                             <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam, est. Corrupti placeat sequi fugit in sed atque accusantium, eaque architecto! Pariatur, dolor non! Vitae iusto, exercitationem ratione neque cumque sapiente!</p>
                         </Col>
-                        <Col className='col-3'>
+                        <Col className='col-12 col-sm-6 col-lg-3'>
                             <h4>Feature Title</h4>
                             <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam, est. Corrupti placeat sequi fugit in sed atque accusantium, eaque architecto! Pariatur, dolor non! Vitae iusto, exercitationem ratione neque cumque sapiente!</p>
                         </Col>
-                        <Col className='col-3'>
+                        <Col className='col-12 col-sm-6 col-lg-3'>
                             <h4>Feature Title</h4>
                             <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam, est. Corrupti placeat sequi fugit in sed atque accusantium, eaque architecto! Pariatur, dolor non! Vitae iusto, exercitationem ratione neque cumque sapiente!</p>
                         </Col>
@@ -61,30 +61,32 @@ function Home({}) {
             </section>
 
 
-            <section className='bg-secondary d-flex flex-column' style={style.section}>
+            {/* <section className='bg-secondary d-flex flex-column' style={style.section}>
                 <div className="w-100 bg-light-gradient fs-2 fw-semibold"><div className='section-title bg-secondary text-white d-inline-block m-0 h-100 p-2 ps-4 pe-3'>Trending</div></div>
                 <ProductCarousel />
-            </section>
+            </section> */}
 
 
             <section className='bg-white d-flex flex-column' style={style.section}>
                 <div className="w-100 bg-dark-gray-gradient fs-2 fw-semibold"><div className='section-title bg-white d-inline-block m-0 h-100 p-2 ps-4 pe-3'>Our Offers</div></div>
-                <Container className='d-flex align-items-center h-100'>
-                    <div className="d-flex flex-column align-items-start w-50">
-                        <h1>Check Our Latest Offers!</h1>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi error illo quasi aut facere sint necessitatibus temporibus iure iste.</p>
+                <Container className='d-flex align-items-center justify-content-center justify-content-md-start h-100'>
+                    <div className="d-flex flex-column align-items-center align-items-md-start offer-content w-75">
+                        <h1 className='text-center text-md-start'>Check Our Latest Offers!</h1>
+                        <p className='text-center text-md-start'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi error illo quasi aut facere sint necessitatibus temporibus iure iste.</p>
                         <Button className='btn-dark text-uppercase fs-5'>Don't Miss Out!</Button>
                     </div>
                 </Container>
             </section>
 
 
-            <section className='bg-secondary d-flex flex-column' style={style.sectionLarge}>
+            <section className='bg-secondary d-flex flex-column'>
                 <div className="w-100 bg-light-gradient fs-2 fw-semibold"><div className='section-title bg-secondary text-white d-inline-block m-0 h-100 p-2 ps-4 pe-3'>About Us</div></div>
-                <Container className='d-flex align-items-center h-100'>
-                    <div className="d-flex flex-column align-items-center w-100 gap-2">
-                        <h1>How we started...</h1>
-                        <p className='fs-5'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi error illo quasi aut facere sint necessitatibus temporibus iure iste. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Rem, hic, cumque nihil minus et rerum delectus pariatur porro quos voluptatibus fugit. Obcaecati quam suscipit odio, veniam earum laudantium totam dolor! Lorem ipsum, dolor sit amet consectetur adipisicing elit. Veniam neque magnam autem ratione blanditiis optio molestiae praesentium, atque, dolore, voluptatibus ex quis doloribus animi debitis enim voluptates necessitatibus minima. Aliquid?</p>
+                <Container className='d-flex align-items-center h-100 py-5'>
+                    <div className="d-flex flex-column align-items-center w-100 gap-2 px-2">
+                        <h1 className='text-center text-md-start'>How we started...</h1>
+                        <p className='fs-5 text-center text-md-start'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi error illo quasi aut facere sint necessitatibus temporibus iure iste. Lorem ipsum, dolor sit amet.</p>
+                        <p className='fs-5 text-center text-md-start'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi error illo quasi aut facere sint necessitatibus temporibus iure iste. Lorem ipsum, dolor sit amet.</p>
+
                         <Link className='text-info fs-5'>Read More...</Link>
                     </div>
                 </Container>
@@ -93,40 +95,39 @@ function Home({}) {
 
             <section className='bg-white d-flex flex-column'>
                 <div className="w-100 bg-dark-gray-gradient fs-2 fw-semibold"><div className='section-title bg-white d-inline-block m-0 h-100 p-2 ps-4 pe-3'>Newest Arrivals</div></div>
-                <Container className='d-flex flex-column align-items-center py-5 h-100 gap-5'>
-                    <div className='d-flex w-100 gap-4'>
-                        <div className="w-25">
+                <Container className='d-flex flex-column align-items-center py-5 px-4 h-100 gap-5'>
+                    <Row className='gy-4'>
+                        <Col className="col-12 col-sm-6 col-md-6 col-lg-3">
                             <h1>My Phone 202X</h1>
                             <p className='text-dark fs-5'>Quasi quod ea ducimus repudiandae saepe at aliquam neque cum quidem quis?</p>
-                        </div>
-                        <div className="w-50 d-flex align-items-center">
-                            <Row className='w-100'>
-                                <ProductCard product={{title: "Phone 202X",price: 300}} col={4} />
-                                <ProductCard product={{title: "Phone 202X",price: 300}} col={4} />
-                                <ProductCard product={{title: "Phone 202X",price: 300}} col={4} />
+                        </Col>
+                        <Col className="col-12 col-sm-12 col-md-12 col-lg-6 order-1 order-lg-0">
+                            <Row className='gy-4'>
+                                <Col className="col-12 col-sm-4 col-md-4 col-lg-4"><ProductCard product={{title: "Phone 202X",price: 300}} col={4} /></Col>
+                                <Col className="col-12 col-sm-4 col-md-4 col-lg-4"><ProductCard product={{title: "Phone 202X",price: 300}} col={4} /></Col>
+                                <Col className="col-12 col-sm-4 col-md-4 col-lg-4"><ProductCard product={{title: "Phone 202X",price: 300}} col={4} /></Col>
                             </Row>
-                        </div>
-                        <div>
-                            <BsPhoneFill fontSize={"20rem"} />
-                        </div>
-                    </div>
+                        </Col>
+                        <Col className='col-12 col-sm-6 col-md-6 col-lg-3'>
+                            <img className='w-100' src={require("../img/phone.png")} alt="" />
+                        </Col>
+                    </Row>
                     <hr className='bg-dark w-100' />
-                    <div className='d-flex w-100 gap-4'>
-                        <div>
-                            <BsPhoneFill fontSize={"20rem"} />
-                        </div>
-                        <div className="w-50 d-flex align-items-center">
-                            <Row className='w-100'>
-                                <ProductCard product={{title: "Phone 202X",price: 300}} col={4} />
-                                <ProductCard product={{title: "Phone 202X",price: 300}} col={4} />
-                                {/* <ProductCard product={{title: "Phone 202X",price: 300}} col={4} /> */}
+                    <Row className='gy-4'>
+                        <Col className='col-12 col-sm-6 col-md-6 col-lg-3'>
+                            <img className='w-100' src={require("../img/phone.png")} alt="" />
+                        </Col>
+                        <Col className="col-12 col-sm-12 col-md-12 col-lg-6 order-1 order-lg-0">
+                            <Row className='gy-4'>
+                                <Col className="col-12 col-sm-6 col-md-4 col-lg-4"><ProductCard product={{title: "Phone 202X",price: 300}} col={4} /></Col>
+                                <Col className="col-12 col-sm-6 col-md-4 col-lg-4"><ProductCard product={{title: "Phone 202X",price: 300}} col={4} /></Col>
                             </Row>
-                        </div>
-                        <div className="w-25">
+                        </Col>
+                        <Col className="col-12 col-sm-6 col-md-6 col-lg-3">
                             <h1>My Phone 202X</h1>
                             <p className='text-dark fs-5'>Quasi quod ea ducimus repudiandae saepe at aliquam neque cum quidem quis?</p>
-                        </div>
-                    </div>
+                        </Col>
+                    </Row>
                 </Container>
             </section>
 
@@ -136,7 +137,7 @@ function Home({}) {
             </section>
 
 
-            <section className='bg-white d-flex flex-column'>
+            {/* <section className='d-none bg-white d-flex flex-column'>
                 <div className="w-100 bg-dark-gray-gradient fs-2 fw-semibold"><div className='section-title bg-white d-inline-block m-0 h-100 p-2 ps-4 pe-3'>Hear from our customers</div></div>
                 <Container className='d-flex flex-column align-items-center py-5 h-100 gap-5'>
                     <Row className='w-100 gy-4'>
@@ -211,13 +212,13 @@ function Home({}) {
                         </Col>
                     </Row>
                 </Container>
-            </section>
+            </section> */}
 
-            <section className='bg-secondary d-flex flex-column' style={style.section}>
+            {/* <section className='bg-secondary d-flex flex-column'>
                 <div className="w-100 bg-light-gradient fs-2 fw-semibold"><div className='section-title bg-secondary text-white d-inline-block m-0 h-100 p-2 ps-4 pe-3'>Our Branches</div></div>
                 <Container className='h-100'>
                     <Row className="d-flex h-100 gx-5">
-                        <Col className="col-6">
+                        <Col className="col-12 col-lg-6">
                             <Container className='py-4'>
                                 <Tabs defaultActiveKey="profile" id="justify-tab-example" className="mb-3 text-dark" variant='tabs'>
                                     <Tab eventKey="home" className='text-white' title="First Branch">
@@ -248,17 +249,17 @@ function Home({}) {
                                 </Tabs>
                             </Container>
                         </Col>
-                        <Col className='col-6 h-100 ps-5 py-3'>
+                        <Col className='col-12 col-lg-6 h-100 ps-5 py-3 h-100'>
                             <iframe className='w-100 h-100 rounded-3 shadow' frameborder="0" src="https://www.google.com/maps/embed/v1/place?q=noplaceisnamedlikethis&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8"></iframe>
                         </Col>
                     </Row>
                 </Container>
-            </section>
+            </section> */}
 
             <section className='bg-white d-flex flex-column'>
                 <div className="w-100 bg-dark-gray-gradient fs-2 fw-semibold"><div className='section-title bg-white d-inline-block m-0 h-100 p-2 ps-4 pe-3'>Frequently asked questions</div></div>
-                <Container className="p-5 d-flex flex-column align-items-center">
-                    <Accordion alwaysOpen flush className='shadow my-5 mx-4' style={{width: "min(50rem,100vw)"}}>
+                <Container className="p-5 d-flex flex-column align-items-center"  style={{width: "min(50rem,100vw)"}}>
+                    <Accordion alwaysOpen flush className='shadow my-5 mx-4 w-100'>
                         <Accordion.Item eventKey="0">
                             <Accordion.Header><h5>How can I ut rem atque nostrum saepe?</h5></Accordion.Header>
                             <Accordion.Body>
