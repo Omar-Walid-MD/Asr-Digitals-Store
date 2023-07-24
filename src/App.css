@@ -5,6 +5,11 @@
   margin: 0;
 }
 
+:root
+{
+  --bs-warning-rgb: 235, 165, 0 !important;
+}
+
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -23,6 +28,8 @@ input
   outline: none;
 }
 
+
+
 .left-0
 {
   left: 0;
@@ -33,12 +40,16 @@ input
 }
 .bg-dark-gray-gradient
 {
-  background: linear-gradient(rgb(108,117,125) 10%, rgb(75, 75, 75)) !important;
+  background: linear-gradient(rgb(108,117,125) 10%, rgb(105, 105, 105)) !important;
 }
 .bg-light-gradient
 {
   background: linear-gradient(white, rgb(212, 212, 212)) !important;
+}
 
+.section-title
+{
+  border-radius: 0 0.3rem 0 0 !important;
 }
 
 .page-container
@@ -64,7 +75,10 @@ input
 {
   z-index: 0 !important;
 }
-
+.nav-item > .nav-link
+{
+  color: black !important;
+}
 .carousel-inner, .carousel-item
 {
   height: 100% !important;
@@ -92,6 +106,30 @@ input
   scale: 1.05;
 }
 
+.product-card-rating
+{
+  bottom: 100%;
+}
+
+.product-card-count
+{
+  transform: translate(-50%, -50%);
+}
+
+.product-card-count-btn-row
+{
+  opacity: 0;
+  transition: opacity 0.2s ease-out;
+}
+.product-card-count-btn
+{
+  aspect-ratio: 1;
+}
+.product-card:hover .product-card-count-btn-row
+{
+  opacity: 1;
+}
+
 .product-spec
 {
   transition: scale 0.1s ease-out;
@@ -100,4 +138,75 @@ input
 .product-spec:hover
 {
   scale: 1.02;
+}
+
+.social-media-row:hover .social-media-icon::before
+{
+  opacity: 0;
+  transition-duration: 0.2s;
+}
+.social-media-icon
+{
+  z-index: 0;
+  cursor: pointer;
+  transition: scale 0.5s ease-out;
+}
+.social-media-icon::before
+{
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background-color: rgb(100, 116, 197);
+  z-index: -1;
+  transition: opacity 0.5s ease-out;
+
+}
+.social-media-icon:hover
+{
+  scale: 1.1;
+  transition-duration: 0.1s;
+}
+
+.footer-link a
+{
+  transition: transform 0.2s ease-out;
+}
+.footer-link:hover a
+{
+  transform: translateX(1rem);
+}
+
+.rounded-top-left-0
+{
+  border-radius: 0.5rem;
+  border-top-left-radius: 0;
+}
+
+.footer-link::before
+{
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 0.25rem; height: 100%;
+  scale: 1 0;
+  background-color: deepskyblue;
+  transition: scale 0.1s ease-in;
+}
+
+.footer-link:hover::before
+{
+  scale: 1 1;
+}
+
+.error-message
+{
+  animation: error-message 0.2s ease-out forwards;
+}
+
+@keyframes error-message {
+  0% {transform: translateX(0);}
+  25% {transform: translateX(0.5rem);}
+  75% {transform: translateX(-0.5rem);}
+  0% {transform: translateX(0);}
 }

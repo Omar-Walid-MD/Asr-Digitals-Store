@@ -6,13 +6,16 @@ import reportWebVitals from './reportWebVitals';
 import { RouterProvider } from 'react-router';
 import router from './Router/router';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Provider } from 'react-redux';
+import store from './Store/store';
 
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  
-  <RouterProvider router={router} />
+  <Provider store={store}>
+    <RouterProvider router={router} />
+  </Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function
