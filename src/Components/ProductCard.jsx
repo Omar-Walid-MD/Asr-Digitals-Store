@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 function ProductCard({product,col=3}) {
 
     const [added,setAdded] = useState(false);
+    const [favorite,setFavorite] = useState(false);
 
     return (
         <Col className={`col-${col}`}>
@@ -26,7 +27,12 @@ function ProductCard({product,col=3}) {
                                         :
                                     <Button className='d-flex p-2 bg-transparent text-primary border-2 fs-4 rounded-circle' onClick={()=>{setAdded(true);}}><BsFillCartPlusFill /></Button>
                                 }
-                                <Button className='d-flex p-2 bg-transparent text-primary border-2 fs-4 rounded-circle'><BsStarFill /></Button>
+                                {
+                                    favorite ?
+                                    <Button className='d-flex p-2 bg-warning border-2 border-warning fs-4 rounded-circle' onClick={()=>{setFavorite(false);}}><BsStarFill /></Button>
+                                    :
+                                    <Button className='d-flex p-2 bg-transparent text-warning border-2 border-warning fs-4 rounded-circle' onClick={()=>{setFavorite(true);}}><BsStarFill /></Button>
+                                }
                             </div>
                         </div>
                     </div>

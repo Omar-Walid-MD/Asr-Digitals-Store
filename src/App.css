@@ -8,6 +8,7 @@
 :root
 {
   --bs-warning-rgb: 235, 165, 0 !important;
+  /* --bs-danger-rgb: 225, 0, 0 !important; */
 }
 
 /* Chrome, Safari, Edge, Opera */

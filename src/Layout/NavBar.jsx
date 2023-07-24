@@ -1,14 +1,25 @@
-import React from 'react';
-import { Link, NavLink } from "react-router-dom";
+import React, { useEffect } from 'react';
+import { Link, NavLink, useLocation } from "react-router-dom";
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import { BsFillCartFill, BsSearch } from "react-icons/bs";
+import { BsFillCartFill, BsFillPersonFill, BsSearch } from "react-icons/bs";
 import { Button } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCurrentUser } from '../Store/Auth/auth';
 
 
 function NavBar({}) {
+
+    const location = useLocation();
+    const loggedIn = useSelector((store) => store.auth.loggedIn);
+
+    const dispatch = useDispatch();
+    useEffect(()=>{
+        dispatch(getCurrentUser());
+    },[]);
+
     return (
         <Navbar expand="lg" className="bg-body-tertiary position-sticky top-0 shadow">
             <Container className=" d-flex align-items-center">
@@ -30,10 +41,15 @@ function NavBar({}) {
                                 <Nav.Link href="#link">Contact</Nav.Link>
                             </div>
                             
-                            <div className='d-flex gap-3'>
-                                <Button as={Link} to="/login" className='btn bg-primary'>Login</Button>
-                                <Button as={Link} to="/register" className='btn bg-transparent text-primary border-3 fw-semibold'>Register</Button>
-                            </div>
+                            {
+                                !loggedIn ?
+                                <div className='d-flex gap-3'>
+                                    <Button as={Link} to="/login" state={{prevPath: location.pathname}} className='btn bg-primary'>Login</Button>
+                                    <Button as={Link} to="/register" state={{prevPath: location.pathname}} className='btn bg-transparent text-primary border-3 fw-semibold'>Register</Button>
+                                </div>
+                                :
+                                <div className='bg- p-1 d-flex fs-3 shadow-sm border rounded-circle'><BsFillPersonFill /></div>
+                            }
                         </div>
                     </Nav>
                 </Navbar.Collapse>

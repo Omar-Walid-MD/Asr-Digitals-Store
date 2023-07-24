@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, FloatingLabel, Form } from 'react-bootstrap';
 import { BsBack, BsBackspace } from 'react-icons/bs';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getUsers, registerUser } from '../Store/Auth/auth';
 
 
@@ -26,15 +26,53 @@ const schema = yup
 
 function Register({}) {
 
-    const { register, handleSubmit, reset, formState: { errors } } = useForm({ resolver: yupResolver(schema) });
+    const navigate = useNavigate();
+    const location = useLocation();
+    const {prevPath} = location.state || null;
+
     const dispatch = useDispatch();
-    
+    const users = useSelector((store) => store.auth.users);
+    const { register, handleSubmit, reset, formState: { errors } } = useForm({ resolver: yupResolver(schema) });
+    const [validationError,setValidationError] = useState("");
+
     function onSubmit(data)
     {
-        console.log(data);
-        let newUser = {...data};
-        delete newUser.confirmPassword;
-        dispatch(registerUser(newUser));
+        if(users.map((user) => user.email).includes(data.email))
+        {
+            handleValidationError("Email already registered...");
+        }
+        else
+        {
+            if(users.map((user) => user.username).includes(data.username))
+            {
+                handleValidationError("Username already in use...");
+            }
+            else
+            {
+                if(data.password!==data.confirmPassword)
+                {
+        
+                    handleValidationError("Password mismatch...");
+                }
+                else
+                {
+                    let newUser = {...data};
+                    delete newUser.confirmPassword;
+                    dispatch(registerUser(newUser));
+                    reset();
+                    navigate(prevPath);
+                }
+            }
+
+        }
+    }
+
+    function handleValidationError(errorMessage)
+    {
+        setValidationError("");
+        setTimeout(() => {
+            setValidationError(errorMessage);
+        }, 0);
     }
 
 
@@ -86,7 +124,10 @@ function Register({}) {
                             {errors.confirmPassword ? <div className='error-message text-white bg-danger rounded-3 shadow-sm ps-1 mt-2'>{errors.confirmPassword.message}</div> : ''}
                         </FloatingLabel>
                     </div>
-                    <Button type='submit' className='btn-dark w-100 mt-4 fs-4'>Register</Button>
+                    <div className='mt-4'>
+                        {validationError && <div className='error-message text-white text-center bg-danger rounded-3 shadow-sm ps-1 mt-2'>{validationError}</div>}
+                        <Button type='submit' className='btn-dark w-100 mt-2 fs-4'>Register</Button>
+                    </div>
                 </form>
                 <div className="d-flex w-100 justify-content-end">
                     <div className='p-2 px-5 d-flex align-items-center justify-content-between bg-secondary rounded-3 rounded-top-0 mt-2 shadow'>

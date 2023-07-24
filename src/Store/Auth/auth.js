@@ -4,26 +4,53 @@ import axios from "axios";
 const initialState = {
     users: [],
     loggedIn: false,
-    loading: false
+    loading: false,
+    currentUser: null
 }
 
 export const getUsers = createAsyncThunk(
-    'auth/getUsers',
-    async () => {
-      const res = await fetch('http://localhost:8899/users').then(
-      (data) => data.json()
-    )
-    return res
-  });
+  'auth/getUsers',
+  async () => {
+    const res = await fetch('http://localhost:8899/users').then(
+    (data) => data.json()
+  )
+  return res
+});
 
 export const registerUser = createAsyncThunk(
-    'auth/registerUser',
-    async (newUser) => {
-        const res = axios.post("http://localhost:8899/users",newUser);
-        return (await res).data;
-  });
-  
+  'auth/registerUser',
+  async (newUser) => {
+      const res = axios.post("http://localhost:8899/users",newUser);
+      return (await res).data;
+});
 
+
+export const loginUser = createAsyncThunk(
+  'auth/loginUser',
+  async (user) => {
+    localStorage.setItem("currentUser",user.id);
+    return user;
+});
+
+
+export const getCurrentUser = createAsyncThunk(
+  'auth/getCurrentUser',
+  async () => {
+    let userId = localStorage.getItem("currentUser");
+    if(userId)
+    {
+        const res = await fetch(`http://localhost:8899/users/${userId}`).then(
+        (data) => data.json()
+      )
+      return res;
+    }
+});
+
+export const logoutUser = createAsyncThunk(
+  'auth/logoutUser',
+  async () => {
+    localStorage.setItem("currentUser","");
+});
 export const authSlice = createSlice({
     name: "auth",
     initialState,
@@ -36,11 +63,12 @@ export const authSlice = createSlice({
         },
         [getUsers.fulfilled]: (state, { payload }) => {
           state.loading = false
-          state.users = payload
+          state.users = payload;
           console.log(state.users)
         },
         [getUsers.rejected]: (state) => {
-          state.loading = false
+          state.loading = false;
+          console.log("rejected");
         },
 
 
@@ -55,6 +83,50 @@ export const authSlice = createSlice({
             console.log(state.users);
         },
         [registerUser.rejected]: (state) => {
+            state.loading = false
+            console.log("rejected");
+        },
+
+
+        //loginUser
+        [loginUser.pending]: (state) => {
+          state.loading = true
+        },
+        [loginUser.fulfilled]: (state, { payload }) => {
+            state.loading = false
+            state.currentUser = payload;
+            state.loggedIn = true;
+          },
+        [loginUser.rejected]: (state) => {
+            state.loading = false
+            console.log("rejected");
+        },
+
+        //getCurrentUser
+        [getCurrentUser.pending]: (state) => {
+          state.loading = true
+        },
+        [getCurrentUser.fulfilled]: (state, { payload }) => {
+            state.loading = false
+            state.currentUser = payload;
+            state.loggedIn = true;
+          },
+        [getCurrentUser.rejected]: (state) => {
+            state.loading = false
+            console.log("rejected");
+        },
+
+
+        //logoutUser
+        [logoutUser.pending]: (state) => {
+          state.loading = true
+        },
+        [logoutUser.fulfilled]: (state) => {
+            state.loading = false
+            state.currentUser = null;
+            state.loggedIn = false;
+          },
+        [logoutUser.rejected]: (state) => {
             state.loading = false
             console.log("rejected");
         },

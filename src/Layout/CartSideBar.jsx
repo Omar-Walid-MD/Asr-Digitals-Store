@@ -52,7 +52,7 @@ function CartSideBar() {
             <Offcanvas.Title>Cart</Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body>
-                <Row className='gy-4 mx-2'>
+                <Row className='gy-4 mx-2 pt-2'>
                 {
                     products.map((product) =>(                                    
                         <ProductCard product={product} col={6} />
