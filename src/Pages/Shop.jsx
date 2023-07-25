@@ -12,31 +12,40 @@ function Shop({}) {
         {title:"My Phone",price:100},
         {title:"My Phone",price:100},
         {title:"My Phone",price:100},
+        {title:"My Phone",price:100},
+        {title:"My Phone",price:100},
+        {title:"My Phone",price:100},
+        {title:"My Phone",price:100},
+        {title:"My Phone",price:100},
+        {title:"My Phone",price:100},
+        {title:"My Phone",price:100},
     ];
 
 
     return (
-        <div className='page-container bg-secondary-subtle p-5 pe-0'>
+        <div className='shop-page-container bg-secondary-subtle'>
             
-            <h2 className='bg-secondary text-white ms- p-3 px-5 rounded-3 rounded-bottom-0 shadow d-inline-block'>Shop</h2>
-            <Row className='h-100 m-0'>
-                <Col className='col-3 p-0 h-100 d-flex flex-column align-items-start'>
-                    <div className='w-100 bg-secondary rounded-2 shadow position-sticky top-0 mb-5' style={{height: "700px"}}>
-
+            <Row className='m-0'>
+                <Col className='col-12 col-md-3 d-flex flex-column align-items-start'>
+                    <h2 className='bg-secondary text-white p-3 px-5 rounded-3 rounded-bottom-0 shadow d-inline-block'>Shop</h2>
+                    <div className='w-100 bg-secondary rounded-2 shadow position-sticky top-0 mb-4 p-3 text-white'>
+                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tenetur, eveniet non asperiores at enim similique ipsa repellat fugit dolorem, atque odit. Consequuntur dolores nemo quod vitae officiis necessitatibus nisi tenetur.
                     </div>
                 </Col>
-                <Col className='col-9'>
-                    <Container className='p-4'>
-                        <Row className='g-4 p-3 pt-1 bg- shadow rounded-3'>
+                <Col className='col-12 col-md-9 shop-page-shopping-col'>
+                    <div className='p-0 w-100'>
+                        <Row className='g-4 p-3 pt-1 shadow rounded-3 w-100 m-0'>
                             {
-                                products.map((product) =>(                                    
-                                    <ProductCard product={product} />
+                                products.map((product) =>(
+                                    <Col className='col-6 col-sm-4 col-lg-3'>
+                                        <ProductCard product={product} />
+                                    </Col>                                
                                 ))
                             }
                             <Col className='col-12 mb-2'><Button className='btn-dark w-100 fs-4'>Load More</Button></Col>
                         </Row>
 
-                    </Container>
+                    </div>
                 </Col>
             </Row>
         </div>

@@ -3,19 +3,19 @@ import { Button, Card, Col } from 'react-bootstrap';
 import { BsFillCartPlusFill, BsStarFill, BsPhoneFill, BsFillCartDashFill, BsPlus, BsDash } from "react-icons/bs";
 import { Link } from 'react-router-dom';
 
-function ProductCard({product,col=3}) {
+function ProductCard({product,className}) {
 
     const [added,setAdded] = useState(false);
     const [favorite,setFavorite] = useState(false);
 
     return (
-        <Card className='h-100 position-relative product-card shadow rounded-3'>
+        <Card className={`h-100 position-relative product-card shadow rounded-3 ${className}`}>
             <Card.Body className='p-0 overflow-hidden rounded-2'>
                 <div className='d-flex flex-column align-items-center justify-content-between h-100 w-100'>
-                    <Link className="text-center text-decoration-none text-dark pb-4" to="/product">
-                        <BsPhoneFill style={{fontSize: "8rem"}} className='m-3 mb-2'/>
-                        <Card.Title>{product.title}</Card.Title>
-                        <Card.Text className='fs-4 fw-bold text-danger'>{product.price} EGP</Card.Text>
+                    <Link className="text-center text-decoration-none text-dark pb-4 px-2" to="/product">
+                        <div className='product-card-img w-100 d-flex justify-content-center'><img className='w-100' src={require("../img/phone.png")} /> </div>
+                        <Card.Title className='product-card-title'>{product.title}</Card.Title>
+                        <Card.Text className='product-card-price fw-bold text-danger'>{product.price} EGP</Card.Text>
                     </Link>
                     <div className="d-flex w-100 justify-content-end bg-primary-subtle p-2 position-relative">
                         <p className='m-0 ms-2 fs-6 d-flex fw-semibold align-items-center gap-1 position-absolute product-card-rating left-0 text-warning'>3.5 <BsStarFill /></p>
@@ -40,7 +40,7 @@ function ProductCard({product,col=3}) {
                 added &&
                 <>
                     <span className='position-absolute badge shadow p-1 px-2 fs-5 bg-primary product-card-count'>1</span>
-                    <div className='position-absolute bottom-0 d-flex gap-1 m-1 product-card-count-btn-row'>
+                    <div className='position-absolute bg-primary-subtle p-2 rounded-3 shadow d-flex gap-2 m-1 product-card-count-btn-row'>
                         <Button className='p-0 product-card-count-btn d-flex align-items-center justify-content-center'><BsPlus className='fs-5' /></Button>
                         <Button className='p-0 btn-danger product-card-count-btn d-flex align-items-center justify-content-center fs-2'><BsDash className='fs-5' /></Button>
                     </div>

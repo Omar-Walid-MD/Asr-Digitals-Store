@@ -47,15 +47,19 @@ input
 {
   background: linear-gradient(white, rgb(212, 212, 212)) !important;
 }
+.w-xs-100
+{
+  width: 100% !important;
+}
+.rounded-top-left-0
+{
+  border-radius: 0.5rem;
+  border-top-left-radius: 0;
+}
 
 .section-title
 {
   border-radius: 0 0.3rem 0 0 !important;
-}
-
-.page-container
-{
-  height: 1500px;
 }
 
 .user-page-container
@@ -70,13 +74,18 @@ input
 
 .navbar
 {
-  z-index: 1 !important;
+  z-index: 2 !important;
 }
 .offcanvas-backdrop
 {
   z-index: 0 !important;
 }
 .nav-item > .nav-link
+{
+  font-weight: 500;
+  color: white !important;
+}
+.nav-item > .nav-link.active
 {
   color: black !important;
 }
@@ -96,15 +105,40 @@ input
   background-color: black !important;
 }
 
-
-
+.shop-page-container
+{
+  padding: 1rem !important;
+}
+.shop-page-shopping-col
+{
+  padding-top: 0;
+}
 .product-card
 {
   transition: scale 0.1s ease-out;
+  font-size: 0.5rem;
 }
+
+.product-card-img
+{
+  font-size: 1em;
+  width: 12em;
+  /* margin: 0 2em; */
+}
+.product-card-title
+{
+  font-size: 2em !important;
+}
+.product-card-price
+{
+  font-size: 2.5em;
+}
+
+
 .product-card:hover
 {
   scale: 1.05;
+  z-index: 1;
 }
 
 .product-card-rating
@@ -121,6 +155,8 @@ input
 {
   opacity: 0;
   transition: opacity 0.2s ease-out;
+
+  bottom: 0; transform: translateY(50%);
 }
 .product-card-count-btn
 {
@@ -139,6 +175,28 @@ input
 .product-spec:hover
 {
   scale: 1.02;
+}
+
+
+
+.product-carousel-container
+{
+  padding: 0 1rem;
+}
+
+.product-carousel-container .scrollbar
+{
+  overflow-y: hidden !important;
+}
+.product-carousel-container .scrollbar::-webkit-scrollbar
+{
+  appearance: none;
+}
+.product-carousel-container .scrollbar::-webkit-scrollbar-thumb
+{
+  background-color: var(--bs-secondary-bg-subtle);
+  border: 0.3em solid var(--bs-secondary);
+  border-radius: 0.5em;
 }
 
 .social-media-row
@@ -173,6 +231,37 @@ input
   transition-duration: 0.1s;
 }
 
+
+.navbar-link::before
+{
+  content: "";
+  position: absolute;
+  bottom: -0.5em;
+  width: 100%; height: 0.25em;
+  scale: 0 1;
+  background-color: deepskyblue;
+  transition: scale 0.1s ease-out;
+}
+
+.navbar-link:hover, .navbar-link.active
+{
+  color: deepskyblue !important;
+}
+.navbar-link:hover::before, .navbar-link.active::before
+{
+  scale: 1 1;
+}
+.cart-link *
+{
+  transition: color 0.2s ease-out;
+}
+.cart-link:hover *
+{
+  color: deepskyblue !important;
+}
+
+
+
 .footer-link a
 {
   transition: transform 0.2s ease-out;
@@ -181,13 +270,6 @@ input
 {
   transform: translateX(1rem);
 }
-
-.rounded-top-left-0
-{
-  border-radius: 0.5rem;
-  border-top-left-radius: 0;
-}
-
 .footer-link::before
 {
   content: "";
@@ -196,10 +278,14 @@ input
   width: 0.25rem; height: 100%;
   scale: 1 0;
   background-color: deepskyblue;
-  transition: scale 0.1s ease-in;
+  transition: scale 0.1s ease-out;
 }
 
-.footer-link:hover::before
+.footer-link:hover a, .footer-link.active a
+{
+  color: deepskyblue !important;
+}
+.footer-link:hover::before, .footer-link.active::before
 {
   scale: 1 1;
 }
@@ -220,9 +306,8 @@ input
 
 
 
-
 /* Small devices (landscape phones, 576px and up) */
-@media (max-width: 576px) 
+@media (min-width: 576px) 
 {
   .header-content, .offer-content
   {
@@ -232,28 +317,77 @@ input
   {
     font-size: 4.5rem;
   }
+
+  .w-sm-50
+  {
+    width: 50% !important;
+  }
+  .w-sm-75
+  {
+    width: 75% !important;
+  }
 }
 
 /* Medium devices (tablets, 768px and up) */
-@media (max-width: 768px) 
+@media (min-width: 768px) 
 {
-  
+  .product-carousel-container
+  {
+    padding: 0 6rem;
+  }
+
+  .product-card
+  {
+    font-size: 1rem;
+  }
+  .product-card-title
+  {
+    font-size: 1.2em !important;
+  }
+  .product-card-price
+  {
+    font-size: 1.6em;
+  }
+  .product-card-img
+  {
+    margin: 0;
+  }
+
+  .shop-page-container
+  {
+    padding: 3rem !important;
+  }
+  .shop-page-shopping-col
+  {
+    padding-top: 4.85rem;
+  }
+
+  .w-md-50
+  {
+    width: 50% !important;
+  }
+  .w-md-75
+  {
+    width: 75% !important;
+  }
+
+
 }
 
 /* Large devices (desktops, 992px and up) */
-@media (max-width: 992px) 
+@media (min-width: 992px) 
 {
   
 }
 
 /* X-Large devices (large desktops, 1200px and up) */
-@media (max-width: 1200px)
+@media (min-width: 1200px)
 {
   
 }
 
 /* XX-Large devices (larger desktops, 1400px and up) */
-@media (max-width: 1400px)
+@media (min-width: 1400px)
 {
   
 }

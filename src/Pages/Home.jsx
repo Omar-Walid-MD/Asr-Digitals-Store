@@ -28,7 +28,7 @@ function Home({}) {
     return (
         <div>
             <header className='bg-secondary d-flex align-items-center justify-content-center justify-content-sm-start' style={style.header}>
-                <div className='header-content p-0 m-5 w-50 w-md-50 d-flex flex-column gap-3 align-items-center align-items-sm-start'>
+                <div className='header-content p-0 m-5 w-50 d-flex flex-column gap-3 align-items-center align-items-sm-start'>
                     <h1 className='large-title text-center text-sm-start'>Asr Digitals</h1>
                     <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eveniet obcaecati tenetur libero perspiciatis! Quisquam illo esse.</p>
                     <Button className='btn-dark fs-5 p-3 px-4 text-uppercase fw-semibold'>Shop now!</Button>
@@ -61,10 +61,14 @@ function Home({}) {
             </section>
 
 
-            {/* <section className='bg-secondary d-flex flex-column' style={style.section}>
+            <section className='bg-secondary d-flex flex-column'>
                 <div className="w-100 bg-light-gradient fs-2 fw-semibold"><div className='section-title bg-secondary text-white d-inline-block m-0 h-100 p-2 ps-4 pe-3'>Trending</div></div>
-                <ProductCarousel />
-            </section> */}
+                <div className='h-100 d-flex align-items-center flex-column py-5 gap-3'>
+                    <h3 className='text-start w-100 ps-5 text-white'>Check our popular products</h3>
+                    <hr className='bg-white border-3 border-white w-100 mx-5' />
+                    <ProductCarousel />
+                </div>
+            </section>
 
 
             <section className='bg-white d-flex flex-column' style={style.section}>
@@ -101,29 +105,29 @@ function Home({}) {
                             <h1>My Phone 202X</h1>
                             <p className='text-dark fs-5'>Quasi quod ea ducimus repudiandae saepe at aliquam neque cum quidem quis?</p>
                         </Col>
-                        <Col className="col-12 col-sm-12 col-md-12 col-lg-6 order-1 order-lg-0">
-                            <Row className='gy-4'>
-                                <Col className="col-12 col-sm-4 col-md-4 col-lg-4"><ProductCard product={{title: "Phone 202X",price: 300}} col={4} /></Col>
-                                <Col className="col-12 col-sm-4 col-md-4 col-lg-4"><ProductCard product={{title: "Phone 202X",price: 300}} col={4} /></Col>
-                                <Col className="col-12 col-sm-4 col-md-4 col-lg-4"><ProductCard product={{title: "Phone 202X",price: 300}} col={4} /></Col>
-                            </Row>
-                        </Col>
-                        <Col className='col-12 col-sm-6 col-md-6 col-lg-3'>
+                        {/* <Col className="col-12 col-sm-12 col-md-12 col-lg-6 order-1 order-lg-0"> */}
+                            {/* <Row className='gy-4'> */}
+                                <Col className="col-sm-6 col-md-4 col-lg-2 order-1 order-lg-0"><ProductCard product={{title: "Phone 202X",price: 300}} col={4} /></Col>
+                                <Col className="col-sm-6 col-md-4 col-lg-2 order-1 order-lg-0"><ProductCard product={{title: "Phone 202X",price: 300}} col={4} /></Col>
+                                <Col className="col-sm-6 col-md-4 col-lg-2 order-1 order-lg-0"><ProductCard product={{title: "Phone 202X",price: 300}} col={4} /></Col>
+                            {/* </Row> */}
+                        {/* </Col> */}
+                        <Col className='col-12 col-sm-6 col-lg-3'>
                             <img className='w-100' src={require("../img/phone.png")} alt="" />
                         </Col>
                     </Row>
                     <hr className='bg-dark w-100' />
                     <Row className='gy-4'>
-                        <Col className='col-12 col-sm-6 col-md-6 col-lg-3'>
+                        <Col className='col-12 col-sm-6 col-md-6 col-lg-3 order-1 order-lg-0'>
                             <img className='w-100' src={require("../img/phone.png")} alt="" />
                         </Col>
-                        <Col className="col-12 col-sm-12 col-md-12 col-lg-6 order-1 order-lg-0">
-                            <Row className='gy-4'>
-                                <Col className="col-12 col-sm-6 col-md-4 col-lg-4"><ProductCard product={{title: "Phone 202X",price: 300}} col={4} /></Col>
-                                <Col className="col-12 col-sm-6 col-md-4 col-lg-4"><ProductCard product={{title: "Phone 202X",price: 300}} col={4} /></Col>
-                            </Row>
-                        </Col>
-                        <Col className="col-12 col-sm-6 col-md-6 col-lg-3">
+                        {/* <Col className="col-12 col-sm-12 col-md-12 col-lg-6 order-1 order-lg-0">
+                            <Row className='gy-4'> */}
+                                <Col className="col-sm-6 col-md-4 col-lg-2 order-1 order-lg-0"><ProductCard product={{title: "Phone 202X",price: 300}} col={4} /></Col>
+                                <Col className="col-sm-6 col-md-4 col-lg-2 order-1 order-lg-0"><ProductCard product={{title: "Phone 202X",price: 300}} col={4} /></Col>
+                            {/* </Row>
+                        </Col> */}
+                        <Col className="col-12 col-sm-6 col-md-6 col-lg-4 ps-5">
                             <h1>My Phone 202X</h1>
                             <p className='text-dark fs-5'>Quasi quod ea ducimus repudiandae saepe at aliquam neque cum quidem quis?</p>
                         </Col>
@@ -214,47 +218,47 @@ function Home({}) {
                 </Container>
             </section> */}
 
-            {/* <section className='bg-secondary d-flex flex-column'>
+            <section className='bg-secondary d-flex flex-column'>
                 <div className="w-100 bg-light-gradient fs-2 fw-semibold"><div className='section-title bg-secondary text-white d-inline-block m-0 h-100 p-2 ps-4 pe-3'>Our Branches</div></div>
-                <Container className='h-100'>
-                    <Row className="d-flex h-100 gx-5">
+                <Container className='h-100 py-5'>
+                    <Row className="d-flex h-100">
                         <Col className="col-12 col-lg-6">
                             <Container className='py-4'>
                                 <Tabs defaultActiveKey="profile" id="justify-tab-example" className="mb-3 text-dark" variant='tabs'>
                                     <Tab eventKey="home" className='text-white' title="First Branch">
-                                        <div className='bg-dark float-end ms-5 mt-3' style={{width:"16rem",height: "9rem"}}></div>
                                         <h3>First Branch Title</h3>
+                                        <div className='bg-dark float-md-end my-3 ms-4' style={{width:"min(16rem,65vw)",height: "9rem"}}></div>
                                         <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Accusamus, saepe sint possimus.</p>
                                         <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Accusamus, saepe sint possimus, consequuntur sunt debitis officiis, quasi quia ducimus ab quo! Numquam tempore dolorem fugit. Laudantium pariatur itaque eius exercitationem?</p>
 
                                     </Tab>
                                     <Tab eventKey="profile" className='text-white' title="Second Branch">
-                                        <div className='bg-dark float-end ms-5 mt-3' style={{width:"16rem",height: "9rem"}}></div>
                                         <h3>Second Branch Title</h3>
+                                        <div className='bg-dark float-md-end my-3 ms-4' style={{width:"min(16rem,65vw)",height: "9rem"}}></div>
                                         <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Accusamus, saepe sint possimus.</p>
                                         <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Accusamus, saepe sint possimus, consequuntur sunt debitis officiis, quasi quia ducimus ab quo! Numquam tempore dolorem fugit. Laudantium pariatur itaque eius exercitationem?</p>
                                     </Tab>
                                     <Tab eventKey="longer-tab" className='text-white' title="Third Branch">
-                                        <div className='bg-dark float-end ms-5 mt-3' style={{width:"16rem",height: "9rem"}}></div>
                                         <h3>Third Branch Title</h3>
+                                        <div className='bg-dark float-md-end my-3 ms-4' style={{width:"min(16rem,65vw)",height: "9rem"}}></div>
                                         <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Accusamus, saepe sint possimus.</p>
                                         <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Accusamus, saepe sint possimus, consequuntur sunt debitis officiis, quasi quia ducimus ab quo! Numquam tempore dolorem fugit. Laudantium pariatur itaque eius exercitationem?</p>
                                     </Tab>
                                     <Tab eventKey="contact" className='text-white' title="Fourth Branch">
-                                        <div className='bg-dark float-end ms-5 mt-3' style={{width:"16rem",height: "9rem"}}></div>
                                         <h3>Fourth Branch Title</h3>
+                                        <div className='bg-dark float-md-end my-3 ms-4' style={{width:"min(16rem,65vw)",height: "9rem"}}></div>
                                         <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Accusamus, saepe sint possimus.</p>
                                         <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Accusamus, saepe sint possimus, consequuntur sunt debitis officiis, quasi quia ducimus ab quo! Numquam tempore dolorem fugit. Laudantium pariatur itaque eius exercitationem?</p>
                                     </Tab>
                                 </Tabs>
                             </Container>
                         </Col>
-                        <Col className='col-12 col-lg-6 h-100 ps-5 py-3 h-100'>
-                            <iframe className='w-100 h-100 rounded-3 shadow' frameborder="0" src="https://www.google.com/maps/embed/v1/place?q=noplaceisnamedlikethis&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8"></iframe>
+                        <Col className='col-12 col-lg-6 py-3' style={{height: "25rem"}}>
+                            <iframe className='w-100 h-100 rounded-3 shadow' frameborder="0"  src="https://www.google.com/maps/embed/v1/place?q=noplaceisnamedlikethis&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8"></iframe>
                         </Col>
                     </Row>
                 </Container>
-            </section> */}
+            </section>
 
             <section className='bg-white d-flex flex-column'>
                 <div className="w-100 bg-dark-gray-gradient fs-2 fw-semibold"><div className='section-title bg-white d-inline-block m-0 h-100 p-2 ps-4 pe-3'>Frequently asked questions</div></div>

@@ -2,9 +2,18 @@ import React from 'react';
 import { Button, Col, Container, Row } from 'react-bootstrap';
 import { BsFillEnvelopeAtFill, BsPhoneFill, BsPostcardFill, BsSquare, BsTelephoneFill } from 'react-icons/bs';
 import { FaLinkedin, FaSquareFacebook, FaSquareInstagram, FaSquareTwitter, FaSquareWhatsapp, FaSquareYoutube } from "react-icons/fa6"
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 function Footer({}) {
+
+    const location = useLocation();
+
+    function linkActive(pathname)
+    {
+        return `/${pathname}`===location.pathname ? "active" : "";
+    }
+
+
     return (
         <div className='bg-dark text-white text-center w-100'>
             <Container className="py-5">
@@ -31,12 +40,12 @@ function Footer({}) {
                         <div className='text-start'>
                             <h5 className='mt-5 mb-3'>Quick Access</h5>
                             <Row className='list-unstyled d-flex flex-row flex-md-column gy-2 align-items-start'>
-                                <Col className='footer-link position-relative'><Link className='d-inline-block text-decoration-none text-white'>Home</Link></Col>
-                                <Col className='footer-link position-relative'><Link className='d-inline-block text-decoration-none text-white'>Shop</Link></Col>
-                                <Col className='footer-link position-relative'><Link className='d-inline-block text-decoration-none text-white'>About</Link></Col>
-                                <Col className='footer-link position-relative'><Link className='d-inline-block text-decoration-none text-white'>Contact</Link></Col>
-                                <Col className='footer-link position-relative'><Link className='d-inline-block text-decoration-none text-white'>Offers</Link></Col>
-                                <Col className='footer-link position-relative'><Link className='d-inline-block text-decoration-none text-white'>Cart</Link></Col>
+                                <Col className={`footer-link position-relative ${linkActive("")}`}><Link to={"/"} className='d-inline-block text-decoration-none text-white'>Home</Link></Col>
+                                <Col className={`footer-link position-relative ${linkActive("shop")}`}><Link to={"/shop"} className='d-inline-block text-decoration-none text-white'>Shop</Link></Col>
+                                <Col className={`footer-link position-relative ${linkActive("about")}`}><Link to={"/about"} className='d-inline-block text-decoration-none text-white'>About</Link></Col>
+                                <Col className={`footer-link position-relative ${linkActive("contact")}`}><Link to={"/contact"} className='d-inline-block text-decoration-none text-white'>Contact</Link></Col>
+                                <Col className={`footer-link position-relative ${linkActive("offers")}`}><Link to={"/offers"} className='d-inline-block text-decoration-none text-white'>Offers</Link></Col>
+                                <Col className={`footer-link position-relative ${linkActive("cart")}`}><Link to={"/cart"} className='d-inline-block text-decoration-none text-white'>Cart</Link></Col>
                             </Row>
                         </div>
                     </Col>

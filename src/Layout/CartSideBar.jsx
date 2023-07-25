@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import { Row } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { BsFillCartFill } from "react-icons/bs";
@@ -16,12 +16,14 @@ function CartSideBar() {
     btnOut: {
         right: "0",
         top: "85%",
-        borderRadius: "0.5rem 0 0 0.5rem"
+        borderRadius: "0.5rem 0 0 0.5rem",
+        zIndex: "1"
     },
     btnIn: {
         right: "100%",
         top: "85%",
-        borderRadius: "0.5rem 0 0 0.5rem"
+        borderRadius: "0.5rem 0 0 0.5rem",
+        zIndex: "1"
 
     }
   }
@@ -54,8 +56,10 @@ function CartSideBar() {
             <Offcanvas.Body>
                 <Row className='gy-4 mx-2 pt-2'>
                 {
-                    products.map((product) =>(                                    
-                        <ProductCard product={product} col={6} />
+                    products.map((product) =>(
+                        <Col className='col-6'>
+                            <ProductCard product={product} />
+                        </Col>                            
                     ))
                 }
                 </Row>
