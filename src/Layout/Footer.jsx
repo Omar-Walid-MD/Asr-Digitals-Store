@@ -27,10 +27,10 @@ function Footer({}) {
                     <Col className='col-12 col-md-8'>
                         <div className="d-flex flex-column text-start gap-3">
                             <h5>Want to hear about our latest arrivals?</h5>
-                            <form action="" className='d-flex gap-3'>
+                            <form action="" className='d-flex gap-3 flex-column flex-sm-row'>
                                 <input type="text" className='form-control w-50' placeholder='Your Name'/>
                                 <input type="email" className='form-control' placeholder='Your Email'/>
-                                <Button type="submit" className='btn-dark border-white'>Subscribe</Button>
+                                <Button variant='dark' type="submit" className='btn-dark border-white'>Subscribe</Button>
                             </form>
                         </div>
                     </Col>
@@ -40,12 +40,12 @@ function Footer({}) {
                         <div className='text-start'>
                             <h5 className='mt-5 mb-3'>Quick Access</h5>
                             <Row className='list-unstyled d-flex flex-row flex-md-column gy-2 align-items-start'>
-                                <Col className={`footer-link position-relative ${linkActive("")}`}><Link to={"/"} className='d-inline-block text-decoration-none text-white'>Home</Link></Col>
-                                <Col className={`footer-link position-relative ${linkActive("shop")}`}><Link to={"/shop"} className='d-inline-block text-decoration-none text-white'>Shop</Link></Col>
-                                <Col className={`footer-link position-relative ${linkActive("about")}`}><Link to={"/about"} className='d-inline-block text-decoration-none text-white'>About</Link></Col>
-                                <Col className={`footer-link position-relative ${linkActive("contact")}`}><Link to={"/contact"} className='d-inline-block text-decoration-none text-white'>Contact</Link></Col>
-                                <Col className={`footer-link position-relative ${linkActive("offers")}`}><Link to={"/offers"} className='d-inline-block text-decoration-none text-white'>Offers</Link></Col>
-                                <Col className={`footer-link position-relative ${linkActive("cart")}`}><Link to={"/cart"} className='d-inline-block text-decoration-none text-white'>Cart</Link></Col>
+                                <Col className='position-relative '><div className={`footer-link d-inline-block ${linkActive("")}`}><Link to={"/"} className='d-inline-block text-decoration-none text-white'>Home</Link></div></Col>
+                                <Col className='position-relative '><div className={`footer-link d-inline-block ${linkActive("shop")}`}><Link to={"/shop"} className='d-inline-block text-decoration-none text-white'>Shop</Link></div></Col>
+                                <Col className='position-relative '><div className={`footer-link d-inline-block ${linkActive("about")}`}><Link to={"/about"} className='d-inline-block text-decoration-none text-white'>About</Link></div></Col>
+                                <Col className='position-relative '><div className={`footer-link d-inline-block ${linkActive("contact")}`}><Link to={"/contact"} className='d-inline-block text-decoration-none text-white'>Contact</Link></div></Col>
+                                <Col className='position-relative '><div className={`footer-link d-inline-block ${linkActive("offers")}`}><Link to={"/offers"} className='d-inline-block text-decoration-none text-white'>Offers</Link></div></Col>
+                                <Col className='position-relative '><div className={`footer-link d-inline-block ${linkActive("cart")}`}><Link to={"/cart"} className='d-inline-block text-decoration-none text-white'>Cart</Link></div></Col>
                             </Row>
                         </div>
                     </Col>
@@ -53,12 +53,12 @@ function Footer({}) {
                         <div className="text-start">
                             <h5 className='mt-5 mb-3'>Extra pages</h5>
                             <Row className='list-unstyled d-flex flex-row flex-md-column gy-2 align-items-start'>
-                                <Col className='footer-link position-relative'><Link className='d-inline-block text-decoration-none text-white'>Terms & Conditions</Link></Col>
-                                <Col className='footer-link position-relative'><Link className='d-inline-block text-decoration-none text-white'>Privacy Policies</Link></Col>
-                                <Col className='footer-link position-relative'><Link className='d-inline-block text-decoration-none text-white'>Refund Policies</Link></Col>
-                                <Col className='footer-link position-relative'><Link className='d-inline-block text-decoration-none text-white'>Frequently Asked Questions</Link></Col>
-                                <Col className='footer-link position-relative'><Link className='d-inline-block text-decoration-none text-white'>Customer Service</Link></Col>
-                                <Col className='footer-link position-relative'><Link className='d-inline-block text-decoration-none text-white'>Looking for a job?</Link></Col>
+                                <Col className='position-relative'><div className='d-inline footer-link'><Link className='d-inline-block text-decoration-none text-white'>Terms & Conditions</Link></div></Col>
+                                <Col className='position-relative'><div className='d-inline footer-link'><Link className='d-inline-block text-decoration-none text-white'>Privacy Policies</Link></div></Col>
+                                <Col className='position-relative'><div className='d-inline footer-link'><Link className='d-inline-block text-decoration-none text-white'>Refund Policies</Link></div></Col>
+                                <Col className='position-relative'><div className='d-inline footer-link'><Link className='d-inline-block text-decoration-none text-white'>Frequently Asked Questions</Link></div></Col>
+                                <Col className='position-relative'><div className='d-inline footer-link'><Link className='d-inline-block text-decoration-none text-white'>Customer Service</Link></div></Col>
+                                <Col className='position-relative'><div className='d-inline footer-link'><Link className='d-inline-block text-decoration-none text-white'>Looking for a job?</Link></div></Col>
                             </Row>
                         </div>
                     </Col>
@@ -79,7 +79,6 @@ function Footer({}) {
                             <Link className="d-flex p-1 rounded-2 fs-2 social-media-icon position-relative overflow-hidden text-white" style={{backgroundColor: 'darkslateblue'}}><FaLinkedin /> </Link>
                         </div>
                     </Col>
-                    {/* <Col className="col-4"></Col> */}
                 </Row>
             </Container>
             <div className='w-100 p-1 bg-secondary text-center'>

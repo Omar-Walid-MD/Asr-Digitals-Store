@@ -4,33 +4,33 @@ import { Button, Container, Row } from 'react-bootstrap';
 import { BsCaretLeftFill, BsCaretRightFill } from 'react-icons/bs';
 import { useRef } from 'react';
 
-function ProductCarousel() {
+function ProductCarousel({className, style}) {
 
     const products = [
-        {title: "My Phone",price: 100},
-        {title: "My Phone",price: 100},
-        {title: "My Phone",price: 100},
-        {title: "My Phone",price: 100},
-        {title: "My Phone",price: 100},
-        {title: "My Phone",price: 100},
-        {title: "My Phone",price: 100},
-        {title: "My Phone",price: 100},
-        {title: "My Phone",price: 100},
-        {title: "My Phone",price: 100},
-        {title: "My Phone",price: 100},
-        {title: "My Phone",price: 100},
-        {title: "My Phone",price: 100},
-        {title: "My Phone",price: 100},
-        {title: "My Phone",price: 100},
-        {title: "My Phone",price: 100},
-        {title: "My Phone",price: 100},
-        {title: "My Phone",price: 100},
-        {title: "My Phone",price: 100},
-        {title: "My Phone",price: 100},
-        {title: "My Phone",price: 100},
-        {title: "My Phone",price: 100},
-        {title: "My Phone",price: 100},
-        {title: "My Phone",price: 100}
+        {title: "My Phone",price: 10000},
+        {title: "My Phone",price: 10000},
+        {title: "My Phone",price: 10000},
+        {title: "My Phone",price: 10000},
+        {title: "My Phone",price: 10000},
+        {title: "My Phone",price: 10000},
+        {title: "My Phone",price: 10000},
+        {title: "My Phone",price: 10000},
+        {title: "My Phone",price: 10000},
+        {title: "My Phone",price: 10000},
+        {title: "My Phone",price: 10000},
+        {title: "My Phone",price: 10000},
+        {title: "My Phone",price: 10000},
+        {title: "My Phone",price: 10000},
+        {title: "My Phone",price: 10000},
+        {title: "My Phone",price: 10000},
+        {title: "My Phone",price: 10000},
+        {title: "My Phone",price: 10000},
+        {title: "My Phone",price: 10000},
+        {title: "My Phone",price: 10000},
+        {title: "My Phone",price: 10000},
+        {title: "My Phone",price: 10000},
+        {title: "My Phone",price: 10000},
+        {title: "My Phone",price: 10000}
     ]
 
     const scroll = useRef();
@@ -49,31 +49,24 @@ function ProductCarousel() {
           
             index % 2 === 0
             &&
-            <div className='d-flex flex-column flex-md-row gap-4 align-items-center'>
-              <div style={{width: "12rem"}}><ProductCard product={product} className={"w-100"} /></div> 
-              {index+1 < products.length && <div style={{width: "12rem"}}><ProductCard product={products[index+1]} className={"w-100"} /></div> }
+            <div key={"product-carousel-product-"+product.id+"-"+index} className='d-flex flex-column flex-md-row gap-2 gap-md-4 align-items-center'>
+              <div style={{width:"min(12rem,50vw)"}}><ProductCard productId={"1"} className="w-100" /></div>
+              {index+1 < products.length && <div style={{width:"min(12rem,50vw)"}}><ProductCard productId={"1"} className="w-100" /></div>}
             </div>          
           )
         }
       </>;
       
-      
-      console.log(output);
       return output;
     }
 
 
   return (
-    <div className='w-100 position-relative product-carousel-container' >
-      <div className='overflow-scroll scrollbar shadow rounded-4' ref={scroll} style={{scrollBehavior: "smooth"}}>
-        <div className='d-flex align-items-center gap-4 p-3 product-carousel' style={{width: "fit-content"}} >
+    <div className={`w-100 position-relative product-carousel-container ${className || ""}`} style={style} >
+      <div className='overflow-x-scroll scrollbar shadow rounded-md-4' ref={scroll} style={{scrollBehavior: "smooth"}}>
+        <div className='d-flex align-items-center gap-2 gap-md-4 p-md-4 product-carousel' style={{width: "fit-content"}} >
         {
             handleProducts(products)
-            // products.map((product) =>
-            //     <div style={{width:"12.75rem"}}>
-            //       <ProductCard product={product} className={"w-100"} />
-            //     </div>
-            // )
         }
         </div>
       </div>
@@ -84,41 +77,6 @@ function ProductCarousel() {
         <Button className='rounded-circle bg-dark border-0 p-2 fs-2 d-flex' onClick={()=>{handleScroll(-1);}} ><BsCaretLeftFill /></Button>
       </div>
     </div>
-    // <Carousel indicators={false} className='h-100'>
-    //   <Carousel.Item >
-    //     <Container className='d-flex align-items-center justify-content-center h-100 w-100'>
-    //         <Row className='w-100'>
-    //         {
-    //             products.map((product) =>
-    //                 <ProductCard product={product} col={2} />
-    //             )
-    //         }
-    //         </Row>
-    //     </Container>
-    //   </Carousel.Item>
-    //   <Carousel.Item>
-    //     <Container className='d-flex align-items-center justify-content-center h-100 w-100'>
-    //         <Row className='w-100'>
-    //         {
-    //             products.map((product) =>
-    //                 <ProductCard product={product} col={2} />
-    //             )
-    //         }
-    //         </Row>
-    //     </Container>
-    //   </Carousel.Item>
-    //   <Carousel.Item>
-    //     <Container className='d-flex align-items-center justify-content-center h-100 w-100'>
-    //         <Row className='w-100'>
-    //         {
-    //             products.map((product) =>
-    //                 <ProductCard product={product} col={2} />
-    //             )
-    //         }
-    //         </Row>
-    //     </Container>
-    //   </Carousel.Item>
-    // </Carousel>
   );
 }
 

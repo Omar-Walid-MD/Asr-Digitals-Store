@@ -6,6 +6,8 @@ import ProductPage from "../Pages/ProductPage";
 import CartPage from "../Pages/CartPage";
 import Login from "../Pages/Login";
 import Register from "../Pages/Register";
+import FavoritesPage from "../Pages/FavoritesPage";
+import ProductsManagementPage from "../Pages/ProductsManagementPage";
 
 const router = createBrowserRouter([
     {
@@ -21,12 +23,16 @@ const router = createBrowserRouter([
                 element: <Shop />
             },
             {
-                path: "product",
+                path: "product/:productId",
                 element: <ProductPage />
             },
             {
                 path: "cart",
                 element: <CartPage />
+            },
+            {
+                path: "favorites",
+                element: <FavoritesPage />
             }
         ]
     },
@@ -37,6 +43,10 @@ const router = createBrowserRouter([
     {
         path: "/register",
         element: <Register />
+    },
+    {
+        path: "/products",
+        element: <ProductsManagementPage />
     }
 ]);
 

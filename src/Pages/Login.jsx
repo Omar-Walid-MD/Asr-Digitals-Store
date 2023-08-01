@@ -19,7 +19,7 @@ function Login({}) {
 
     const navigate = useNavigate();
     const location = useLocation();
-    const {prevPath} = location.state || null;
+    const prevPath = location.state ? location.state.prevPath : "/";
 
     const dispatch = useDispatch();
     const users = useSelector((store) => store.auth.users);
@@ -64,16 +64,12 @@ function Login({}) {
     }
 
 
-    useEffect(()=>{
-        dispatch(getUsers());
-    },[]);
-
 
     return (
         <div className='bg-secondary-subtle user-page-container d-flex align-items-center justify-content-center'>
             <div className="d-flex flex-column align-items-start">
-                <h3 className='bg-secondary text-white p-2 px-4 rounded-3 rounded-bottom-0 shadow d-inline-block'>Log in</h3>
-                <form onSubmit={handleSubmit(onSubmit)} className='bg-secondary p-3 shadow rounded-top-left-0' style={{width: "40rem"}}>
+                <h2 className='my-4 bg-secondary text-white p-3 px-5 mb-3 mb-sm-2 rounded-sm-3 rounded-bottom-0 shadow d-sm-inline w-xs-100 w-sm-auto'>Log in</h2>
+                <form onSubmit={handleSubmit(onSubmit)} className='bg-secondary p-3 shadow rounded-top-left-0 auth-form-container'>
                     <div className="d-flex flex-column gap-3">
                         <FloatingLabel controlId="floatingEmail" label="Email">
                             <Form.Control type="email" placeholder="Email" {...register("email")} />
@@ -85,7 +81,7 @@ function Login({}) {
                             {errors.password ? <div className='error-message text-white bg-danger rounded-3 shadow-sm ps-1 mt-2'>{errors.password.message}</div> : ''}
                         </FloatingLabel>
 
-                        <div className="d-flex w-100 align-items-center justify-content-between fs-5">
+                        <div className="d-flex w-100 flex-column flex-sm-row gap-2 align-items-start align-items-md-center justify-content-between fs-5">
                             <Link className='text-info text-decoration-none'>Forgot password?</Link>
                             <label htmlFor='remember-me-checkbox' className='text-white d-flex gap-2'>
                                 <input type="checkbox" name="" id="remember-me-checkbox" className='mt-1'/>
@@ -95,9 +91,14 @@ function Login({}) {
                     </div>
                     <div className='mt-4'>
                         {validationError && <div className='error-message text-white text-center bg-danger rounded-3 shadow-sm ps-1 mt-2'>{validationError}</div>}
-                        <Button type='submit' className='btn-dark w-100 mt-2 fs-4'>Log in</Button>
+                        <Button variant='dark' type='submit' className='w-100 mt-2 fs-4'>Log in</Button>
                     </div>
                 </form>
+                <div className="d-flex w-100 justify-content-end mt-2 mt-sm-0 mb-3">
+                    <div className='p-2 px-5 d-flex align-items-center justify-content-end bg-secondary rounded-sm-3 rounded-top-0 mt-2 shadow w-xs-100 w-sm-auto'>
+                        <Link to={prevPath} className='fs-3 text-white text-decoration-none'> Back</Link>
+                    </div>
+                </div>
             </div>
         </div>
     );

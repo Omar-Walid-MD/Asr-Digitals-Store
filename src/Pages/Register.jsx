@@ -28,7 +28,7 @@ function Register({}) {
 
     const navigate = useNavigate();
     const location = useLocation();
-    const {prevPath} = location.state || null;
+    const prevPath = location.state ? location.state.prevPath : "/";
 
     const dispatch = useDispatch();
     const users = useSelector((store) => store.auth.users);
@@ -56,7 +56,7 @@ function Register({}) {
                 }
                 else
                 {
-                    let newUser = {...data};
+                    let newUser = {...data,cart:[],favorites:[]};
                     delete newUser.confirmPassword;
                     dispatch(registerUser(newUser));
                     reset();
@@ -76,16 +76,11 @@ function Register({}) {
     }
 
 
-    useEffect(()=>{
-        dispatch(getUsers());
-    },[]);
-
-
     return (
         <div className='bg-secondary-subtle user-page-container d-flex align-items-center justify-content-center'>
             <div className="d-flex flex-column align-items-start">
-                <h3 className='bg-secondary text-white p-2 px-4 rounded-3 rounded-bottom-0 shadow d-inline-block'>Register</h3>
-                <form onSubmit={handleSubmit(onSubmit)} className='bg-secondary p-3 shadow rounded-top-left-0' style={{width: "40rem"}}>
+                <h2 className='my-4 bg-secondary text-white p-3 px-5 mb-3 mb-sm-2 rounded-sm-3 rounded-bottom-0 shadow d-sm-inline w-xs-100 w-sm-auto'>Register</h2>
+                <form onSubmit={handleSubmit(onSubmit)} className='bg-secondary p-3 shadow rounded-top-left-0 auth-form-container'>
                     <div className="d-flex flex-column gap-3">
 
                         <div className="d-flex w-100 gap-3">
@@ -126,12 +121,12 @@ function Register({}) {
                     </div>
                     <div className='mt-4'>
                         {validationError && <div className='error-message text-white text-center bg-danger rounded-3 shadow-sm ps-1 mt-2'>{validationError}</div>}
-                        <Button type='submit' className='btn-dark w-100 mt-2 fs-4'>Register</Button>
+                        <Button variant='dark' type='submit' className='btn-dark w-100 mt-2 fs-4'>Register</Button>
                     </div>
                 </form>
-                <div className="d-flex w-100 justify-content-end">
-                    <div className='p-2 px-5 d-flex align-items-center justify-content-between bg-secondary rounded-3 rounded-top-0 mt-2 shadow'>
-                        <Link to={"/"} className='fs-3 text-white text-decoration-none'>Back</Link>
+                <div className="d-flex w-100 justify-content-end mt-2 mt-sm-0 mb-3">
+                    <div className='p-2 px-5 d-flex align-items-center justify-content-end bg-secondary rounded-sm-3 rounded-top-0 mt-2 shadow w-xs-100 w-sm-auto'>
+                        <Link to={prevPath} className='fs-3 text-white text-decoration-none'> Back</Link>
                     </div>
                 </div>
             </div>

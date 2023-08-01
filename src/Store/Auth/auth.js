@@ -4,7 +4,7 @@ import axios from "axios";
 const initialState = {
     users: [],
     loggedIn: false,
-    loading: false,
+    loading: true,
     currentUser: null
 }
 
@@ -64,7 +64,7 @@ export const authSlice = createSlice({
         [getUsers.fulfilled]: (state, { payload }) => {
           state.loading = false
           state.users = payload;
-          console.log(state.users)
+          // console.log(state.users);
         },
         [getUsers.rejected]: (state) => {
           state.loading = false;
@@ -109,7 +109,7 @@ export const authSlice = createSlice({
         [getCurrentUser.fulfilled]: (state, { payload }) => {
             state.loading = false
             state.currentUser = payload;
-            state.loggedIn = true;
+            if(payload) state.loggedIn = true;
           },
         [getCurrentUser.rejected]: (state) => {
             state.loading = false

@@ -7,7 +7,167 @@
       "email": "omar.madinah49@yahoo.com",
       "phone": "+966560917203",
       "password": "1",
+      "id": 1,
+      "cart": [
+        {
+          "productId": "2",
+          "count": 1
+        },
+        {
+          "productId": "1",
+          "count": 1
+        }
+      ],
+      "favorites": []
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "title": "Phone 1",
+      "price": 110,
+      "rating": "3.3",
+      "desc": "Phone 1 is the first phone"
+    },
+    {
+      "id": 2,
+      "title": "Phone 2",
+      "price": 210,
+      "desc": "Phone 2 is the second"
+    },
+    {
+      "id": 3,
+      "title": "Phone 3",
+      "price": 330,
+      "desc": "Phone 3 is the third"
+    }
+  ],
+  "reviews": [
+    {
+      "cons": "",
+      "pros": "",
+      "rating": 4,
+      "body": "dd",
+      "title": "New review",
+      "productId": "1",
       "id": 1
+    },
+    {
+      "cons": "",
+      "pros": "",
+      "rating": 5,
+      "body": "dd",
+      "title": "My review",
+      "productId": "1",
+      "id": 2
+    },
+    {
+      "cons": "",
+      "pros": "",
+      "rating": 5,
+      "body": "ff",
+      "title": "ff",
+      "productId": "1",
+      "id": 3
+    },
+    {
+      "cons": "",
+      "pros": "",
+      "rating": 5,
+      "body": "d",
+      "title": "ddd",
+      "productId": "2",
+      "id": 4
+    },
+    {
+      "cons": "",
+      "pros": "",
+      "rating": 5,
+      "body": "thx",
+      "title": "Good review",
+      "productId": "2",
+      "id": 5
+    },
+    {
+      "cons": "",
+      "pros": "",
+      "rating": 5,
+      "body": "d",
+      "title": "d",
+      "productId": "1",
+      "id": 6
+    },
+    {
+      "cons": "",
+      "pros": "",
+      "rating": 1,
+      "body": "1",
+      "title": "1",
+      "productId": "1",
+      "id": 7
+    },
+    {
+      "cons": "",
+      "pros": "",
+      "rating": 5,
+      "body": "d",
+      "title": "d",
+      "productId": "1",
+      "id": 8
+    },
+    {
+      "cons": "",
+      "pros": "",
+      "rating": 1,
+      "body": "q",
+      "title": "q",
+      "productId": "1",
+      "id": 9
+    },
+    {
+      "cons": "",
+      "pros": "",
+      "rating": 2,
+      "body": "3",
+      "title": "3",
+      "productId": "1",
+      "id": 10
+    },
+    {
+      "cons": "",
+      "pros": "",
+      "rating": 5,
+      "body": "3",
+      "title": "3",
+      "productId": "1",
+      "id": 11
+    },
+    {
+      "cons": "",
+      "pros": "",
+      "rating": 1,
+      "body": "3",
+      "title": "3",
+      "productId": "1",
+      "id": 12
+    },
+    {
+      "cons": "",
+      "pros": "",
+      "rating": 5,
+      "body": "wffwwsfss",
+      "title": "ddffdf",
+      "productId": "1",
+      "id": 13
+    },
+    {
+      "cons": "",
+      "pros": "",
+      "rating": 1,
+      "body": "ddd",
+      "title": "dddd",
+      "productId": "1",
+      "id": 14
     }
   ]
 }
