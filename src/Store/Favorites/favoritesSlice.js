@@ -19,11 +19,11 @@ async () => {
     }
     else
     {
-        if(localStorage.getItem(JSON.parse("userFavorites")))
+        if(!JSON.parse(localStorage.getItem("userFavorites")))
         {
             localStorage.setItem("userFavorites",JSON.stringify([]))
         }
-        res = localStorage.getItem(JSON.parse("userFavorites"));
+        res = JSON.parse(localStorage.getItem("userFavorites"));
         return res;
     }
 });
@@ -43,7 +43,7 @@ async (productId, {getState}) => {
     }
     else
     {
-        let localFavs = localStorage.getItem(JSON.parse("userFavorites"))
+        let localFavs = JSON.parse(localStorage.getItem("userFavorites"))
         if(localFavs)
         {
             localFavs = [...localFavs,productId];
@@ -64,12 +64,11 @@ async (productId, {getState}) => {
         let updatedFavs = getState().favorites.favorites.filter((fav) => fav !== productId);
         res = axios.patch(`http://localhost:8899/users/${currentUserId}`,{favorites: updatedFavs}).then(
         (data) => data);
-        console.log(res);
         return updatedFavs;
     }
     else
     {
-        let localFavs = localStorage.getItem(JSON.parse("userFavorites"))
+        let localFavs = JSON.parse(localStorage.getItem("userFavorites"));
         if(localFavs)
         {
             localFavs = localFavs.filter((fav) => fav !== productId);

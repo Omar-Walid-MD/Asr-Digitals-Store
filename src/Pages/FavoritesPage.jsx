@@ -10,20 +10,14 @@ import { getFavs } from '../Store/Favorites/favoritesSlice';
 function FavoritesPage({}) {
 
     const favorites = useSelector((store) => store.favorites.favorites);
-    const dispatch = useDispatch();
-  
-  
-    useEffect(()=>{
-      dispatch(getFavs());
-    },[])
-  
 
 
     return (
         <div className='bg-light py-3 px-0 p-md-3'>
+            <Container className='px-2'> <h2 className='mt-5 mb-2'>Favorites</h2> </Container>
+            <hr className='border-3' />
             <Container className='p-0 px-md-2'>
-                <h2 className='my-4 bg-secondary text-white p-3 px-5 mb-3 mb-sm-2 rounded-sm-3 rounded-bottom-0 shadow d-sm-inline-block'>Favorites</h2>
-                <div className="bg-secondary d-flex flex-column shadow">
+                <div className="d-flex flex-column shadow rounded-3">
                     <div className='p-1 py-2 p-sm-3 p-md-4 d-flex flex-column gap-3'>
                         <Row className='g-2 g-sm-3 g-md-4'>
                         {
@@ -33,7 +27,7 @@ function FavoritesPage({}) {
                                 </Col>                            
                             ))
                             :
-                            <div className='d-flex flex-column align-items-center text-white gap-3 p-5'>
+                            <div className='d-flex flex-column align-items-center gap-3 p-5'>
                                 <h2>You don't have favorites yet.</h2>
                                 <Button variant='dark' className='btn-dark fs-5 p-3 px-4 text-uppercase fw-semibold'>Shop now!</Button>
                             </div>

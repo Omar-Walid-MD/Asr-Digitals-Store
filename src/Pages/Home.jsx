@@ -413,10 +413,10 @@ function Home({}) {
 
             <section className='bg-white d-flex flex-column'>
                 <div className="w-100 bg-dark-gray-gradient fs-2 fw-semibold"><div className='section-title bg-white d-inline-block m-0 h-100 p-2 ps-4 pe-3'>Frequently asked questions</div></div>
-                <Container className="p-5">
-                    <Row>
-                        <Col className='col-12 col-md-6'>
-                                <Accordion alwaysOpen flush className='shadow my-5 mx-4 w-100'>
+                <Container className="p-0 p-md-4">
+                    <Row className='m-0'>
+                        <Col className='col-12 col-md-6 p-0'>
+                                <Accordion alwaysOpen flush className='shadow my-5 m-0 w-100'>
                                     <Accordion.Item eventKey="0">
                                         <Accordion.Header><h5>How can I ut rem atque nostrum saepe?</h5></Accordion.Header>
                                         <Accordion.Body>
@@ -455,7 +455,7 @@ function Home({}) {
                                     </Accordion.Item>
                                 </Accordion>
                         </Col>
-                        <Col className='col-12 col-md-6 p-5'>
+                        <Col className='col-12 col-md-6 p-0 p-lg-5'>
                             <div className="h-100 d-flex align-items-start py-5">
                                 <div className='text-center py-5'>
                                     <h4>Can't find your question? Feel free to <Link className='text-decoration-none text-primary'>Contact Us</Link> for any assistance!</h4>

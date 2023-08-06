@@ -3,10 +3,11 @@ import { useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
-import { BsFillCartFill } from "react-icons/bs";
+import { BsCart, BsCartFill, BsFillCartFill } from "react-icons/bs";
 import ProductCard from '../Components/ProductCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCart } from '../Store/Cart/cartSlice';
+import { Link } from 'react-router-dom';
 
 function CartSideBar() {
   const [show, setShow] = useState(false);
@@ -21,32 +22,44 @@ function CartSideBar() {
   return (
     <>
 
-        <Button variant="primary" onClick={handleShow} className='cart-sidebar-btn btn-out position-fixed bg-dark border-4 border-light border-end-0'>
+        <Button variant="primary" onClick={handleShow} className='cart-sidebar-btn btn-out position-fixed bg-secondary border-4 border-light border-end-0'>
             <BsFillCartFill />
         </Button>
 
         
-        <Offcanvas show={show} onHide={handleClose} className="cart-sidebar shadow" placement='end' style={{width: "500px"}}>
-        <Button variant="primary" onClick={handleClose} className='cart-sidebar-btn btn-in position-absolute bg-dark border-4 border-light border-end-0'>
+        <Offcanvas show={show} onHide={handleClose} className="cart-sidebar shadow" placement='end'>
+        <Button variant="primary" onClick={handleClose} className='cart-sidebar-btn btn-in position-absolute bg-secondary border-4 border-light border-end-0'>
             <BsFillCartFill />
         </Button>
-            <Offcanvas.Header closeButton className='bg-secondary-subtle'>
+            <Offcanvas.Header closeButton className='bg-secondary text-white' closeVariant='white'>
             <Offcanvas.Title>Cart</Offcanvas.Title>
             </Offcanvas.Header>
-            <Offcanvas.Body>
-                <Row className='gy-4 mx-2 pt-2'>
+            <Offcanvas.Body className='p-1 p-sm-3'>
+                <Row className='g-0 gy-sm-4 m-0 mx-sm-2 pt-2'>
                 {
                     cart.map((product,index) =>(
-                        <Col key={"cart-side-bar-item-"+index} className='col-6'>
+                        <Col key={"cart-side-bar-item-"+index} className='col-6 px-1 p-sm-0'>
                             <ProductCard productId={product.productId} showSingle={false} />
                         </Col>                            
                     ))
                 }
                 </Row>
             </Offcanvas.Body>
-            <div className='bg-secondary-subtle p-3 py-4 d-flex align-items-center justify-content-between'>
-                <h4>Total: 3000 EGP</h4>
-                <Button className='btn-dark fs-5'>Checkout</Button>
+            <div className='bg-secondary p-3 cart-sidebar-bottom text-white'>
+                <Row>
+                    <Col>
+                        <p className='fs-6 m-0'>Subtotal: 0000</p>
+                    </Col>
+                    <Col>
+                        <p className='fs-6 m-0'>Delivery: 0000</p>
+                    </Col>
+                </Row>
+                <hr />
+                <p className='fs-5'>Total Fees: 0000</p>
+                <div className="d-flex gap-2">
+                    <Link to={"/checkout"} className='btn btn-dark fs-5 w-100 text-center'>Checkout</Link>
+                    <Link to={"/cart"} variant='secondary' className='fs-5 text-white btn btn-secondary d-flex align-items-center'><BsCartFill/> </Link>
+                </div>
             </div>
         </Offcanvas>
     </>

@@ -11,35 +11,73 @@
       "cart": [
         {
           "productId": "2",
-          "count": 1
-        },
+          "count": 5
+        }
+      ],
+      "favorites": [
+        1
+      ]
+    },
+    {
+      "email": "newUser@email.com",
+      "password": "555",
+      "firstName": "New",
+      "lastName": "User",
+      "username": "",
+      "phone": "66",
+      "dateOfBirth": "2023-08-01T21:00:00.000Z",
+      "city": "",
+      "address": "",
+      "zipcode": "",
+      "creditCardNo": 0,
+      "cart": [],
+      "favorites": [],
+      "id": 2
+    },
+    {
+      "email": "user3@gmail.com",
+      "password": "5",
+      "firstName": "New",
+      "lastName": "User",
+      "username": "",
+      "phone": "+966560917203",
+      "dateOfBirth": "2023-08-15T21:00:00.000Z",
+      "city": "",
+      "address": "",
+      "zipcode": "",
+      "creditCardNo": 0,
+      "cart": [
         {
           "productId": "1",
           "count": 1
         }
       ],
-      "favorites": []
+      "favorites": [
+        1
+      ],
+      "id": 3
     }
   ],
   "products": [
     {
       "id": 1,
       "title": "Phone 1",
-      "price": 110,
+      "price": 100,
       "rating": "3.3",
       "desc": "Phone 1 is the first phone"
     },
     {
       "id": 2,
-      "title": "Phone 2",
+      "title": "Z Phone 2",
       "price": 210,
-      "desc": "Phone 2 is the second"
+      "desc": "Phone 2 is the second",
+      "rating": "4.0"
     },
     {
       "id": 3,
       "title": "Phone 3",
       "price": 330,
-      "desc": "Phone 3 is the third"
+      "desc": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione ut. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione ut. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione ut."
     }
   ],
   "reviews": [
@@ -168,6 +206,24 @@
       "title": "dddd",
       "productId": "1",
       "id": 14
+    },
+    {
+      "cons": "",
+      "pros": "",
+      "rating": 5,
+      "body": "5",
+      "title": "g",
+      "productId": "2",
+      "id": 15
+    },
+    {
+      "cons": "",
+      "pros": "",
+      "rating": 1,
+      "body": "1",
+      "title": "1",
+      "productId": "2",
+      "id": 16
     }
   ]
 }

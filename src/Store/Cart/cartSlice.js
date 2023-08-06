@@ -10,20 +10,29 @@ export const getCart = createAsyncThunk(
   'cart/getCart',
   async () => {
     let res;
-    let currentUserId = localStorage.getItem("currentUser")
+    let currentUserId = localStorage.getItem("currentUser");
+    let localCart = JSON.parse(localStorage.getItem("userCart"));
     if(currentUserId)
     {
         res = await fetch(`http://localhost:8899/users/${currentUserId}`).then(
         (data) => data.json());
+
+        // if(res.cart.length===0 && localCart.length > 0)
+        // {
+        //     axios.patch(`http://localhost:8899/users/${currentUserId}`,{cart: localCart});
+        //     return localCart;
+        // }
+
         return res.cart;
+
     }
     else
     {
-        if(localStorage.getItem(JSON.parse("userCart")))
+        if(!localCart)
         {
             localStorage.setItem("userCart",JSON.stringify([]))
         }
-        res = localStorage.getItem(JSON.parse("userCart"));
+        res = localCart;
         return res;
     }
 });
@@ -43,7 +52,7 @@ async (productId, {getState}) => {
     }
     else
     {
-        let localCart = localStorage.getItem(JSON.parse("userCart"))
+        let localCart = JSON.parse(localStorage.getItem("userCart"))
         if(localCart)
         {
             localCart = [...localCart,{productId: productId, count: 1}];
@@ -69,7 +78,7 @@ async (productId, {getState}) => {
     }
     else
     {
-        let localCart = localStorage.getItem(JSON.parse("userCart"))
+        let localCart = JSON.parse(localStorage.getItem("userCart"))
         if(localCart)
         {
             localCart = localCart.filter((product) => product.productId !== productId);
@@ -93,7 +102,7 @@ export const setProductCount = createAsyncThunk(
         }
         else
         {
-            let localCart = localStorage.getItem(JSON.parse("userCart"))
+            let localCart = JSON.parse(localStorage.getItem("userCart"))
             if(localCart)
             {
                 localCart = localCart.map((product) => product.productId === productId ? {productId: productId, count: count} : product);

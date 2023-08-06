@@ -63,7 +63,7 @@ function ProductCarousel({className, style}) {
 
   return (
     <div className={`w-100 position-relative product-carousel-container ${className || ""}`} style={style} >
-      <div className='overflow-x-scroll scrollbar shadow rounded-md-4' ref={scroll} style={{scrollBehavior: "smooth"}}>
+      <div className='overflow-x-scroll scrollbar shadow rounded-md-2' ref={scroll} style={{scrollBehavior: "smooth"}}>
         <div className='d-flex align-items-center gap-2 gap-md-4 p-md-4 product-carousel' style={{width: "fit-content"}} >
         {
             handleProducts(products)

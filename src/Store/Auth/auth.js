@@ -21,7 +21,25 @@ export const registerUser = createAsyncThunk(
   'auth/registerUser',
   async (newUser) => {
       const res = axios.post("http://localhost:8899/users",newUser);
-      return (await res).data;
+      const newUserRes = (await res).data;
+      localStorage.setItem("currentUser",newUserRes.id);
+      let localCart = JSON.parse(localStorage.getItem("userCart"));
+      let localFavs = JSON.parse(localStorage.getItem("userFavorites"));
+
+      let update = {};
+      if(localCart.length > 0) update.cart = localCart;
+      if(localCart.length > 0) update.favorites = localFavs;
+  
+      if(Object.keys(update).length > 0)
+      {
+          const res = axios.patch(`http://localhost:8899/users/${newUserRes.id}`,update).then(
+          (data) => data)
+          return (await res).data;
+      }
+      else
+      {
+        return newUserRes;
+      }
 });
 
 
@@ -29,7 +47,24 @@ export const loginUser = createAsyncThunk(
   'auth/loginUser',
   async (user) => {
     localStorage.setItem("currentUser",user.id);
-    return user;
+    let localCart = JSON.parse(localStorage.getItem("userCart"));
+    let localFavs = JSON.parse(localStorage.getItem("userFavorites"));
+
+    let update = {};
+    if(user.cart.length===0 && localCart.length > 0) update.cart = localCart;
+    if(user.favorites.length===0 && localCart.length > 0) update.favorites = localFavs;
+
+    if(Object.keys(update).length > 0)
+    {
+        const res = axios.patch(`http://localhost:8899/users/${user.id}`,update).then(
+        (data) => data)
+        return (await res).data;
+    }
+    else
+    {
+      return user;
+    }
+
 });
 
 
@@ -50,6 +85,10 @@ export const logoutUser = createAsyncThunk(
   'auth/logoutUser',
   async () => {
     localStorage.setItem("currentUser","");
+    localStorage.setItem("userCart",JSON.stringify([]));
+    localStorage.setItem("userFavorites",JSON.stringify([]));
+
+    
 });
 export const authSlice = createSlice({
     name: "auth",
@@ -79,8 +118,8 @@ export const authSlice = createSlice({
         [registerUser.fulfilled]: (state, { payload }) => {
             state.loading = false
             state.users = [...state.users,payload];
-            console.log("added new user");
-            console.log(state.users);
+            state.currentUser = payload;
+            state.loggedIn = true;
         },
         [registerUser.rejected]: (state) => {
             state.loading = false
@@ -93,6 +132,7 @@ export const authSlice = createSlice({
           state.loading = true
         },
         [loginUser.fulfilled]: (state, { payload }) => {
+            console.log("logged in");
             state.loading = false
             state.currentUser = payload;
             state.loggedIn = true;

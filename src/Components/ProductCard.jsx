@@ -37,10 +37,10 @@ function ProductCard({productObject,productId,className,showSingle=true}) {
         }
     }
 
-
+    // console.log(product)
     
     useEffect(()=>{
-        if(products.length && !product) setProduct(products.find((product) => product.id === parseInt(productId)));
+        if(products.length && !productObject) setProduct(products.find((product) => product.id === parseInt(productId)));
     },[productId, products]);
 
     useEffect(()=>{
@@ -68,14 +68,14 @@ function ProductCard({productObject,productId,className,showSingle=true}) {
                         <Link className="text-center text-decoration-none text-dark pb-4 px-2" to={`/product/${product.id}`}>
                             <div className='product-card-img w-100 d-flex justify-content-center'><img className='w-100' src={require("../img/phone.png")} /> </div>
                             <Card.Title className='product-card-title'>{product.title}</Card.Title>
-                            <Card.Text className='product-card-price fw-bold text-danger'>{product.price} EGP</Card.Text>
+                            <Card.Text className='product-card-price price-tag fw-bold text-danger'>{product.price}</Card.Text>
                         </Link>
                         <div className="d-flex w-100 justify-content-end bg-primary-subtle p-2 position-relative">
                             {
                                 product.rating &&
                                 <p className='m-0 ms-2 fs-6 d-flex fw-semibold align-items-center gap-1 position-absolute product-card-rating left-0 text-warning'>{product.rating} <BsStarFill /></p>
                             }
-                            <div className="d-flex gap-1 justify-content-between w-100">
+                            <div className="d-flex gap-2 justify-content-between w-100">
                                 {
                                     added ?
                                     <Button className='d-flex p-2 bg-danger text-white border-2 border-danger fs-4 rounded-3 w-100 d-flex justify-content-center' onClick={()=>{dispatch(removeFromCart(""+product.id)); setAdded(false);}}><BsFillCartDashFill /></Button>

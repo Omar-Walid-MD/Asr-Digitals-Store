@@ -1,98 +1,207 @@
-import React, { useEffect } from 'react';
-import { Accordion, Button, Col, Container, Row } from 'react-bootstrap';
+import React, { useEffect, useState } from 'react';
+import { Accordion, Button, Col, Container, Dropdown, DropdownButton, Row } from 'react-bootstrap';
 import ProductCard from '../Components/ProductCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProducts } from '../Store/Products/productsSlice';
+import MultiRangeSlider from "multi-range-slider-react";
+import { BsArrowDownCircleFill, BsArrowUpCircleFill, BsCheck, BsXCircle } from 'react-icons/bs';
 
 function Shop({}) {
 
     const products = useSelector((store) => store.products.products);
     const dispatch = useDispatch();
 
+    const [filters,setFilters] = useState({categories:[], brands:[]});
+    const [sort,setSort] = useState({type: "alphabetical",order: "asc"});
+
+    const categories = ["phones","tablets","laptops","desktops","headphones","earphones"];
+    const brands = ["Brand 1","Brand 2","Brand 3","Brand 4"];
+
+    function handleFilterCategories(category)
+    {
+        let updatedCategories = [];
+        if(filters.categories.includes(category))
+        {
+            updatedCategories = filters.categories.filter((categoryInList) => categoryInList !== category);
+        }
+        else
+        {
+            updatedCategories = [...filters.categories,category];
+        }
+        setFilters({...filters,categories: updatedCategories});
+    }
+
+    function handleFilterBrands(brand)
+    {
+        let updatedBrands = [];
+        if(filters.brands.includes(brand))
+        {
+            updatedBrands = filters.brands.filter((brandInList) => brandInList !== brand);
+        }
+        else
+        {
+            updatedBrands = [...filters.brands,brand];
+        }
+        console.log(updatedBrands);
+        setFilters({...filters,brands: updatedBrands});
+    }
+
+
     useEffect(()=>{
         dispatch(getProducts());
     },[])
 
     return (
-        <div className='shop-page-container bg-light p-0 p-sm-5'>
-            <Row className='m-0 g-0 gy-0 gx-sm-2'>
-                <Col className='col-12 col-md-3 d-flex flex-column align-items-start'>
-                    <h2 className='my-4 bg-secondary text-white p-3 px-5 mb-3 mb-sm-2 rounded-sm-3 rounded-bottom-0 shadow d-sm-inline w-xs-100 w-sm-auto'>Shop</h2>
-                    <div className='w-100 bg-secondary rounded-sm-2 shadow position-sticky top-0 p-3 text-white'>
-                        
-                        <Accordion flush alwaysOpen className='w-100' defaultActiveKey={["0","1","2","3","4","5"]}>
-                            <Accordion.Item className="bg-transparent" eventKey="0">
-                                <Accordion.Header className='p-1'><h5 className='text-white'>Price</h5></Accordion.Header>
-                                <Accordion.Body className='p-3'>
-                                    <div className='w-100'>
-                                        <div className="d-flex justify-content-between text-white fs-5">
-                                            <p className='m-0'>Min</p>
-                                            <p className='m-0'>Max</p>
-                                        </div>
-                                        <input className='w-100' type="range" name="" id="" />
-                                    </div>
-                                </Accordion.Body>
-                            </Accordion.Item>
-                            <Accordion.Item className="bg-transparent" eventKey="1">
-                                <Accordion.Header className='p-1'><h5 className='text-white'>Categories</h5></Accordion.Header>
-                                <Accordion.Body className='p-1'>
-                                    <Row>
-                                        <Col className='col-6 col-md-12'><label className='d-flex align-items-center text-white gap-2 fs-5' >Name <input className='mt-2' type="checkbox" name="" id="" /></label> </Col>
-                                        <Col className='col-6 col-md-12'><label className='d-flex align-items-center text-white gap-2 fs-5' >Name <input className='mt-2' type="checkbox" name="" id="" /></label> </Col>
-                                        <Col className='col-6 col-md-12'><label className='d-flex align-items-center text-white gap-2 fs-5' >Name <input className='mt-2' type="checkbox" name="" id="" /></label> </Col>
-                                        <Col className='col-6 col-md-12'><label className='d-flex align-items-center text-white gap-2 fs-5' >Name <input className='mt-2' type="checkbox" name="" id="" /></label> </Col>
-                                        <Col className='col-6 col-md-12'><label className='d-flex align-items-center text-white gap-2 fs-5' >Name <input className='mt-2' type="checkbox" name="" id="" /></label> </Col>
+        <div className='page-container bg-light p-0 p-sm-5'>
+            <Container className='px-2'>
+                <h2 className='pt-5 mb-2'>Shop</h2>
+                <h5 className='text-secondary mt-2'>Search results for ""</h5>
+            </Container>
+            <hr className='border-3' />
+            <div>
+                <Row className='m-0 g-0 gy-3 gy-md-0 gx-sm-4' >
+                    <Col className='col-12 col-md-4 col-xl-3 d-flex flex-column align-items-start p-0 px-lg-1 z-1'>
+                        <div className='w-100 rounded-sm-2 shadow position-sticky top-0 p-3'>
+                            <h3>Filters</h3>
+                            
+                            <hr className='border-2' />
+                            <div>
+                                <h5>Price</h5>
+                                <div className='fs-4 range-slider-container text-dark'>
+                                    <MultiRangeSlider
+                                        min={0}
+                                        max={5000}
+                                        ruler={false}
+                                        label={false}                                    
+                                    />
+                                </div>
+                            </div>
 
-                                    </Row>
-                                </Accordion.Body>
-                            </Accordion.Item>
-                            <Accordion.Item className="bg-transparent" eventKey="2">
-                                <Accordion.Header className='p-1'><h5 className='text-white'>Brands</h5></Accordion.Header>
-                                <Accordion.Body className='p-1'>
-                                    <Row>
-                                        <Col className='col-6 col-md-12'><label className='d-flex align-items-center text-white gap-2 fs-5' >Name <input className='mt-2' type="checkbox" name="" id="" /></label> </Col>
-                                        <Col className='col-6 col-md-12'><label className='d-flex align-items-center text-white gap-2 fs-5' >Name <input className='mt-2' type="checkbox" name="" id="" /></label> </Col>
-                                        <Col className='col-6 col-md-12'><label className='d-flex align-items-center text-white gap-2 fs-5' >Name <input className='mt-2' type="checkbox" name="" id="" /></label> </Col>
-                                        <Col className='col-6 col-md-12'><label className='d-flex align-items-center text-white gap-2 fs-5' >Name <input className='mt-2' type="checkbox" name="" id="" /></label> </Col>
-                                        <Col className='col-6 col-md-12'><label className='d-flex align-items-center text-white gap-2 fs-5' >Name <input className='mt-2' type="checkbox" name="" id="" /></label> </Col>
+                            <hr className='border-2' />
+                            
+                            <div className='d-flex gap-2'>
+                                <h5 className='me-1'>Categories</h5>
+                                <Dropdown autoClose="outside">
+                                    <Dropdown.Toggle className={`d-flex align-items-center justify-content-between ${filters.categories.length>0 ? "bg-primary border-primary" : "bg-secondary"}`} style={{width: "6em"}} variant="secondary" id="dropdown-basic">
+                                        {filters.categories.length>0 ? "Selected" : "Select..."}
+                                    </Dropdown.Toggle>
 
-                                    </Row>
-                                </Accordion.Body>
-                            </Accordion.Item>
-                            <Accordion.Item className="bg-transparent" eventKey="3">
-                                <Accordion.Header className='p-1'><h5 className='text-white'>Specs</h5></Accordion.Header>
-                                <Accordion.Body className='p-1'>
-                                    <Row>
-                                        <Col className='col-6 col-md-12'><label className='d-flex align-items-center text-white gap-2 fs-5' >Name <input className='mt-2' type="checkbox" name="" id="" /></label> </Col>
-                                        <Col className='col-6 col-md-12'><label className='d-flex align-items-center text-white gap-2 fs-5' >Name <input className='mt-2' type="checkbox" name="" id="" /></label> </Col>
-                                        <Col className='col-6 col-md-12'><label className='d-flex align-items-center text-white gap-2 fs-5' >Name <input className='mt-2' type="checkbox" name="" id="" /></label> </Col>
-                                        <Col className='col-6 col-md-12'><label className='d-flex align-items-center text-white gap-2 fs-5' >Name <input className='mt-2' type="checkbox" name="" id="" /></label> </Col>
-                                        <Col className='col-6 col-md-12'><label className='d-flex align-items-center text-white gap-2 fs-5' >Name <input className='mt-2' type="checkbox" name="" id="" /></label> </Col>
+                                    <Dropdown.Menu className='p-0 rounded-0 w-0' >
+                                        <Dropdown.Item className={`p-0 dropdown-select border-bottom border-dark`}><Button className='bg-transparent border-0 d-flex justify-content-between text-danger text-capitalize w-100' onClick={()=>{setFilters({...filters,categories:[]})}}> None </Button></Dropdown.Item>
+                                    {
+                                        categories.map((category) => 
+                                        <Dropdown.Item className={`p-0 dropdown-select border-bottom border-dark ${filters.categories.includes(category) ? "selected" : ""}`}><Button className='bg-transparent border-0 d-flex justify-content-between text-dark text-capitalize w-100' onClick={()=>{handleFilterCategories(category)}} >{category} <BsCheck className='dropdown-item-check d-none fs-4'/> </Button> </Dropdown.Item>
+                                        )
+                                    }
+                                    </Dropdown.Menu>
+                                </Dropdown>
+                            </div>
 
-                                    </Row>
-                                </Accordion.Body>
-                            </Accordion.Item>
-                        </Accordion>
-                    </div>
-                </Col>
-                <Col className='col-12 col-md-9 shop-page-shopping-col'>
-                    <div className='p-0 w-100'>
-                        <Row className='g-1 g-sm-4 p-0 p-sm-3 pt-1 shadow rounded-3 w-100 m-0'>
-                            {
-                                products && products.map((product) =>(
-                                    <Col className='col-6 col-sm-4 col-lg-3'>
-                                        <ProductCard productObject={product} />
-                                    </Col>                                
-                                ))
-                            }
-                            <Col className='col-12 mb-2 mt-2 mt-sm-0'><Button variant='dark' className='btn-dark w-100 5'>Load More</Button></Col>
-                        </Row>
+                            <hr className='border-2' />
 
-                    </div>
-                </Col>
-            </Row>
+                            <div className='d-flex gap-4'>
+                                <h5 className='me-1'>Brands</h5>
+                                <Dropdown autoClose="outside" >
+                                    <Dropdown.Toggle className={`d-flex align-items-center justify-content-between ${filters.brands.length>0 ? "bg-primary border-primary" : "bg-secondary"}`} style={{width: "6em"}} variant="secondary" id="dropdown-basic">
+                                        {filters.brands.length>0 ? "Selected" : "Select..."}
+                                    </Dropdown.Toggle>
+
+                                    <Dropdown.Menu className='p-0 rounded-0 w-0'>
+                                        <Dropdown.Item className={`p-0 dropdown-select border-bottom border-dark`}><Button className='bg-transparent border-0 d-flex justify-content-between text-danger text-capitalize w-100' onClick={()=>{setFilters({...filters,brands:[]})}}> None </Button></Dropdown.Item>
+                                    {
+                                        brands.map((brand) => 
+                                        <Dropdown.Item className={`p-0 dropdown-select border-bottom border-dark ${filters.brands.includes(brand) ? "selected" : ""}`}><Button className='bg-transparent border-0 d-flex justify-content-between text-dark text-capitalize w-100' onClick={()=>{handleFilterBrands(brand)}} >{brand} <BsCheck className='dropdown-item-check d-none fs-4'/> </Button> </Dropdown.Item>
+                                        )
+                                    }
+                                    </Dropdown.Menu>
+                                </Dropdown>
+                            </div>
+                        </div>
+                    </Col>
+                    <Col className='col-12 col-md-8 col-xl-9 p-0 ps-md-2 px-lg-1'>
+                        <div className='shadow rounded-3 p-2 px-3 mb-2 d-flex align-items-center'>
+                            <h4 className='m-0'>Sort</h4>
+                        </div>
+                        <div className='p-0 w-100'>
+                            <Row className='g-0 p-0 p-sm-3 shadow rounded-3 w-100 m-0'>
+                                {
+                                    products && products.map((product) =>(
+                                        <Col className='col-6 col-sm-4 col-xl-3 p-1 p-xl-2'>
+                                            <ProductCard productObject={product} />
+                                        </Col>                                
+                                    ))
+                                }
+                                <Col className='col-12 mb-2 mt-2 mt-sm-4'><Button variant='dark' className='btn-dark w-100 5'>Load More</Button></Col>
+                            </Row>
+
+                        </div>
+                    </Col>
+                </Row>
+            </div>
         </div>
     );
 }
 
 export default Shop;
+
+
+{/* <Col className='col-12'>
+    <div className='d-flex flex-column flex-md-row gap-0 gap-md-4 bg-secondary text-white shadow rounded-3 p-3'>
+        <h5 className='text-light'>Filter By:</h5>
+        <Row>
+            <Col>
+                <h5>Price</h5>
+                <div style={{width: "min(20rem,80vw)"}} className='fs-4 range-slider-container'>
+                    <MultiRangeSlider
+                        min={0}
+                        max={5000}
+                        ruler={false}
+                    />
+                </div>
+            </Col>
+                <Col className='py-2'>
+                    <div className="d-flex gap-2">
+                        <h5>Categories</h5>
+                    </div>
+                    <div className='d-flex gap-2 align-items-center'>
+                        <Dropdown autoClose="outside" >
+                            <Dropdown.Toggle className='d-flex align-items-center justify-content-between' style={{width: "6rem"}} variant="secondary" id="dropdown-basic">
+                                {filters.categories.length>0 ? "Selected" : "Select..."}
+                            </Dropdown.Toggle>
+
+                            <Dropdown.Menu className='p-0 rounded-0 w-0'>
+                                <Dropdown.Item className={`p-0 dropdown-select border-bottom border-dark`}><Button className='bg-transparent border-0 d-flex justify-content-between text-danger text-capitalize w-100' onClick={()=>{setFilters({...filters,categories:[]})}}> None </Button></Dropdown.Item>
+                            {
+                                categories.map((category) => 
+                                <Dropdown.Item className={`p-0 dropdown-select border-bottom border-dark ${filters.categories.includes(category) ? "selected" : ""}`}><Button className='bg-transparent border-0 d-flex justify-content-between text-dark text-capitalize w-100' onClick={()=>{handleFilterCategories(category)}} >{category} <BsCheck className='dropdown-item-check d-none fs-4'/> </Button> </Dropdown.Item>
+                                )
+                            }
+                            </Dropdown.Menu>
+                        </Dropdown>
+                    </div>
+                </Col>
+                <Col className='py-2'>
+                    <div className="d-flex gap-5">
+                        <h5>Brands</h5>
+                    </div>
+
+                    <div className='d-flex gap-2 align-items-center'>
+                        <Dropdown autoClose="outside" >
+                            <Dropdown.Toggle className='d-flex align-items-center justify-content-between' style={{width: "6rem"}} variant="secondary" id="dropdown-basic">
+                                {filters.brands.length>0 ? "Selected" : "Select..."}
+                            </Dropdown.Toggle>
+
+                            <Dropdown.Menu className='p-0 rounded-0 w-0'>
+                                <Dropdown.Item className={`p-0 dropdown-select border-bottom border-dark`}><Button className='bg-transparent border-0 d-flex justify-content-between text-danger text-capitalize w-100' onClick={()=>{setFilters({...filters,brands:[]})}}> None </Button></Dropdown.Item>
+                            {
+                                brands.map((brand) => 
+                                <Dropdown.Item className={`p-0 dropdown-select border-bottom border-dark ${filters.brands.includes(brand) ? "selected" : ""}`}><Button className='bg-transparent border-0 d-flex justify-content-between text-dark text-capitalize w-100' onClick={()=>{handleFilterBrands(brand)}} >{brand} <BsCheck className='dropdown-item-check d-none fs-4'/> </Button> </Dropdown.Item>
+                                )
+                            }
+                            </Dropdown.Menu>
+                        </Dropdown>
+                    </div>
+                </Col>
+        </Row> 
+        </div>
+</Col> */}

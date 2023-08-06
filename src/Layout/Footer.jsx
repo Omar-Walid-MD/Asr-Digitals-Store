@@ -70,14 +70,14 @@ function Footer({}) {
                         </div>
                         <hr />
                         <h6 className='text-start fw-bold'>Follow Us On Social Media</h6>
-                        <div className="d-flex mt-4 gap-2 social-media-row">
-                            <Link className="d-flex p-1 rounded-2 fs-2 social-media-icon position-relative overflow-hidden text-white" style={{background: 'rgb(13,110,253)'}}><FaSquareFacebook /> </Link>
-                            <Link className="d-flex p-1 rounded-2 fs-2 social-media-icon position-relative overflow-hidden text-white" style={{background: '#dc3545'}}><FaSquareYoutube /> </Link>
-                            <Link className="d-flex p-1 rounded-2 fs-2 social-media-icon position-relative overflow-hidden text-white" style={{backgroundColor: 'limegreen'}}><FaSquareWhatsapp /> </Link>
-                            <Link className="d-flex p-1 rounded-2 fs-2 social-media-icon position-relative overflow-hidden text-white" style={{backgroundColor: 'deepskyblue'}}><FaSquareTwitter /> </Link>
-                            <Link className="d-flex p-1 rounded-2 fs-2 social-media-icon position-relative overflow-hidden text-white" style={{background: 'linear-gradient(45deg, yellow, orange 20%, magenta)'}}><FaSquareInstagram /> </Link>
-                            <Link className="d-flex p-1 rounded-2 fs-2 social-media-icon position-relative overflow-hidden text-white" style={{backgroundColor: 'darkslateblue'}}><FaLinkedin /> </Link>
-                        </div>
+                        <Row className="g-2 social-media-row">
+                            <Col><Link className="d-flex justify-content-center p-1 rounded-2 fs-2 social-media-icon position-relative overflow-hidden text-white" style={{background: 'rgb(13,110,253)'}}><FaSquareFacebook /> </Link></Col>
+                            <Col><Link className="d-flex justify-content-center p-1 rounded-2 fs-2 social-media-icon position-relative overflow-hidden text-white" style={{background: '#dc3545'}}><FaSquareYoutube /> </Link></Col>
+                            <Col><Link className="d-flex justify-content-center p-1 rounded-2 fs-2 social-media-icon position-relative overflow-hidden text-white" style={{backgroundColor: 'limegreen'}}><FaSquareWhatsapp /> </Link></Col>
+                            <Col><Link className="d-flex justify-content-center p-1 rounded-2 fs-2 social-media-icon position-relative overflow-hidden text-white" style={{backgroundColor: 'deepskyblue'}}><FaSquareTwitter /> </Link></Col>
+                            <Col className='col-2'><Link className="d-flex justify-content-center p-1 rounded-2 fs-2 social-media-icon position-relative overflow-hidden text-white" style={{background: 'linear-gradient(45deg, yellow, orange 20%, magenta)'}}><FaSquareInstagram /> </Link></Col>
+                            <Col className='col-2'><Link className="d-flex justify-content-center p-1 rounded-2 fs-2 social-media-icon position-relative overflow-hidden text-white" style={{backgroundColor: 'darkslateblue'}}><FaLinkedin /> </Link></Col>
+                        </Row>
                     </Col>
                 </Row>
             </Container>
