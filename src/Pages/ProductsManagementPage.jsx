@@ -66,7 +66,7 @@ function ProductsManagementPage({}) {
         handleFormModalShow();
         Object.keys(schema.fields).forEach((key)=>{
             setValue(key,product[key]);
-        })
+        });
         
     }
 

@@ -4,21 +4,26 @@ import { Button, Container, Row } from 'react-bootstrap';
 import { BsCaretLeftFill, BsCaretRightFill } from 'react-icons/bs';
 import { useRef } from 'react';
 
-function Slider({content, className, style}) {
+function Slider({content, className="", variant="dark", style}) {
 
     const scroll = useRef();
 
     function handleScroll(direction)
     {
-      scroll.current.scrollLeft += 500 * direction;
+      let scrollAmount = scroll.current.firstChild.firstChild.getBoundingClientRect().width;
+      let scrollGap = +getComputedStyle(scroll.current.firstChild).gap.slice(0,-2);
+      let scrollOffset = scroll.current.scrollLeft%(scrollAmount+scrollGap);
+      if(Math.abs(scroll.current.scrollLeft===scroll.current.scrollWidth-scroll.current.clientWidth)<20) scrollOffset = 0;
+      console.log(scrollOffset);
+      scroll.current.scrollLeft += (scrollAmount+scrollGap-scrollOffset*direction) * direction;
     }
 
 
 
   return (
-    <div className={`w-100 position-relative product-carousel-container ${className || ""}`} style={style} >
-      <div className='overflow-x-scroll scrollbar shadow rounded-md-2' ref={scroll} style={{scrollBehavior: "smooth"}}>
-        <div className='d-flex align-items-center gap-2 gap-md-4 p-md-4 product-carousel' style={{width: "fit-content"}} >
+    <div className={`w-100 position-relative slider-container ${className}`} style={style} >
+      <div className={`overflow-x-scroll scrollbar ${variant} shadow rounded-md-2`} ref={scroll} style={{scrollBehavior: "smooth"}}>
+        <div className='d-flex align-items-center slider p-md-4' style={{width: "fit-content"}} >
         {
            content
         }

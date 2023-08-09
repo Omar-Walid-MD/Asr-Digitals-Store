@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Button, Carousel, Col, Container, Row } from 'react-bootstrap';
 import { BsFillCartPlusFill } from 'react-icons/bs';
-import ProductCarousel from '../Components/ProductCarousel';
+import ProductSlider from '../Components/ProductSlider';
 
 function Offers({}) {
 
@@ -337,7 +337,7 @@ function Offers({}) {
             <section>
                 <div className='py-5 px-3'>
                     <h1>Don't Miss Out on These Discounts!</h1>
-                    <ProductCarousel className={"light"} />
+                    <ProductSlider className={"light"} />
                 </div>
             </section>
 

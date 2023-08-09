@@ -75,11 +75,11 @@ function NavBar({}) {
 
                                     <div className='bg-light p-1 d-flex fs-3 border rounded-circle navbar-profile-button'><BsFillPersonFill /></div>
                                     <div className="position-absolute navbar-profile-dropdown-container">
-                                        <div className="bg-light shadow navbar-profile-dropdown w-100 shadow">
-                                            <Link className='px-4 py-2 border-bottom d-flex justify-content-center text-decoration-none'>Profile</Link>
-                                            <Link className='px-4 py-2 border-bottom d-flex justify-content-center text-decoration-none'>Purchases</Link>
+                                        <div className="bg-light shadow navbar-profile-dropdown w-100 rounded-bottom overflow-hidden">
+                                            <Link to={"/profile"} className='px-4 py-2 border-bottom d-flex justify-content-center text-decoration-none'>Profile</Link>
+                                            <Link to={"/purchases"} className='px-4 py-2 border-bottom d-flex justify-content-center text-decoration-none'>Purchases</Link>
                                             <Link to={"/favorites"} className='px-4 py-2 border-bottom d-flex justify-content-center text-decoration-none'>Favorites</Link>
-                                            <div className='px-4 py-2 border-bottom d-flex justify-content-center'>
+                                            <div className='px-4 py-2 d-flex justify-content-center'>
                                                 <Button variant='danger' onClick={()=>{dispatch(logoutUser());}}>Log out</Button>
                                             </div>
                                         </div>

@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { Button, Col, Container, Row, Spinner } from 'react-bootstrap';
 import { BsFillCartPlusFill, BsFillCartDashFill, BsStarFill, BsPhoneFill, BsFillCaretDownFill, BsFillCaretUpFill, BsFillPersonFill } from "react-icons/bs";
 import ProductReview from '../Components/ProductReview';
-import ProductCarousel from '../Components/ProductCarousel';
+import ProductSlider from '../Components/ProductSlider';
 import { useParams } from 'react-router';
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -211,7 +211,7 @@ function ProductPage({})
 
                 <div className='bg-dark-gray-gradient overflow-hidden'><Container><h3 className='mt-5 m-0 p-2 px-4 bg-light rounded-top shadow d-inline-block'>Related Products</h3></Container></div>
                 <div className='d-flex align-items-start flex-column p-0 py-5 px-md-4 gap-3'>
-                    <ProductCarousel className={"light"}/>
+                    <ProductSlider variant={"light"}/>
                 </div>
 
                 <div className='bg-light-gradient overflow-hidden'><Container><h3 className='mt-5 m-0 p-2 px-4 bg-light rounded-top shadow d-inline-block'>Reviews</h3></Container></div>

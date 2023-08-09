@@ -13,6 +13,8 @@ import Offers from "../Pages/Offers";
 import Checkout from "../Pages/Checkout";
 import Main from "../Layout/Main";
 import Auth from "../Layout/Auth";
+import PurchasesPage from "../Pages/PurchasesPage";
+import ProfilePage from "../Pages/ProfilePage";
 
 const router = createBrowserRouter([
     {
@@ -50,6 +52,14 @@ const router = createBrowserRouter([
                     {
                         path: "favorites",
                         element: <FavoritesPage />
+                    },
+                    {
+                        path: "purchases",
+                        element: <PurchasesPage />
+                    },
+                    {
+                        path: "profile",
+                        element: <ProfilePage />
                     }
                 ]
             },

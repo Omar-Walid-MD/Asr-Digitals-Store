@@ -31,6 +31,7 @@ const schemas = [
 
     city: yup.string(),
     address: yup.string(),
+    street: yup.string(),
     zipcode: yup.string(),
     creditCardNo: yup.number()
     
@@ -70,12 +71,10 @@ function Register({}) {
 
     function onSubmit(data)
     {
-        setUserData({...userData,...data});
-
-
+        let updatedUserData = {...userData,...data};
+        setUserData(updatedUserData);
         if(registerStage===0)
         {
-            console.log(users);
             if(users.map((user) => user.email).includes(data.email))
             {
                 handleValidationError("Email already registered...");
@@ -113,41 +112,15 @@ function Register({}) {
         }
         else if(registerStage===2)
         {
-            let newUser = {...userData,cart:[],favorites:[]};
+            let newUser = {...updatedUserData,cart:[],favorites:[]};
             delete newUser.confirmPassword;
+            newUser.dateOfBirth = newUser.dateOfBirth.toISOString().split('T')[0];
             dispatch(registerUser(newUser));
             navigate(prevPath);
         }
 
 
-        // if(users.map((user) => user.email).includes(data.email))
-        // {
-        //     handleValidationError("Email already registered...");
-        // }
-        // else
-        // {
-        //     if(users.map((user) => user.username).includes(data.username))
-        //     {
-        //         handleValidationError("Username already in use...");
-        //     }
-        //     else
-        //     {
-        //         if(data.password!==data.confirmPassword)
-        //         {
-        
-        //             handleValidationError("Password mismatch...");
-        //         }
-        //         else
-        //         {
-        //             let newUser = {...data,cart:[],favorites:[]};
-        //             delete newUser.confirmPassword;
-        //             dispatch(registerUser(newUser));
-        //             reset();
-        //             navigate(prevPath);
-        //         }
-        //     }
-
-        // }
+       
     }
 
     function handleValidationError(errorMessage)
@@ -164,13 +137,28 @@ function Register({}) {
                 <div className='p-3 shadow border rounded-sm-2 auth-form-container'>
                     <h1 className='text-center mb-4'>Register User</h1>
 
-                        <div className="d-flex justify-content-center w-100 mb-3">
-                            <div className='d-flex gap-5'>
-                                <div className={`d-flex shadow-sm border-0 text-white p-3 fs-3 aspect-1 rounded-circle justify-content-center align-items-center register-stage-label ${registerStage >= 0 ? "active" : ""} `}>1</div>
-                                <div className={`d-flex shadow-sm border-0 text-white p-3 fs-3 aspect-1 rounded-circle justify-content-center align-items-center register-stage-label ${registerStage >= 1 ? "active" : ""} `}>2</div>
-                                <div className={`d-flex shadow-sm border-0 text-white p-3 fs-3 aspect-1 rounded-circle justify-content-center align-items-center register-stage-label ${registerStage >= 2 ? "active" : ""} `}>3</div>
+                    <div className="d-flex justify-content-center w-100 mb-5">
+                        <div className='d-flex'>
+                            <div className={`register-stage-label position-relative d-flex align-items-center ${registerStage >= 0 ? "active" : ""}`}>
+                                <div className={`d-flex shadow-sm p-3 fs-3 aspect-1 rounded-circle justify-content-center align-items-center`}>
+                                    1
+                                    <span className='position-absolute'>Account</span>
+                                </div>
+                            </div>
+                            <div className={`register-stage-label position-relative d-flex align-items-center ${registerStage >= 1 ? "active" : ""}`}>
+                                <div className={`d-flex shadow-sm p-3 fs-3 aspect-1 rounded-circle justify-content-center align-items-center`}>
+                                    2
+                                    <span className='position-absolute'>General</span>
+                                </div>
+                            </div>
+                            <div className={`register-stage-label position-relative d-flex align-items-center ${registerStage >= 2 ? "active" : ""}`}>
+                                <div className={`d-flex shadow-sm p-3 fs-3 aspect-1 rounded-circle justify-content-center align-items-center`}>
+                                    3
+                                    <span className='position-absolute'>Extra</span>
+                                </div>
                             </div>
                         </div>
+                    </div>
 
                     <Carousel className='w-100' controls={false} indicators={false} activeIndex={registerStage}>
                         <Carousel.Item>
@@ -244,6 +232,12 @@ function Register({}) {
                                     <Form.Control type="text" placeholder="Address" {...registerExtra("address")} />
                                     {errorsExtra.address ? <div className='error-message text-white bg-danger rounded-pill shadow-sm ps-2 mt-2'>{errorsExtra.address.message}</div> : ''}
                                 </FloatingLabel>
+
+                                <FloatingLabel controlId="floatingStreet" label="Street">
+                                    <Form.Control type="text" placeholder="Street" {...registerExtra("street")} />
+                                    {errorsExtra.street ? <div className='error-message text-white bg-danger rounded-pill shadow-sm ps-2 mt-2'>{errorsExtra.street.message}</div> : ''}
+                                </FloatingLabel>
+
 
                                 <FloatingLabel controlId="floatingCreditCardNo" label="Credit Card Number">
                                     <Form.Control type="number" placeholder="Credit Card Number" {...registerExtra("creditCardNo")} />

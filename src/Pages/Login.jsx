@@ -92,7 +92,7 @@ function Login({}) {
                     </div>
                     <div className='mt-4'>
                         {validationError && <div className='error-message text-white text-center bg-danger rounded-3 shadow-sm ps-1 mt-2'>{validationError}</div>}
-                        <Button variant='dark' type='submit' className='w-100 mt-2 fs-5'>Log in</Button>
+                        <Button variant='dark' type='submit' className='w-100 mt-2 fs-5 main-button border-0'>Log in</Button>
                     </div>
                     <hr className='mt-4' />
                     <div className='w-100 text-center'>

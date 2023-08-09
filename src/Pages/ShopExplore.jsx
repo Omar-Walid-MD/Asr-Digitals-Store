@@ -1,5 +1,5 @@
 import React from 'react';
-import ProductCarousel from '../Components/ProductCarousel';
+import ProductSlider from '../Components/ProductSlider';
 import { Button, Carousel, Col, Container, Row } from 'react-bootstrap';
 import ProductCard from '../Components/ProductCard';
 import { Link } from 'react-router-dom';
@@ -36,7 +36,7 @@ function ShopExplore({}) {
                             </div>
                         </div>
                         )}
-                    className={"light"}
+                    variant={"white"}
                     />
 
                     <hr className='my-5' />
@@ -51,7 +51,7 @@ function ShopExplore({}) {
                             </div>
                         </div>
                         )}
-                    className={"light"}
+                    variant={"light"}
                     />
                 </div>
             </section>
@@ -202,7 +202,7 @@ function ShopExplore({}) {
                 <div className="w-100 bg-dark-gray-gradient fs-2 fw-semibold"><div className='section-title bg-white d-inline-block m-0 h-100 p-2 ps-4 pe-3'>Top Selling</div></div>
                 <div className='h-100 d-flex align-items-center flex-column py-5 gap-3'>
                     <h3 className='text-start w-100 ps-5 pb-2'>Phones</h3>
-                    <ProductCarousel className={"light"} />
+                    <ProductSlider variant={"white"} />
                     <div className='text-center text-sm-start w-100 p-0 px-sm-5'>
                         <Link className='m-0 ms-sm-5 fs-5 btn btn-dark'>More items <BsArrowRightCircleFill className='mb-1 ms-2'/> </Link>
                     </div>
@@ -210,7 +210,7 @@ function ShopExplore({}) {
                     <hr className='bg-white border-3 border-dark w-100 m-5' />
                     
                     <h3 className='text-start w-100 ps-5 pb-2'>Laptops</h3>
-                    <ProductCarousel className={"light"} />
+                    <ProductSlider variant={"white"} />
                     <div className='text-center text-sm-start w-100 p-0 px-sm-5'>
                         <Link className='m-0 ms-sm-5 fs-5 btn btn-dark'>More items <BsArrowRightCircleFill className='mb-1 ms-2'/> </Link>
                     </div>
@@ -219,7 +219,7 @@ function ShopExplore({}) {
                     <hr className='bg-white border-3 border-dark w-100 m-5' />
                     
                     <h3 className='text-start w-100 ps-5 pb-2'>Tablets</h3>
-                    <ProductCarousel className={"light"} />
+                    <ProductSlider variant={"white"} />
                     <div className='text-center text-sm-start w-100 p-0 px-sm-5'>
                         <Link className='m-0 ms-sm-5 fs-5 btn btn-dark'>More items <BsArrowRightCircleFill className='mb-1 ms-2'/> </Link>
                     </div>
@@ -229,7 +229,7 @@ function ShopExplore({}) {
                     <hr className='bg-white border-3 border-dark w-100 m-5' />
                     
                     <h3 className='text-start w-100 ps-5 pb-2'>Desktops</h3>
-                    <ProductCarousel className={"light"} />
+                    <ProductSlider variant={"white"} />
                     <div className='text-center text-sm-start w-100 p-0 px-sm-5'>
                         <Link className='m-0 ms-sm-5 fs-5 btn btn-dark'>More items <BsArrowRightCircleFill className='mb-1 ms-2'/> </Link>
                     </div>
@@ -273,7 +273,7 @@ function ShopExplore({}) {
                 <div className="w-100 bg-dark-gray-gradient fs-2 fw-semibold"><div className='section-title bg-white d-inline-block m-0 h-100 p-2 ps-4 pe-3'>Top Brands</div></div>
                 <div className='h-100 d-flex align-items-center flex-column py-5 gap-3'>
                     <h3 className='text-start w-100 ps-5 pb-2'>Brand 1</h3>
-                    <ProductCarousel className={"light"} />
+                    <ProductSlider variant={"white"} />
                     <div className='text-center text-sm-start w-100 p-0 px-sm-5'>
                         <Link className='m-0 ms-sm-5 fs-5 btn btn-dark'>More items <BsArrowRightCircleFill className='mb-1 ms-2'/> </Link>
                     </div>
@@ -281,7 +281,7 @@ function ShopExplore({}) {
                     <hr className='bg-white border-3 border-dark w-100 m-5' />
                     
                     <h3 className='text-start w-100 ps-5 pb-2'>Brand 2</h3>
-                    <ProductCarousel className={"light"} />
+                    <ProductSlider variant={"white"} />
                     <div className='text-center text-sm-start w-100 p-0 px-sm-5'>
                         <Link className='m-0 ms-sm-5 fs-5 btn btn-dark'>More items <BsArrowRightCircleFill className='mb-1 ms-2'/> </Link>
                     </div>
@@ -290,7 +290,7 @@ function ShopExplore({}) {
                     <hr className='bg-white border-3 border-dark w-100 m-5' />
                     
                     <h3 className='text-start w-100 ps-5 pb-2'>Brand 3</h3>
-                    <ProductCarousel className={"light"} />
+                    <ProductSlider variant={"white"} />
                     <div className='text-center text-sm-start w-100 p-0 px-sm-5'>
                         <Link className='m-0 ms-sm-5 fs-5 btn btn-dark'>More items <BsArrowRightCircleFill className='mb-1 ms-2'/> </Link>
                     </div>
@@ -300,7 +300,7 @@ function ShopExplore({}) {
                     <hr className='bg-white border-3 border-dark w-100 m-5' />
                     
                     <h3 className='text-start w-100 ps-5 pb-2'>Brand 4</h3>
-                    <ProductCarousel className={"light"} />
+                    <ProductSlider variant={"white"} />
                     <div className='text-center text-sm-start w-100 p-0 px-sm-5'>
                         <Link className='m-0 ms-sm-5 fs-5 btn btn-dark'>More items <BsArrowRightCircleFill className='mb-1 ms-2'/> </Link>
                     </div>

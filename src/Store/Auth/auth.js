@@ -79,6 +79,12 @@ export const getCurrentUser = createAsyncThunk(
       )
       return res;
     }
+    else
+    {
+      console.log(userId)
+      localStorage.setItem("currentUser","");
+      return null;
+    }
 });
 
 export const logoutUser = createAsyncThunk(
@@ -86,10 +92,23 @@ export const logoutUser = createAsyncThunk(
   async () => {
     localStorage.setItem("currentUser","");
     localStorage.setItem("userCart",JSON.stringify([]));
-    localStorage.setItem("userFavorites",JSON.stringify([]));
-
-    
+    localStorage.setItem("userFavorites",JSON.stringify([])); 
 });
+
+export const editUser = createAsyncThunk(
+  'auth/editUser',
+  async (updatedUser) => {
+    const res = axios.patch(`http://localhost:8899/users/${updatedUser.id}`,updatedUser);
+    return (await res).data;
+});
+
+export const deleteUser = createAsyncThunk(
+  'auth/deleteUser',
+  async (userId) => {
+    const res = axios.delete(`http://localhost:8899/users/${userId}`);
+    return userId;
+});
+
 export const authSlice = createSlice({
     name: "auth",
     initialState,
@@ -167,6 +186,36 @@ export const authSlice = createSlice({
             state.loggedIn = false;
           },
         [logoutUser.rejected]: (state) => {
+            state.loading = false
+            console.log("rejected");
+        },
+
+        //editUser
+        [editUser.pending]: (state) => {
+          state.loading = true
+        },
+        [editUser.fulfilled]: (state, { payload }) => {
+            state.loading = false
+            state.currentUser = payload;
+            state.loggedIn = false;
+          },
+        [editUser.rejected]: (state) => {
+            state.loading = false
+            console.log("rejected");
+        },
+
+        //deleteUser
+        [deleteUser.pending]: (state) => {
+          state.loading = true
+        },
+        [deleteUser.fulfilled]: (state, { payload }) => {
+            state.loading = false
+            state.currentUser = null;
+            state.users = state.users.filter((user) => user.id !== payload);
+            localStorage.setItem("currentUser","");
+            state.loggedIn = false;
+          },
+        [deleteUser.rejected]: (state) => {
             state.loading = false
             console.log("rejected");
         },

@@ -1,16 +1,17 @@
 import React from 'react';
 import { Accordion, Button, Carousel, Col, Container, Row, Tab, Tabs } from 'react-bootstrap';
-import ProductCarousel from '../Components/ProductCarousel';
+import ProductSlider from '../Components/ProductSlider';
 import { Link } from 'react-router-dom';
 import { BsFillPersonFill, BsFillStarFill, BsPhoneFill, BsTabletLandscapeFill } from "react-icons/bs";
 import ProductCard from '../Components/ProductCard';
+import { FaTruckMoving } from "react-icons/fa";
 
 
 function Home({}) {
 
     const style = {
         header: {
-            height: "650px"
+            height: "680px"
         },
         section: {
             height: "500px"
@@ -27,35 +28,41 @@ function Home({}) {
 
     return (
         <div>
-            <header className='bg-secondary d-flex align-items-center justify-content-center justify-content-sm-start' style={style.header}>
-                <div className='header-content p-0 m-5 w-50 d-flex flex-column gap-3 align-items-center align-items-sm-start'>
-                    <h1 className='large-title text-center text-sm-start'>Asr Digitals</h1>
-                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eveniet obcaecati tenetur libero perspiciatis! Quisquam illo esse.</p>
-                    <Button variant='dark' className='btn-dark fs-5 p-3 px-4 text-uppercase fw-semibold'>Shop now!</Button>
-                </div>
+            <header className='bg-secondary homepage-header d-flex align-items-center justify-content-center justify-content-sm-start pb-5' style={style.header}>
+                <Container className='m-5 d-flex justify-content-center justify-content-sm-start'>
+                    <div className='header-content text-white p-0 m-0 m-sm-5 w-xs-100 w-sm-50 d-flex flex-column gap-3 align-items-center align-items-sm-start'>
+                        <h1 className='large-title text-center text-sm-start'>Asr Digitals</h1>
+                        <p className='text-center text-sm-start w-xs-100 w-lg-75 fs-5 fw-bold'>The home of all the digitals you need. Get your next devices with fair costs and best qualities.</p>
+                        <Button variant='dark' className='btn-dark fs-5 p-3 px-4 text-uppercase fw-semibold border-white border-3 main-button'>Shop now!</Button>
+                    </div>
+                </Container>
             </header>
 
 
-            <section className='bg-white d-flex flex-column' style={style.sectionLarge}>
-                <div className="w-100 bg-dark-gray-gradient fs-2 fw-semibold"><div className='section-title bg-white d-inline-block m-0 h-100 p-2 ps-4 pe-3'>Why Choose Us</div></div>
+            <section className='bg-white d-flex flex-column position-relative' style={style.sectionLarge}>
+                <div className="position-absolute bottom-100 w-100 fs-2 fw-semibold"><div className='section-title bg-white d-inline-block m-0 h-100 p-2 ps-4 pe-3'>Why Choose Us</div></div>
+                {/* <div className="w-100 bg-dark-gray-gradient fs-2 fw-semibold"><div className='section-title bg-white d-inline-block m-0 h-100 p-2 ps-4 pe-3'>Why Choose Us</div></div> */}
                 <Container className='d-flex align-items-center justify-content-center py-5 h-100'>
                     <Row className='gy-4 p-3 py-4'>
                         <Col className='col-12 col-sm-6 col-lg-3'>
+                            <div className='feature-box position-relative bg-light rounded-3 p-3'>
+                                {/* <h4>Feature Title</h4> */}
+                                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
+                                <div className='position-absolute bg-light rounded-3 fs-1 d-flex align-items-center justify-content-center text-secondary'> <FaTruckMoving /> </div>
+                            </div>
+                        </Col>
+                        {/* <Col className='col-12 col-sm-6 col-lg-3'>
                             <h4>Feature Title</h4>
-                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam, est. Corrupti placeat sequi fugit in sed atque accusantium, eaque architecto! Pariatur, dolor non! Vitae iusto, exercitationem ratione neque cumque sapiente!</p>
+                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam, est. Corrupti placeat sequi fugit in sed atque accusantium, eaque architecto!</p>
                         </Col>
                         <Col className='col-12 col-sm-6 col-lg-3'>
                             <h4>Feature Title</h4>
-                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam, est. Corrupti placeat sequi fugit in sed atque accusantium, eaque architecto! Pariatur, dolor non! Vitae iusto, exercitationem ratione neque cumque sapiente!</p>
+                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam, est. Corrupti placeat sequi fugit in sed atque accusantium, eaque architecto!</p>
                         </Col>
                         <Col className='col-12 col-sm-6 col-lg-3'>
                             <h4>Feature Title</h4>
-                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam, est. Corrupti placeat sequi fugit in sed atque accusantium, eaque architecto! Pariatur, dolor non! Vitae iusto, exercitationem ratione neque cumque sapiente!</p>
-                        </Col>
-                        <Col className='col-12 col-sm-6 col-lg-3'>
-                            <h4>Feature Title</h4>
-                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam, est. Corrupti placeat sequi fugit in sed atque accusantium, eaque architecto! Pariatur, dolor non! Vitae iusto, exercitationem ratione neque cumque sapiente!</p>
-                        </Col>
+                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam, est. Corrupti placeat sequi fugit in sed atque accusantium, eaque architecto!</p>
+                        </Col> */}
                     </Row>
                 </Container>
             </section>
@@ -66,7 +73,7 @@ function Home({}) {
                 <div className='h-100 d-flex align-items-center flex-column py-5 gap-3'>
                     <h3 className='text-start w-100 ps-5 text-white'>Check our popular products</h3>
                     <hr className='bg-white border-3 border-white w-100 mx-5' />
-                    <ProductCarousel />
+                    <ProductSlider />
                 </div>
             </section>
 
@@ -77,7 +84,7 @@ function Home({}) {
                     <div className="d-flex flex-column align-items-center align-items-md-start offer-content w-75">
                         <h1 className='text-center text-md-start'>Check Our Latest Offers!</h1>
                         <p className='text-center text-md-start'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi error illo quasi aut facere sint necessitatibus temporibus iure iste.</p>
-                        <Button className='btn-dark text-uppercase fs-5'>Don't Miss Out!</Button>
+                        <Button className='btn-dark text-uppercase fs-5 p-3 main-button border-0'>Don't Miss Out!</Button>
                     </div>
                 </Container>
             </section>

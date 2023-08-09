@@ -1,61 +1,30 @@
 {
   "users": [
     {
+      "email": "omar.madinah49@yahoo.com",
+      "password": "123",
       "firstName": "Omar",
       "lastName": "Diab",
-      "username": "owmd",
-      "email": "omar.madinah49@yahoo.com",
-      "phone": "+966560917203",
-      "password": "1",
-      "id": 1,
-      "cart": [
-        {
-          "productId": "2",
-          "count": 5
-        }
-      ],
-      "favorites": [
-        1
-      ]
-    },
-    {
-      "email": "newUser@email.com",
-      "password": "555",
-      "firstName": "New",
-      "lastName": "User",
-      "username": "",
-      "phone": "66",
-      "dateOfBirth": "2023-08-01T21:00:00.000Z",
-      "city": "",
-      "address": "",
-      "zipcode": "",
-      "creditCardNo": 0,
-      "cart": [],
-      "favorites": [],
-      "id": 2
-    },
-    {
-      "email": "user3@gmail.com",
-      "password": "5",
-      "firstName": "New",
-      "lastName": "User",
       "username": "",
       "phone": "+966560917203",
-      "dateOfBirth": "2023-08-15T21:00:00.000Z",
-      "city": "",
-      "address": "",
-      "zipcode": "",
-      "creditCardNo": 0,
+      "dateOfBirth": "2023-08-02",
+      "city": "Al-Madinah",
+      "address": "Al- Awali Abo Zoaib Al-Hazly 3530",
+      "zipcode": "42221",
+      "creditCardNo": 1,
+      "street": "111",
       "cart": [
         {
           "productId": "1",
           "count": 1
+        },
+        {
+          "productId": "2",
+          "count": 1
         }
       ],
-      "favorites": [
-        1
-      ],
-      "id": 3
+      "favorites": [],
+      "id": 1
     }
   ],
   "products": [
@@ -224,6 +193,47 @@
       "title": "1",
       "productId": "2",
       "id": 16
+    }
+  ],
+  "purchases": [
+    {
+      "total": 310,
+      "subtotal": 310,
+      "deliveryFees": 0,
+      "order": [
+        {
+          "itemId": "1",
+          "count": 1,
+          "price": 100
+        },
+        {
+          "itemId": "2",
+          "count": 1,
+          "price": 210
+        }
+      ],
+      "details": {
+        "firstName": "Omar",
+        "lastName": "Diab",
+        "email": "omar.madinah49@yahoo.com",
+        "phone": "+966560917203",
+        "dateOfBirth": "2023-08-14",
+        "city": "Al-Madinah",
+        "address": "Al- Awali Abo Zoaib Al-Hazly 3530",
+        "street": "111",
+        "zipcode": "42221",
+        "creditCardNo": 1,
+        "creditCardPin": 1,
+        "creditCardExp": {
+          "creditCardExpYear": 23,
+          "creditCardExpMonth": 1
+        }
+      },
+      "estimatedDeliveryTime": "2 days",
+      "state": "pending",
+      "userId": 1,
+      "date": 1691584203267,
+      "id": 1
     }
   ]
 }

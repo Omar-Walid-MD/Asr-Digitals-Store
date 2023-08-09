@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Col, Container, Row } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCart } from '../Store/Cart/cartSlice';
 import { getProducts } from '../Store/Products/productsSlice';
@@ -11,7 +11,7 @@ function CartPage({}) {
 
     const products = useSelector((store) => store.products.products);
     const cart = useSelector((store) => store.cart.cart);
-    const dispatch = useDispatch();
+    const location = useLocation();
 
     const [totalPrice, setTotalPrice]  = useState(0);
 
@@ -63,8 +63,8 @@ function CartPage({}) {
                                 </div>
                             </div>
                             <div  className='shadow rounded-3 p-3 mt-4'>
-                                <h3>Total Fees: {totalPrice}</h3>
-                                <Link to={"/checkout"} className='fs-5 mt-4 text-white btn btn-dark shadow w-100'>Checkout</Link>
+                                <h3>Total Amount: {totalPrice}</h3>
+                                <Link to={"/checkout"} state={{prevPath: location.pathname}} className='fs-5 mt-4 text-white btn btn-dark shadow w-100'>Checkout</Link>
                             </div>
                         </div>
                     </Col>

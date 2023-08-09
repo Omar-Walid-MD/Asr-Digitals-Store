@@ -7,7 +7,7 @@ import { BsCart, BsCartFill, BsFillCartFill } from "react-icons/bs";
 import ProductCard from '../Components/ProductCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCart } from '../Store/Cart/cartSlice';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 function CartSideBar() {
   const [show, setShow] = useState(false);
@@ -17,6 +17,7 @@ function CartSideBar() {
 
   const cart = useSelector((store) => store.cart.cart);
   const dispatch = useDispatch();
+  const location = useLocation();
 
 
   return (
@@ -57,7 +58,7 @@ function CartSideBar() {
                 <hr />
                 <p className='fs-5'>Total Fees: 0000</p>
                 <div className="d-flex gap-2">
-                    <Link to={"/checkout"} className='btn btn-dark fs-5 w-100 text-center'>Checkout</Link>
+                    <Link to={"/checkout"} state={{prevPath: location.pathname}} className='btn btn-dark fs-5 w-100 text-center'>Checkout</Link>
                     <Link to={"/cart"} variant='secondary' className='fs-5 text-white btn btn-secondary d-flex align-items-center'><BsCartFill/> </Link>
                 </div>
             </div>
