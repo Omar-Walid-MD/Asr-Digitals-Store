@@ -11,7 +11,8 @@
 	position: relative;
 	border: none;
 	border-radius: 0;
-	padding: 0.2em;
+	padding: 0;
+	padding-top: 0.3em;
 	box-shadow: none;
 	flex-direction: column;
 	-webkit-touch-callout: none;
@@ -65,6 +66,7 @@
 	z-index: 1;
 	cursor: pointer;
     align-self: center;
+	
 
 }
 .multi-range-slider .thumb::before {
@@ -73,6 +75,7 @@
 	position: absolute;
     /* top: 0; transform: translateY(calc(50% - 5px)); */
     /* top: 50%; */
+	
 	width: 1rem;
 	height: 1rem;
 	border: none;
@@ -98,26 +101,29 @@
 
 .multi-range-slider .thumb * {
 	position: absolute;
-	top: 0.5em;
+	top: -2em;
 	height: auto; width: auto;
 	/* width: 2em;
 	height: 2em; */
 	/* left: -1.2em; */
 	transform: translateX(-50%);
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5) !important;
     font-weight: 500;
 	text-align: center;
 	background-color: rgb(19, 89, 219);
 	border-radius: 50%;
 	color: white;
-	display: none !important;
+
+	/* D-NONE */
+	/* display: none !important; */
 
 }
 .multi-range-slider .labels {
     color: white;
     display: flex;
     justify-content: space-between;
-    padding: 0px;
-    /* margin-top: 0; */
+    padding: 0;
+    margin-top: 0.2em;
     margin-bottom: 0;
 }
 .multi-range-slider .label {
@@ -157,4 +163,12 @@
 .multi-range-slider .thumb .caption
 {
 	/* display: none !important; */
+}
+
+
+@media (min-width: 576px)
+{
+	.multi-range-slider .thumb * {
+		top: -1.8em;
+	}
 }

@@ -166,17 +166,17 @@ function Register({}) {
                                 <h6>Basic Account</h6>
                                 <FloatingLabel controlId="floatingEmail" label="Email">
                                     <Form.Control type="email" placeholder="Email" {...registerBasic("email")} />
-                                    {errorsBasic.email ? <div className='error-message text-white bg-danger rounded-pill shadow-sm ps-2 mt-2'>{errorsBasic.email.message}</div> : ''}
+                                    {errorsBasic.email ? <div className='error-message text-danger mt-2'>{errorsBasic.email.message}</div> : ''}
                                 </FloatingLabel>
 
                                 <FloatingLabel controlId="floatingPassword" label="Password">
                                     <Form.Control type="password" placeholder="Password" {...registerBasic("password")} />
-                                    {errorsBasic.password ? <div className='error-message text-white bg-danger rounded-pill shadow-sm ps-2 mt-2'>{errorsBasic.password.message}</div> : ''}
+                                    {errorsBasic.password ? <div className='error-message text-danger mt-2'>{errorsBasic.password.message}</div> : ''}
                                 </FloatingLabel>
 
                                 <FloatingLabel controlId="floatingconfirmPassword" label="Confirm Password">
                                     <Form.Control type="confirmpassword" placeholder="Confirm Password" {...registerBasic("confirmPassword")} />
-                                    {errorsBasic.confirmPassword ? <div className='error-message text-white bg-danger rounded-pill shadow-sm ps-2 mt-2'>{errorsBasic.confirmPassword.message}</div> : ''}
+                                    {errorsBasic.confirmPassword ? <div className='error-message text-danger mt-2'>{errorsBasic.confirmPassword.message}</div> : ''}
                                 </FloatingLabel>
                             </form>
                         </Carousel.Item>
@@ -187,28 +187,28 @@ function Register({}) {
                                 <div className="d-flex w-100 gap-3">
                                     <FloatingLabel className='w-50' controlId="floatingFirstName" label="First Name">
                                         <Form.Control type="text" placeholder="First Name" {...registerGeneral("firstName")} />
-                                        {errorsGeneral.firstName ? <div className='error-message text-white bg-danger rounded-pill shadow-sm ps-2 mt-2'>{errorsGeneral.firstName.message}</div> : ''}
+                                        {errorsGeneral.firstName ? <div className='error-message text-danger mt-2'>{errorsGeneral.firstName.message}</div> : ''}
                                     </FloatingLabel>
 
                                     <FloatingLabel className='w-50' controlId="floatingLastName" label="Last Name">
                                         <Form.Control type="text" placeholder="Last Name" {...registerGeneral("lastName")} />
-                                        {errorsGeneral.lastName ? <div className='error-message text-white bg-danger rounded-pill shadow-sm ps-2 mt-2'>{errorsGeneral.lastName.message}</div> : ''}
+                                        {errorsGeneral.lastName ? <div className='error-message text-danger mt-2'>{errorsGeneral.lastName.message}</div> : ''}
                                     </FloatingLabel>
                                 </div>
                                 
                                 <FloatingLabel controlId="floatingUsername" label="Username">
                                     <Form.Control type="text" placeholder="Username" {...registerGeneral("username")} />
-                                    {errorsGeneral.username ? <div className='error-message text-white bg-danger rounded-pill shadow-sm ps-2 mt-2'>{errorsGeneral.username.message}</div> : ''}
+                                    {errorsGeneral.username ? <div className='error-message text-danger mt-2'>{errorsGeneral.username.message}</div> : ''}
                                 </FloatingLabel>
 
                                 <FloatingLabel controlId="floatingPhoneNumber" label="Phone Number">
                                     <Form.Control type="text" placeholder="Phone Number" {...registerGeneral("phone")} />
-                                    {errorsGeneral.phone ? <div className='error-message text-white bg-danger rounded-pill shadow-sm ps-2 mt-2'>{errorsGeneral.phone.message}</div> : ''}
+                                    {errorsGeneral.phone ? <div className='error-message text-danger mt-2'>{errorsGeneral.phone.message}</div> : ''}
                                 </FloatingLabel>
 
                                 <FloatingLabel controlId="floatingDateOfBirth" label="Date of Birth">
                                     <Form.Control type="date" placeholder="Date of Birth" {...registerGeneral("dateOfBirth")} />
-                                    {errorsGeneral.dateOfBirth ? <div className='error-message text-white bg-danger rounded-pill shadow-sm ps-2 mt-2'>{errorsGeneral.dateOfBirth.message}</div> : ''}
+                                    {errorsGeneral.dateOfBirth ? <div className='error-message text-danger mt-2'>{errorsGeneral.dateOfBirth.message}</div> : ''}
                                 </FloatingLabel>
                             </form>
                         </Carousel.Item>
@@ -219,41 +219,41 @@ function Register({}) {
                                 <div className="d-flex w-100 gap-3">  
                                     <FloatingLabel className='w-50' controlId="floatingCity" label="City">
                                         <Form.Control type="text" placeholder="City" {...registerExtra("city")} />
-                                        {errorsExtra.city ? <div className='error-message text-white bg-danger rounded-pill shadow-sm ps-2 mt-2'>{errorsExtra.city.message}</div> : ''}
+                                        {errorsExtra.city ? <div className='error-message text-danger mt-2'>{errorsExtra.city.message}</div> : ''}
                                     </FloatingLabel>
 
                                     <FloatingLabel className='w-50' controlId="floatingZipcode" label="Zipcode">
                                         <Form.Control type="text" placeholder="Zipcode" {...registerExtra("zipcode")} />
-                                        {errorsExtra.zipcode ? <div className='error-message text-white bg-danger rounded-pill shadow-sm ps-2 mt-2'>{errorsExtra.zipcode.message}</div> : ''}
+                                        {errorsExtra.zipcode ? <div className='error-message text-danger mt-2'>{errorsExtra.zipcode.message}</div> : ''}
                                     </FloatingLabel>
                                 </div>
                                 
                                 <FloatingLabel controlId="floatingAddress" label="Address">
                                     <Form.Control type="text" placeholder="Address" {...registerExtra("address")} />
-                                    {errorsExtra.address ? <div className='error-message text-white bg-danger rounded-pill shadow-sm ps-2 mt-2'>{errorsExtra.address.message}</div> : ''}
+                                    {errorsExtra.address ? <div className='error-message text-danger mt-2'>{errorsExtra.address.message}</div> : ''}
                                 </FloatingLabel>
 
                                 <FloatingLabel controlId="floatingStreet" label="Street">
                                     <Form.Control type="text" placeholder="Street" {...registerExtra("street")} />
-                                    {errorsExtra.street ? <div className='error-message text-white bg-danger rounded-pill shadow-sm ps-2 mt-2'>{errorsExtra.street.message}</div> : ''}
+                                    {errorsExtra.street ? <div className='error-message text-danger mt-2'>{errorsExtra.street.message}</div> : ''}
                                 </FloatingLabel>
 
 
                                 <FloatingLabel controlId="floatingCreditCardNo" label="Credit Card Number">
                                     <Form.Control type="number" placeholder="Credit Card Number" {...registerExtra("creditCardNo")} />
-                                    {errorsExtra.creditCardNo ? <div className='error-message text-white bg-danger rounded-pill shadow-sm ps-2 mt-2'>{errorsExtra.creditCardNo.message}</div> : ''}
+                                    {errorsExtra.creditCardNo ? <div className='error-message text-danger mt-2'>{errorsExtra.creditCardNo.message}</div> : ''}
                                 </FloatingLabel>
                             </form>
                         </Carousel.Item>
                     </Carousel>
 
                     <div className='mt-4 px-1'>
-                        {validationError && <div className='error-message text-white bg-danger rounded-pill shadow-sm ps-2 mt-2'>{validationError}</div>}
+                        {validationError && <div className='error-message text-danger mt-2'>{validationError}</div>}
                         {
                             registerStage > 0 &&
                             <Button className='bg-transparent border-0 text-primary p-0 pb-2' onClick={()=>{setRegisterStage(registerStage-1)}}>Back</Button>
                         }
-                        <Button variant='dark' type='submit' form={`register-form-${registerStage+1}`} className='btn-dark w-100 mt-1 fs-5'>{registerStage < 2 ? "Next" : "Register"}</Button>
+                        <Button variant='dark' type='submit' form={`register-form-${registerStage+1}`} className='main-button border-0 w-100 mt-1 fs-5'>{registerStage < 2 ? "Next" : "Register"}</Button>
                     </div>
                     <hr className='mt-4' />
                     <div className='w-100 text-center'>

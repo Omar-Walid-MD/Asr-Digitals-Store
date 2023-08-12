@@ -21,8 +21,8 @@ function Slider({content, className="", variant="dark", style}) {
 
 
   return (
-    <div className={`w-100 position-relative slider-container ${className}`} style={style} >
-      <div className={`overflow-x-scroll scrollbar ${variant} shadow rounded-md-2`} ref={scroll} style={{scrollBehavior: "smooth"}}>
+    <div className={`w-100 position-relative slider-container ${variant} ${className}`} style={style} >
+      <div className={`overflow-x-scroll scrollbar shadow rounded-md-2`} ref={scroll} style={{scrollBehavior: "smooth"}}>
         <div className='d-flex align-items-center slider p-md-4' style={{width: "fit-content"}} >
         {
            content
@@ -30,10 +30,10 @@ function Slider({content, className="", variant="dark", style}) {
         </div>
       </div>
       <div className='position-absolute top-0 h-100 d-none d-md-flex align-items-center right-0 pe-4'>
-        <Button className='rounded-circle bg-dark border-0 p-2 fs-2 d-flex' onClick={()=>{handleScroll(1);}}><BsCaretRightFill /></Button>
+        <Button className='rounded-circle slider-control bg-transparent border-0 p-2 fs-2 d-flex' onClick={()=>{handleScroll(1);}}><BsCaretRightFill /></Button>
       </div>
       <div className='position-absolute top-0 h-100 d-none d-md-flex align-items-center left-0 ps-4'>
-        <Button className='rounded-circle bg-dark border-0 p-2 fs-2 d-flex' onClick={()=>{handleScroll(-1);}} ><BsCaretLeftFill /></Button>
+        <Button className='rounded-circle slider-control bg-transparent border-0 p-2 fs-2 d-flex' onClick={()=>{handleScroll(-1);}} ><BsCaretLeftFill /></Button>
       </div>
     </div>
   );

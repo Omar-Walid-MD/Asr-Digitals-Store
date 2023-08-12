@@ -80,15 +80,16 @@ const router = createBrowserRouter([
                         element: <Register />
                     }
                 ]
+            },
+            {
+                path: "/products",
+                element: <ProductsManagementPage />
             }
         ]
         
-    },
-    
-    {
-        path: "/products",
-        element: <ProductsManagementPage />
     }
+    
+    
 ]);
 
 export default router;

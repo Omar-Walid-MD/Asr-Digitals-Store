@@ -58,7 +58,7 @@ function CartSideBar() {
                 <hr />
                 <p className='fs-5'>Total Fees: 0000</p>
                 <div className="d-flex gap-2">
-                    <Link to={"/checkout"} state={{prevPath: location.pathname}} className='btn btn-dark fs-5 w-100 text-center'>Checkout</Link>
+                    <Link to={"/checkout"} state={{prevPath: location.pathname}} className='btn btn-dark main-button border border-3 fs-5 w-100 text-center'>Checkout</Link>
                     <Link to={"/cart"} variant='secondary' className='fs-5 text-white btn btn-secondary d-flex align-items-center'><BsCartFill/> </Link>
                 </div>
             </div>

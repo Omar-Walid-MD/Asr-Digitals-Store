@@ -11,11 +11,10 @@ function Shop({}) {
     const products = useSelector((store) => store.products.products);
     const dispatch = useDispatch();
 
-    const [filters,setFilters] = useState({categories:[], brands:[]});
+    const [filters,setFilters] = useState({categories:[]});
     const [sort,setSort] = useState({type: "alphabetical",order: "asc"});
 
     const categories = ["phones","tablets","laptops","desktops","headphones","earphones"];
-    const brands = ["Brand 1","Brand 2","Brand 3","Brand 4"];
 
     function handleFilterCategories(category)
     {
@@ -31,20 +30,7 @@ function Shop({}) {
         setFilters({...filters,categories: updatedCategories});
     }
 
-    function handleFilterBrands(brand)
-    {
-        let updatedBrands = [];
-        if(filters.brands.includes(brand))
-        {
-            updatedBrands = filters.brands.filter((brandInList) => brandInList !== brand);
-        }
-        else
-        {
-            updatedBrands = [...filters.brands,brand];
-        }
-        console.log(updatedBrands);
-        setFilters({...filters,brands: updatedBrands});
-    }
+
 
 
     useEffect(()=>{
@@ -97,25 +83,7 @@ function Shop({}) {
                                 </Dropdown>
                             </div>
 
-                            <hr className='border-2' />
-
-                            <div className='d-flex gap-4'>
-                                <h5 className='me-1'>Brands</h5>
-                                <Dropdown autoClose="outside" >
-                                    <Dropdown.Toggle className={`d-flex align-items-center justify-content-between ${filters.brands.length>0 ? "bg-primary border-primary" : "bg-secondary"}`} style={{width: "6em"}} variant="secondary" id="dropdown-basic">
-                                        {filters.brands.length>0 ? "Selected" : "Select..."}
-                                    </Dropdown.Toggle>
-
-                                    <Dropdown.Menu className='p-0 rounded-0 w-0'>
-                                        <Dropdown.Item className={`p-0 dropdown-select border-bottom border-dark`}><Button className='bg-transparent border-0 d-flex justify-content-between text-danger text-capitalize w-100' onClick={()=>{setFilters({...filters,brands:[]})}}> None </Button></Dropdown.Item>
-                                    {
-                                        brands.map((brand) => 
-                                        <Dropdown.Item className={`p-0 dropdown-select border-bottom border-dark ${filters.brands.includes(brand) ? "selected" : ""}`}><Button className='bg-transparent border-0 d-flex justify-content-between text-dark text-capitalize w-100' onClick={()=>{handleFilterBrands(brand)}} >{brand} <BsCheck className='dropdown-item-check d-none fs-4'/> </Button> </Dropdown.Item>
-                                        )
-                                    }
-                                    </Dropdown.Menu>
-                                </Dropdown>
-                            </div>
+                            
                         </div>
                     </Col>
                     <Col className='col-12 col-md-8 col-xl-9 p-0 ps-md-2 px-lg-1'>

@@ -241,28 +241,28 @@ function Checkout({}) {
                                                 <div className="d-flex flex-column flex-sm-row w-100 gap-3">
                                                     <FloatingLabel className='w-100' controlId="floatingFirstName" label="First Name">
                                                         <Form.Control type="text" placeholder="First Name" {...registerGeneralForm("firstName")} />
-                                                        {errorsGeneralForm.firstName ? <div className='error-message text-white bg-danger rounded-pill shadow-sm ps-2 mt-2'>{errorsGeneralForm.firstName.message}</div> : ''}
+                                                        {errorsGeneralForm.firstName ? <div className='error-message text-danger mt-2'>{errorsGeneralForm.firstName.message}</div> : ''}
                                                     </FloatingLabel>
 
                                                     <FloatingLabel className='w-100' controlId="floatingLastName" label="Last Name">
                                                         <Form.Control type="text" placeholder="Last Name" {...registerGeneralForm("lastName")} />
-                                                        {errorsGeneralForm.lastName ? <div className='error-message text-white bg-danger rounded-pill shadow-sm ps-2 mt-2'>{errorsGeneralForm.lastName.message}</div> : ''}
+                                                        {errorsGeneralForm.lastName ? <div className='error-message text-danger mt-2'>{errorsGeneralForm.lastName.message}</div> : ''}
                                                     </FloatingLabel>
                                                 </div>
                                                 <FloatingLabel controlId="floatingEmail" label="Email">
                                                     <Form.Control type="email" placeholder="Email" {...registerGeneralForm("email")} />
-                                                    {errorsGeneralForm.email ? <div className='error-message text-white bg-danger rounded-pill shadow-sm ps-2 mt-2'>{errorsGeneralForm.email.message}</div> : ''}
+                                                    {errorsGeneralForm.email ? <div className='error-message text-danger mt-2'>{errorsGeneralForm.email.message}</div> : ''}
                                                 </FloatingLabel>
 
                                                 <div className="d-flex flex-column flex-sm-row w-100 gap-3">
                                                     <FloatingLabel className='w-100' controlId="floatingPhoneNumber" label="Phone Number">
                                                         <Form.Control type="text" placeholder="Phone Number" {...registerGeneralForm("phone")} />
-                                                        {errorsGeneralForm.phone ? <div className='error-message text-white bg-danger rounded-pill shadow-sm ps-2 mt-2'>{errorsGeneralForm.phone.message}</div> : ''}
+                                                        {errorsGeneralForm.phone ? <div className='error-message text-danger mt-2'>{errorsGeneralForm.phone.message}</div> : ''}
                                                     </FloatingLabel>
 
                                                     <FloatingLabel className='w-100' controlId="floatingDateOfBirth" label="Date of Birth">
                                                         <Form.Control type="date" placeholder="Date of Birth" {...registerGeneralForm("dateOfBirth")} />
-                                                        {errorsGeneralForm.dateOfBirth ? <div className='error-message text-white bg-danger rounded-pill shadow-sm ps-2 mt-2'>{errorsGeneralForm.dateOfBirth.message}</div> : ''}
+                                                        {errorsGeneralForm.dateOfBirth ? <div className='error-message text-danger mt-2'>{errorsGeneralForm.dateOfBirth.message}</div> : ''}
                                                     </FloatingLabel>
                                                 </div>
                                             </form>
@@ -275,23 +275,23 @@ function Checkout({}) {
                                                 <div className="d-flex flex-column flex-sm-row w-100 gap-3">
                                                     <FloatingLabel className='w-100' controlId="floatingCity" label="City">
                                                         <Form.Control type="text" placeholder="City" {...registerShippingForm("city")} />
-                                                        {errorsShippingForm.city ? <div className='error-message text-white bg-danger rounded-pill shadow-sm ps-2 mt-2'>{errorsShippingForm.city.message}</div> : ''}
+                                                        {errorsShippingForm.city ? <div className='error-message text-danger mt-2'>{errorsShippingForm.city.message}</div> : ''}
                                                     </FloatingLabel>
 
                                                     <FloatingLabel className='w-100' controlId="floatingZipcode" label="Zipcode">
                                                         <Form.Control type="text" placeholder="Zipcode" {...registerShippingForm("zipcode")} />
-                                                        {errorsShippingForm.zipcode ? <div className='error-message text-white bg-danger rounded-pill shadow-sm ps-2 mt-2'>{errorsShippingForm.zipcode.message}</div> : ''}
+                                                        {errorsShippingForm.zipcode ? <div className='error-message text-danger mt-2'>{errorsShippingForm.zipcode.message}</div> : ''}
                                                     </FloatingLabel>
                                                 </div>
                                                 
                                                 <FloatingLabel controlId="floatingAddress" label="Address">
                                                     <Form.Control type="text" placeholder="Address" {...registerShippingForm("address")} />
-                                                    {errorsShippingForm.address ? <div className='error-message text-white bg-danger rounded-pill shadow-sm ps-2 mt-2'>{errorsShippingForm.address.message}</div> : ''}
+                                                    {errorsShippingForm.address ? <div className='error-message text-danger mt-2'>{errorsShippingForm.address.message}</div> : ''}
                                                 </FloatingLabel>
 
                                                 <FloatingLabel controlId="floatingStreet" label="Street">
                                                     <Form.Control type="text" placeholder="Street" {...registerShippingForm("street")} />
-                                                    {errorsShippingForm.street ? <div className='error-message text-white bg-danger rounded-pill shadow-sm ps-2 mt-2'>{errorsShippingForm.street.message}</div> : ''}
+                                                    {errorsShippingForm.street ? <div className='error-message text-danger mt-2'>{errorsShippingForm.street.message}</div> : ''}
                                                 </FloatingLabel>
                                             </form>
                                         </Carousel.Item>
@@ -302,13 +302,13 @@ function Checkout({}) {
 
                                                 <FloatingLabel controlId="floatingCreditCardNo" label="Credt Card Number">
                                                     <Form.Control type="text" placeholder="First Name" {...registerPaymentForm("creditCardNo")} />
-                                                    {errorsPaymentForm.creditCardNo ? <div className='error-message text-white bg-danger rounded-pill shadow-sm ps-2 mt-2'>{errorsPaymentForm.creditCardNo.message}</div> : ''}
+                                                    {errorsPaymentForm.creditCardNo ? <div className='error-message text-danger mt-2'>{errorsPaymentForm.creditCardNo.message}</div> : ''}
                                                 </FloatingLabel>
 
                                                 <div className="d-flex flex-column flex-sm-row w-100 gap-3">
                                                     <FloatingLabel className='w-sm-50' controlId="floatingCreditCardPin" label="Credit Card PIN">
                                                         <Form.Control type="text" placeholder="Credit Card PIN" {...registerPaymentForm("creditCardPin")} />
-                                                        {errorsPaymentForm.creditCardPin ? <div className='error-message text-white bg-danger rounded-pill shadow-sm ps-2 mt-2'>{errorsPaymentForm.creditCardPin.message}</div> : ''}
+                                                        {errorsPaymentForm.creditCardPin ? <div className='error-message text-danger mt-2'>{errorsPaymentForm.creditCardPin.message}</div> : ''}
                                                     </FloatingLabel>
 
 
@@ -329,7 +329,7 @@ function Checkout({}) {
                                                                 <option value="11">11</option>
                                                                 <option value="12">12</option>
                                                             </Form.Select>
-                                                            {errorsPaymentForm.creditCardExpMonth ? <div className='error-message text-white bg-danger rounded-pill shadow-sm ps-2 mt-2'>{errorsPaymentForm.creditCardExpMonth.message}</div> : ''}
+                                                            {errorsPaymentForm.creditCardExpMonth ? <div className='error-message text-danger mt-2'>{errorsPaymentForm.creditCardExpMonth.message}</div> : ''}
                                                         </FloatingLabel>
 
                                                         <FloatingLabel className='w-50' controlId="floatingCreditCardExpYr" label="Exp. Year">
@@ -343,7 +343,7 @@ function Checkout({}) {
                                                                 <option value="29">29</option>
                                                                 <option value="30">30</option>
                                                             </Form.Select>
-                                                            {errorsPaymentForm.creditCardExpYear ? <div className='error-message text-white bg-danger rounded-pill shadow-sm ps-2 mt-2'>{errorsPaymentForm.creditCardExpYear.message}</div> : ''}
+                                                            {errorsPaymentForm.creditCardExpYear ? <div className='error-message text-danger mt-2'>{errorsPaymentForm.creditCardExpYear.message}</div> : ''}
                                                         </FloatingLabel>
                                                     </div>
 
@@ -359,9 +359,9 @@ function Checkout({}) {
                                                             </div>
                                                         </div>
                                                         {errorsPaymentForm.creditCardExpMonth ? 
-                                                        <div className='error-message text-white bg-danger rounded-pill shadow-sm ps-2 mt-2'>{errorsPaymentForm.creditCardExpMonth.message}</div> :
+                                                        <div className='error-message text-danger mt-2'>{errorsPaymentForm.creditCardExpMonth.message}</div> :
                                                         errorsPaymentForm.creditCardExpYear ?
-                                                        <div className='error-message text-white bg-danger rounded-pill shadow-sm ps-2 mt-2'>{errorsPaymentForm.creditCardExpYear.message}</div> : ''}
+                                                        <div className='error-message text-danger mt-2'>{errorsPaymentForm.creditCardExpYear.message}</div> : ''}
                                                     </div> */}
                                                 </div>
                                             </form>
@@ -380,9 +380,9 @@ function Checkout({}) {
                                                         <FloatingLabel className='w-100 mt-5' controlId="floatingCheckoutPassword" label="Enter Password">
                                                             <Form.Control type="password" placeholder="Enter Password" value={password} onChange={(e)=>{setPassword(e.target.value)}}/>
                                                         </FloatingLabel>
-                                                        {validationError==="password" && <div className='error-message text-white bg-danger rounded-pill shadow-sm ps-2 mt-2'>Password Incorrect...</div>}
+                                                        {validationError==="password" && <div className='error-message text-danger mt-2'>Password Incorrect...</div>}
                                                         <ReCAPTCHA ref={captchaRef} className='mt-3' sitekey={"6LctVIsnAAAAANlWcPejAxTnDV8xLmhXFN1PulUF"} />
-                                                        {validationError==="ReCAPTCHA" && <div className='error-message text-white bg-danger rounded-pill shadow-sm ps-2 mt-2'>ReCAPTCHA Failed...</div>}
+                                                        {validationError==="ReCAPTCHA" && <div className='error-message text-danger mt-2'>ReCAPTCHA Failed...</div>}
 
                                                     </form>
                                                 </div>

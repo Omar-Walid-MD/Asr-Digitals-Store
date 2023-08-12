@@ -6,7 +6,7 @@ function ProductReview({review}) {
     return (
         <Row className="w-100 border-3 border-bottom border-secondary-subtle rounded-3 p-3 shadow-sm gy-3">
             <Col className="col-12 col-md-2 col-lg-1 d-flex flex-row flex-md-column gap-3">
-                <BsFillPersonFill className='bg-light rounded-3 fs-1 shadow' />
+                <BsFillPersonFill className='bg-light rounded-3 fs-1 shadow-sm border border-2 border-dark' />
                 <div className="d-flex flex-column">
                     <h6 className='m-0'>Username</h6>
                     <p className='m-0'>00/00/0000</p>

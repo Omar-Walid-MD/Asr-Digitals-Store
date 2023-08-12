@@ -20,7 +20,7 @@ function Footer({}) {
                 <Row className=''>
                     <Col className='col-12 col-md-4 text-start'>
                         <h3>Asr Digitals</h3>
-                        <h5 className='text-secondary'>Always here to provide.</h5>
+                        <h5 className='text-secondary-light'>Always here to provide.</h5>
                         <hr />
 
                     </Col>
@@ -30,7 +30,7 @@ function Footer({}) {
                             <form action="" className='d-flex gap-3 flex-column flex-sm-row'>
                                 <input type="text" className='form-control w-50' placeholder='Your Name'/>
                                 <input type="email" className='form-control' placeholder='Your Email'/>
-                                <Button variant='dark' type="submit" className='btn-dark border-white'>Subscribe</Button>
+                                <Button variant='dark' type="submit" className='btn-dark main-button border-white' style={{minWidth: "6rem"}}>Subscribe</Button>
                             </form>
                         </div>
                     </Col>

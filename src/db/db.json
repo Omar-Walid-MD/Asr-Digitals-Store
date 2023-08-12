@@ -13,188 +13,73 @@
       "zipcode": "42221",
       "creditCardNo": 1,
       "street": "111",
-      "cart": [
-        {
-          "productId": "1",
-          "count": 1
-        },
-        {
-          "productId": "2",
-          "count": 1
-        }
-      ],
+      "cart": [],
       "favorites": [],
       "id": 1
     }
   ],
   "products": [
     {
-      "id": 1,
-      "title": "Phone 1",
+      "category": "smartphone",
+      "desc": "This new phone is awesome",
+      "price": 580,
+      "image": "https://i.imgur.com/XVnNbCm.png",
+      "title": "Phone 4X",
+      "specs": {
+        "os": "Android 10",
+        "ram": "1 GB",
+        "storage": "128 GB",
+        "battery": "4000 mAh",
+        "processor": "2.2 Ghz",
+        "size": "8 Inches",
+        "cam": "20 MP",
+        "res": "1280 x 720"
+      },
+      "id": 4,
+      "rating": 0
+    },
+    {
+      "category": "smartphone",
+      "desc": "",
       "price": 100,
-      "rating": "3.3",
-      "desc": "Phone 1 is the first phone"
+      "image": "https://i.imgur.com/XVnNbCm.png",
+      "title": "Phone 11",
+      "specs": {
+        "os": "Android 11",
+        "storage": "128 GB"
+      },
+      "id": 5,
+      "rating": 0
     },
     {
-      "id": 2,
-      "title": "Z Phone 2",
-      "price": 210,
-      "desc": "Phone 2 is the second",
-      "rating": "4.0"
+      "category": "tablet",
+      "desc": "",
+      "price": 100,
+      "image": "https://i.imgur.com/XVnNbCm.png",
+      "title": "Phon 34",
+      "specs": {
+        "storage": "e",
+        "os": "1"
+      },
+      "rating": 0,
+      "id": "84353"
     },
     {
-      "id": 3,
-      "title": "Phone 3",
-      "price": 330,
-      "desc": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione ut. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione ut. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione ut."
+      "category": "smartphone",
+      "desc": "",
+      "price": 1234,
+      "image": "https://i.imgur.com/XVnNbCm.png",
+      "title": "Phone 3434",
+      "specs": {
+        "os": "Android 11",
+        "storage": "128 GB",
+        "ram": "2 GB"
+      },
+      "rating": 0,
+      "id": "81919"
     }
   ],
-  "reviews": [
-    {
-      "cons": "",
-      "pros": "",
-      "rating": 4,
-      "body": "dd",
-      "title": "New review",
-      "productId": "1",
-      "id": 1
-    },
-    {
-      "cons": "",
-      "pros": "",
-      "rating": 5,
-      "body": "dd",
-      "title": "My review",
-      "productId": "1",
-      "id": 2
-    },
-    {
-      "cons": "",
-      "pros": "",
-      "rating": 5,
-      "body": "ff",
-      "title": "ff",
-      "productId": "1",
-      "id": 3
-    },
-    {
-      "cons": "",
-      "pros": "",
-      "rating": 5,
-      "body": "d",
-      "title": "ddd",
-      "productId": "2",
-      "id": 4
-    },
-    {
-      "cons": "",
-      "pros": "",
-      "rating": 5,
-      "body": "thx",
-      "title": "Good review",
-      "productId": "2",
-      "id": 5
-    },
-    {
-      "cons": "",
-      "pros": "",
-      "rating": 5,
-      "body": "d",
-      "title": "d",
-      "productId": "1",
-      "id": 6
-    },
-    {
-      "cons": "",
-      "pros": "",
-      "rating": 1,
-      "body": "1",
-      "title": "1",
-      "productId": "1",
-      "id": 7
-    },
-    {
-      "cons": "",
-      "pros": "",
-      "rating": 5,
-      "body": "d",
-      "title": "d",
-      "productId": "1",
-      "id": 8
-    },
-    {
-      "cons": "",
-      "pros": "",
-      "rating": 1,
-      "body": "q",
-      "title": "q",
-      "productId": "1",
-      "id": 9
-    },
-    {
-      "cons": "",
-      "pros": "",
-      "rating": 2,
-      "body": "3",
-      "title": "3",
-      "productId": "1",
-      "id": 10
-    },
-    {
-      "cons": "",
-      "pros": "",
-      "rating": 5,
-      "body": "3",
-      "title": "3",
-      "productId": "1",
-      "id": 11
-    },
-    {
-      "cons": "",
-      "pros": "",
-      "rating": 1,
-      "body": "3",
-      "title": "3",
-      "productId": "1",
-      "id": 12
-    },
-    {
-      "cons": "",
-      "pros": "",
-      "rating": 5,
-      "body": "wffwwsfss",
-      "title": "ddffdf",
-      "productId": "1",
-      "id": 13
-    },
-    {
-      "cons": "",
-      "pros": "",
-      "rating": 1,
-      "body": "ddd",
-      "title": "dddd",
-      "productId": "1",
-      "id": 14
-    },
-    {
-      "cons": "",
-      "pros": "",
-      "rating": 5,
-      "body": "5",
-      "title": "g",
-      "productId": "2",
-      "id": 15
-    },
-    {
-      "cons": "",
-      "pros": "",
-      "rating": 1,
-      "body": "1",
-      "title": "1",
-      "productId": "2",
-      "id": 16
-    }
-  ],
+  "reviews": [],
   "purchases": [
     {
       "total": 310,
@@ -235,5 +120,285 @@
       "date": 1691584203267,
       "id": 1
     }
-  ]
+  ],
+  "productsInfo": {
+    "categories": [
+      {
+        "name": "smartphone",
+        "specs": [
+          {
+            "code": "os",
+            "name": "operating system"
+          },
+          {
+            "code": "ram",
+            "name": "RAM"
+          },
+          {
+            "code": "storage",
+            "name": "storage"
+          },
+          {
+            "code": "processor",
+            "name": "processor"
+          },
+          {
+            "code": "battery",
+            "name": "battery life"
+          },
+          {
+            "code": "cam",
+            "name": "camera resolution"
+          },
+          {
+            "code": "size",
+            "name": "screen size"
+          },
+          {
+            "code": "res",
+            "name": "resolution"
+          }
+        ],
+        "deliveryValue": "1"
+      },
+      {
+        "name": "tablet",
+        "specs": [
+          {
+            "code": "os",
+            "name": "operating system"
+          },
+          {
+            "code": "ram",
+            "name": "RAM"
+          },
+          {
+            "code": "storage",
+            "name": "storage"
+          },
+          {
+            "code": "processor",
+            "name": "processor"
+          },
+          {
+            "code": "battery",
+            "name": "battery life"
+          },
+          {
+            "code": "cam",
+            "name": "camera resolution"
+          },
+          {
+            "code": "size",
+            "name": "screen size"
+          },
+          {
+            "code": "res",
+            "name": "resolution"
+          }
+        ],
+        "deliveryValue": "1"
+      },
+      {
+        "name": "laptop",
+        "specs": [
+          {
+            "code": "os",
+            "name": "operating system"
+          },
+          {
+            "code": "ram",
+            "name": "RAM"
+          },
+          {
+            "code": "storage",
+            "name": "storage"
+          },
+          {
+            "code": "processor",
+            "name": "processor"
+          },
+          {
+            "code": "gpu",
+            "name": "graphics card"
+          },
+          {
+            "code": "battery",
+            "name": "battery life"
+          },
+          {
+            "code": "cam",
+            "name": "camera resolution"
+          },
+          {
+            "code": "size",
+            "name": "size"
+          },
+          {
+            "code": "res",
+            "name": "resolution"
+          }
+        ],
+        "deliveryValue": "1"
+      },
+      {
+        "name": "desktop",
+        "specs": [
+          {
+            "code": "os",
+            "name": "operating system"
+          },
+          {
+            "code": "ram",
+            "name": "RAM"
+          },
+          {
+            "code": "storage",
+            "name": "storage"
+          },
+          {
+            "code": "processor",
+            "name": "processor"
+          },
+          {
+            "code": "gpu",
+            "name": "graphics card"
+          },
+          {
+            "code": "size",
+            "name": "size"
+          }
+        ],
+        "deliveryValue": "1"
+      },
+      {
+        "name": "mouse",
+        "specs": [
+          {
+            "code": "connection",
+            "name": "connection type"
+          },
+          {
+            "code": "movement",
+            "name": "movement detection"
+          }
+        ],
+        "deliveryValue": "1"
+      },
+      {
+        "name": "keyboard",
+        "specs": [
+          {
+            "code": "connection",
+            "name": "connection type"
+          },
+          {
+            "code": "key",
+            "name": "key type"
+          },
+          {
+            "code": "keysNumber",
+            "name": "keys number"
+          }
+        ],
+        "deliveryValue": "1"
+      },
+      {
+        "name": "headphone",
+        "specs": [
+          {
+            "code": "connection",
+            "name": "connection type"
+          },
+          {
+            "code": "microphone",
+            "name": "microphone included"
+          },
+          {
+            "code": "noiseCancelling",
+            "name": "noise cancelling"
+          }
+        ],
+        "deliveryValue": "1"
+      },
+      {
+        "name": "earphone",
+        "specs": [
+          {
+            "code": "connection",
+            "name": "connection type"
+          },
+          {
+            "code": "microphone",
+            "name": "microphone included"
+          },
+          {
+            "code": "noiseCancelling",
+            "name": "noise cancelling"
+          }
+        ],
+        "deliveryValue": "1"
+      },
+      {
+        "name": "speaker",
+        "specs": [
+          {
+            "code": "connection",
+            "name": "connection type"
+          },
+          {
+            "code": "control",
+            "name": "control type"
+          },
+          {
+            "code": "volume",
+            "name": "volume level"
+          }
+        ],
+        "deliveryValue": "1"
+      },
+      {
+        "name": "microphone",
+        "specs": [
+          {
+            "code": "connection",
+            "name": "connection type"
+          },
+          {
+            "code": "frequency",
+            "name": "frequency"
+          },
+          {
+            "code": "sensitivity",
+            "name": "sensitivity"
+          }
+        ],
+        "deliveryValue": "1"
+      },
+      {
+        "name": "usb drive",
+        "specs": [
+          {
+            "code": "storage",
+            "name": "storage"
+          },
+          {
+            "code": "speed",
+            "name": "speed"
+          }
+        ]
+      }
+    ],
+    "generalSpecs": [
+      {
+        "code": "weight",
+        "name": "weight"
+      },
+      {
+        "code": "color",
+        "name": "color"
+      }
+    ],
+    "baseDeliveryValue": "50"
+  }
 }

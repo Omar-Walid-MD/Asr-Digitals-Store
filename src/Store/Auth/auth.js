@@ -45,8 +45,10 @@ export const registerUser = createAsyncThunk(
 
 export const loginUser = createAsyncThunk(
   'auth/loginUser',
-  async (user) => {
-    localStorage.setItem("currentUser",user.id);
+  async ({user,remember}) => {
+
+    if(remember) localStorage.setItem("currentUser",user.id);
+    else sessionStorage.setItem("currentUser",user.id);
     let localCart = JSON.parse(localStorage.getItem("userCart"));
     let localFavs = JSON.parse(localStorage.getItem("userFavorites"));
 
@@ -91,6 +93,7 @@ export const logoutUser = createAsyncThunk(
   'auth/logoutUser',
   async () => {
     localStorage.setItem("currentUser","");
+    sessionStorage.setItem("currentUser","");
     localStorage.setItem("userCart",JSON.stringify([]));
     localStorage.setItem("userFavorites",JSON.stringify([])); 
 });

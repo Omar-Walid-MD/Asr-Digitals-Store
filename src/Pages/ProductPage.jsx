@@ -33,6 +33,7 @@ function ProductPage({})
     const cart = useSelector((store) => store.cart.cart);
     const favorites = useSelector((store) => store.favorites.favorites);
     const reviews = useSelector((store) => store.reviews.reviews.filter((review) => review.productId === productId).reverse());
+    const productsInfo = useSelector((store) => store.products.productsInfo);
     const dispatch = useDispatch();
     const { register, handleSubmit, reset, formState: { errors } } = useForm({ resolver: yupResolver(schema) });
 
@@ -46,13 +47,6 @@ function ProductPage({})
     const [firstCountSet,setFirstCountSet] = useState(false);
 
     const [rating,setRating] = useState(5);
-
-    const specs = {
-            "OS": "Windows 10",
-            "RAM": "16 GBs",
-            "Dimensions": "192 x 1394",
-            "Weight": "123.83g"
-    }
 
     function getCount()
     {
@@ -134,27 +128,25 @@ function ProductPage({})
                                         <p className='m-0'>
                                             Lorem, ipsum dolor sit amet consectetur adipisicing elit. Excepturi, amet, architecto natus consequatur blanditiis possimus tenetur ullam, totam nemo delectus eum temporibus minima enim? Quidem in eaque et ut nostrum.
                                         </p>
-                                        <div className="d-flex flex-column flex-md-row gap-2">
-                                            <p className='m-0 fs-5 text-warning-emphasis fw-semibold'>{product.rating} ({reviews.length} reviews)</p>
-                                            <div className="d-flex gap-2">
-                                                {
-                                                    [1,2,3,4,5].map((n)=>
-                                                    <div className='position-relative'>
-                                                        <BsStarFill key={"pr-p-g-s-"+n} className={"text-dark fs-3 d-flex justify-content-center"} />
-                                                        <div style={{width: `${n <= product.rating ? 100 : n === Math.ceil(product.rating) ? product.rating % 1 * 100 : 0}%`}} className='position-absolute top-0 overflow-hidden'>
-                                                            <BsStarFill key={"pr-p-g-s-"+n} className={"text-warning fs-3 d-flex justify-content-center"} />
+                                        {
+                                            reviews.length >= 5 ?
+                                            <div className="d-flex flex-column flex-md-row gap-2">
+                                                <p className='m-0 fs-5 text-warning-emphasis fw-semibold'>{product.rating} ({reviews.length} reviews)</p>
+                                                <div className="d-flex gap-2">
+                                                    {
+                                                        [1,2,3,4,5].map((n)=>
+                                                        <div className='position-relative'>
+                                                            <BsStarFill key={"pr-p-g-s-"+n} className={"text-dark fs-3 d-flex justify-content-center"} />
+                                                            <div style={{width: `${n <= product.rating ? 100 : n === Math.ceil(product.rating) ? product.rating % 1 * 100 : 0}%`}} className='position-absolute top-0 overflow-hidden'>
+                                                                <BsStarFill key={"pr-p-g-s-"+n} className={"text-warning fs-3 d-flex justify-content-center"} />
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    )
-                                                }
-                                            </div>
-                                            {/* <div className='position-relative'>
-                                                <div className='d-flex justify-content-between' style={{width: "200px", height: "50px"}}>{[1,2,3,4,5].map((n,index)=><BsStarFill key={"pr-p-b-s-"+index} className={"text-dark fs-3 d-flex justify-content-center w-100"} />)}</div>
-                                                <div className="position-absolute top-0 overflow-hidden" style={{width: `${product.rating / 5 * 200}px`}}>
-                                                    <div className='d-flex justify-content-between' style={{width: "200px", height: "50px"}}>{[1,2,3,4,5].map((n,index)=><BsStarFill key={"pr-p-g-s-"+index} className={"text-warning fs-3 d-flex justify-content-center w-100"} />)}</div>
+                                                        )
+                                                    }
                                                 </div>
-                                            </div> */}
-                                        </div>
+                                            </div>
+                                            : ""
+                                        }
                                         
                                         <h1 className='text-danger price-tag mt-2 fw-semibold'>{product.price}</h1>
                                     </div>
@@ -195,13 +187,16 @@ function ProductPage({})
                     <Container className='py-5'>
                         <Row className='text-white fs-5 g-3 m-0'>
                         {
-                            Object.keys(specs).map((spec,index) => 
+                            product && productsInfo.categories && productsInfo.categories.find((category) => category.name === product.category).specs.map((spec, index) =>
+                            
+                            product.specs[spec.code] ?
                             <Col key={"related-product-"+index} className='col-12 p-0'>
                                 <div className='d-flex flex-column align-items-start product-spec'>
-                                    <div className='p-0' style={{minWidth: "8rem"}}><div className='bg-info fw-semibold p-2 px-3 rounded-top shadow-sm'>{spec}</div></div>
-                                    <div className='w-100 border border-info border-3 shadow-sm' style={{borderRadius: "0 0.5rem 0.5rem 0.5rem"}}><div className='p-2 px-3'>{specs[spec]}</div></div>
+                                    <div className='p-0' style={{minWidth: "8rem"}}><div className='bg-info fw-semibold p-2 px-3 rounded-top shadow-sm text-capitalize'>{spec.name}</div></div>
+                                    <div className='w-100 border border-info border-3 shadow-sm' style={{borderRadius: "0 0.5rem 0.5rem 0.5rem"}}><div className='p-2 px-3'>{product.specs[spec.code]}</div></div>
                                 </div>
                             </Col>
+                            : ""
                             )
                         }
                         </Row>
@@ -220,21 +215,26 @@ function ProductPage({})
                         product && reviews ?
                         <Container>
                             <div className="d-flex flex-column gap-3">
-                                <div className='d-flex flex-column flex-md-row gap-5 py-5'>
-                                    <div className='rounded-circle p-3' style={{width: "250px", aspectRatio:"1", background: `conic-gradient(rgb(var(--bs-warning-rgb)) ${product.rating / 5 * 100}%, transparent 0)`}}>
-                                        <div className="bg-light w-100 h-100 rounded-circle shadow-lg d-flex justify-content-center align-items-center pb-3 text-warning-emphasis" style={{fontSize: "min(5em,50vw)"}}>{product.rating}<BsStarFill className='ms-2 mt-4' style={{fontSize: "0.75em"}} /></div>
-                                    </div>
-                                    <div className='d-flex align-items-start justify-content-between flex-column'>
-                                        <div className='d-flex align-items-start gap-1 flex-column'>
-                                            <div className="d-flex gap-3 fs-4 align-items-center text-warning-emphasis"><div>5 <BsStarFill className='' /></div> <div className='d-flex align-items-center position-relative' style={{height: "1.5rem", width: "min(15rem,50vw)"}}><div className='bg-white w-100 h-50 position-absolute rounded-pill overflow-hidden shadow'><div className='bg-warning h-100 rounded-pill' style={{width: `${getRatingCount(reviews, 5) / reviews.length * 100}%` }}></div></div></div>({getRatingCount(reviews,5)})</div>
-                                            <div className="d-flex gap-3 fs-4 align-items-center text-warning-emphasis"><div>4 <BsStarFill className='' /></div> <div className='d-flex align-items-center position-relative' style={{height: "1.5rem", width: "min(15rem,50vw)"}}><div className='bg-white w-100 h-50 position-absolute rounded-pill overflow-hidden shadow'><div className='bg-warning h-100 rounded-pill' style={{width: `${getRatingCount(reviews, 4) / reviews.length * 100}%` }}></div></div></div>({getRatingCount(reviews,4)})</div>
-                                            <div className="d-flex gap-3 fs-4 align-items-center text-warning-emphasis"><div>3 <BsStarFill className='' /></div> <div className='d-flex align-items-center position-relative' style={{height: "1.5rem", width: "min(15rem,50vw)"}}><div className='bg-white w-100 h-50 position-absolute rounded-pill overflow-hidden shadow'><div className='bg-warning h-100 rounded-pill' style={{width: `${getRatingCount(reviews, 3) / reviews.length * 100}%` }}></div></div></div>({getRatingCount(reviews,3)})</div>
-                                            <div className="d-flex gap-3 fs-4 align-items-center text-warning-emphasis"><div>2 <BsStarFill className='' /></div> <div className='d-flex align-items-center position-relative' style={{height: "1.5rem", width: "min(15rem,50vw)"}}><div className='bg-white w-100 h-50 position-absolute rounded-pill overflow-hidden shadow'><div className='bg-warning h-100 rounded-pill' style={{width: `${getRatingCount(reviews, 2) / reviews.length * 100}%` }}></div></div></div>({getRatingCount(reviews,2)})</div>
-                                            <div className="d-flex gap-3 fs-4 align-items-center text-warning-emphasis"><div>1 <BsStarFill className='' /></div> <div className='d-flex align-items-center position-relative' style={{height: "1.5rem", width: "min(15rem,50vw)"}}><div className='bg-white w-100 h-50 position-absolute rounded-pill overflow-hidden shadow'><div className='bg-warning h-100 rounded-pill' style={{width: `${getRatingCount(reviews, 1) / reviews.length * 100}%` }}></div></div></div>({getRatingCount(reviews,1)})</div>
+                                {
+                                    reviews.length >= 5 ?
+
+                                    <div className='d-flex flex-column flex-md-row gap-5 py-5'>
+                                        <div className='rounded-circle p-3' style={{width: "250px", aspectRatio:"1", background: `conic-gradient(rgb(var(--bs-warning-rgb)) ${product.rating / 5 * 100}%, transparent 0)`}}>
+                                            <div className="bg-light w-100 h-100 rounded-circle shadow-lg d-flex justify-content-center align-items-center pb-3 text-warning-emphasis" style={{fontSize: "min(5em,50vw)"}}>{product.rating}<BsStarFill className='ms-2 mt-4' style={{fontSize: "0.75em"}} /></div>
                                         </div>
-                                        <p className='m-0 mt-3 fs-4'>{reviews.length} total reviews</p>
+                                        <div className='d-flex align-items-start justify-content-between flex-column'>
+                                            <div className='d-flex align-items-start gap-1 flex-column'>
+                                                <div className="d-flex gap-3 fs-4 align-items-center text-warning-emphasis"><div>5 <BsStarFill className='' /></div> <div className='d-flex align-items-center position-relative' style={{height: "1.5rem", width: "min(15rem,50vw)"}}><div className='bg-white w-100 h-50 position-absolute rounded-pill overflow-hidden shadow'><div className='bg-warning h-100 rounded-pill' style={{width: `${getRatingCount(reviews, 5) / reviews.length * 100}%` }}></div></div></div>({getRatingCount(reviews,5)})</div>
+                                                <div className="d-flex gap-3 fs-4 align-items-center text-warning-emphasis"><div>4 <BsStarFill className='' /></div> <div className='d-flex align-items-center position-relative' style={{height: "1.5rem", width: "min(15rem,50vw)"}}><div className='bg-white w-100 h-50 position-absolute rounded-pill overflow-hidden shadow'><div className='bg-warning h-100 rounded-pill' style={{width: `${getRatingCount(reviews, 4) / reviews.length * 100}%` }}></div></div></div>({getRatingCount(reviews,4)})</div>
+                                                <div className="d-flex gap-3 fs-4 align-items-center text-warning-emphasis"><div>3 <BsStarFill className='' /></div> <div className='d-flex align-items-center position-relative' style={{height: "1.5rem", width: "min(15rem,50vw)"}}><div className='bg-white w-100 h-50 position-absolute rounded-pill overflow-hidden shadow'><div className='bg-warning h-100 rounded-pill' style={{width: `${getRatingCount(reviews, 3) / reviews.length * 100}%` }}></div></div></div>({getRatingCount(reviews,3)})</div>
+                                                <div className="d-flex gap-3 fs-4 align-items-center text-warning-emphasis"><div>2 <BsStarFill className='' /></div> <div className='d-flex align-items-center position-relative' style={{height: "1.5rem", width: "min(15rem,50vw)"}}><div className='bg-white w-100 h-50 position-absolute rounded-pill overflow-hidden shadow'><div className='bg-warning h-100 rounded-pill' style={{width: `${getRatingCount(reviews, 2) / reviews.length * 100}%` }}></div></div></div>({getRatingCount(reviews,2)})</div>
+                                                <div className="d-flex gap-3 fs-4 align-items-center text-warning-emphasis"><div>1 <BsStarFill className='' /></div> <div className='d-flex align-items-center position-relative' style={{height: "1.5rem", width: "min(15rem,50vw)"}}><div className='bg-white w-100 h-50 position-absolute rounded-pill overflow-hidden shadow'><div className='bg-warning h-100 rounded-pill' style={{width: `${getRatingCount(reviews, 1) / reviews.length * 100}%` }}></div></div></div>({getRatingCount(reviews,1)})</div>
+                                            </div>
+                                            <p className='m-0 mt-3 fs-4'>{reviews.length} total reviews</p>
+                                        </div>
                                     </div>
-                                </div>
+                                    : <p className='text-center py-5 fs-4'>Be the first to review this product!</p>
+                                }
 
                                 <form onSubmit={handleSubmit(onSumbit)} className='bg-secondary p-3 rounded-3 d-flex flex-column gap-2 shadow'>
                                     <input type="text" className='form-control w-md-50' placeholder='Review Title' {...register("title")}/>
@@ -243,7 +243,7 @@ function ProductPage({})
                                         <div className="position-absolute left-0 w-100 d-flex justify-content-between" style={{pointerEvents: "none"}}>
                                         {
                                             [1,2,3,4,5].map((n,index) =>
-                                            <BsStarFill key={"product-page-review-input-rating-"+index} className={`fs-4 ${n <= rating ? "text-warning" : "text-dark"}`} />
+                                            <BsStarFill key={"product-page-review-input-rating-"+index} className={`fs-4 ${n <= rating ? "text-warning" : "text-light"}`} />
                                             )
                                         }
                                         </div>
@@ -270,8 +270,8 @@ function ProductPage({})
                                     <ProductReview key={"product-page-review-"+index} review={review}/>
                                     )
                                     :
-                                    <div className='bg-secondary w-100 text-center p-5 rounded-3 text-white shadow'>
-                                        <h3>No reviews on this product</h3>
+                                    <div className='w-100 text-center p-5 rounded-3 shadow'>
+                                        <p className='fs-3 m-0 fw-semibold'>No reviews on this product yet...</p>
                                     </div>
                                 }
                                 </div>

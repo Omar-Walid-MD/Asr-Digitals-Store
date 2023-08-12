@@ -72,8 +72,9 @@ function ProductCard({productObject,productId,className,showSingle=true}) {
                         </Link>
                         <div className="d-flex w-100 justify-content-end bg-primary-subtle p-2 position-relative">
                             {
-                                product.rating &&
+                                product.rating ?
                                 <p className='m-0 ms-2 fs-6 d-flex fw-semibold align-items-center gap-1 position-absolute product-card-rating left-0 text-warning'>{product.rating} <BsStarFill /></p>
+                                : ""
                             }
                             <div className="d-flex gap-2 justify-content-between w-100">
                                 {

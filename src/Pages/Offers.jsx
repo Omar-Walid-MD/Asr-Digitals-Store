@@ -5,8 +5,9 @@ import ProductSlider from '../Components/ProductSlider';
 
 function Offers({}) {
 
-    const [countDown,setCountDown] = useState({days:0,hours:0,mins:0,secs:0});
+    const [countDown,setCountDown] = useState(0);
     const [timerInterval,setTimerInterval] = useState(0);
+    const [first,setFirst] = useState(false);
 
     const date = new Date("1 Jan 2024");
 
@@ -17,15 +18,25 @@ function Offers({}) {
     {
         let timeLeft = date.getTime() - Date.now();
 
-        let timeObject = {};
+        // let timeObject = {};
 
-        timeObject.days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-        timeObject.hours = Math.floor(timeLeft / (1000 * 60 * 60) % 24);
-        timeObject.mins = Math.floor(timeLeft / (1000 * 60) % 60);
-        timeObject.secs = Math.floor(timeLeft / (1000) % 60);
+        // timeObject.days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+        // timeObject.hours = Math.floor(timeLeft / (1000 * 60 * 60) % 24);
+        // timeObject.mins = Math.floor(timeLeft / (1000 * 60) % 60);
+        // timeObject.secs = Math.floor(timeLeft / (1000) % 60);
 
-        setCountDown(timeObject);
+        setCountDown(timeLeft);
         
+    }
+
+    function getCounterObject()
+    {
+        let timeObject = {days:0,hours:0,mins:0,secs:0};
+        timeObject.days = Math.floor(countDown / (1000 * 60 * 60 * 24));
+        timeObject.hours = Math.floor(countDown / (1000 * 60 * 60) % 24);
+        timeObject.mins = Math.floor(countDown / (1000 * 60) % 60);
+        timeObject.secs = Math.floor(countDown / (1000) % 60);
+        return timeObject;
     }
 
     function handleAnimation(targetClass)
@@ -38,16 +49,22 @@ function Offers({}) {
     }
 
     useEffect(()=>{
-        handleCountDown()
-        if(!timerInterval)
+        if(!first)
         {
-            let i = setInterval(()=>{
-                        handleCountDown();
-                        handleAnimation("secs");
-                    },1000);
-            setTimerInterval(i);
+            console.log("should happen once");
+            setFirst(true);
+            handleCountDown();
+            if(!timerInterval)
+            {
+                let i = setInterval(()=>{
+                    console.log("set count");
+                    setCountDown(x => x - 1000)
+                    // handleAnimation("secs");
+                    // if(getCounterObject().secs===0) handleAnimation("mins");
+                },1000);
+                setTimerInterval(i);
+            }
         }
-
         
     },[]);
 
@@ -56,7 +73,12 @@ function Offers({}) {
             console.log(timerInterval);
             clearInterval(timerInterval);
         };
-    },[timerInterval])
+    },[timerInterval]);
+
+    // useEffect(()=>{
+    //     // handleAnimation("secs");
+    // },[countDown]);
+    
     // useEffect(()=>{
     //     handleAnimation("mins");
     // },[countDown.mins]);
@@ -83,16 +105,16 @@ function Offers({}) {
                         <div className='offer-countdown-container d-flex gap-2 gap-md-4 gap-lg-5' ref={offerCountDown}>
                             <div>
                                 <div className='bg-secondary rounded-3 shadow offer-timer-box days'>
-                                    {countDown.days-1}
+                                    {getCounterObject().days-1}
                                     <div className="counter-halves top-0 w-100 h-100 position-absolute d-flex flex-column">
                                         <div className="counter-half top bg-secondary rounded-3 h-50 d-flex justify-content-center overflow-hidden">
-                                            <span>{countDown.days}</span>
+                                            <span>{getCounterObject().days}</span>
                                         </div>
                                         <div className="counter-half mid bg-secondary rounded-3 position-absolute top-0 h-50 d-flex justify-content-center overflow-hidden">
-                                            <span>{countDown.days-1}</span>
+                                            <span>{getCounterObject().days-1}</span>
                                         </div>
                                         <div className="counter-half bottom bg-secondary rounded-3 h-50 d-flex justify-content-center overflow-hidden">
-                                            <span>{countDown.days}</span>
+                                            <span>{getCounterObject().days}</span>
                                         </div>
                                     </div>
                                     <span className='mb-1'>days</span>
@@ -100,16 +122,16 @@ function Offers({}) {
                             </div>
                             <div>
                                 <div className='bg-secondary rounded-3 shadow offer-timer-box hours'>
-                                    {countDown.hours-1}
+                                    {getCounterObject().hours-1}
                                     <div className="counter-halves top-0 w-100 h-100 position-absolute d-flex flex-column">
                                         <div className="counter-half top bg-secondary rounded-3 h-50 d-flex justify-content-center overflow-hidden">
-                                            <span>{countDown.hours}</span>
+                                            <span>{getCounterObject().hours}</span>
                                         </div>
                                         <div className="counter-half mid bg-secondary rounded-3 position-absolute top-0 h-50 d-flex justify-content-center overflow-hidden">
-                                            <span>{countDown.hours-1}</span>
+                                            <span>{getCounterObject().hours-1}</span>
                                         </div>
                                         <div className="counter-half bottom bg-secondary rounded-3 h-50 d-flex justify-content-center overflow-hidden">
-                                            <span>{countDown.hours}</span>
+                                            <span>{getCounterObject().hours}</span>
                                         </div>
                                     </div>
                                     <span className='mb-1'>hours</span>
@@ -117,16 +139,16 @@ function Offers({}) {
                             </div>
                             <div>
                                 <div className='bg-secondary rounded-3 shadow offer-timer-box mins'>
-                                    {countDown.mins-1}
+                                    {getCounterObject().mins-1}
                                     <div className="counter-halves top-0 w-100 h-100 position-absolute d-flex flex-column">
                                         <div className="counter-half top bg-secondary rounded-3 h-50 d-flex justify-content-center overflow-hidden">
-                                            <span>{countDown.mins}</span>
+                                            <span>{getCounterObject().mins}</span>
                                         </div>
                                         <div className="counter-half mid bg-secondary rounded-3 position-absolute top-0 h-50 d-flex justify-content-center overflow-hidden">
-                                            <span>{countDown.mins-1}</span>
+                                            <span>{getCounterObject().mins-1}</span>
                                         </div>
                                         <div className="counter-half bottom bg-secondary rounded-3 h-50 d-flex justify-content-center overflow-hidden">
-                                            <span>{countDown.mins}</span>
+                                            <span>{getCounterObject().mins}</span>
                                         </div>
                                     </div>
                                     <span className='mb-1'>minutes</span>
@@ -134,16 +156,16 @@ function Offers({}) {
                             </div>
                             <div>
                                 <div className='bg-secondary rounded-3 shadow offer-timer-box secs'>
-                                    {countDown.secs-1}
+                                    {getCounterObject().secs}
                                     <div className="counter-halves top-0 w-100 h-100 position-absolute d-flex flex-column">
                                         <div className="counter-half top bg-secondary rounded-3 h-50 d-flex justify-content-center overflow-hidden">
-                                            <span>{countDown.secs}</span>
+                                            <span>{getCounterObject().secs+1===60 ? 0 : getCounterObject().secs+1}</span>
                                         </div>
                                         <div className="counter-half mid bg-secondary rounded-3 position-absolute top-0 h-50 d-flex justify-content-center overflow-hidden">
-                                            <span>{countDown.secs-1}</span>
+                                            <span>{getCounterObject().secs}</span>
                                         </div>
                                         <div className="counter-half bottom bg-secondary rounded-3 h-50 d-flex justify-content-center overflow-hidden">
-                                            <span>{countDown.secs}</span>
+                                            <span>{getCounterObject().secs+1===60 ? 0 : getCounterObject().secs+1}</span>
                                         </div>
                                     </div>
                                     <span className='mb-1'>seconds</span>

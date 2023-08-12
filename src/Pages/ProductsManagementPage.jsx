@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Col, Container, FloatingLabel, Form, Modal, Row } from 'react-bootstrap';
+import { Accordion, Button, Col, Container, FloatingLabel, Form, Modal, Row } from 'react-bootstrap';
 import ProductCard from '../Components/ProductCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { addProduct, deleteProduct, editProduct, getProducts } from '../Store/Products/productsSlice';
@@ -10,19 +10,28 @@ import ProductInfoRow from '../Components/ProductInfoRow';
 import { BsCaretDown, BsCaretDownFill, BsCaretUpFill, BsPlus, BsStarFill } from 'react-icons/bs';
 import MultiRangeSlider from "multi-range-slider-react";
 import "../Components/MultiRangeSlider.css";
+import { getCapitalized, makeUniqueId } from '../helpers';
 
 const schema = yup
   .object({
     title: yup.string().required("Please enter a product title..."),
-    price: yup.number().required("Please enter a price..."),
-    desc: yup.string()
+    image: yup.string().url().required("Please enter an image link"),
+    price: yup.number().typeError("Please enter a valid price...").required("Please enter a price..."),
+    desc: yup.string(),
+
+    category: yup.string().required("Please select a category")
   })
   .required();
 
 function ProductsManagementPage({}) {
 
     const products = useSelector((store) => store.products.products);
+    const productsInfo = useSelector((store) => store.products.productsInfo);
     const dispatch = useDispatch();
+
+    const [productPreviewImage, setProductPreviewImage] = useState("");
+    const [productCategory, setProductCategory] = useState("");
+    const [productSpecs, setProductSpecs] = useState({});
 
     const [productToShow,setProductToShow] = useState();
     const [productToEdit,setProductToEdit] = useState();
@@ -31,10 +40,27 @@ function ProductsManagementPage({}) {
     const [formMode,setFormMode] = useState("add");
     const [filters,setFilters] = useState({search:"",minPrice:0,maxPrice:5000});
     const [sort,setSort] = useState({type: "id",order: "asc"});
+    const [formAccordKey,setFormAccordKey] = useState("0");
+
+    const { register, handleSubmit, reset, formState: { errors }, setValue } = useForm({ resolver: yupResolver(schema) });
     
+    const errorInputIndexes = {
+        title: "0",
+        image: "0",
+        price: "0",
+        category: "1"
+    }
+
     const [formModal,setFormModal] = useState(false);
     const handleFormModalShow = () => setFormModal(true);
-    const handleFormModalClose = () => setFormModal(false);
+    const handleFormModalClose = () => {
+        setFormModal(false);
+        setValue("category","");
+        setProductCategory("");
+        setProductSpecs({});
+        setProductPreviewImage("");
+        reset();
+    };
 
     const [deleteModal,setDeleteModal] = useState(false);
     const handleDeleteModalShow = () => setDeleteModal(true);
@@ -43,9 +69,6 @@ function ProductsManagementPage({}) {
     const [showModal,setShowModal] = useState(false);
     const handleShowModalShow = () => setShowModal(true);
     const handleShowModalClose = () => setShowModal(false);
-
-
-    const { register, handleSubmit, reset, formState: { errors }, setValue } = useForm({ resolver: yupResolver(schema) });
 
     function showProduct(product)
     {
@@ -63,6 +86,9 @@ function ProductsManagementPage({}) {
     {
         setFormMode("edit");
         setProductToEdit(product);
+        setProductPreviewImage(product.image);
+        setProductCategory(product.category);
+        setProductSpecs(product.specs);
         handleFormModalShow();
         Object.keys(schema.fields).forEach((key)=>{
             setValue(key,product[key]);
@@ -85,7 +111,8 @@ function ProductsManagementPage({}) {
 
     function onSubmitAdd(data)
     {
-        dispatch(addProduct(data));
+        let newProduct = {...data,specs: productSpecs, rating: 0, id: makeUniqueId(products)};
+        dispatch(addProduct(newProduct));
         reset();
         handleFormModalClose();
         setProductToEdit(null);
@@ -93,17 +120,19 @@ function ProductsManagementPage({}) {
 
     function onSubmitEdit(data)
     {
-        dispatch(editProduct({productId: productToEdit.id,editedProduct: data}));
+        let editedProduct = {...data,specs: productSpecs};
+        dispatch(editProduct({productId: productToEdit.id,editedProduct: editedProduct}));
         reset();
         handleFormModalClose();
     }
 
     function handleOptionsScroll(e)
     {
+        console.log()
         let optionRows = e.target.querySelectorAll(".product-info-row-options");
         optionRows.forEach((optionsRow) => {
             optionsRow.style.right = "unset";
-            optionsRow.style.left = e.target.scrollLeft + "px";
+            optionsRow.style.left = e.target.scrollLeft + window.innerWidth/2 - optionsRow.getBoundingClientRect().width/2 + "px";
         });
         
     }
@@ -153,25 +182,24 @@ function ProductsManagementPage({}) {
         }
         return sortedProducts;
     }
-    
+
     useEffect(()=>{
-        dispatch(getProducts());
-    },[]);
+        if(Object.keys(errors).length > 0)setFormAccordKey(errorInputIndexes[Object.keys(errors)[0]])
+    },[errors]);
 
     return (
         <div className='bg-light'>
-            <div className='p-0 px-md-2'>
-                <h2 className='pt-5 mb-2'>Product Management</h2>
-                <hr className='border-3' />
-                {/* <div className='d-flex bg-secondary p-3 mb-2 d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center'>
-                    <div className='d-flex flex-column gap-5 align-items-center'>
+            <div className='p-0 px-md-2 py-3'>
+                <Container className='px-2 pt-5'> <h2 className='mb-2'>Manage Products</h2> </Container>
+                <hr className='border-3 pb-2' />
+                <div className='d-flex bg-secondary rounded-sm-3 p-3 mb-2 d-flex flex-column justify-content-between align-items-start gap-2'>
+                    <div className='d-flex flex-column w-100 flex-sm-row gap-5 gap-md-2 align-items-center'>
                         <Form.Control type="search" placeholder="Search Products"  value={filters.search} onChange={(e)=>{setFilters({...filters,search:e.target.value})}} />
-                        <div style={{width: "20rem"}} className='fs-4'>
+                        <div style={{width: "min(30rem,85vw)"}} className='fs-4'>
                             <MultiRangeSlider
                                 min={0}
                                 max={5000}
                                 ruler={false}
-                                label={false}
                                 preventWheel={false}
                                 minValue={filters.minPrice}
                                 maxValue={filters.maxPrice}
@@ -181,17 +209,19 @@ function ProductsManagementPage({}) {
                                     {
                                         setFilters({...filters,minPrice: e.minValue, maxPrice: e.maxValue});
                                     }
-                                    // console.log(filters.minPrice);
-                                    // console.log(e)
-                                }} 
+                                }}
+                                className='px-3'
                             />
                         </div>
                     </div>
-                <Button variant="primary" className='d-flex p-1 px-2 align-items-center fs-4' onClick={startAddProduct}><BsPlus/> Add Product</Button>                </div> */}
-
-                <div className="d-flex flex-column product-info-row-group scrollbar light" onScroll={handleOptionsScroll}>
+                    <hr className='w-100 border-white border-2' />
+                    <Button variant="primary" className='w-xs-100 w-sm-auto d-flex p-1 px-2 align-items-center justify-content-center fs-5' onClick={startAddProduct}><BsPlus className='fs-2'/> Add Product</Button>
+                
+                </div>
+                
+                <div className="d-flex flex-column product-info-row-group pb-5 scrollbar light" onScroll={handleOptionsScroll}>
                     <div className='d-flex flex-column gap-3 text-white'>
-                        <Row className='bg-secondary shadow rounded-2 py-2 px-0 m-0 w-sm-100 product-info-row'>
+                        <Row className='bg-secondary shadow rounded-sm-3 py-2 px-0 m-0 product-info-row'>
                             <Col className='col-1 pe-0'>
                                 <Button variant="transparent" className='w-100 text-white d-flex align-items-center justify-content-between' onClick={()=>{handleSort("id")}}>
                                     ID
@@ -241,57 +271,221 @@ function ProductsManagementPage({}) {
                 </div>
             </div>
 
-            <Modal dialogClassName="product-show-modal m-0" show={formModal} onHide={handleFormModalClose} centered={true} className='bg-transparent'>
+            <Modal contentClassName='rounded-md-3' dialogClassName="product-show-modal m-0 position-relative" show={formModal} onHide={handleFormModalClose} centered={true} className='bg-transparent'>
                 <Modal.Header closeButton>
                     <Modal.Title className='text-capitalize'>{formMode} product</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     {
                         formMode==="add" ?
-                        <form onSubmit={handleSubmit(onSubmitAdd)}>
-                            <div className="d-flex flex-column gap-3">
-                                <FloatingLabel controlId="floatingProductTitle" label="Product Title">
-                                    <Form.Control type="text" placeholder="Product Title" {...register("title")} />
-                                    {errors.title ? <div className='error-message text-white bg-danger rounded-3 shadow-sm ps-1 mt-2'>{errors.title.message}</div> : ''}
-                                </FloatingLabel>
+                        <form id='product-management-add' onSubmit={handleSubmit(onSubmitAdd)}>
+                            <Accordion activeKey={formAccordKey}>
 
-                                <FloatingLabel controlId="floatingProductPrice" label="Product Price">
-                                    <Form.Control type="number" placeholder="Product Price" {...register("price")} />
-                                    {errors.price ? <div className='error-message text-white bg-danger rounded-3 shadow-sm ps-1 mt-2'>{errors.price.message}</div> : ''}
-                                </FloatingLabel>
+                                <Accordion.Item eventKey="0" className='border-0 purchase-accordion purchase-record'>
+                                    <Accordion.Header onClick={()=>{setFormAccordKey(formAccordKey==="0" ? "" : "0")}}>
+                                        <div className="d-flex w-100 position-absolute bottom-0 my-3">
+                                            <hr className='w-100 border-2 position-absolute' />
+                                        </div>
+                                        <h5 className='m-0 py-2'>General</h5>
+                                    </Accordion.Header>
+                                    <Accordion.Body className='px-0 pb-5'>
+                                        <Row className='gy-4'>
+                                            <Col className='col-12 col-sm-6'>
+                                                <FloatingLabel controlId="floatingProductTitle" label="Product Title">
+                                                    <Form.Control type="text" placeholder="Product Title" {...register("title")} />
+                                                    {errors.title ? <div className='error-message text-danger mt-1'>{errors.title.message}</div> : ''}
+                                                </FloatingLabel>
+                                            </Col>
+                                            
+                                            <Col className='col-12 col-sm-6'>
+                                                <FloatingLabel controlId="floatingProductPrice" label="Product Price">
+                                                    <Form.Control type="number" placeholder="Product Price" {...register("price")} />
+                                                    {errors.price ? <div className='error-message text-danger mt-1'>{errors.price.message}</div> : ''}
+                                                </FloatingLabel>
+                                            </Col>
 
-                                <FloatingLabel controlId="floatingProductDesc" label="Product Description">
-                                    <Form.Control type="text" placeholder="Product Description" {...register("desc")} />
-                                    {errors.desc ? <div className='error-message text-white bg-danger rounded-3 shadow-sm ps-1 mt-2'>{errors.desc.message}</div> : ''}
-                                </FloatingLabel>
-                            </div>
-                            <Button className='w-100 mt-3' type='submit'>Add Product</Button>
+                                            <Col className='col-12 col-sm-6'>
+                                                <div className="d-flex flex-column">
+                                                    <div className='d-flex align-items-center justify-content-center border border-bottom-0 rounded-top shadow-sm p-2 position-relative' style={{height: "200px", aspectRatio: "1"}}>
+                                                        <img className="h-100" src={productPreviewImage} onError={(e)=>{e.target.src = require("../img/image-placeholder.png")}} />
+                                                        <span className='position-absolute bottom-0 left-0 text-muted m-2' style={{fontSize:"0.8rem"}}>Image Preview</span>
+                                                    </div>
+                                                    <FloatingLabel controlId="floatingProductImage" label="Product Image Link">
+                                                        <Form.Control className='rounded-0 rounded-bottom' type="text" placeholder="Product Image Link" {...register("image")} onInput={(e)=>{setProductPreviewImage(e.target.value);}} />
+                                                        {errors.image ? <div className='error-message text-danger mt-1'>{errors.image.message}</div> : ''}
+                                                    </FloatingLabel>
+
+                                                </div>
+                                            </Col>
+
+                                            <Col className='col-12 col-sm-6'>
+                                                <FloatingLabel controlId="floatingProductDesc" label="Product Description" >
+                                                    <Form.Control as="textarea"  type="text" style={{minHeight: "260px"}} placeholder="Product Description" {...register("desc")} />
+                                                    {errors.desc ? <div className='error-message text-danger mt-1'>{errors.desc.message}</div> : ''}
+                                                </FloatingLabel>
+                                            </Col>
+                                        </Row>
+                                    </Accordion.Body>
+                                </Accordion.Item>
+
+                                <Accordion.Item eventKey="1" className='border-0 purchase-accordion purchase-record'>
+                                    <Accordion.Header onClick={()=>{setFormAccordKey(formAccordKey==="1" ? "" : "1")}}>
+                                        <div className="d-flex w-100 position-absolute bottom-0 my-3">
+                                            <hr className='w-100 border-2 position-absolute' />
+                                        </div>
+                                        <h5 className='m-0 py-2'>Category</h5>
+                                    </Accordion.Header>
+                                    <Accordion.Body className='px-0 pb-5'>
+                                        <Row className='gy-4'>
+                                            <Col className='col-12 col-sm-6'>
+                                                <FloatingLabel controlId="floatingProductCategory" label="Product Category">
+                                                    <Form.Control as="select" className='text-capitalize' type="text" placeholder="Product Category" {...register("category")} onInput={(e)=>{setProductCategory(e.target.value);}}>
+                                                        <option  value="">--Select Category--</option>
+                                                    {
+                                                        productsInfo.categories ? productsInfo.categories.map((category) =>
+                                                        <option  value={category.name}>{category.name}</option>
+                                                        )
+                                                        : ""
+                                                    }
+                                                    </Form.Control>
+                                                    {errors.category ? <div className='error-message text-danger mt-1'>{errors.category.message}</div> : ''}
+                                                </FloatingLabel>
+                                            </Col>
+                                            
+                                            {
+                                                productCategory ?
+                                                <Container>
+                                                    <p className='m-0 mb-2 mt-4'>Specs</p>
+                                                    <hr className='w-100 border-1 mt-2'/>
+                                                    <Row className='g-3'>
+                                                    {
+                                                        productsInfo.categories.find((category) => category.name === productCategory).specs.map((spec) =>
+                                                        
+                                                        <Col className='col-12 col-sm-6'>
+                                                            <FloatingLabel controlId="" label={getCapitalized(spec.name)}>
+                                                                <Form.Control type="text" placeholder={spec.name} name={spec.code} value={productSpecs[spec.code]} onChange={(e)=>{setProductSpecs(prev => ({...prev,[spec.code]:e.target.value}))}} />
+                                                            </FloatingLabel>
+                                                        </Col>
+                                                        )
+                                                    }
+                                                    </Row>
+                                                </Container>
+                                                : ""
+                                            }
+                                        </Row>
+                                    </Accordion.Body>
+                                </Accordion.Item>
+                            </Accordion>
                         </form>
                         : formMode==="edit" ?
-                        <form onSubmit={handleSubmit(onSubmitEdit)}>
-                            <div className="d-flex flex-column gap-3">
-                                <FloatingLabel controlId="floatingProductTitle" label="Product Title">
-                                    <Form.Control type="text" placeholder="Product Title" {...register("title")} />
-                                    {errors.title ? <div className='error-message text-white bg-danger rounded-3 shadow-sm ps-1 mt-2'>{errors.title.message}</div> : ''}
-                                </FloatingLabel>
+                        <form id='product-management-edit' onSubmit={handleSubmit(onSubmitEdit)}>
+                            <Accordion defaultActiveKey="0">
 
-                                <FloatingLabel controlId="floatingProductPrice" label="Product Price">
-                                    <Form.Control type="number" placeholder="Product Price" {...register("price")} />
-                                    {errors.price ? <div className='error-message text-white bg-danger rounded-3 shadow-sm ps-1 mt-2'>{errors.price.message}</div> : ''}
-                                </FloatingLabel>
+                                <Accordion.Item eventKey="0" onClick={()=>{setFormAccordKey("0")}} className='border-0 purchase-accordion purchase-record'>
+                                    <Accordion.Header>
+                                        <div className="d-flex w-100 position-absolute bottom-0 my-3">
+                                            <hr className='w-100 border-2 position-absolute' />
+                                        </div>
+                                        <h5 className='m-0 py-2'>General</h5>
+                                    </Accordion.Header>
+                                    <Accordion.Body className='px-0 pb-5'>
+                                        <Row className='gy-4'>
+                                            <Col className='col-12 col-sm-6'>
+                                                <FloatingLabel controlId="floatingProductTitle" label="Product Title">
+                                                    <Form.Control type="text" placeholder="Product Title" {...register("title")} />
+                                                    {errors.title ? <div className='error-message text-danger mt-1'>{errors.title.message}</div> : ''}
+                                                </FloatingLabel>
+                                            </Col>
+                                            
+                                            <Col className='col-12 col-sm-6'>
+                                                <FloatingLabel controlId="floatingProductPrice" label="Product Price">
+                                                    <Form.Control type="number" placeholder="Product Price" {...register("price")} />
+                                                    {errors.price ? <div className='error-message text-danger mt-1'>{errors.price.message}</div> : ''}
+                                                </FloatingLabel>
+                                            </Col>
 
-                                <FloatingLabel controlId="floatingProductDesc" label="Product Description">
-                                    <Form.Control type="text" placeholder="Product Description" {...register("desc")} />
-                                    {errors.desc ? <div className='error-message text-white bg-danger rounded-3 shadow-sm ps-1 mt-2'>{errors.desc.message}</div> : ''}
-                                </FloatingLabel>
-                            </div>
-                            <Button className='w-100 mt-3' type='submit'>Edit Product</Button>
+                                            <Col className='col-12 col-sm-6'>
+                                                <div className="d-flex flex-column">
+                                                    <div className='d-flex align-items-center justify-content-center border border-bottom-0 rounded-top shadow-sm p-2 position-relative' style={{height: "200px", aspectRatio: "1"}}>
+                                                        <img className="h-100" src={productPreviewImage} onError={(e)=>{e.target.src = require("../img/image-placeholder.png")}} />
+                                                        <span className='position-absolute bottom-0 left-0 text-muted m-2' style={{fontSize:"0.8rem"}}>Image Preview</span>
+                                                    </div>
+                                                    <FloatingLabel controlId="floatingProductImage" label="Product Image Link">
+                                                        <Form.Control className='rounded-0 rounded-bottom' type="text" placeholder="Product Image Link" {...register("image")} onInput={(e)=>{setProductPreviewImage(e.target.value);}} />
+                                                        {errors.image ? <div className='error-message text-danger mt-1'>{errors.image.message}</div> : ''}
+                                                    </FloatingLabel>
+
+                                                </div>
+                                            </Col>
+
+                                            <Col className='col-12 col-sm-6'>
+                                                <FloatingLabel controlId="floatingProductDesc" label="Product Description" >
+                                                    <Form.Control as="textarea"  type="text" style={{minHeight: "260px"}} placeholder="Product Description" {...register("desc")} />
+                                                    {errors.desc ? <div className='error-message text-danger mt-1'>{errors.desc.message}</div> : ''}
+                                                </FloatingLabel>
+                                            </Col>
+                                        </Row>
+                                    </Accordion.Body>
+                                </Accordion.Item>
+
+                                <Accordion.Item eventKey="1" onClick={()=>{setFormAccordKey("0")}} className='border-0 purchase-accordion purchase-record'>
+                                    <Accordion.Header>
+                                        <div className="d-flex w-100 position-absolute bottom-0 my-3">
+                                            <hr className='w-100 border-2 position-absolute' />
+                                        </div>
+                                        <h5 className='m-0 py-2'>Category</h5>
+                                    </Accordion.Header>
+                                    <Accordion.Body className='px-0 pb-5'>
+                                        <Row className='gy-4'>
+                                            <Col className='col-12 col-sm-6'>
+                                                <FloatingLabel controlId="floatingProductCategory" label="Product Category">
+                                                    <Form.Control as="select" className='text-capitalize' type="text" placeholder="Product Category" {...register("category")} onInput={(e)=>{setProductCategory(e.target.value);}}>
+                                                        <option  value="">--Select Category--</option>
+                                                    {
+                                                        productsInfo.categories ? productsInfo.categories.map((category) =>
+                                                        <option  value={category.name}>{category.name}</option>
+                                                        )
+                                                        : ""
+                                                    }
+                                                    </Form.Control>
+                                                    {errors.category ? <div className='error-message text-danger mt-1'>{errors.category.message}</div> : ''}
+                                                </FloatingLabel>
+                                            </Col>
+                                            
+                                            {
+                                                productCategory ?
+                                                <Container>
+                                                    <p className='m-0 mb-2 mt-4'>Specs</p>
+                                                    <hr className='w-100 border-1 mt-2'/>
+                                                    <Row className='g-3'>
+                                                    {
+                                                        productsInfo.categories.find((category) => category.name === productCategory).specs.map((spec) =>
+                                                        
+                                                        <Col className='col-12 col-sm-6'>
+                                                            <FloatingLabel controlId="" label={getCapitalized(spec.name)}>
+                                                                <Form.Control type="text" placeholder={spec.name} value={productSpecs[spec.code]} onChange={(e)=>{setProductSpecs(prev => ({...prev,[spec.code]:e.target.value}))}} />
+                                                            </FloatingLabel>
+                                                        </Col>
+                                                        )
+                                                    }
+                                                    </Row>
+                                                </Container>
+                                                : ""
+                                            }
+                                        </Row>
+                                    </Accordion.Body>
+                                </Accordion.Item>
+                            </Accordion>
+                            
                         </form>
                         : ""
                     }
                 </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleFormModalClose}>Close</Button>
+                <Modal.Footer className='position-sticky z-2 bottom-0 bg-white'>
+                    <div className="d-flex align-items-center w-100 gap-2">
+                        <Button form={`product-management-${formMode}`} className='w-100 text-capitalize' type='submit'>{formMode} product</Button>
+                        <Button variant="danger" onClick={handleFormModalClose}>Discard</Button>
+                    </div>
                 </Modal.Footer>
             </Modal>
 
@@ -308,7 +502,7 @@ function ProductsManagementPage({}) {
                 </Modal.Footer>
             </Modal>
 
-            <Modal dialogClassName="product-show-modal m-0" show={showModal} onHide={handleShowModalClose} centered={true} className='bg-transparent'>
+            <Modal dialogClassName="product-show-modal m-0 position-relative" show={showModal} onHide={handleShowModalClose} centered={true} className='bg-transparent'>
                 <Modal.Header closeButton>
                     <Modal.Title className='text-capitalize'>Product Info</Modal.Title>
                 </Modal.Header>
@@ -317,20 +511,20 @@ function ProductsManagementPage({}) {
                     productToShow ?
                     <div>
                         <Row>
-                            <Col className='col-12 col-sm-4 h-100 p-0'><img className='w-100' src={require("../img/phone.png")} alt="" /></Col>
+                            <Col className='col-12 col-sm-4 h-100 p-0 d-flex justify-content-center'><img style={{width: "min(100%,75vw"}} src={require("../img/phone.png")} alt="" /></Col>
                             <Col className='col-12 col-sm-8 h-100'>
                                 <div className="d-flex flex-column justify-content-between h-100 product-page-col">
                                     <div className='d-flex flex-column gap-2'>
                                         <h1>{productToShow.title}</h1>
                                         <p className='m-0'>
-                                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Excepturi, amet, architecto natus consequatur blanditiis possimus tenetur ullam, totam nemo delectus eum temporibus minima enim? Quidem in eaque et ut nostrum.
+                                            {productToShow.desc || <span>(No description provided yet)</span>}
                                         </p>
-                                        <div className="d-flex flex-column flex-md-row gap-2">
+                                        <div className="d-flex flex-row gap-2 align-items-center">
                                             <p className='m-0 fs-5 text-warning-emphasis fw-semibold'>{productToShow.rating}</p>
                                             <div className='position-relative'>
-                                                <div className='d-flex justify-content-between' style={{width: "200px", height: "50px"}}>{[1,2,3,4,5].map((n,index)=><BsStarFill key={"pr-p-b-s-"+index} className={"text-dark fs-3 d-flex justify-content-center w-100"} />)}</div>
-                                                <div className="position-absolute top-0 overflow-hidden" style={{width: `${productToShow.rating / 5 * 200}px`}}>
-                                                    <div className='d-flex justify-content-between' style={{width: "200px", height: "50px"}}>{[1,2,3,4,5].map((n,index)=><BsStarFill key={"pr-p-g-s-"+index} className={"text-warning fs-3 d-flex justify-content-center w-100"} />)}</div>
+                                                <div className='d-flex justify-content-between align-items-center' style={{width: "150px", height: "50px"}}>{[1,2,3,4,5].map((n,index)=><BsStarFill key={"pr-p-b-s-"+index} className={"text-dark fs-3 d-flex justify-content-center w-100"} />)}</div>
+                                                <div className="position-absolute top-0 overflow-hidden" style={{width: `${productToShow.rating / 5 * 150}px`}}>
+                                                    <div className='d-flex justify-content-between align-items-center' style={{width: "150px", height: "50px"}}>{[1,2,3,4,5].map((n,index)=><BsStarFill key={"pr-p-g-s-"+index} className={"text-warning fs-3 d-flex justify-content-center w-100"} />)}</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -338,13 +532,29 @@ function ProductsManagementPage({}) {
                                     </div>
                                 </div>
                             </Col>
+                            <Col className='col-12'>
+                                <hr />
+                                <Row className='g-2'>
+                                {
+                                    productsInfo.categories.find((category) => category.name === productToShow.category).specs.map((spec) =>
+                                    
+                                    <Col className='col-12 col-sm-6 px-3'>
+                                        <Row className='h-100 border rounded-3 overflow-hidden'>
+                                            <Col className="col-6 bg-light fw-semibold text-capitalize h-100 border-end p-2">{spec.name}</Col>
+                                            <Col className="col-6 p-2">{productToShow.specs[spec.code] || "Not provided"}</Col>
+                                        </Row>
+                                    </Col>
+                                    )
+                                }
+                                </Row>
+                            </Col>
                         </Row>
                         
                     </div>
                     : ""
                 }
                 </Modal.Body>
-                <Modal.Footer>
+                <Modal.Footer className='position-sticky z-2 bottom-0 bg-white'>
                     <Button variant="secondary" onClick={handleShowModalClose}>Close</Button>
                 </Modal.Footer>
             </Modal>

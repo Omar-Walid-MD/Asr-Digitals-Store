@@ -7,7 +7,7 @@ import CartSideBar from './Layout/CartSideBar';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCurrentUser, getUsers } from './Store/Auth/auth';
 import { useEffect } from 'react';
-import { getProducts } from './Store/Products/productsSlice';
+import { getProducts, getProductsInfo } from './Store/Products/productsSlice';
 import { getCart } from './Store/Cart/cartSlice';
 import { getFavs } from './Store/Favorites/favoritesSlice';
 import { getReviews } from './Store/Reviews/reviewsSlice';
@@ -21,6 +21,7 @@ function App() {
   useEffect(()=>{
     dispatch(getUsers());
     dispatch(getProducts());
+    dispatch(getProductsInfo());
     dispatch(getCurrentUser());
     dispatch(getReviews());
     dispatch(getPurchases());

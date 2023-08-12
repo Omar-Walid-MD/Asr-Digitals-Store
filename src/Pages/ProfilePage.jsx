@@ -226,8 +226,8 @@ function ProfilePage({}) {
                                             <form id='profile-form-1' onSubmit={handleSubmitBasic(onSubmit)} className="d-flex bg-light flex-column gap-3 p-1">
                                                 <FloatingLabel controlId="floatingEmail" label="Email">
                                                     <Form.Control disabled={!edit} type="email" placeholder="Email" {...registerBasic("email")} />
-                                                    {errorsBasic.email ? <div className='error-message text-white bg-danger rounded-pill shadow-sm ps-2 mt-2'>{errorsBasic.email.message}</div> : ''}
-                                                    {validationError==="email" && <div className='error-message text-white bg-danger rounded-pill shadow-sm ps-2 mt-2'>Email already registered...</div>}
+                                                    {errorsBasic.email ? <div className='error-message text-danger mt-2'>{errorsBasic.email.message}</div> : ''}
+                                                    {validationError==="email" && <div className='error-message text-danger mt-2'>Email already registered...</div>}
                                                 </FloatingLabel>
 
                                                 <FloatingLabel controlId="floatingPassword" label="Password">
@@ -235,8 +235,8 @@ function ProfilePage({}) {
                                                     // {...registerBasic("password")}
                                                     value={passwordEdit.password} onChange={(e)=>{setPasswordEdit({...passwordEdit,password:e.target.value});}}
                                                      />
-                                                    {errorsBasic.password ? <div className='error-message text-white bg-danger rounded-pill shadow-sm ps-2 mt-2'>{errorsBasic.password.message}</div> : ''}
-                                                    {validationError==="passwordNull" && <div className='error-message text-white bg-danger rounded-pill shadow-sm ps-2 mt-2'>Please enter a password...</div>}
+                                                    {errorsBasic.password ? <div className='error-message text-danger mt-2'>{errorsBasic.password.message}</div> : ''}
+                                                    {validationError==="passwordNull" && <div className='error-message text-danger mt-2'>Please enter a password...</div>}
                                                 </FloatingLabel>
 
                                                 {
@@ -246,8 +246,8 @@ function ProfilePage({}) {
                                                         <Form.Control disabled={!edit} type="confirmpassword" placeholder="Confirm Password" 
                                                         value={passwordEdit.confirmPassword} onChange={(e)=>{setPasswordEdit({...passwordEdit,confirmPassword:e.target.value});}}
                                                         />
-                                                        {errorsBasic.confirmPassword ? <div className='error-message text-white bg-danger rounded-pill shadow-sm ps-2 mt-2'>{errorsBasic.confirmPassword.message}</div> : ''}
-                                                        {validationError==="passwordMismatch" && <div className='error-message text-white bg-danger rounded-pill shadow-sm ps-2 mt-2'>Password Mismatch...</div>}
+                                                        {errorsBasic.confirmPassword ? <div className='error-message text-danger mt-2'>{errorsBasic.confirmPassword.message}</div> : ''}
+                                                        {validationError==="passwordMismatch" && <div className='error-message text-danger mt-2'>Password Mismatch...</div>}
 
                                                     </FloatingLabel>
                                                 }
@@ -263,28 +263,28 @@ function ProfilePage({}) {
                                                 <div className="d-flex w-100 gap-3">
                                                     <FloatingLabel className='w-50' controlId="floatingFirstName" label="First Name">
                                                         <Form.Control disabled={!edit} type="text" placeholder="First Name" {...registerGeneral("firstName")} />
-                                                        {errorsGeneral.firstName ? <div className='error-message text-white bg-danger rounded-pill shadow-sm ps-2 mt-2'>{errorsGeneral.firstName.message}</div> : ''}
+                                                        {errorsGeneral.firstName ? <div className='error-message text-danger mt-2'>{errorsGeneral.firstName.message}</div> : ''}
                                                     </FloatingLabel>
 
                                                     <FloatingLabel className='w-50' controlId="floatingLastName" label="Last Name">
                                                         <Form.Control disabled={!edit} type="text" placeholder="Last Name" {...registerGeneral("lastName")} />
-                                                        {errorsGeneral.lastName ? <div className='error-message text-white bg-danger rounded-pill shadow-sm ps-2 mt-2'>{errorsGeneral.lastName.message}</div> : ''}
+                                                        {errorsGeneral.lastName ? <div className='error-message text-danger mt-2'>{errorsGeneral.lastName.message}</div> : ''}
                                                     </FloatingLabel>
                                                 </div>
                                                 
                                                 <FloatingLabel controlId="floatingUsername" label="Username">
                                                     <Form.Control disabled={!edit} type="text" placeholder="Username" {...registerGeneral("username")} />
-                                                    {errorsGeneral.username ? <div className='error-message text-white bg-danger rounded-pill shadow-sm ps-2 mt-2'>{errorsGeneral.username.message}</div> : ''}
+                                                    {errorsGeneral.username ? <div className='error-message text-danger mt-2'>{errorsGeneral.username.message}</div> : ''}
                                                 </FloatingLabel>
 
                                                 <FloatingLabel controlId="floatingPhoneNumber" label="Phone Number">
                                                     <Form.Control disabled={!edit} type="text" placeholder="Phone Number" {...registerGeneral("phone")} />
-                                                    {errorsGeneral.phone ? <div className='error-message text-white bg-danger rounded-pill shadow-sm ps-2 mt-2'>{errorsGeneral.phone.message}</div> : ''}
+                                                    {errorsGeneral.phone ? <div className='error-message text-danger mt-2'>{errorsGeneral.phone.message}</div> : ''}
                                                 </FloatingLabel>
 
                                                 <FloatingLabel controlId="floatingDateOfBirth" label="Date of Birth">
                                                     <Form.Control disabled={!edit} type="date" placeholder="Date of Birth" {...registerGeneral("dateOfBirth")} />
-                                                    {errorsGeneral.dateOfBirth ? <div className='error-message text-white bg-danger rounded-pill shadow-sm ps-2 mt-2'>{errorsGeneral.dateOfBirth.message}</div> : ''}
+                                                    {errorsGeneral.dateOfBirth ? <div className='error-message text-danger mt-2'>{errorsGeneral.dateOfBirth.message}</div> : ''}
                                                 </FloatingLabel>
                                             </form>
                                         </Carousel.Item>
@@ -294,29 +294,29 @@ function ProfilePage({}) {
                                                 <div className="d-flex w-100 gap-3">  
                                                     <FloatingLabel className='w-50' controlId="floatingCity" label="City">
                                                         <Form.Control disabled={!edit} type="text" placeholder="City" {...registerExtra("city")} />
-                                                        {errorsExtra.city ? <div className='error-message text-white bg-danger rounded-pill shadow-sm ps-2 mt-2'>{errorsExtra.city.message}</div> : ''}
+                                                        {errorsExtra.city ? <div className='error-message text-danger mt-2'>{errorsExtra.city.message}</div> : ''}
                                                     </FloatingLabel>
 
                                                     <FloatingLabel className='w-50' controlId="floatingZipcode" label="Zipcode">
                                                         <Form.Control disabled={!edit} type="text" placeholder="Zipcode" {...registerExtra("zipcode")} />
-                                                        {errorsExtra.zipcode ? <div className='error-message text-white bg-danger rounded-pill shadow-sm ps-2 mt-2'>{errorsExtra.zipcode.message}</div> : ''}
+                                                        {errorsExtra.zipcode ? <div className='error-message text-danger mt-2'>{errorsExtra.zipcode.message}</div> : ''}
                                                     </FloatingLabel>
                                                 </div>
                                                 
                                                 <FloatingLabel controlId="floatingAddress" label="Address">
                                                     <Form.Control disabled={!edit} type="text" placeholder="Address" {...registerExtra("address")} />
-                                                    {errorsExtra.address ? <div className='error-message text-white bg-danger rounded-pill shadow-sm ps-2 mt-2'>{errorsExtra.address.message}</div> : ''}
+                                                    {errorsExtra.address ? <div className='error-message text-danger mt-2'>{errorsExtra.address.message}</div> : ''}
                                                 </FloatingLabel>
 
                                                 <FloatingLabel controlId="floatingStreet" label="Street">
                                                     <Form.Control disabled={!edit} type="text" placeholder="Street" {...registerExtra("street")} />
-                                                    {errorsExtra.street ? <div className='error-message text-white bg-danger rounded-pill shadow-sm ps-2 mt-2'>{errorsExtra.street.message}</div> : ''}
+                                                    {errorsExtra.street ? <div className='error-message text-danger mt-2'>{errorsExtra.street.message}</div> : ''}
                                                 </FloatingLabel>
 
 
                                                 <FloatingLabel controlId="floatingCreditCardNo" label="Credit Card Number">
                                                     <Form.Control disabled={!edit} type="number" placeholder="Credit Card Number" {...registerExtra("creditCardNo")} />
-                                                    {errorsExtra.creditCardNo ? <div className='error-message text-white bg-danger rounded-pill shadow-sm ps-2 mt-2'>{errorsExtra.creditCardNo.message}</div> : ''}
+                                                    {errorsExtra.creditCardNo ? <div className='error-message text-danger mt-2'>{errorsExtra.creditCardNo.message}</div> : ''}
                                                 </FloatingLabel>
                                             </form>
                                         </Carousel.Item>

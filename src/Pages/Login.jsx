@@ -26,6 +26,8 @@ function Login({}) {
     const { register, handleSubmit, reset, formState: { errors } } = useForm({ resolver: yupResolver(schema) });
     const [validationError,setValidationError] = useState("");
 
+    const [remember,setRemember] = useState(true);
+
     function onSubmit(data)
     {
         let targetUser = users.find((user) => user.email === data.email);
@@ -33,7 +35,7 @@ function Login({}) {
         {
             if(targetUser.password === data.password)
             {
-                dispatch(loginUser(targetUser));
+                dispatch(loginUser({user: targetUser,remember}));
                 navigate(prevPath);
             }
             else
@@ -74,18 +76,18 @@ function Login({}) {
                     <div className="d-flex flex-column gap-3">
                         <FloatingLabel controlId="floatingEmail" label="Email">
                             <Form.Control type="email" placeholder="Email" {...register("email")} />
-                            {errors.email ? <div className='error-message text-white bg-danger rounded-pill shadow-sm ps-2 mt-2'>{errors.email.message}</div> : ''}
+                            {errors.email ? <div className='error-message text-danger mt-2'>{errors.email.message}</div> : ''}
                         </FloatingLabel>
 
                         <FloatingLabel controlId="floatingPassword" label="Password">
                             <Form.Control type="password" placeholder="Password" {...register("password")} />
-                            {errors.password ? <div className='error-message text-white bg-danger rounded-pill shadow-sm ps-2 mt-2'>{errors.password.message}</div> : ''}
+                            {errors.password ? <div className='error-message text-danger mt-2'>{errors.password.message}</div> : ''}
                         </FloatingLabel>
 
                         <div className="d-flex w-100 flex-column flex-sm-row gap-2 align-items-start align-items-md-center justify-content-between">
                             <Link className='text-info text-decoration-none'>Forgot password?</Link>
                             <label htmlFor='remember-me-checkbox' className='d-flex gap-2'>
-                                <input type="checkbox" name="" id="remember-me-checkbox" className='mt-1'/>
+                                <input type="checkbox" name="" id="remember-me-checkbox" className='mt-1' checked={remember} onClick={(e)=>{setRemember(e.target.checked)}}/>
                                 Remember me?
                             </label>
                         </div>

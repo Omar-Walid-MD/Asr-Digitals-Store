@@ -3,6 +3,7 @@ import axios from "axios";
 
 const initialState = {
     products: [],
+    productsInfo: {},
     loading: false
 }
 
@@ -10,6 +11,15 @@ export const getProducts = createAsyncThunk(
   'products/getProducts',
   async () => {
     const res = await fetch('http://localhost:8899/products').then(
+    (data) => data.json()
+  )
+  return res;
+});
+
+export const getProductsInfo = createAsyncThunk(
+  'products/getProductsInfo',
+  async () => {
+    const res = await fetch('http://localhost:8899/productsInfo').then(
     (data) => data.json()
   )
   return res;
@@ -60,6 +70,20 @@ export const productsSlice = createSlice({
             state.products = payload;
         },
         [getProducts.rejected]: (state) => {
+            state.loading = false;
+            console.log("rejected");
+        },
+
+        //getProductsInfo
+        [getProductsInfo.pending]: (state) => {
+          state.loading = true
+        },
+        [getProductsInfo.fulfilled]: (state, { payload }) => {
+            state.loading = false
+            console.log("pending");
+            state.productsInfo = payload;
+        },
+        [getProductsInfo.rejected]: (state) => {
             state.loading = false;
             console.log("rejected");
         },
