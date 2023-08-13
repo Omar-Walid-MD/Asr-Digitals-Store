@@ -49,15 +49,19 @@ function Home({}) {
 
     const branches = [
         {
+            image: "https://i.imgur.com/gKLFcVE.png",
             coordinates: "31.2163837,29.9274562"
         },
         {
+            image: "https://i.imgur.com/HmJiIBI.png",
             coordinates: "31.2036875,29.8836064"
         },
         {
+            image: "https://i.imgur.com/HnKrc0F.png",
             coordinates: "31.2867826,30.023901"
         },
         {
+            image: "https://i.imgur.com/or6wJfW.png",
             coordinates: "31.2171035,29.9427816"
         }
     ]
@@ -112,7 +116,7 @@ function Home({}) {
                     {
                         whyChooseUs.map((w) => (
 
-                        <Col className='col-12 col-sm-6 col-lg-3 px-1 px-lg-3'>
+                        <Col className='col-12 col-sm-6 col-lg-3 px-2 px-md-3'>
                             <div className="wcu-card">
                                 <div className="d-flex align-items-center wcu-card-header bg-dark text-white p-3 position-relative shadow-sm">
                                     <div className="d-flex position-absolute wcu-card-icon bg-dark rounded-circle border border-4 border-white p-3">{w.icon}</div>
@@ -206,8 +210,50 @@ function Home({}) {
             </section>
 
              {/* HIDDEN */}
-            <section className='position-relative page-section bg-secondary d-flex flex-column' style={style.sectionSmall}>
-                <div className="w-100 position-absolute bottom-100 fs-2 fw-semibold"><div className='section-title bg-secondary text-white d-inline-block m-0 h-100 p-2 ps-4 pe-3'>About Us</div></div>
+            <section className='position-relative page-section bg-secondary d-flex flex-column'>
+                <div className="w-100 position-absolute bottom-100 fs-2 fw-semibold"><div className='section-title bg-secondary text-white d-inline-block m-0 h-100 p-2 ps-4 pe-3'>Our Services</div></div>
+                <Container className='h-100 py-5'>
+                    <Row className='h-100 g-2 g-md-4'>
+                        <Col className='col-12 col-lg-9 h-100'>
+                            <Row className='h-100 g-2 g-md-4'>
+                                <Col className='col-12 col-sm-8'>
+                                    <div className='w-100 bg-light rounded-1 shadow p-4 service-card'>
+                                        <h3 className='text-secondary mb-3'>Warranty and Maintenance</h3>
+                                        <p className='text-muted'>We ensure that you get <b>absolutely no less</b> than what you are promised. Any defects and issues are carefully taken care of.</p>
+                                    </div>
+                                </Col>
+                                <Col className='col-6 col-sm-4'>
+                                <div className='w-100 bg-light rounded-1 shadow d-flex align-items-center justify-content-center p-0 p-md-4' style={{height: "15rem"}}>
+                                        <img style={{width: "min(10rem,25vw)",height:"fit-content"}} src={require("../img/services-2.png")} />
+                                    </div>
+                                </Col>
+                                <Col className='col-6 col-sm-4'>
+                                    <div className='w-100 bg-light rounded-1 shadow d-flex align-items-center justify-content-center p-0 p-md-4' style={{height: "15rem"}}>
+                                        <img style={{width: "min(8rem,20vw)",height:"fit-content"}} src={require("../img/services-1.png")} />
+                                    </div>
+                                </Col>
+                                <Col className='col-12 col-sm-8'>
+                                    <div className='w-100 bg-light rounded-1 shadow p-4 service-card'>
+                                        <h3 className='text-secondary mb-3'>Customer Service</h3>
+                                        <p className='text-muted'>Our staff are always ready to help. We look after even the slightest inconveniences to ensure <b>the best shopping experience</b> our customers could have.</p>
+                                    </div>
+                                </Col>
+                            </Row>
+                        </Col>
+                        <Col className='col-12 col-lg-3'>
+                            <div className='w-100 h-100 bg-light rounded-1 shadow p-4 d-flex flex-column justify-content-between'>
+                                <div>
+                                    <h3 className='text-secondary text-center mb-3'>Need Any Help?</h3>
+                                    <p className='fs-5 text-muted text-center'>We would love to help or simply hear your thoughts!</p>
+                                    <p className='fs-5 text-muted text-center'>We listen to you and strive to improve!</p>
+                                    {/* <p className='fs-5 text-muted text-center'>We listen to you and strive to improve!</p> */}
+
+                                </div>
+                                <Button className='main-button border-0 fs-5 w-100'>Contact us!</Button>
+                            </div>
+                        </Col>
+                    </Row>
+                </Container>
             </section>
 
             {/* HIDDEN */}
@@ -620,7 +666,9 @@ function Home({}) {
                                                     <h4>First Branch Address</h4>
                                                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere voluptatem quidem distinctio libero, culpa modis.</p>
                                                 </div>
-                                                <div className='bg-light' style={{height: "min(10rem,50vw)",aspectRatio: "16/9"}}></div>
+                                                <div className='position-relative d-flex align-items-end justify-content-center overflow-hidden' style={{height: "min(10rem,50vw)",aspectRatio: "16/9"}}>
+                                                    <img className='position-absolute w-100' src={branches[+branchSelect-1].image} />
+                                                </div>
                                             </div>
                                         </div>
                                     </Carousel.Item>
@@ -631,7 +679,9 @@ function Home({}) {
                                                     <h4>Second Branch Address</h4>
                                                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere voluptatem quidem distinctio libero, culpa modis.</p>
                                                 </div>
-                                                <div className='bg-light' style={{height: "min(10rem,50vw)",aspectRatio: "16/9"}}></div>
+                                                <div className='position-relative d-flex align-items-end justify-content-center overflow-hidden' style={{height: "min(10rem,50vw)",aspectRatio: "16/9"}}>
+                                                    <img className='position-absolute w-100' src={branches[+branchSelect-1].image} />
+                                                </div>
                                             </div>
                                         </div>
                                     </Carousel.Item>
@@ -642,7 +692,9 @@ function Home({}) {
                                                     <h4>Third Branch Address</h4>
                                                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere voluptatem quidem distinctio libero, culpa modis.</p>
                                                 </div>
-                                                <div className='bg-light' style={{height: "min(10rem,50vw)",aspectRatio: "16/9"}}></div>
+                                                <div className='position-relative d-flex align-items-end justify-content-center overflow-hidden' style={{height: "min(10rem,50vw)",aspectRatio: "16/9"}}>
+                                                    <img className='position-absolute w-100' src={branches[+branchSelect-1].image} />
+                                                </div>
                                             </div>
                                         </div>
                                     </Carousel.Item>
@@ -653,7 +705,9 @@ function Home({}) {
                                                     <h4>Fourth Branch Address</h4>
                                                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere voluptatem quidem distinctio libero, culpa modis.</p>
                                                 </div>
-                                                <div className='bg-light' style={{height: "min(10rem,50vw)",aspectRatio: "16/9"}}></div>
+                                                <div className='position-relative d-flex align-items-end justify-content-center overflow-hidden' style={{height: "min(10rem,50vw)",aspectRatio: "16/9"}}>
+                                                    <img className='position-absolute w-100' src={branches[+branchSelect-1].image} />
+                                                </div>
                                             </div>
                                         </div>
                                     </Carousel.Item>

@@ -13,8 +13,23 @@
       "zipcode": "42221",
       "creditCardNo": 1,
       "street": "111",
-      "cart": [],
-      "favorites": [],
+      "cart": [
+        {
+          "productId": "5",
+          "count": 1
+        },
+        {
+          "productId": "84353",
+          "count": 1
+        },
+        {
+          "productId": "98347",
+          "count": 1
+        }
+      ],
+      "favorites": [
+        5
+      ],
       "id": 1
     }
   ],
@@ -23,7 +38,7 @@
       "category": "smartphone",
       "desc": "This new phone is awesome",
       "price": 580,
-      "image": "https://i.imgur.com/XVnNbCm.png",
+      "image": "https://i.imgur.com/xBOzjAi.png",
       "title": "Phone 4X",
       "specs": {
         "os": "Android 10",
@@ -35,27 +50,27 @@
         "cam": "20 MP",
         "res": "1280 x 720"
       },
-      "id": 4,
+      "id": "83792",
       "rating": 0
     },
     {
       "category": "smartphone",
       "desc": "",
       "price": 100,
-      "image": "https://i.imgur.com/XVnNbCm.png",
+      "image": "https://i.imgur.com/Nfhitnz.png",
       "title": "Phone 11",
       "specs": {
         "os": "Android 11",
         "storage": "128 GB"
       },
-      "id": 5,
+      "id": "98347",
       "rating": 0
     },
     {
       "category": "tablet",
       "desc": "",
       "price": 100,
-      "image": "https://i.imgur.com/XVnNbCm.png",
+      "image": "https://i.imgur.com/Dj9tI7e.png",
       "title": "Phon 34",
       "specs": {
         "storage": "e",
@@ -68,7 +83,7 @@
       "category": "smartphone",
       "desc": "",
       "price": 1234,
-      "image": "https://i.imgur.com/XVnNbCm.png",
+      "image": "https://i.imgur.com/fPgvL6b.png",
       "title": "Phone 3434",
       "specs": {
         "os": "Android 11",
@@ -293,7 +308,7 @@
             "name": "connection type"
           },
           {
-            "code": "key",
+            "code": "keyType",
             "name": "key type"
           },
           {

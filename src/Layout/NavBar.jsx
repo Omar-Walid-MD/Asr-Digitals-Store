@@ -4,23 +4,25 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import { BsCaretLeft, BsCaretLeftFill, BsCaretRightFill, BsFillCartFill, BsFillPersonFill, BsSearch } from "react-icons/bs";
-import { Button, Dropdown, DropdownButton, Modal, Spinner } from 'react-bootstrap';
+import { BsCaretLeft, BsCaretLeftFill, BsCaretRightFill, BsFillCartFill, BsFillPersonFill, BsSearch, BsX } from "react-icons/bs";
+import { Button, Col, Dropdown, DropdownButton, Modal, Row, Spinner } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCurrentUser, logoutUser } from '../Store/Auth/auth';
 import { getCartTotalCount } from '../helpers';
+import ProductCard from '../Components/ProductCard';
 
 function NavBar({}) {
 
     const location = useLocation();
     const loggedIn = useSelector((store) => store.auth.loggedIn);
     const authLoading = useSelector((store) => store.auth.loading);
+    const products = useSelector((store) => store.products.products);
     const cart = useSelector((store) => store.cart.cart);
     // const productsInfo = useSelector((store) => store.products.productsInfo);
 
     const [searchModal,setSearchModal] = useState(false);
     const handleSearchModalShow = () => setSearchModal(true);
-    const handleSearchModalClose = () => setSearchModal(false);
+    const handleSearchModalClose = () => {setSearchModal(false); setSearchValue("");};
 
 
     const [searchValue,setSearchValue] = useState("");
@@ -32,6 +34,12 @@ function NavBar({}) {
         else {if(!searchModal) setSearchModal(true);}
         e.target.focus();
         console.log(e.target.value);
+    }
+
+    function getSearchResults()
+    {
+        if(searchValue==="") return [];
+        return products.filter((product) => product.title.toLowerCase().includes(searchValue.toLowerCase()));
     }
 
     const [cartTotal, setCartTotal]  = useState(0);
@@ -63,22 +71,24 @@ function NavBar({}) {
     },[cart]);
 
     return (
-        <Navbar expand="lg" className="bg-body-tertiary position-sticky top-0 shadow">
-            <Container className="navbar-container d-flex align-items-center justify-content-between gap-0 gap-lg-4 w-100">
-                <Navbar.Brand as={NavLink} to="/">Asr Digitals</Navbar.Brand>
-                <div className="align-items-center justify-content-start d-none d-sm-flex search-container w-50">
-                    <div className="w-100 d-flex align-items-center border border-2 border-secondary rounded-2 overflow-hidden" style={{height:"2.25rem"}}>
-                        <BsSearch className='bg-secondary fs-1 p-2 text-white h-100' />
-                        <input type='search' className='w-100  border-0 p-1 ps-2 fs-5' value={searchValue} onChange={handleSearch} />
+        <Navbar expand="md" className="bg-body-tertiary position-sticky top-0 shadow py-1 py-md-2">
+            <Container className="navbar-container d-flex align-items-center justify-content-between gap-0 gap-md-4 w-100">
+                <div className="d-flex gap-3 w-75">
+                    <Navbar.Brand as={NavLink} to={"/"}>Asr Digitals</Navbar.Brand>
+                    <div className="w-100 align-items-center justify-content-start d-none d-sm-flex search-container">
+                        <div className="w-100 d-flex align-items-center border border-2 border-secondary rounded-2 overflow-hidden" style={{height:"2.25rem"}}>
+                            <BsSearch className='bg-secondary fs-1 p-2 text-white h-100' />
+                            <input type='search' className='w-100  border-0 p-1 ps-2 fs-5' value={searchValue} onChange={handleSearch} />
+                        </div>
                     </div>
                 </div>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                <Navbar.Toggle aria-controls="basic-navbar-nav" className='border-0 shadow-none p-0' />
                 <Navbar.Collapse id="basic-navbar-nav" className="align-items-center flex-grow-0">
-                    <Nav className="align-items-center gap-2 mt-3 m-lg-0">
+                    <Nav className="align-items-center gap-2 mt-3 m-md-0">
                         <div className="d-flex d-sm-none align-items-center justify-content-center">
                             <div className="w-100 d-flex align-items-center border border-2 border-secondary rounded-2 overflow-hidden" style={{height:"2.25rem"}}>
                                 <BsSearch className='bg-secondary fs-1 p-2 text-white h-100' />
-                                <input type='search' className='w-100  border-0 p-1 ps-2 fs-5' />
+                                <input type='search' className='w-100  border-0 p-1 ps-2 fs-5' value={searchValue} onChange={handleSearch} />
                             </div>
                         </div>
                         <div className={`d-flex gap-3 ${!loggedIn ? "flex-column" : ""} flex-sm-row align-items-center`}>
@@ -86,7 +96,7 @@ function NavBar({}) {
                                 {/* <Nav.Link className={`navbar-link position-relative d-flex justify-content-center ${linkActive("shop")}`} as={NavLink} to="/shop">Shop</Nav.Link> */}
                                 <div className='d-flex justify-content-start justify-content-xl-center navbar-dropdown-menu'>
                                     <div className='navbar-dropdown-button'>
-                                        <Nav.Link className={`navbar-link position-relative d-flex justify-content-center ${linkActive("shop")}`} as={NavLink} to="/shop">Shop</Nav.Link>
+                                        <Nav.Link className={`navbar-link position-relative d-flex justify-content-center ${linkActive("shop")}`}>Shop</Nav.Link>
                                     </div>
                                     <div className="position-absolute navbar-dropdown-container">
                                         <div className="bg-light shadow navbar-dropdown">
@@ -107,7 +117,7 @@ function NavBar({}) {
                                                         <div className="bg-light shadow navbar-dropdown overflow-hidden">
                                                         {
                                                             menuItem.categories.map((category) =>
-                                                                <div className='px-3 py-2 border-bottom d-flex align-items-center gap-2 justify-content-center text-decoration-none text-capitalize fw-semibold'> {category} </div>
+                                                                <Link to={`/shop/q?cat=${category}`} onClick={()=>{handleSearchModalClose();}} className='px-3 py-2 border-bottom d-flex align-items-center gap-2 justify-content-center text-decoration-none text-capitalize fw-semibold'> {category} </Link>
                                                             )
                                                         }
                                                                                         
@@ -133,8 +143,8 @@ function NavBar({}) {
                                     </div>
                                     
                                 </div>
-                                <Nav.Link className={`navbar-link position-relative d-flex justify-content-center ${linkActive("about")}`} href="#link">About</Nav.Link>
-                                <Nav.Link className={`navbar-link position-relative d-flex justify-content-center ${linkActive("contact")}`} href="#link">Contact</Nav.Link>
+                                <Nav.Link className={`navbar-link position-relative d-flex justify-content-center ${linkActive("about")}`} href="">About</Nav.Link>
+                                <Nav.Link className={`navbar-link position-relative d-flex justify-content-center ${linkActive("contact")}`} href="">Contact</Nav.Link>
 
                                 <Nav.Link className={`cart-link position-relative d-flex justify-content-center ${linkActive("cart")}`} as={NavLink} to="/cart">
                                     <BsFillCartFill className='fs-4 text-secondary' />
@@ -172,19 +182,48 @@ function NavBar({}) {
                     </Nav>
                 </Navbar.Collapse>
             </Container>
+            
 
-
-            <Modal show={searchModal} autoFocus={false} enforceFocus={false} onHide={handleSearchModalClose} centered={true} className={`bg-transparent search-modal`}>
-                <Modal.Header closeButton>
-                    <Modal.Title className='text-capitalize'>Delete Product</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleSearchModalClose}>Cancel</Button>
-                </Modal.Footer>
-            </Modal>
+            <div className={`navbar-search-results-overlay top-100 w-100 position-absolute d-flex align-items-start justify-content-center pt-3 p-0 p-sm-3 ${searchModal ? "active" : ""}`}>
+                <div className="navbar-search-results-container bg-light rounded-sm-3 shadow overflow-hidden">
+                    <Modal.Header className='border-bottom border-2 p-3'>
+                        <Modal.Title className='text-capitalize'>Search</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body className='p-0 p-sm-3 body overflow-y-scroll overflow-x-hidden scrollbar white'>
+                        <div className='h-100'>
+                            {
+                                getSearchResults().length > 0 ?
+                                <Row className='g-1 g-sm-2'>
+                                {
+                                    
+                                    getSearchResults().map((product) => 
+                                    <Col className='col-6 col-sm-4 col-md-3 p-1 px-sm-2'>
+                                        <ProductCard productObject={product} />
+                                    </Col>
+                                    )
+                                }
+                                </Row>
+                                :
+                                <div className='w-100 h-100 d-flex align-items-center justify-content-center'>
+                                    <h5 cl>No results for "{searchValue}"</h5>
+                                </div>
+                            }
+                            
+                        </div>
+                    </Modal.Body>
+                    <Modal.Footer className='p-2 position-sticky bottom-0 bg-light border-top border-2'>
+                        <div className="d-flex align-items-center w-100 gap-2 justify-content-end">
+                        {
+                            getSearchResults().length > 3 ?
+                            <Link to={`/shop/q?search=${searchValue}`} onClick={()=>{setSearchModal(false);}} className='btn main-button w-100 border-0 fs-5'>More results</Link>
+                            : ""
+                        }
+                            <Button variant="secondary" className='fs-2 d-flex p-2 border-0' onClick={handleSearchModalClose}><BsX /></Button>
+                        </div>
+                        
+                    </Modal.Footer>
+                </div>
+            </div>
         </Navbar>
     );
 }

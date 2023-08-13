@@ -23,7 +23,7 @@ function ProductCartItem({productObject,productId,className}) {
 
     function getCount()
     {
-        let pId = ''+product.id;
+        let pId = product.id;
         let targetProduct = cart.find((product) => product.productId === pId);
         return targetProduct ? targetProduct.count : 1;
     }
@@ -33,20 +33,20 @@ function ProductCartItem({productObject,productId,className}) {
         if(newCount <= 10 && newCount > 0)
         {
             setCount(newCount);
-            dispatch(setProductCount({productId: ""+product.id,count: newCount}));
+            dispatch(setProductCount({productId: product.id,count: newCount}));
         }
     }
 
     // console.log(product)
     
     useEffect(()=>{
-        if(products.length && !productObject) setProduct(products.find((product) => product.id === parseInt(productId)));
+        if(products.length && !productObject) setProduct(products.find((product) => product.id === productId));
     },[productId, products]);
 
     useEffect(()=>{
         if(product)
         {
-            setAdded(cart.map((i) => i.productId).includes(""+product.id));
+            setAdded(cart.map((i) => i.productId).includes(product.id));
             setCount(getCount());
             // setFirstCountSet(true);
         }

@@ -59,7 +59,7 @@ function ProductPage({})
         if(newCount <= 10 && newCount > 0)
         {
             setCount(newCount);
-            dispatch(setProductCount({productId: ""+product.id,count: newCount}));
+            dispatch(setProductCount({productId: product.id,count: newCount}));
         }
     }
 
@@ -85,14 +85,14 @@ function ProductPage({})
     }
 
     useEffect(()=>{
-        if(products.length) setProduct(products.find((product) => product.id === parseInt(productId)));
+        if(products.length) setProduct(products.find((product) => product.id === productId));
     },[productId, products]);
 
     useEffect(()=>{
         if(product)
         {
             setCount(getCount());
-            setAdded(cart.map((i) => i.productId).includes(""+product.id));
+            setAdded(cart.map((i) => i.productId).includes(product.id));
             // setFirstCountSet(true);
         }
     },[product,cart]);
@@ -111,12 +111,13 @@ function ProductPage({})
                         <Row className='m-0 gy-4'>
                             <Col className='col-12 col-md-4 h-100 p-0'>
                                 <div className="d-flex w-100 position-relative">
-                                    <div className='bg-white p-4 rounded-3 shadow'>
-                                        <img className='w-100' src={require("../img/phone.png")} />
+                                    <div className='bg-white overflow-hidden rounded-3 shadow'>
+                                        <img className='w-100' src={product.image} />
                                         <div className='product-img-preview rounded-3 w-100 h-100 position-absolute top-0 left-0'
                                         onMouseEnter={(e)=>{e.target.style.opacity = "1"}}
                                         onMouseLeave={(e)=>{e.target.style.opacity = "0"}}
                                         onMouseMove={handlePreviewImage}
+                                        style={{background: `url("${product.image}")`}}
                                         ></div>
                                     </div>
                                 </div>

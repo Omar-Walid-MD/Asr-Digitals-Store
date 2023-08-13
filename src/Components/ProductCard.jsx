@@ -23,7 +23,7 @@ function ProductCard({productObject,productId,className,showSingle=true}) {
 
     function getCount()
     {
-        let pId = ''+product.id;
+        let pId = product.id;
         let targetProduct = cart.find((product) => product.productId === pId);
         return targetProduct ? targetProduct.count : 1;
     }
@@ -33,20 +33,20 @@ function ProductCard({productObject,productId,className,showSingle=true}) {
         if(newCount <= 10 && newCount > 0)
         {
             setCount(newCount);
-            dispatch(setProductCount({productId: ""+product.id,count: newCount}));
+            dispatch(setProductCount({productId: product.id,count: newCount}));
         }
     }
 
     // console.log(product)
     
     useEffect(()=>{
-        if(products.length && !productObject) setProduct(products.find((product) => product.id === parseInt(productId)));
+        if(products.length && !productObject) setProduct(products.find((product) => product.id === productId));
     },[productId, products]);
 
     useEffect(()=>{
         if(product)
         {
-            setAdded(cart.map((i) => i.productId).includes(""+product.id));
+            setAdded(cart.map((i) => i.productId).includes(product.id));
             setCount(getCount());
             // setFirstCountSet(true);
         }
@@ -59,18 +59,23 @@ function ProductCard({productObject,productId,className,showSingle=true}) {
 
 
     return (
-        <Card className={`h-100 position-relative product-card shadow border-0 ${className}`}>
-            <div className='overflow-hidden border border-1 rounded-1'>
+        <Card className={`h-100 position-relative border-0 bg-transparent product-card-container ${className}`}>
+            <div className=' '>
             {
                 product &&
-                <Card.Body className='p-0'>
+                <Card.Body className='p-0 rounded-0 product-card shadow border border-1 rounded-3 overflow-hidden'>
                     <div className='d-flex flex-column align-items-center justify-content-between h-100 w-100'>
-                        <Link className="text-center text-decoration-none text-dark pb-4 px-2" to={`/product/${product.id}`}>
-                            <div className='product-card-img w-100 d-flex justify-content-center'><img className='w-100' src={require("../img/phone.png")} /> </div>
+                        <Link className="text-center w-100 text-decoration-none text-dark pb-1" to={`/product/${product.id}`}>
+                            <div className='mb-3 product-card-img position-relative overflow-hidden'>
+                                <div className='w-100 h-100 d-flex justify-content-center align-items-center position-relative'>
+                                    <img className='position-absolute' src={product.image} />
+                                </div>
+                            </div>
                             <Card.Title className='product-card-title'>{product.title}</Card.Title>
                             <Card.Text className='product-card-price price-tag fw-bold text-danger'>{product.price}</Card.Text>
                         </Link>
-                        <div className="d-flex w-100 justify-content-end bg-primary-subtle p-2 position-relative">
+                        <hr className='w-100 border-2 m-0 mt-2' />
+                        <div className="d-flex w-100 justify-content-end p-2 position-relative ">
                             {
                                 product.rating ?
                                 <p className='m-0 ms-2 fs-6 d-flex fw-semibold align-items-center gap-1 position-absolute product-card-rating left-0 text-warning'>{product.rating} <BsStarFill /></p>
@@ -79,15 +84,15 @@ function ProductCard({productObject,productId,className,showSingle=true}) {
                             <div className="d-flex gap-2 justify-content-between w-100">
                                 {
                                     added ?
-                                    <Button className='d-flex p-2 bg-danger text-white border-2 border-danger fs-4 rounded-3 w-100 d-flex justify-content-center' onClick={()=>{dispatch(removeFromCart(""+product.id)); setAdded(false);}}><BsFillCartDashFill /></Button>
+                                    <Button className='d-flex p-2 bg-danger text-white border-2 border-danger fs-4 rounded-3 w-100 d-flex justify-content-center' onClick={()=>{dispatch(removeFromCart(product.id)); setAdded(false);}}><BsFillCartDashFill /></Button>
                                         :
-                                    <Button variant='primary' className='d-flex p-2 text-white border-2 fs-4 rounded-3 w-100 d-flex justify-content-center' onClick={()=>{dispatch(addToCart(""+product.id)); setAdded(true);}}><BsFillCartPlusFill /></Button>
+                                    <Button variant='primary' className='d-flex p-2 text-white border-2 fs-4 rounded-3 w-100 d-flex justify-content-center' onClick={()=>{dispatch(addToCart(product.id)); setAdded(true);}}><BsFillCartPlusFill /></Button>
                                 }
                                 {
                                     favorite ?
-                                    <Button className='d-flex p-2 bg-warning border-2 border-warning fs-4 rounded-3' onClick={()=>{dispatch(removeFromFav(product.id)); setFavorite(false);}}><BsStarFill /></Button>
+                                    <Button className='d-flex p-2 bg-warning border-3 border-warning fs-4 rounded-3' onClick={()=>{dispatch(removeFromFav(product.id)); setFavorite(false);}}><BsStarFill /></Button>
                                     :
-                                    <Button className='d-flex p-2 bg-transparent text-warning border-2 border-warning fs-4 rounded-3' onClick={()=>{dispatch(addToFav(product.id)); setFavorite(true);}}><BsStarFill /></Button>
+                                    <Button className='d-flex p-2 bg-transparent text-warning border-3 border-warning fs-4 rounded-3' onClick={()=>{dispatch(addToFav(product.id)); setFavorite(true);}}><BsStarFill /></Button>
                                 }
                             </div>
                         </div>

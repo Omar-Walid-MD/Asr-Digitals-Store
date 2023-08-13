@@ -22,7 +22,7 @@ function Slider({content, className="", variant="dark", style}) {
 
   return (
     <div className={`w-100 position-relative slider-container ${variant} ${className}`} style={style} >
-      <div className={`overflow-x-scroll scrollbar shadow rounded-md-2`} ref={scroll} style={{scrollBehavior: "smooth"}}>
+      <div className={`overflow-x-scroll scrollbar ${variant} shadow rounded-md-2`} ref={scroll} style={{scrollBehavior: "smooth"}}>
         <div className='d-flex align-items-center slider p-md-4' style={{width: "fit-content"}} >
         {
            content

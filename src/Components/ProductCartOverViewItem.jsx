@@ -22,7 +22,7 @@ function ProductCartItemOverview({productObject,productId,className}) {
 
     function getCount()
     {
-        let pId = ''+product.id;
+        let pId = product.id;
         let targetProduct = cart.find((product) => product.productId === pId);
         return targetProduct ? targetProduct.count : 1;
     }
@@ -30,7 +30,7 @@ function ProductCartItemOverview({productObject,productId,className}) {
 
     
     useEffect(()=>{
-        if(products.length && !productObject) setProduct(products.find((product) => product.id === parseInt(productId)));
+        if(products.length && !productObject) setProduct(products.find((product) => product.id === productId));
     },[productId, products]);
 
     useEffect(()=>{
