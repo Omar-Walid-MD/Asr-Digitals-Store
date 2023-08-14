@@ -59,11 +59,11 @@ function ProductCard({productObject,productId,className,showSingle=true}) {
 
 
     return (
-        <Card className={`h-100 position-relative border-0 bg-transparent product-card-container ${className}`}>
+        <Card className={`h-100 position-relative border-0 bg-transparent product-card-container  ${className}`}>
             <div className=' '>
             {
                 product &&
-                <Card.Body className='p-0 rounded-0 product-card shadow border border-1 rounded-3 overflow-hidden'>
+                <Card.Body className='p-0 rounded-0 product-card bg-light shadow border border-1 rounded-3 overflow-hidden'>
                     <div className='d-flex flex-column align-items-center justify-content-between h-100 w-100'>
                         <Link className="text-center w-100 text-decoration-none text-dark pb-1" to={`/product/${product.id}`}>
                             <div className='mb-3 product-card-img position-relative overflow-hidden'>
@@ -74,7 +74,7 @@ function ProductCard({productObject,productId,className,showSingle=true}) {
                             <Card.Title className='product-card-title'>{product.title}</Card.Title>
                             <Card.Text className='product-card-price price-tag fw-bold text-danger'>{product.price}</Card.Text>
                         </Link>
-                        <hr className='w-100 border-2 m-0 mt-2' />
+                        {/* <hr className='w-100 border-2 m-0 mt-2' /> */}
                         <div className="d-flex w-100 justify-content-end p-2 position-relative ">
                             {
                                 product.rating ?

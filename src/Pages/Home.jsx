@@ -7,6 +7,7 @@ import ProductCard from '../Components/ProductCard';
 import { FaTruckMoving, FaLaptop } from "react-icons/fa";
 import { HiSparkles } from "react-icons/hi";
 import { RiHandCoinFill } from "react-icons/ri";
+import { useSelector } from 'react-redux';
 
 function Home({}) {
 
@@ -23,6 +24,8 @@ function Home({}) {
     }
 
     const [branchSelect,setBranchSelect] = useState(1);
+
+    const products = useSelector((store) => store.products.products.slice(0,10));
 
     const whyChooseUs = [
         {
@@ -50,19 +53,23 @@ function Home({}) {
     const branches = [
         {
             image: "https://i.imgur.com/gKLFcVE.png",
-            coordinates: "31.2163837,29.9274562"
+            coordinates: "31.2163837,29.9274562",
+            title: "Al-Ibrahimiya"
         },
         {
             image: "https://i.imgur.com/HmJiIBI.png",
-            coordinates: "31.2036875,29.8836064"
+            coordinates: "31.2036875,29.8836064",
+            title: "Ra's Al-Tin"
         },
         {
             image: "https://i.imgur.com/HnKrc0F.png",
-            coordinates: "31.2867826,30.023901"
+            coordinates: "31.2867826,30.023901",
+            title: "Al-Mamoura"
         },
         {
             image: "https://i.imgur.com/or6wJfW.png",
-            coordinates: "31.2171035,29.9427816"
+            coordinates: "31.2171035,29.9427816",
+            title: "Smouha"
         }
     ]
 
@@ -97,7 +104,7 @@ function Home({}) {
 
     return (
         <div>
-            <header className='bg-secondary homepage-header d-flex align-items-center justify-content-center justify-content-sm-start pb-5' style={style.header}>
+            <header className='homepage-header d-flex align-items-center justify-content-center justify-content-sm-start pb-5' style={style.header}>
                 <Container className='m-5 d-flex justify-content-center justify-content-sm-start'>
                     <div className='header-content text-white p-0 m-0 m-sm-5 w-xs-100 w-sm-50 d-flex flex-column gap-3 align-items-center align-items-sm-start'>
                         <h1 className='large-title text-center text-sm-start'>Asr Digitals</h1>
@@ -116,13 +123,13 @@ function Home({}) {
                     {
                         whyChooseUs.map((w) => (
 
-                        <Col className='col-12 col-sm-6 col-lg-3 px-2 px-md-3'>
+                        <Col className=' d-flex align-items-center justify-content-center posotion-relative px-2 px-md-3'>
                             <div className="wcu-card">
                                 <div className="d-flex align-items-center wcu-card-header bg-dark text-white p-3 position-relative shadow-sm">
                                     <div className="d-flex position-absolute wcu-card-icon bg-dark rounded-circle border border-4 border-white p-3">{w.icon}</div>
                                     <h5 className='m-0'>{w.header}</h5>
                                 </div>
-                                <div className='border border-top-0 border-2 wcu-card-text bg-white shadow-sm p-3'>
+                                <div className='border border-top-0 border-2 wcu-card-text shadow-sm p-3'>
                                     <div></div>
                                     <p className='fs-5 text-muted'>{w.content}</p>
                                 </div>
@@ -142,7 +149,7 @@ function Home({}) {
                         <h3 className='text-start w-100 text-white'>Check our popular products</h3>
                         <hr className='bg-white border-3 border-white w-100 mb-0' />
                     </Container>
-                    <ProductSlider />
+                    <ProductSlider products={products} />
                 </div>
             </section>
 
@@ -180,30 +187,30 @@ function Home({}) {
             <section className='position-relative page-section bg-white d-flex flex-column bg-img-4'>
                 <div className="w-100 position-absolute bottom-100 fs-2 fw-semibold"><div className='section-title bg-white d-inline-block m-0 h-100 p-2 ps-4 pe-3'>Newest Arrivals</div></div>
                 <Container className='d-flex flex-column align-items-center p-2 py-5 px-sm-4 h-100 gap-5'>
-                    <Row className='g-2 g-sm-2 g-sm-4 pt-3'>
-                        <Col className="col-12 col-sm-6 col-md-6 col-lg-3 text-center text-sm-start">
-                            <h1>My Phone 202X</h1>
-                            <p className='text-dark fs-5'>Quasi quod ea ducimus repudiandae saepe at aliquam neque cum quidem quis?</p>
+                    <Row className='gy-4 gx-2 g-sm-5 pt-3'>
+                        <Col className="col-12 col-sm-6 col-md-6 col-lg-3 text-center text-sm-start p-0">
+                            <h1>Electro Series</h1>
+                            <p className='text-dark fs-5'>Fresh new set of Smartphones with design and performance equally astonishing.</p>
                         </Col>
-                        <Col className="col-6 col-md-4 col-lg-2 order-1 order-lg-0 px-1 px-sm-2 px-xl-3"><ProductCard productId={"1"} col={4} /></Col>
-                        <Col className="col-6 col-md-4 col-lg-2 order-1 order-lg-0 px-1 px-sm-2 px-xl-3"><ProductCard productId={"1"} col={4} /></Col>
-                        <Col className="col-12 col-md-4 col-lg-2 order-1 order-lg-0 px-1 px-sm-2 px-xl-3 d-flex justify-content-center">
-                            <ProductCard productId={"1"} className={"w-xs-50 w-md-100"} />
+                        <Col className="col-6 col-md-4 col-lg-2 order-1 order-lg-0 px-1 px-sm-2"><ProductCard productId={"12546"} /></Col>
+                        <Col className="col-6 col-md-4 col-lg-2 order-1 order-lg-0 px-1 px-sm-2"><ProductCard productId={"24329"} /></Col>
+                        <Col className="col-12 col-md-4 col-lg-2 order-1 order-lg-0 px-1 px-sm-2 d-flex justify-content-center">
+                            <ProductCard productId={"82592"} className={"w-xs-50 w-md-100"} />
                         </Col>
-                        <Col className='col-12 col-sm-6 col-lg-3'>
-                            <img className='w-100' src={require("../img/phone.png")} alt="" />
+                        <Col className='col-12 col-sm-6 col-lg-3 d-flex align-items-center justify-content-center justify-content-lg-start pb-3 pb-sm-0'>
+                            <img className='' src={require("../img/homepage-newest-1.png")} alt="" style={{width:"min(120%,80vw)",filter: "drop-shadow(0 2px 5px rgb(0,20,100,0.8))"}} />
                         </Col>
                     </Row>
                     <hr className='bg-dark w-100' />
-                    <Row className='g-1 g-sm-2 g-sm-4'>
-                        <Col className='col-12 col-sm-6 col-md-6 col-lg-3 order-1 order-lg-0'>
-                            <img className='w-100' src={require("../img/phone.png")} alt="" />
+                    <Row className='gy-4 gx-2 g-sm-5 pb-3'>
+                        <Col className='col-12 col-sm-6 col-md-6 col-lg-3 order-1 order-lg-0 d-flex align-items-center justify-content-center justify-content-lg-end pb-3 pb-sm-0'>
+                            <img className='' src={require("../img/homepage-newest-2.png")} alt="" style={{width:"min(120%,80vw)",filter: "drop-shadow(0 2px 5px rgb(0,20,100,0.8))"}} />
                         </Col>
-                        <Col className="col-6 col-md-4 col-lg-2 order-1 order-lg-0 px-1 px-sm-2 px-xl-3"><ProductCard productId={"2"} col={4} /></Col>
-                        <Col className="col-6 col-md-4 col-lg-2 order-1 order-lg-0 px-1 px-sm-2 px-xl-3"><ProductCard productId={"2"} col={4} /></Col>
+                        <Col className="col-6 col-md-4 col-lg-2 order-1 order-lg-0 px-1 px-sm-2"><ProductCard productId={"11241"} col={4} /></Col>
+                        <Col className="col-6 col-md-4 col-lg-2 order-1 order-lg-0 px-1 px-sm-2"><ProductCard productId={"99461"} col={4} /></Col>
                         <Col className="col-12 col-sm-6 col-md-6 col-lg-4 ps-sm-5 text-center text-sm-start">
-                            <h1>My Phone 202X</h1>
-                            <p className='text-dark fs-5'>Quasi quod ea ducimus repudiandae saepe at aliquam neque cum quidem quis?</p>
+                            <h1>Zoom</h1>
+                            <p className='text-dark fs-5'>Zoom faster into the future's tech with Zoom's Lightweight, Professional Smartphones.</p>
                         </Col>
                     </Row>
                 </Container>
@@ -223,12 +230,12 @@ function Home({}) {
                                     </div>
                                 </Col>
                                 <Col className='col-6 col-sm-4'>
-                                <div className='w-100 bg-light rounded-1 shadow d-flex align-items-center justify-content-center p-0 p-md-4' style={{height: "15rem"}}>
+                                <div className='w-100 bg-light rounded-1 shadow d-flex align-items-center justify-content-center p-0 p-md-4 service-card' style={{height: "15rem"}}>
                                         <img style={{width: "min(10rem,25vw)",height:"fit-content"}} src={require("../img/services-2.png")} />
                                     </div>
                                 </Col>
                                 <Col className='col-6 col-sm-4'>
-                                    <div className='w-100 bg-light rounded-1 shadow d-flex align-items-center justify-content-center p-0 p-md-4' style={{height: "15rem"}}>
+                                    <div className='w-100 bg-light rounded-1 shadow d-flex align-items-center justify-content-center p-0 p-md-4 service-card' style={{height: "15rem"}}>
                                         <img style={{width: "min(8rem,20vw)",height:"fit-content"}} src={require("../img/services-1.png")} />
                                     </div>
                                 </Col>
@@ -241,15 +248,22 @@ function Home({}) {
                             </Row>
                         </Col>
                         <Col className='col-12 col-lg-3'>
-                            <div className='w-100 h-100 bg-light rounded-1 shadow p-4 d-flex flex-column justify-content-between'>
+                            <div className='w-100 h-100 bg-light rounded-1 shadow p-4 d-flex flex-column justify-content-between service-card'>
                                 <div>
                                     <h3 className='text-secondary text-center mb-3'>Need Any Help?</h3>
-                                    <p className='fs-5 text-muted text-center'>We would love to help or simply hear your thoughts!</p>
-                                    <p className='fs-5 text-muted text-center'>We listen to you and strive to improve!</p>
+                                    <p className='fs-5 text-muted text-center'>We would love to help or simply hear your thoughts! We listen to you and strive to improve!</p>
                                     {/* <p className='fs-5 text-muted text-center'>We listen to you and strive to improve!</p> */}
 
                                 </div>
-                                <Button className='main-button border-0 fs-5 w-100'>Contact us!</Button>
+                                <div>
+                                    <p className='mb-1 text-center'>Call us at: +201028549449</p>
+                                    <div className='d-flex justify-content-center mb-1'>
+                                        <hr className='w-100 border-2' />
+                                        <span className='px-2 text-muted fw-semibold'>OR</span>
+                                        <hr className='w-100 border-2' />
+                                    </div>
+                                    <Button className='main-button border-0 fs-5 w-100'>Contact us now!</Button>
+                                </div>
                             </div>
                         </Col>
                     </Row>
@@ -269,12 +283,12 @@ function Home({}) {
                                         <div className='h-100 d-flex flex-column align-items-center'>
                                             <h2 className='m-0'>Phone 1X</h2>
                                             <div className='d-flex gap-2 text-warning fs-3 mt-2'><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /></div>
-                                            <img style={{height: "min(20rem,50vw)"}} src={require("../img/phone.png")} alt="" />
+                                            <img style={{height: "min(20rem,50vw)",filter:"drop-shadow(0 0 10px rgb(10,20,80))"}} src={require("../img/homepage-reviews-1.png")} alt="" />
                                         </div>
                                         <div className='w-100 d-flex flex-column'>
                                             <div className="d-flex flex-column gap-3">
 
-                                                <div className="w-100 bg-white shadow rounded-3 p-3 d-flex flex-column gap-1 align-items-start">
+                                                <div className="w-100 bg-white shadow rounded-3 p-3 d-flex flex-column gap-1 align-items-start homepage-review-card">
                                                     <div className="d-flex gap-3 align-items-end">
                                                         <div className='bg-white shadow-sm px-2 fs-3 rounded-3'><BsFillPersonFill /></div>
                                                         <h4 className='m-0'>Didn't disappoint</h4>
@@ -296,12 +310,12 @@ function Home({}) {
                                         <div className='h-100 d-flex flex-column align-items-center'>
                                             <h2 className='m-0 '>Phone 1X</h2>
                                             <div className='d-flex gap-2 text-warning fs-3 mt-2'><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /></div>
-                                            <img style={{height: "min(20rem,50vw)"}} src={require("../img/phone.png")} alt="" />
+                                            <img style={{height: "min(20rem,50vw)",filter:"drop-shadow(0 0 10px rgb(10,20,80))"}} src={require("../img/homepage-reviews-2.png")} alt="" />
                                         </div>
                                         <div className='w-100 d-flex flex-column'>
                                             <div className="d-flex flex-column gap-3">
 
-                                                <div className="w-100 bg-white shadow rounded-3 p-3 d-flex flex-column gap-1 align-items-start">
+                                                <div className="w-100 bg-white shadow rounded-3 p-3 d-flex flex-column gap-1 align-items-start homepage-review-card">
                                                     <div className="d-flex gap-3 align-items-end">
                                                         <div className='bg-white shadow-sm px-2 fs-3 rounded-3'><BsFillPersonFill /></div>
                                                         <h4 className='m-0'>I liked it</h4>
@@ -323,12 +337,12 @@ function Home({}) {
                                         <div className='h-100 d-flex flex-column align-items-center'>
                                             <h2 className='m-0 '>Phone 1X</h2>
                                             <div className='d-flex gap-2 text-warning fs-3 mt-2'><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /></div>
-                                            <img style={{height: "min(20rem,50vw)"}} src={require("../img/phone.png")} alt="" />
+                                            <img style={{height: "min(20rem,50vw)",filter:"drop-shadow(0 0 10px rgb(10,20,80))"}} src={require("../img/homepage-reviews-3.png")} alt="" />
                                         </div>
                                         <div className='w-100 d-flex flex-column'>
                                             <div className="d-flex flex-column gap-3">
 
-                                                <div className="w-100 bg-white shadow rounded-3 p-3 d-flex flex-column gap-1 align-items-start">
+                                                <div className="w-100 bg-white shadow rounded-3 p-3 d-flex flex-column gap-1 align-items-start homepage-review-card">
                                                     <div className="d-flex gap-3 align-items-end">
                                                         <div className='bg-white shadow-sm px-2 fs-3 rounded-3'><BsFillPersonFill /></div>
                                                         <h4 className='m-0'>Easy use</h4>
@@ -357,12 +371,12 @@ function Home({}) {
                                         <div className='h-100 d-flex flex-column align-items-center'>
                                             <h2 className='m-0'>Phone 1X</h2>
                                             <div className='d-flex gap-2 text-warning fs-3 mt-2'><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /></div>
-                                            <img style={{height: "min(20rem,50vw)"}} src={require("../img/phone.png")} alt="" />
+                                            <img style={{height: "min(20rem,50vw)",filter:"drop-shadow(0 0 10px rgb(10,20,80))"}} src={require("../img/homepage-reviews-4.png")} alt="" />
                                         </div>
                                         <div className='w-100 d-flex flex-column'>
                                             <div className="d-flex flex-column gap-3">
 
-                                                <div className="w-100 bg-white shadow rounded-3 p-3 d-flex flex-column gap-1 align-items-start">
+                                                <div className="w-100 bg-white shadow rounded-3 p-3 d-flex flex-column gap-1 align-items-start homepage-review-card">
                                                     <div className="d-flex gap-3 align-items-end">
                                                         <div className='bg-white shadow-sm px-2 fs-3 rounded-3'><BsFillPersonFill /></div>
                                                         <h4 className='m-0'>Good Value for Money</h4>
@@ -384,12 +398,12 @@ function Home({}) {
                                         <div className='h-100 d-flex flex-column align-items-center'>
                                             <h2 className='m-0 '>Phone 1X</h2>
                                             <div className='d-flex gap-2 text-warning fs-3 mt-2'><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /></div>
-                                            <img style={{height: "min(20rem,50vw)"}} src={require("../img/phone.png")} alt="" />
+                                            <img style={{height: "min(20rem,50vw)",filter:"drop-shadow(0 0 10px rgb(10,20,80))"}} src={require("../img/homepage-reviews-5.png")} alt="" />
                                         </div>
                                         <div className='w-100 d-flex flex-column'>
                                             <div className="d-flex flex-column gap-3">
 
-                                                <div className="w-100 bg-white shadow rounded-3 p-3 d-flex flex-column gap-1 align-items-start">
+                                                <div className="w-100 bg-white shadow rounded-3 p-3 d-flex flex-column gap-1 align-items-start homepage-review-card">
                                                     <div className="d-flex gap-3 align-items-end">
                                                         <div className='bg-white shadow-sm px-2 fs-3 rounded-3'><BsFillPersonFill /></div>
                                                         <h4 className='m-0'>Excellent Picture Quality</h4>
@@ -411,12 +425,12 @@ function Home({}) {
                                         <div className='h-100 d-flex flex-column align-items-center'>
                                             <h2 className='m-0 '>Phone 1X</h2>
                                             <div className='d-flex gap-2 text-warning fs-3 mt-2'><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /></div>
-                                            <img style={{height: "min(20rem,50vw)"}} src={require("../img/phone.png")} alt="" />
+                                            <img style={{height: "min(20rem,50vw)",filter:"drop-shadow(0 0 10px rgb(10,20,80))"}} src={require("../img/homepage-reviews-6.png")} alt="" />
                                         </div>
                                         <div className='w-100 d-flex flex-column'>
                                             <div className="d-flex flex-column gap-3">
 
-                                                <div className="w-100 bg-white shadow rounded-3 p-3 d-flex flex-column gap-1 align-items-start">
+                                                <div className="w-100 bg-white shadow rounded-3 p-3 d-flex flex-column gap-1 align-items-start homepage-review-card">
                                                     <div className="d-flex gap-3 align-items-end">
                                                         <div className='bg-white shadow-sm px-2 fs-3 rounded-3'><BsFillPersonFill /></div>
                                                         <h4 className='m-0'>Reliable Performance</h4>
@@ -443,12 +457,12 @@ function Home({}) {
                                         <div className='h-100 d-flex flex-column align-items-center'>
                                             <h2 className='m-0'>Phone 1X</h2>
                                             <div className='d-flex gap-2 text-warning fs-3 mt-2'><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /></div>
-                                            <img style={{height: "min(20rem,50vw)"}} src={require("../img/phone.png")} alt="" />
+                                            <img style={{height: "min(20rem,50vw)",filter:"drop-shadow(0 0 10px rgb(10,20,80))"}} src={require("../img/homepage-reviews-7.png")} alt="" />
                                         </div>
                                         <div className='w-100 d-flex flex-column'>
                                             <div className="d-flex flex-column gap-3">
 
-                                                <div className="w-100 bg-white shadow rounded-3 p-3 d-flex flex-column gap-1 align-items-start">
+                                                <div className="w-100 bg-white shadow rounded-3 p-3 d-flex flex-column gap-1 align-items-start homepage-review-card">
                                                     <div className="d-flex gap-3 align-items-end">
                                                         <div className='bg-white shadow-sm px-2 fs-3 rounded-3'><BsFillPersonFill /></div>
                                                         <h4 className='m-0'>Decent Performance</h4>
@@ -470,12 +484,12 @@ function Home({}) {
                                         <div className='h-100 d-flex flex-column align-items-center'>
                                             <h2 className='m-0 '>Phone 1X</h2>
                                             <div className='d-flex gap-2 text-warning fs-3 mt-2'><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /></div>
-                                            <img style={{height: "min(20rem,50vw)"}} src={require("../img/phone.png")} alt="" />
+                                            <img style={{height: "min(20rem,50vw)",filter:"drop-shadow(0 0 10px rgb(10,20,80))"}} src={require("../img/homepage-reviews-8.png")} alt="" />
                                         </div>
                                         <div className='w-100 d-flex flex-column'>
                                             <div className="d-flex flex-column gap-3">
 
-                                                <div className="w-100 bg-white shadow rounded-3 p-3 d-flex flex-column gap-1 align-items-start">
+                                                <div className="w-100 bg-white shadow rounded-3 p-3 d-flex flex-column gap-1 align-items-start homepage-review-card">
                                                     <div className="d-flex gap-3 align-items-end">
                                                         <div className='bg-white shadow-sm px-2 fs-3 rounded-3'><BsFillPersonFill /></div>
                                                         <h4 className='m-0'>Impressive Battery Life</h4>
@@ -497,12 +511,12 @@ function Home({}) {
                                         <div className='h-100 d-flex flex-column align-items-center'>
                                             <h2 className='m-0 '>Phone 1X</h2>
                                             <div className='d-flex gap-2 text-warning fs-3 mt-2'><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /></div>
-                                            <img style={{height: "min(20rem,50vw)"}} src={require("../img/phone.png")} alt="" />
+                                            <img style={{height: "min(20rem,50vw)",filter:"drop-shadow(0 0 10px rgb(10,20,80))"}} src={require("../img/homepage-reviews-9.png")} alt="" />
                                         </div>
                                         <div className='w-100 d-flex flex-column'>
                                             <div className="d-flex flex-column gap-3">
 
-                                                <div className="w-100 bg-white shadow rounded-3 p-3 d-flex flex-column gap-1 align-items-start">
+                                                <div className="w-100 bg-white shadow rounded-3 p-3 d-flex flex-column gap-1 align-items-start homepage-review-card">
                                                     <div className="d-flex gap-3 align-items-end">
                                                         <div className='bg-white shadow-sm px-2 fs-3 rounded-3'><BsFillPersonFill /></div>
                                                         <h4 className='m-0'>Sleek Design</h4>
@@ -529,7 +543,7 @@ function Home({}) {
                             <div className="p-2 w-100 h-100">
                                 <div className="d-flex flex-column flex-md-row w-100 h-100 bg-warning-subtle rounded-3 p-2 shadow-sm">
                                     <div className='h-100 d-flex justify-content-center'>
-                                        <img style={{height: "min(25rem,90vw)"}} src={require("../img/phone.png")} alt="" />
+                                        <img style={{height: "min(25rem,90vw)",filter:"drop-shadow(0 0 10px rgb(10,20,80))"}} src={require("../img/homepage-reviews-x.png")} alt="" />
                                     </div>
                                     <div className='w-100 d-flex flex-column p-3'>
                                         <div className="d-flex flex-column flex-md-row align-items-center gap-0 gap-md-4 fs-1 text-secondary"><h1 style={{fontSize: "3rem"}}>Phone 1X</h1><div className='d-flex gap-2 text-warning'><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /></div>  </div>
@@ -565,7 +579,7 @@ function Home({}) {
                             <div className="p-2 w-100 h-100">
                                 <div className="d-flex flex-column flex-md-row w-100 h-100 bg-info-subtle rounded-3 p-2 shadow-sm">
                                     <div className='h-100 d-flex justify-content-center'>
-                                        <img style={{height: "min(25rem,90vw)"}} src={require("../img/phone.png")} alt="" />
+                                        <img style={{height: "min(25rem,90vw)",filter:"drop-shadow(0 0 10px rgb(10,20,80))"}} src={require("../img/homepage-reviews-x.png")} alt="" />
                                     </div>
                                     <div className='w-100 d-flex flex-column p-3'>
                                         <div className="d-flex flex-column flex-md-row align-items-center gap-0 gap-md-4 fs-1 text-secondary"><h1 style={{fontSize: "3rem"}}>Phone 1X</h1><div className='d-flex gap-2 text-warning'><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /></div>  </div>
@@ -601,7 +615,7 @@ function Home({}) {
                             <div className="p-2 w-100 h-100">
                                 <div className="d-flex flex-column flex-md-row w-100 h-100 bg-secondary-subtle rounded-3 p-2 shadow-sm">
                                     <div className='h-100 d-flex justify-content-center'>
-                                        <img style={{height: "min(25rem,90vw)"}} src={require("../img/phone.png")} alt="" />
+                                        <img style={{height: "min(25rem,90vw)",filter:"drop-shadow(0 0 10px rgb(10,20,80))"}} src={require("../img/homepage-reviews-x.png")} alt="" />
                                     </div>
                                     <div className='w-100 d-flex flex-column p-3'>
                                         <div className="d-flex flex-column flex-md-row align-items-center gap-0 gap-md-4 fs-1 text-secondary"><h1 style={{fontSize: "3rem"}}>Phone 1X</h1><div className='d-flex gap-2 text-warning'><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /></div>  </div>
@@ -644,73 +658,37 @@ function Home({}) {
                         <Col className="col-12 col-lg-6">
                             <Container className='py-4'>
                                 <Nav variant='underline' className='branch-nav gap-0 d-flex justify-content-between' activeKey={branchSelect} onSelect={(eventKey)=>{setBranchSelect(eventKey)}}>
-                                    <Nav.Item className='text-center'>
-                                        <Nav.Link eventKey="1">First Branch</Nav.Link>
-                                    </Nav.Item>
-                                    <Nav.Item className='text-center'>
-                                        <Nav.Link eventKey="2">Second Branch</Nav.Link>
-                                    </Nav.Item>
-                                    <Nav.Item className='text-center'>
-                                        <Nav.Link eventKey="3">Third Branch</Nav.Link>
-                                    </Nav.Item>
-                                    <Nav.Item className='text-center'>
-                                        <Nav.Link eventKey="4">Fourth Branch</Nav.Link>
-                                    </Nav.Item>
+                                {
+                                    branches.map((branch,index)=>
+                                        <Nav.Item className='text-center'>
+                                            <Nav.Link eventKey={`${index+1}`}>{branch.title}</Nav.Link>
+                                        </Nav.Item>
+                                    )
+                                }
+                                    
                                 </Nav>
-                                <hr className='w-100 border-white border-2 mt-0'/>
+                                <hr className='w-100 border-white border-2 mt-0 mb-2'/>
                                 <Carousel className='w-100 pt-4' controls={false} indicators={false} fade={"true"} activeIndex={+branchSelect-1}>
-                                    <Carousel.Item>
-                                        <div className='text-white bg-secondary'>
-                                            <div className="d-flex flex-column align-items-center align-items-md-start flex-xl-row gap-2 mt-3 justify-content-between gap-xl-5 w-100">
-                                                <div className="d-flex flex-column text-md-start text-center gap-2">
-                                                    <h4>First Branch Address</h4>
-                                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere voluptatem quidem distinctio libero, culpa modis.</p>
-                                                </div>
-                                                <div className='position-relative d-flex align-items-end justify-content-center overflow-hidden' style={{height: "min(10rem,50vw)",aspectRatio: "16/9"}}>
-                                                    <img className='position-absolute w-100' src={branches[+branchSelect-1].image} />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </Carousel.Item>
-                                    <Carousel.Item>
-                                        <div className='text-white bg-secondary'>
-                                            <div className="d-flex flex-column align-items-center align-items-sm-start flex-xl-row gap-2 mt-3 justify-content-between gap-xl-5 w-100">
-                                                <div className="d-flex flex-column text-sm-start text-center gap-2">
-                                                    <h4>Second Branch Address</h4>
-                                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere voluptatem quidem distinctio libero, culpa modis.</p>
-                                                </div>
-                                                <div className='position-relative d-flex align-items-end justify-content-center overflow-hidden' style={{height: "min(10rem,50vw)",aspectRatio: "16/9"}}>
-                                                    <img className='position-absolute w-100' src={branches[+branchSelect-1].image} />
+                                    {
+                                        branches.map((branch,index)=>
+
+                                        <Carousel.Item>
+                                            <div className='text-white bg-secondary'>
+                                                <div className="d-flex flex-column align-items-center align-items-md-start flex-xl-row gap-2 justify-content-between gap-xl-5 w-100">
+                                                    <div className="d-flex flex-column text-md-start text-center align-items-center align-items-md-start gap-2">
+                                                        <h4>{branch.title} Branch</h4>
+                                                        <div className='position-relative d-flex align-items-end justify-content-center overflow-hidden rounded-3 border border-2' style={{width: "min(20rem,80vw)",aspectRatio: "16/9"}}>
+                                                            <img className='position-absolute w-100' src={branch.image} />
+                                                        </div>
+                                                        <p className='mt-3'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere voluptatem quidem distinctio libero, culpa modis.</p>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </Carousel.Item>
-                                    <Carousel.Item>
-                                    <div className='text-white bg-secondary'>
-                                            <div className="d-flex flex-column align-items-center align-items-sm-start flex-xl-row gap-2 mt-3 justify-content-between gap-xl-5 w-100">
-                                                <div className="d-flex flex-column text-sm-start text-center gap-2">
-                                                    <h4>Third Branch Address</h4>
-                                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere voluptatem quidem distinctio libero, culpa modis.</p>
-                                                </div>
-                                                <div className='position-relative d-flex align-items-end justify-content-center overflow-hidden' style={{height: "min(10rem,50vw)",aspectRatio: "16/9"}}>
-                                                    <img className='position-absolute w-100' src={branches[+branchSelect-1].image} />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </Carousel.Item>
-                                    <Carousel.Item>
-                                    <div className='text-white bg-secondary'>
-                                            <div className="d-flex flex-column align-items-center align-items-sm-start flex-xl-row gap-2 mt-3 justify-content-between gap-xl-5 w-100">
-                                                <div className="d-flex flex-column text-sm-start text-center gap-2">
-                                                    <h4>Fourth Branch Address</h4>
-                                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere voluptatem quidem distinctio libero, culpa modis.</p>
-                                                </div>
-                                                <div className='position-relative d-flex align-items-end justify-content-center overflow-hidden' style={{height: "min(10rem,50vw)",aspectRatio: "16/9"}}>
-                                                    <img className='position-absolute w-100' src={branches[+branchSelect-1].image} />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </Carousel.Item>
+                                        </Carousel.Item>
+
+                                        )
+                                    }
+                                    
                                 </Carousel>
                             </Container>
                         </Col>

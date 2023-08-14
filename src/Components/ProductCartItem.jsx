@@ -65,7 +65,13 @@ function ProductCartItem({productObject,productId,className}) {
                 <Card.Body className='p-0 position-relative rounded-0'>
                     <Row className='g-0'>
                         <Col className='col-6 col-sm-4 pt-4 p-sm-0'>
-                            <Link to={`/product/${product.id}`} className='product-card-img w-100 h-100 d-flex justify-content-center align-items-center'><img className='w-100' src={require("../img/phone.png")} /> </Link>
+                            <Link to={`/product/${product.id}`} className='w-100 h-100 d-flex justify-content-center align-items-center p-4'>
+                                <div className='product-card-img position-relative overflow-hidden rounded-3'>
+                                    <div className='w-100 h-100 d-flex justify-content-center align-items-center position-relative'>
+                                        <img className='position-absolute' src={product.image} />
+                                    </div>
+                                </div>
+                            </Link>
                         </Col>
                         <Col className="col-6 col-sm-8 p-0">
                             <div className='py-3 pe-3 d-flex flex-column gap-2 justify-content-start justify-content-sm-between h-100'>

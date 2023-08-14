@@ -30,7 +30,7 @@ function NavBar({}) {
     function handleSearch(e)
     {
         setSearchValue(e.target.value);
-        if(e.target.value==="") {if(searchModal) setSearchModal(false);}
+        if(e.target.value.length < 3) {if(searchModal) setSearchModal(false);}
         else {if(!searchModal) setSearchModal(true);}
         e.target.focus();
         console.log(e.target.value);
@@ -38,23 +38,23 @@ function NavBar({}) {
 
     function getSearchResults()
     {
-        if(searchValue==="") return [];
-        return products.filter((product) => product.title.toLowerCase().includes(searchValue.toLowerCase()));
+        if(searchValue.length<3) return [];
+        return products.filter((product) => product.title.toLowerCase().includes(searchValue.toLowerCase())).slice(0,4);
     }
 
     const [cartTotal, setCartTotal]  = useState(0);
 
     const shoppingMenu = [
         {
-            label: "Mobile",
+            label: "mobile",
             categories: ["smartphone","tablet"]
         },
         {
-            label: "Computer",
+            label: "computer",
             categories: ["desktop","laptop","keyboard","mouse"]
         },
         {
-            label: "Audio",
+            label: "audio",
             categories: ["earphone","headphone","speaker","microphone"]
         }
     ]
@@ -105,21 +105,23 @@ function NavBar({}) {
                                                 shoppingMenu.map((menuItem) => 
                                                 
 
-                                                <div className='d-flex justify-content-end justify-content-sm-start position-relative navbar-dropdown-menu'>
+                                                <div className='d-flex justify-content-end justify-content-md-start position-relative navbar-dropdown-menu'>
                                                     <div className='navbar-dropdown-button'>
                                                         <div className='px-3 py-2 gap-2 border-bottom d-flex align-items-center justify-content-end text-decoration-none text-capitalize fw-semibold'>
-                                                            <BsCaretLeftFill className='d-none d-sm-block' />  
+                                                            <BsCaretLeftFill className='d-none d-md-block' />  
                                                             {menuItem.label} 
-                                                            <BsCaretRightFill className='d-block d-sm-none' /> 
+                                                            <BsCaretRightFill className='d-block d-md-none' /> 
                                                         </div>
                                                     </div>
                                                     <div className="position-absolute navbar-dropdown-container left">
                                                         <div className="bg-light shadow navbar-dropdown overflow-hidden">
+
                                                         {
                                                             menuItem.categories.map((category) =>
-                                                                <Link to={`/shop/q?cat=${category}`} onClick={()=>{handleSearchModalClose();}} className='px-3 py-2 border-bottom d-flex align-items-center gap-2 justify-content-center text-decoration-none text-capitalize fw-semibold'> {category} </Link>
+                                                            <Link to={`/shop/q?cat=${category}`} onClick={()=>{handleSearchModalClose();}} className='px-3 py-2 border-bottom d-flex align-items-center gap-2 justify-content-center text-decoration-none text-capitalize fw-semibold'> {category}s </Link>
                                                             )
                                                         }
+                                                        <Link to={`/shop/q?gr=${menuItem.label}`} onClick={()=>{handleSearchModalClose();}} className='px-3 py-2 border-bottom d-flex align-items-center gap-2 justify-content-center text-decoration-none text-capitalize fw-semibold'> All </Link>
                                                                                         
                                                         </div>
                                                     </div>
@@ -197,7 +199,7 @@ function NavBar({}) {
                                 {
                                     
                                     getSearchResults().map((product) => 
-                                    <Col className='col-6 col-sm-4 col-md-3 p-1 px-sm-2'>
+                                    <Col className='col-sm-4 col-md-3 p-1 px-sm-2'>
                                         <ProductCard productObject={product} />
                                     </Col>
                                     )

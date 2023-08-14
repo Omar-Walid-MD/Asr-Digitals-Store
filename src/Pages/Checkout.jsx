@@ -6,9 +6,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useForm } from 'react-hook-form';
 import ProductCartItemOverview from '../Components/ProductCartOverViewItem';
-import { getCartTotalPrice } from '../helpers';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { addPurchase } from '../Store/Purchases/purchasesSlice';
+import { getTotalFees } from '../helpers';
 
 const schemas = [
     yup.object({
@@ -44,6 +44,7 @@ function Checkout({}) {
 
     const cart = useSelector((store) => store.cart.cart);
     const products = useSelector((store) => store.products.products);
+    const productsInfo = useSelector((store) => store.products.productsInfo);
     const currentUser = useSelector((store) => store.auth.currentUser);
     const purchaseLoading = useSelector((store) => store.purchases.loading);
     const purchaseSuccess = useSelector((store) => store.purchases.purchaseSuccess);
@@ -55,6 +56,7 @@ function Checkout({}) {
 
     const captchaRef = useRef();
 
+    const [fees, setFees]  = useState({subtotal:0,delivery:0,total:0});
     const [validationError,setValidationError] = useState("");
     const [checkoutStage,setCheckoutStage] = useState(0);
     const [purchaseData,setPurchaseData] = useState({
@@ -75,7 +77,6 @@ function Checkout({}) {
         creditCardExp: {creditCardExpMonth: 0, creditCardExpYear: 0}
     });
     const [password,setPassword] = useState("");
-    const [totalPrice, setTotalPrice]  = useState(0);
     const [purchaseState,setPurchaseState] = useState("");
 
     const { register: registerGeneralForm, handleSubmit: handleSubmitGeneralForm, reset: resetGeneralForm, formState: { errors: errorsGeneralForm }, setValue: setGeneralFormValue } = useForm({ resolver: yupResolver(schemas[0]) });
@@ -121,9 +122,9 @@ function Checkout({}) {
                 else
                 {
                     let newPurchase = {
-                        total: totalPrice,
-                        subtotal: totalPrice,
-                        deliveryFees: 0,
+                        total: fees.total,
+                        subtotal: fees.subtotal,
+                        deliveryFees: fees.delivery,
                         order: cart.map((cartItem) => ({
                             itemId: cartItem.productId,
                             count: cartItem.count,
@@ -168,9 +169,10 @@ function Checkout({}) {
         }
     },[currentUser]);
 
+
     useEffect(()=>{
-        if(products && cart) setTotalPrice(getCartTotalPrice(cart,products));
-    },[cart,products]);
+        if(products && cart && productsInfo) setFees(getTotalFees(cart,products,productsInfo));
+    },[cart,products,productsInfo]);
 
     useEffect(()=>{
         if(purchaseSuccess) 
@@ -371,11 +373,11 @@ function Checkout({}) {
                                             <div>
                                                 <h4 className='text-center'>Purchase Summary</h4>
                                                 <div className="mt-3 p-4">
-                                                    <p className='m-0'>Subtotal Fees: <strong>{totalPrice}</strong></p>
+                                                    <p className='m-0'>Subtotal Fees: <strong>{fees.subtotal}</strong></p>
                                                     <hr />
-                                                    <p className='m-0'>Delivery Fees: <strong>000</strong></p>
+                                                    <p className='m-0'>Delivery Fees: <strong>{fees.delivery}</strong></p>
                                                     <hr />
-                                                    <h4>Total Amount: {totalPrice}</h4>
+                                                    <h4>Total Amount: {fees.total}</h4>
                                                     <form id='checkout-form-4' onSubmit={onCheckoutSubmit} className="">
                                                         <FloatingLabel className='w-100 mt-5' controlId="floatingCheckoutPassword" label="Enter Password">
                                                             <Form.Control type="password" placeholder="Enter Password" value={password} onChange={(e)=>{setPassword(e.target.value)}}/>
@@ -450,11 +452,11 @@ function Checkout({}) {
                                 </Accordion>
 
                                 <div className="mt-3 rounded-sm-3 p-4 shadow">
-                                    <p className='m-0'>Subtotal Fees: <strong>{totalPrice}</strong></p>
+                                    <p className='m-0'>Subtotal Fees: <strong>{fees.subtotal}</strong></p>
                                     <hr />
-                                    <p className='m-0'>Delivery Fees: <strong>000</strong></p>
+                                    <p className='m-0'>Delivery Fees: <strong>{fees.delivery}</strong></p>
                                     <hr />
-                                    <h4>Total Amount: {totalPrice}</h4>
+                                    <h4>Total Amount: {fees.total}</h4>
                                 </div>
                             </Col>
                         

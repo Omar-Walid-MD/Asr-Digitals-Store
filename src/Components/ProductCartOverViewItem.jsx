@@ -50,7 +50,13 @@ function ProductCartItemOverview({productObject,productId,className}) {
                 <Card.Body className='p-0 position-relative rounded-0'>
                     <Row className='g-0'>
                         <Col className='col-3 p-2 d-flex align-items-center'>
-                            <Link to={`/product/${product.id}`} className='product-card-img w-100 h-100 d-flex justify-content-center align-items-center'><img className='w-75' src={require("../img/phone.png")} /> </Link>
+                            <Link to={`/product/${product.id}`} className='w-100 h-100 d-flex justify-content-center align-items-center p-2'>
+                                <div className='product-card-img position-relative overflow-hidden rounded-1'>
+                                    <div className='w-100 h-100 d-flex justify-content-center align-items-center position-relative'>
+                                        <img className='position-absolute' src={product.image} />
+                                    </div>
+                                </div>
+                            </Link>
                         </Col>
                         <Col className="col-3 p-2 d-flex align-items-center">
                             <h5 className='m-0'>{product.title}</h5>

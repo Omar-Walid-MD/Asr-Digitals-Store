@@ -12,10 +12,13 @@ import TwoRangeSlider from '../Components/TwoRangeSlider';
 function Shop({}) {
 
     const products = useSelector((store) => store.products.products);
+    const productsInfo = useSelector((store) => store.products.productsInfo);
     const dispatch = useDispatch();
 
-    const [filters,setFilters] = useState({categories:[], minPrice: 0, maxPrice: 5000});
+    const [filters,setFilters] = useState({categories:[], minPrice: 0, maxPrice: 5000, specs:{}});
+    const [specFilterOptions,setSpecFilterOptions] = useState({});
     const [sort,setSort] = useState({type: "alphabetical",order: "asc"});
+    const [resultsCount,setResultsCount] = useState(12);
     const [filteredProducts,setFilteredProducts] = useState(products);
 
     const [searchParams] = useSearchParams();
@@ -36,6 +39,28 @@ function Shop({}) {
         setFilters({...filters,categories: updatedCategories});
     }
 
+    function handleFilterSpecs(specCode,specValue)
+    {
+        let updatedFilter = filters;
+        if(specValue)
+        {
+            if(filters.specs[specCode] && filters.specs[specCode].includes(specValue))
+            {
+                updatedFilter = {...filters,specs: {...filters.specs,[specCode]: filters.specs[specCode].filter((specInList) => specInList !== specValue)}};
+            }
+            else
+            {
+                updatedFilter = {...filters,specs: {...filters.specs,[specCode]: filters.specs[specCode] ?  [...filters.specs[specCode],specValue] : [specValue]}};
+            }
+        }
+        else
+        {
+            updatedFilter = {...filters,specs: {...filters.specs,[specCode]: []}};
+        }
+        console.log(updatedFilter);
+        setFilters(updatedFilter);
+    }
+
     function getFilteredProducts(products)
     {
         let filteredProducts = products;
@@ -44,6 +69,11 @@ function Shop({}) {
             filteredProducts = filteredProducts.filter((product) => (`${product.title} ${product.desc}`).toLowerCase().includes((filters.search).toLowerCase()));
         }
         filteredProducts = filteredProducts.filter((product) => product.price <= filters.maxPrice && product.price >= filters.minPrice);
+        
+        filteredProducts = filteredProducts.filter((product)=>Object.keys(filters.specs).every((specKey)=>
+            filters.specs[specKey].length ? product.specs[specKey].length && filters.specs[specKey].includes(product.specs[specKey]) : true));                
+     
+        console.log(filteredProducts);
         return filteredProducts;
     }
 
@@ -68,10 +98,32 @@ function Shop({}) {
         {
             sortedProducts.reverse();
         }
-        console.log(sortedProducts);
         return sortedProducts;
     }
 
+    function getSpecFilterOptions(products)
+    {
+        if(productsInfo.categories && products)
+        {
+            let specList = productsInfo.categories;
+            let specOptions = {};
+            // console.log(specList.find((cat) => "cat"));
+            products.map((product)=>specList.find((cat) => cat.name === product.category).specs.map((spec)=>{specOptions[spec.code] = {...spec,availableValues:[]}}));
+            for (let i = 0; i < products.length; i++)
+            {
+                const product = products[i];
+                
+                for (let s = 0; s < Object.keys(product.specs).length; s++)
+                {
+                    if(specOptions[Object.keys(product.specs)[s]] && !specOptions[Object.keys(product.specs)[s]].availableValues.includes(Object.values(product.specs)[s]))
+                        specOptions[Object.keys(product.specs)[s]].availableValues.push(Object.values(product.specs)[s]);    
+                }
+                
+            }
+            return specOptions;
+        }
+    
+    }
 
 
 
@@ -81,8 +133,9 @@ function Shop({}) {
 
     useEffect(()=>{
         setFilteredProducts(getSortedProducts(getFilteredProducts(products)));
-        console.log(filteredProducts);
-    },[filters, sort, products])
+        setSpecFilterOptions(getSpecFilterOptions(products));
+    },[filters, sort, products, productsInfo]);
+
 
     return (
         <div className='page-container bg-light p-sm-1 px-sm-3'>
@@ -94,9 +147,9 @@ function Shop({}) {
 
             <hr className='border-3 mb-4' />
             <div>
-                <Row className='m-0 g-0 gy-3 gy-md-0 gx-sm-4' >
+                <Row className='m-0 g-0 gy-3 gy-md-0 gx-sm-4 pb-4' >
                     <Col className='col-12 col-md-4 col-xl-3 d-flex flex-column align-items-start p-0 px-lg-2 z-1'>
-                        <Accordion alwaysOpen defaultActiveKey={["0","1"]} className='shop-filter-accordion w-100 rounded-sm-2 shadow position-sticky top-0'>
+                        <Accordion alwaysOpen defaultActiveKey={["0","1"]} className='shop-filter-accordion w-100 rounded-sm-2 shadow'>
                             <Accordion.Item eventKey="0" className='border-0 bg-light'>
                                 <Accordion.Header className='bg-white w-100 rounded-top border-bottom border-2'>
                                     <h3>Filters</h3>
@@ -132,6 +185,35 @@ function Shop({}) {
                                                 </Dropdown.Menu>
                                             </Dropdown>
                                         </div>
+
+                                        <hr className='border-2' />
+                                        
+                                        <div className='d-flex flex-column gap-2'>
+                                            <h5 className='me-1 m-0'>Specs</h5>
+                                            <Row className='gy-2'>
+                                            {
+                                                specFilterOptions && Object.keys(specFilterOptions).map((spec) =>
+                                                
+                                                <Col className='col-12'>
+                                                    <Dropdown autoClose="outside">
+                                                        <Dropdown.Toggle className={`w-100 d-flex align-items-center justify-content-between text-capitalize ${(filters.specs[spec] && filters.specs[spec].length) ? "bg-primary border-primary" : "bg-secondary"}`} style={{width: "6em"}} variant="secondary" id="dropdown-basic">
+                                                            {specFilterOptions[spec].name}
+                                                        </Dropdown.Toggle>
+
+                                                        <Dropdown.Menu className='p-0 rounded-0 w-100' >
+                                                            <Dropdown.Item className={`p-0 dropdown-select border-bottom border-dark`}><Button className='bg-transparent border-0 d-flex justify-content-between text-danger text-capitalize w-100' onClick={()=>{handleFilterSpecs(spec)}}> None </Button></Dropdown.Item>
+                                                        {
+                                                            specFilterOptions[spec].availableValues.map((specValue) => 
+                                                            <Dropdown.Item className={`p-0 dropdown-select border-bottom border-dark ${(filters.specs[spec] && filters.specs[spec].includes(specValue)) ? "selected" : ""}`}><Button className='bg-transparent border-0 d-flex justify-content-between text-dark text-capitalize w-100' onClick={()=>{handleFilterSpecs(spec,specValue)}}>{specValue} <BsCheck className='dropdown-item-check d-none fs-4'/> </Button> </Dropdown.Item>
+                                                            )
+                                                        }
+                                                        </Dropdown.Menu>
+                                                    </Dropdown>
+                                                </Col>
+                                                )
+                                            }
+                                            </Row>
+                                        </div>
                                     </div>
                                 </Accordion.Body>
                             </Accordion.Item>
@@ -166,13 +248,13 @@ function Shop({}) {
                     <Col className='col-12 col-md-8 col-xl-9 p-0 ps-md-2 px-lg-1'>
                         <Row className='g-0 p-0 p-sm-3 shadow rounded-3 w-100 m-0'>
                             {
-                                filteredProducts && filteredProducts.map((product) =>(
+                                filteredProducts && filteredProducts.slice(0,resultsCount).map((product) =>(
                                     <Col className='col-6 col-sm-4 col-xl-3 p-1 p-xl-2'>
                                         <ProductCard productObject={product} key={`shop-page-${product.id}`} />
                                     </Col>                                
                                 ))
                             }
-                            <Col className='col-12 mb-2 mt-2 mt-sm-4'><Button variant='dark' className='btn-dark w-100 5'>Load More</Button></Col>
+                            {products && resultsCount < products.length ? <Col className='col-12 mb-2 mt-2 mt-sm-4'><Button variant='dark' className='btn-dark w-100 5' onClick={()=>setResultsCount(c => c+12)}>Load More</Button></Col> : ""}
                         </Row>
                     </Col>
                 </Row>

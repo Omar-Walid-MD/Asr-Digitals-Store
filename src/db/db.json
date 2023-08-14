@@ -15,10 +15,6 @@
       "street": "111",
       "cart": [
         {
-          "productId": "5",
-          "count": 1
-        },
-        {
           "productId": "84353",
           "count": 1
         },
@@ -27,71 +23,430 @@
           "count": 1
         }
       ],
-      "favorites": [
-        5
-      ],
+      "favorites": [],
       "id": 1
     }
   ],
   "products": [
     {
+      "id": "72628",
+      "title": "Arcadia X1",
+      "desc": "A cutting-edge smartphone that seamlessly blends sleek design with powerful performance, offering an immersive display and advanced camera capabilities.",
       "category": "smartphone",
-      "desc": "This new phone is awesome",
-      "price": 580,
-      "image": "https://i.imgur.com/xBOzjAi.png",
-      "title": "Phone 4X",
+      "price": 2650,
       "specs": {
-        "os": "Android 10",
+        "os": "Android 11",
+        "ram": "8 GB",
+        "storage": "32 GB",
+        "processor": "3 GHz",
+        "battery": "2000 mAh",
+        "size": "6\"",
+        "cam": "10MP 20MP",
+        "res": "640 x 1136"
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/Dj9tI7e.png",
+      "date": 1691930697426
+    },
+    {
+      "id": "11241",
+      "title": "Zoom Vortex 9",
+      "desc": "Experience the ultimate speed and fluidity with the Zoom Vortex 9, featuring a lightning-fast processor, stunning visuals, and a sleek, ergonomic design.",
+      "category": "smartphone",
+      "price": 2650,
+      "specs": {
+        "os": "Android 14",
+        "ram": " 4 GB",
+        "storage": "32 GB",
+        "processor": "1.2 GHz",
+        "battery": "5000 mAh",
+        "size": "5\"",
+        "cam": "3MP 5MP",
+        "res": "1080 x 1920"
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/fPgvL6b.png",
+      "date": 1691930697426
+    },
+    {
+      "id": "25791",
+      "title": "Nebula Blaze 7X",
+      "desc": "Ignite your mobile experience with the Nebula Blaze 7X, a dynamic smartphone that combines vibrant display technology with enhanced multimedia capabilities.",
+      "category": "smartphone",
+      "price": 3150,
+      "specs": {
+        "os": "Android 14",
+        "ram": "8 GB",
+        "storage": "256 GB",
+        "processor": "1.2 GHz",
+        "battery": "3000 mAh",
+        "size": "5\"",
+        "cam": "20MP 40MP",
+        "res": "640 x 1136"
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/04q9gFi.png",
+      "date": 1691930697426
+    },
+    {
+      "id": "91571",
+      "title": "Chromo Prime 12T",
+      "desc": "Stay ahead of the curve with the Chromo Prime 12T, a premium smartphone that boasts exceptional battery life, state-of-the-art security, and an intuitive user interface.",
+      "category": "smartphone",
+      "price": 2450,
+      "specs": {
+        "os": "Android 14",
+        "ram": " 4 GB",
+        "storage": "64 GB",
+        "processor": "1.2 GHz",
+        "battery": "2000 mAh",
+        "size": "5\"",
+        "cam": "3MP 5MP",
+        "res": "1125 x 2436"
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/8jVOc12.png",
+      "date": 1691930697426
+    },
+    {
+      "id": "86558",
+      "title": "Radiant Ember 8E",
+      "desc": "The Radiant Ember 8E shines with its striking design and brilliant display, delivering an immersive visual experience and capturing stunning photos in any lighting condition.",
+      "category": "smartphone",
+      "price": 3250,
+      "specs": {
+        "os": "Android 13",
+        "ram": "8 GB",
+        "storage": "16 GB",
+        "processor": "3 GHz",
+        "battery": "4000 mAh",
+        "size": "4\"",
+        "cam": "20MP 40MP",
+        "res": "1080 x 1920"
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/Nfhitnz.png",
+      "date": 1691930697426
+    },
+    {
+      "id": "65296",
+      "title": "Luminary Solara 11 Plus",
+      "desc": "Be the star of innovation with the Luminary Solara 11 Plus, a feature-rich smartphone that offers unparalleled performance, a large vibrant screen, and advanced AI-powered functionalities.",
+      "category": "smartphone",
+      "price": 2800,
+      "specs": {
+        "os": "Android 12",
         "ram": "1 GB",
         "storage": "128 GB",
+        "processor": "3 GHz",
         "battery": "4000 mAh",
-        "processor": "2.2 Ghz",
-        "size": "8 Inches",
-        "cam": "20 MP",
-        "res": "1280 x 720"
-      },
-      "id": "83792",
-      "rating": 0
-    },
-    {
-      "category": "smartphone",
-      "desc": "",
-      "price": 100,
-      "image": "https://i.imgur.com/Nfhitnz.png",
-      "title": "Phone 11",
-      "specs": {
-        "os": "Android 11",
-        "storage": "128 GB"
-      },
-      "id": "98347",
-      "rating": 0
-    },
-    {
-      "category": "tablet",
-      "desc": "",
-      "price": 100,
-      "image": "https://i.imgur.com/Dj9tI7e.png",
-      "title": "Phon 34",
-      "specs": {
-        "storage": "e",
-        "os": "1"
+        "size": "6\"",
+        "cam": "8MP 12MP",
+        "res": "750 x 1334"
       },
       "rating": 0,
-      "id": "84353"
+      "image": "https://i.imgur.com/pE6OS0S.png",
+      "date": 1691930697426
     },
     {
+      "id": "38542",
+      "title": "Nova Flux 6X",
+      "desc": "Unleash your creativity with the Nova Flux 6X, equipped with a versatile camera system and powerful processing capabilities, ideal for capturing and sharing your memorable moments.",
       "category": "smartphone",
-      "desc": "",
-      "price": 1234,
-      "image": "https://i.imgur.com/fPgvL6b.png",
-      "title": "Phone 3434",
+      "price": 2600,
       "specs": {
-        "os": "Android 11",
+        "os": "Android 13",
+        "ram": " 4 GB",
+        "storage": "32 GB",
+        "processor": "2.2 GHz",
+        "battery": "2000 mAh",
+        "size": "5\"",
+        "cam": "20MP 40MP",
+        "res": "640 x 1136"
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/txnr4EC.png",
+      "date": 1691930697426
+    },
+    {
+      "id": "84178",
+      "title": "Photon Surge 10T",
+      "desc": "Rise above the ordinary with the Photon Surge 10T, a smartphone designed for extraordinary performance, featuring blazing-fast charging, a sleek design, and exceptional durability.",
+      "category": "smartphone",
+      "price": 2700,
+      "specs": {
+        "os": "Android 12",
+        "ram": " 4 GB",
+        "storage": "16 GB",
+        "processor": "2.2 GHz",
+        "battery": "3000 mAh",
+        "size": "4\"",
+        "cam": "20MP 40MP",
+        "res": "750 x 1334"
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/xBOzjAi.png",
+      "date": 1691930697426
+    },
+    {
+      "id": "54117",
+      "title": "Quantum Spark Evo",
+      "desc": "The Quantum Spark Evo is a revolutionary smartphone that pushes the boundaries of technology, offering a quantum leap in processing power, AI integration, and immersive visuals.",
+      "category": "smartphone",
+      "price": 3050,
+      "specs": {
+        "os": "Android 12",
+        "ram": "6 GB",
+        "storage": "256 GB",
+        "processor": "1.8 GHz",
+        "battery": "4000 mAh",
+        "size": "5\"",
+        "cam": "20MP 30MP",
+        "res": "640 x 1136"
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/bnLKlvt.png",
+      "date": 1691930697426
+    },
+    {
+      "id": "76324",
+      "title": "Azure Nexus 3S",
+      "desc": "Step into a realm of seamless connectivity and innovation with the Azure Nexus 3S, a smartphone that combines futuristic design with advanced networking capabilities.",
+      "category": "smartphone",
+      "price": 3100,
+      "specs": {
+        "os": "Android 12",
+        "ram": "6 GB",
+        "storage": "64 GB",
+        "processor": "4 GHz",
+        "battery": "3000 mAh",
+        "size": "6\"",
+        "cam": "10MP 20MP",
+        "res": "750 x 1334"
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/QcDPuDO.png",
+      "date": 1691930697426
+    },
+    {
+      "id": "62961",
+      "title": "Horizon Elite 9L",
+      "desc": "Expand your horizons with the Horizon Elite 9L, a smartphone that delivers a captivating edge-to-edge display, exceptional audio quality, and a sleek ergonomic design.",
+      "category": "smartphone",
+      "price": 2750,
+      "specs": {
+        "os": "Android 10",
+        "ram": "6 GB",
+        "storage": "64 GB",
+        "processor": "1.8 GHz",
+        "battery": "2000 mAh",
+        "size": "5\"",
+        "cam": "20MP 30MP",
+        "res": "1125 x 2436"
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/D7xHdOC.png",
+      "date": 1691930697426
+    },
+    {
+      "id": "99461",
+      "title": "Zoom Pulse 7R",
+      "desc": "Experience the pulse of innovation with the Zoom Pulse 7R, a smartphone that combines breathtaking performance, an immersive display, and an array of cutting-edge features.",
+      "category": "smartphone",
+      "price": 2950,
+      "specs": {
+        "os": "Android 13",
+        "ram": " 4 GB",
         "storage": "128 GB",
-        "ram": "2 GB"
+        "processor": "1.2 GHz",
+        "battery": "3000 mAh",
+        "size": "6\"",
+        "cam": "20MP 30MP",
+        "res": "1080 x 1920"
       },
       "rating": 0,
-      "id": "81919"
+      "image": "https://i.imgur.com/y2Lzw4Q.png",
+      "date": 1691930697426
+    },
+    {
+      "id": "96772",
+      "title": "Stellaris Ray 4G",
+      "desc": "Illuminate your world with the Stellaris Ray 4G, a smartphone that combines stunning aesthetics with reliable performance, offering an exceptional camera experience and robust connectivity.",
+      "category": "smartphone",
+      "price": 3050,
+      "specs": {
+        "os": "Android 10",
+        "ram": "2 GB",
+        "storage": "256 GB",
+        "processor": "1.2 GHz",
+        "battery": "5000 mAh",
+        "size": "5\"",
+        "cam": "20MP 40MP",
+        "res": "1080 x 1920"
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/wkB2mPJ.png",
+      "date": 1691930697426
+    },
+    {
+      "id": "78688",
+      "title": "Lithion Aura 2E",
+      "desc": "Immerse yourself in the radiant aura of the Lithion Aura 2E, a smartphone that captivates with its elegant design, vibrant display, and an array of intelligent features.",
+      "category": "smartphone",
+      "price": 2700,
+      "specs": {
+        "os": "Android 10",
+        "ram": "16 GB",
+        "storage": "16 GB",
+        "processor": "1.2 GHz",
+        "battery": "2000 mAh",
+        "size": "6\"",
+        "cam": "20MP 40MP",
+        "res": "1080 x 1920"
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/MPkdPbf.png",
+      "date": 1691930697426
+    },
+    {
+      "id": "72112",
+      "title": "Vertex NovaX 8T",
+      "desc": "Reach new heights of innovation with the Vertex NovaX 8T, a smartphone that combines powerful performance, sleek aesthetics, and advanced features to elevate your mobile experience.",
+      "category": "smartphone",
+      "price": 2600,
+      "specs": {
+        "os": "Android 12",
+        "ram": "1 GB",
+        "storage": "32 GB",
+        "processor": "2.2 GHz",
+        "battery": "2500 mAh",
+        "size": "6\"",
+        "cam": "20MP 40MP",
+        "res": "750 x 1334"
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/ybp4hNA.png",
+      "date": 1691930697427
+    },
+    {
+      "id": "19367",
+      "title": "Lumos Prism 5G",
+      "desc": "Illuminate your every moment with the Lumos Prism 5G, a smartphone that showcases a stunning display, ultra-fast 5G connectivity, and advanced imaging capabilities.",
+      "category": "smartphone",
+      "price": 2600,
+      "specs": {
+        "os": "Android 13",
+        "ram": "1 GB",
+        "storage": "256 GB",
+        "processor": "3 GHz",
+        "battery": "2000 mAh",
+        "size": "5\"",
+        "cam": "10MP 20MP",
+        "res": "640 x 1136"
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/2HPiL5K.png",
+      "date": 1691930697427
+    },
+    {
+      "id": "24329",
+      "title": "Electro Echo 9X",
+      "desc": "Unleash your energy and style with the Electro Echo 9X, a smartphone that harmonizes cutting-edge features with a striking design, delivering an electrifying user experience.",
+      "category": "smartphone",
+      "price": 2550,
+      "specs": {
+        "os": "Android 12",
+        "ram": " 4 GB",
+        "storage": "16 GB",
+        "processor": "3 GHz",
+        "battery": "2000 mAh",
+        "size": "5\"",
+        "cam": "10MP 20MP",
+        "res": "1080 x 1920"
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/OwBH7Kk.png",
+      "date": 1691930697427
+    },
+    {
+      "id": "22238",
+      "title": "Zoom Proxima Max",
+      "desc": "The Zoom Proxima Max offers maximum performance and versatility, featuring a powerful processor, immersive display, and a comprehensive suite of productivity tools.",
+      "category": "smartphone",
+      "price": 3100,
+      "specs": {
+        "os": "Android 12",
+        "ram": "16 GB",
+        "storage": "256 GB",
+        "processor": "1.8 GHz",
+        "battery": "2500 mAh",
+        "size": "4\"",
+        "cam": "10MP 20MP",
+        "res": "1080 x 1920"
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/jx0KkZZ.png",
+      "date": 1691930697427
+    },
+    {
+      "id": "18565",
+      "title": "Xenon Thunder 5S",
+      "desc": "Unleash your thunderous potential with the Xenon Thunder 5S, a smartphone that combines robust performance, rugged durability, and advanced features, suitable for any adventure.",
+      "category": "smartphone",
+      "price": 3550,
+      "specs": {
+        "os": "Android 14",
+        "ram": "8 GB",
+        "storage": "128 GB",
+        "processor": "3 GHz",
+        "battery": "3000 mAh",
+        "size": "6.5\"",
+        "cam": "20MP 40MP",
+        "res": "750 x 1334"
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/22yBBQX.png",
+      "date": 1691930697427
+    },
+    {
+      "id": "12546",
+      "title": "Electro Air 7E",
+      "desc": "Explore the heights of innovation with the Electro Echo 7E, a smartphone that delivers exceptional audio quality, seamless multitasking, and an elegant design.",
+      "category": "smartphone",
+      "price": 3150,
+      "specs": {
+        "os": "Android 10",
+        "ram": "16 GB",
+        "storage": "64 GB",
+        "processor": "2.2 GHz",
+        "battery": "2500 mAh",
+        "size": "6.5\"",
+        "cam": "20MP 40MP",
+        "res": "750 x 1334"
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/6orXgKM.png",
+      "date": 1691930697427
+    },
+    {
+      "id": "82592",
+      "title": "Electro Lite 4E",
+      "desc": "Explore the heights of innovation with the Electro Lite 4E, a smartphone that delivers exceptional audio quality, seamless multitasking, and an elegant design.",
+      "category": "smartphone",
+      "price": 2850,
+      "specs": {
+        "os": "Android 10",
+        "ram": "16 GB",
+        "storage": "64 GB",
+        "processor": "1.8 GHz",
+        "battery": "2500 mAh",
+        "size": "6.5\"",
+        "cam": "20MP 40MP",
+        "res": "750 x 1334"
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/OIqEpLJ.png",
+      "date": 1691930697427
     }
   ],
   "reviews": [],
@@ -174,7 +529,7 @@
             "name": "resolution"
           }
         ],
-        "deliveryValue": "1"
+        "deliveryValue": 10
       },
       {
         "name": "tablet",
@@ -212,7 +567,7 @@
             "name": "resolution"
           }
         ],
-        "deliveryValue": "1"
+        "deliveryValue": 15
       },
       {
         "name": "laptop",
@@ -254,7 +609,7 @@
             "name": "resolution"
           }
         ],
-        "deliveryValue": "1"
+        "deliveryValue": 20
       },
       {
         "name": "desktop",
@@ -284,7 +639,7 @@
             "name": "size"
           }
         ],
-        "deliveryValue": "1"
+        "deliveryValue": 25
       },
       {
         "name": "mouse",
@@ -298,7 +653,7 @@
             "name": "movement detection"
           }
         ],
-        "deliveryValue": "1"
+        "deliveryValue": 10
       },
       {
         "name": "keyboard",
@@ -316,7 +671,7 @@
             "name": "keys number"
           }
         ],
-        "deliveryValue": "1"
+        "deliveryValue": 15
       },
       {
         "name": "headphone",
@@ -334,7 +689,7 @@
             "name": "noise cancelling"
           }
         ],
-        "deliveryValue": "1"
+        "deliveryValue": 10
       },
       {
         "name": "earphone",
@@ -352,7 +707,7 @@
             "name": "noise cancelling"
           }
         ],
-        "deliveryValue": "1"
+        "deliveryValue": 5
       },
       {
         "name": "speaker",
@@ -370,7 +725,7 @@
             "name": "volume level"
           }
         ],
-        "deliveryValue": "1"
+        "deliveryValue": 15
       },
       {
         "name": "microphone",
@@ -388,7 +743,7 @@
             "name": "sensitivity"
           }
         ],
-        "deliveryValue": "1"
+        "deliveryValue": 10
       },
       {
         "name": "usb drive",
@@ -401,7 +756,8 @@
             "code": "speed",
             "name": "speed"
           }
-        ]
+        ],
+        "deliveryValue": 2
       }
     ],
     "generalSpecs": [
@@ -414,6 +770,32 @@
         "name": "color"
       }
     ],
-    "baseDeliveryValue": "50"
+    "categoryGroups": {
+      "mobile": [
+        "smartphone",
+        "tablet",
+        "styuls",
+        "chargers",
+        "screens"
+      ],
+      "computer": [
+        "desktop",
+        "laptop",
+        "keyboard",
+        "mouse"
+      ],
+      "audio": [
+        "earphone",
+        "headphone",
+        "speaker",
+        "microphone"
+      ],
+      "memory": [
+        "usb card",
+        "sd card",
+        "external hard drive"
+      ]
+    },
+    "baseDeliveryValue": 50
   }
 }

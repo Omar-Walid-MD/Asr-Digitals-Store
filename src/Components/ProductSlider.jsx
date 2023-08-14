@@ -5,34 +5,7 @@ import { Button, Container, Row } from 'react-bootstrap';
 import { BsCaretLeftFill, BsCaretRightFill } from 'react-icons/bs';
 import { useRef } from 'react';
 
-function ProductSlider({className, variant="dark", style}) {
-
-    const products = [
-        {title: "My Phone",price: 10000},
-        {title: "My Phone",price: 10000},
-        {title: "My Phone",price: 10000},
-        {title: "My Phone",price: 10000},
-        {title: "My Phone",price: 10000},
-        {title: "My Phone",price: 10000},
-        {title: "My Phone",price: 10000},
-        {title: "My Phone",price: 10000},
-        {title: "My Phone",price: 10000},
-        {title: "My Phone",price: 10000},
-        {title: "My Phone",price: 10000},
-        {title: "My Phone",price: 10000},
-        {title: "My Phone",price: 10000},
-        {title: "My Phone",price: 10000},
-        {title: "My Phone",price: 10000},
-        {title: "My Phone",price: 10000},
-        {title: "My Phone",price: 10000},
-        {title: "My Phone",price: 10000},
-        {title: "My Phone",price: 10000},
-        {title: "My Phone",price: 10000},
-        {title: "My Phone",price: 10000},
-        {title: "My Phone",price: 10000},
-        {title: "My Phone",price: 10000},
-        {title: "My Phone",price: 10000}
-    ]
+function ProductSlider({className, variant="dark", style, products=[]}) {
 
     function handleProducts(products)
     {
@@ -42,9 +15,9 @@ function ProductSlider({className, variant="dark", style}) {
           
             index % 2 === 0
             &&
-            <div key={"product-carousel-product-"+product.id+"-"+index} className='d-flex flex-column flex-md-row gap-2 gap-md-4 align-items-center'>
-              <div style={{width:"min(12rem,50vw)"}}><ProductCard productId={"1"} className="w-100" /></div>
-              {index+1 < products.length && <div style={{width:"min(12rem,50vw)"}}><ProductCard productId={"1"} className="w-100" /></div>}
+            <div key={"product-carousel-product-"+product.id+"-"+index} className='d-flex align-items-start flex-column flex-md-row gap-2 gap-md-4 h-100'>
+              <div className='h-100' style={{width:"min(12rem,50vw)",minHeight: "100%"}}><ProductCard productObject={product} className="w-100 h-100" /></div>
+              {index+1 < products.length && <div style={{width:"min(12rem,50vw)"}}><ProductCard productObject={products[index+1]} className="w-100 h-100" /></div>}
             </div>          
           )
         }

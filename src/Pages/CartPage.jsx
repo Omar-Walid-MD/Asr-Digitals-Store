@@ -4,21 +4,21 @@ import { Link, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCart } from '../Store/Cart/cartSlice';
 import { getProducts } from '../Store/Products/productsSlice';
-import { getCartTotalPrice } from '../helpers';
+import { getCartTotalPrice, getTotalFees } from '../helpers';
 import ProductCartItem from '../Components/ProductCartItem';
 
 function CartPage({}) {
 
     const products = useSelector((store) => store.products.products);
+    const productsInfo = useSelector((store) => store.products.productsInfo);
     const cart = useSelector((store) => store.cart.cart);
     const location = useLocation();
-
-    const [totalPrice, setTotalPrice]  = useState(0);
-
+    
+    const [fees, setFees]  = useState({subtotal:0,delivery:0,total:0});
 
     useEffect(()=>{
-        if(products && cart) setTotalPrice(getCartTotalPrice(cart,products));
-    },[cart,products]);
+        if(products && cart && productsInfo) setFees(getTotalFees(cart,products,productsInfo));
+    },[cart,products,productsInfo]);
   
 
 
@@ -49,21 +49,13 @@ function CartPage({}) {
                         </div>
                     </Col>
                     <Col className='col-12 col-md-4 position-relative'>
-                        <div className="position-sticky" style={{top: "6rem"}}>
+                        <div className="position-sticky" style={{top: "5rem"}}>
                             <div  className='shadow rounded-3 p-3'>
-                                <p className='fs-5'>Subtotal Fees: {totalPrice}</p>
+                                <p className='fs-5'>Subtotal Fees: <span className='price-tag'>{fees.subtotal}</span> </p>
                                 <hr />
-                                <p className='fs-5'>Delivery Fees: 0000</p>
+                                <p className='fs-5'>Delivery Fees: <span className='price-tag'>{fees.delivery}</span></p>
                                 <hr />
-                                <div>
-                                    <p className='fs-5'>Payment Method:</p>
-                                    <div className="d-flex gap-2 my-2">
-                                        <Button className='w-100 bg-transparent border-3 text-primary'>Method</Button><Button className='w-100 bg-transparent border-3 text-primary'>Method</Button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div  className='shadow rounded-3 p-3 mt-4'>
-                                <h3>Total Amount: {totalPrice}</h3>
+                                <h3>Total Amount: <span className='price-tag fw-semibold'>{fees.total}</span></h3>
                                 <Link to={"/checkout"} state={{prevPath: location.pathname}} className='fs-5 mt-4 text-white btn btn-dark shadow w-100'>Checkout</Link>
                             </div>
                         </div>

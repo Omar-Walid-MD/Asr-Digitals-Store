@@ -111,7 +111,7 @@ function ProductPage({})
                         <Row className='m-0 gy-4'>
                             <Col className='col-12 col-md-4 h-100 p-0'>
                                 <div className="d-flex w-100 position-relative">
-                                    <div className='bg-white overflow-hidden rounded-3 shadow'>
+                                    <div className='bg-white w-100 overflow-hidden rounded-3 shadow'>
                                         <img className='w-100' src={product.image} />
                                         <div className='product-img-preview rounded-3 w-100 h-100 position-absolute top-0 left-0'
                                         onMouseEnter={(e)=>{e.target.style.opacity = "1"}}
@@ -126,9 +126,7 @@ function ProductPage({})
                                 <div className="d-flex flex-column justify-content-between h-100 product-page-col">
                                     <div className='d-flex flex-column gap-2'>
                                         <h1>{product.title}</h1>
-                                        <p className='m-0'>
-                                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Excepturi, amet, architecto natus consequatur blanditiis possimus tenetur ullam, totam nemo delectus eum temporibus minima enim? Quidem in eaque et ut nostrum.
-                                        </p>
+                                        <p className='m-0'>{product.desc}</p>
                                         {
                                             reviews.length >= 5 ?
                                             <div className="d-flex flex-column flex-md-row gap-2">
