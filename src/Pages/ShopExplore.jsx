@@ -17,10 +17,11 @@ function ShopExplore({}) {
     useEffect(()=>{
         if(!offerProducts.length && products.length)
         {
+            let discounts = [10,15,20,25,30,35];
             let updatedOfferProducts = [];
             for (let i = 0; i < 6; i++)
             {
-                updatedOfferProducts.push({product: products[Math.floor(Math.random()*products.length)],discount: parseInt(Math.floor(Math.random()*50)/10)*10});
+                updatedOfferProducts.push({product: products[Math.floor(Math.random()*products.length)],discount: discounts[Math.floor(Math.random()*discounts.length)]});
             }
             setOfferProducts(updatedOfferProducts);
         }
@@ -70,7 +71,7 @@ function ShopExplore({}) {
 
                                     (index%2===0 && index+1<offerProducts.length) &&
                                     <Carousel.Item >
-                                        <Row className='mb-5 gy-2'>
+                                        <Row className='mb-5 pb-2 gy-2'>
                                             <Col className='col-12 col-md-6'>
                                                 <div className='p-3 rounded-3 shadow d-flex flex-column align-items-center' style={{backgroundColor: "rgba(255,255,255,0.15)",backdropFilter: "blur(0.5em)"}}>
                                                     <div className='d-flex flex-column flex-xl-row align-items-center align-items-xl-start gap-4'>
@@ -79,8 +80,8 @@ function ShopExplore({}) {
                                                             <h2>{product.product.title}</h2>
                                                             <p>{product.product.desc}</p>
                                                             <div className='d-flex flex-xl-column gap-5 gap-xl-2 align-items-center align-items-xl-start justify-content-between'>
-                                                                <h5 style={{opacity: "0.6"}} className='price-tag price-old'>{parseInt(product.product.price / (product.discount / 100))}</h5>
-                                                                <h1 style={{color:"red"}} className='price-tag'>{product.product.price}</h1>
+                                                                <h5 style={{opacity: "0.6"}} className='price-tag price-old'>{parseInt(product.product.price / ((100 - product.discount) / 100)) - parseInt(product.product.price / ((100 - product.discount) / 100))%5}</h5>
+                                                                <h1 style={{color:"rgb(255,60,60)"}} className='price-tag'>{product.product.price}</h1>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -94,8 +95,8 @@ function ShopExplore({}) {
                                                             <h2>{offerProducts[index+1].product.title}</h2>
                                                             <p>{offerProducts[index+1].product.desc}</p>
                                                             <div className='d-flex flex-xl-column gap-5 gap-xl-2 align-items-center align-items-xl-start justify-content-between'>
-                                                                <h5 style={{opacity: "0.6"}} className='price-tag price-old'>{parseInt(offerProducts[index+1].product.price / (offerProducts[index+1].discount / 100))}</h5>
-                                                                <h1 style={{color:"red"}} className='price-tag'>{offerProducts[index+1].product.price}</h1>
+                                                                <h5 style={{opacity: "0.6"}} className='price-tag price-old'>{parseInt(offerProducts[index+1].product.price / ((100 - offerProducts[index+1].discount) / 100)) - parseInt(offerProducts[index+1].product.price / ((100 - offerProducts[index+1].discount) / 100))%5}</h5>
+                                                                <h1 style={{color:"rgb(255,60,60)"}} className='price-tag'>{offerProducts[index+1].product.price}</h1>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -106,6 +107,8 @@ function ShopExplore({}) {
                                 )
                             }
                         </Carousel>
+
+                        <Link to={"/offers"} className='m-0 mb-4 fs-5 btn main-button border border-2'>More Offers <BsArrowRightCircleFill className='mb-1 ms-2'/> </Link>
                     </Container>
                 </div>
             </section>
@@ -113,73 +116,51 @@ function ShopExplore({}) {
             <section className='bg-white d-flex flex-column position-relative'>
                 <div className="w-100 position-absolute bottom-100 fs-2 fw-semibold"><div className='section-title bg-white d-inline-block m-0 h-100 p-2 ps-4 pe-3'>Top selling</div></div>
                 <div className='h-100 d-flex align-items-center flex-column py-5 gap-3'>
-                    <h3 className='text-start w-100 ps-5 pb-2'>Phones</h3>
+                    <Container className='p-0'>
+                        <h3 className='text-start w-100'>Phones</h3>
+                    </Container>
                     <ProductSlider variant={"white"} products={products.slice(0,12)} />
                     <div className='text-center text-sm-start w-100 p-0 px-3 px-md-5'>
-                        <Link className='m-0 ms-md-5 fs-5 btn btn-dark'>More items <BsArrowRightCircleFill className='mb-1 ms-2'/> </Link>
+                        <Link className='m-0 ms-md-5 fs-5 btn main-button'>More items <BsArrowRightCircleFill className='mb-1 ms-2'/> </Link>
                     </div>
 
                     <hr className='bg-white border-3 border-dark w-100 m-5' />
                     
-                    <h3 className='text-start w-100 ps-5 pb-2'>Laptops</h3>
+                    <Container className='p-0'>
+                        <h3 className='text-start w-100'>Tablets</h3>
+                    </Container>
                     <ProductSlider variant={"white"} products={products.slice(0,12)} />
                     <div className='text-center text-sm-start w-100 p-0 px-3 px-md-5'>
-                        <Link className='m-0 ms-md-5 fs-5 btn btn-dark'>More items <BsArrowRightCircleFill className='mb-1 ms-2'/> </Link>
+                        <Link className='m-0 ms-md-5 fs-5 btn main-button'>More items <BsArrowRightCircleFill className='mb-1 ms-2'/> </Link>
                     </div>
                     
 
                     <hr className='bg-white border-3 border-dark w-100 m-5' />
                     
-                    <h3 className='text-start w-100 ps-5 pb-2'>Tablets</h3>
+                    <Container className='p-0'>
+                        <h3 className='text-start w-100'>Laptops</h3>
+                    </Container>
                     <ProductSlider variant={"white"} products={products.slice(0,12)} />
                     <div className='text-center text-sm-start w-100 p-0 px-3 px-md-5'>
-                        <Link className='m-0 ms-md-5 fs-5 btn btn-dark'>More items <BsArrowRightCircleFill className='mb-1 ms-2'/> </Link>
+                        <Link className='m-0 ms-md-5 fs-5 btn main-button'>More items <BsArrowRightCircleFill className='mb-1 ms-2'/> </Link>
                     </div>
                     
                     
 
                     <hr className='bg-white border-3 border-dark w-100 m-5' />
                     
-                    <h3 className='text-start w-100 ps-5 pb-2'>Desktops</h3>
+                    <Container className='p-0'>
+                        <h3 className='text-start w-100'>Desktops</h3>
+                    </Container>
                     <ProductSlider variant={"white"} products={products.slice(0,12)} />
                     <div className='text-center text-sm-start w-100 p-0 px-3 px-md-5'>
-                        <Link className='m-0 ms-md-5 fs-5 btn btn-dark'>More items <BsArrowRightCircleFill className='mb-1 ms-2'/> </Link>
+                        <Link className='m-0 ms-md-5 fs-5 btn main-button'>More items <BsArrowRightCircleFill className='mb-1 ms-2'/> </Link>
                     </div>
                         
                     
                 </div>
             </section>
             
-
-            <section className='bg-secondary d-flex flex-column text-white'>
-                <div className="w-100 bg-white-gradient fs-2 fw-semibold"><div className='section-title bg-secondary text-white d-inline-block m-0 h-100 p-2 ps-4 pe-3'>Featured</div></div>
-                <Container className='d-flex flex-column align-items-center py-5 px-4 h-100 gap-5'>
-                    <Row className='gy-4'>
-                        <Col className="col-12 col-sm-6 col-md-6 col-lg-3">
-                            <h1>My Phone 202X</h1>
-                            <p className='text-dark fs-5'>Quasi quod ea ducimus repudiandae saepe at aliquam neque cum quidem quis?</p>
-                        </Col>
-                                <Col className="col-sm-6 col-md-4 col-lg-2 order-1 order-lg-0"><ProductCard productId={"1"} col={4} /></Col>
-                                <Col className="col-sm-6 col-md-4 col-lg-2 order-1 order-lg-0"><ProductCard productId={"1"} col={4} /></Col>
-                                <Col className="col-sm-6 col-md-4 col-lg-2 order-1 order-lg-0"><ProductCard productId={"1"} col={4} /></Col>
-                        <Col className='col-12 col-sm-6 col-lg-3'>
-                            <img className='w-100' src={require("../img/phone.png")} alt="" />
-                        </Col>
-                    </Row>
-                    <hr className='bg-dark w-100' />
-                    <Row className='gy-4'>
-                        <Col className='col-12 col-sm-6 col-md-6 col-lg-3 order-1 order-lg-0'>
-                            <img className='w-100' src={require("../img/phone.png")} alt="" />
-                        </Col>
-                                <Col className="col-sm-6 col-md-4 col-lg-2 order-1 order-lg-0"><ProductCard productId={"2"} col={4} /></Col>
-                                <Col className="col-sm-6 col-md-4 col-lg-2 order-1 order-lg-0"><ProductCard productId={"2"} col={4} /></Col>
-                        <Col className="col-12 col-sm-6 col-md-6 col-lg-4 ps-5">
-                            <h1>My Phone 202X</h1>
-                            <p className='text-dark fs-5'>Quasi quod ea ducimus repudiandae saepe at aliquam neque cum quidem quis?</p>
-                        </Col>
-                    </Row>
-                </Container>
-            </section>
 
         </div>
     );

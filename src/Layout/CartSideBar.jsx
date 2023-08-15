@@ -41,36 +41,47 @@ function CartSideBar() {
         <Button variant="primary" onClick={handleClose} className='cart-sidebar-btn btn-in position-absolute bg-secondary border-4 border-light border-end-0'>
             <BsFillCartFill />
         </Button>
-            <Offcanvas.Header closeButton className='bg-secondary text-white' closeVariant='white'>
-            <Offcanvas.Title>Cart</Offcanvas.Title>
+        <div className='overflow-hidden'>
+            <Offcanvas.Header closeButton className='bg-secondary text-white shadow' closeVariant='white'>
+            <Offcanvas.Title><h4>Cart</h4></Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body className='p-1 p-sm-3'>
                 <Row className='g-0 gy-sm-4 m-0 mx-sm-2 pt-2'>
                 {
-                    cart.map((product,index) =>(
+                    cart.length ? cart.map((product,index) =>(
                         <Col key={"cart-side-bar-item-"+index} className='col-6 px-1'>
                             <ProductCard productId={product.productId} showSingle={false} />
                         </Col>                            
                     ))
+                    :
+                    <div className='d-flex flex-column align-items-center gap-3 h-100'>
+                        <h2>Your cart is empty.</h2>
+                        <Link to={"/shop"} className='btn btn-dark main-button fs-5 p-3 px-4 text-uppercase fw-semibold'>Shop now!</Link>
+                    </div>
                 }
                 </Row>
             </Offcanvas.Body>
-            <div className='bg-secondary p-3 cart-sidebar-bottom text-white'>
-                <Row>
-                    <Col>
-                        <p className='fs-6 m-0'>Subtotal: <span className='price-tag fw-semibold'>{fees.subtotal}</span></p>
-                    </Col>
-                    <Col>
-                        <p className='fs-6 m-0'>Delivery: <span className='price-tag fw-semibold'>{fees.delivery}</span></p>
-                    </Col>
-                </Row>
-                <hr />
-                <p className='fs-4'>Total Fees: <span className='price-tag fw-semibold'>{fees.total}</span></p>
-                <div className="d-flex gap-2">
-                    <Link to={"/checkout"} state={{prevPath: location.pathname}} className='btn btn-dark main-button border border-3 fs-5 w-100 text-center'>Checkout</Link>
-                    <Link to={"/cart"} variant='secondary' className='fs-5 text-white btn btn-secondary d-flex align-items-center'><BsCartFill/> </Link>
+            {
+                cart.length>0 ?
+                <div className='bg-secondary p-3 cart-sidebar-bottom text-white'>
+                    <Row>
+                        <Col>
+                            <p className='fs-6 m-0'>Subtotal: <span className='price-tag fw-semibold'>{fees.subtotal}</span></p>
+                        </Col>
+                        <Col>
+                            <p className='fs-6 m-0'>Delivery: <span className='price-tag fw-semibold'>{fees.delivery}</span></p>
+                        </Col>
+                    </Row>
+                    <hr />
+                    <p className='fs-4'>Total Fees: <span className='price-tag fw-semibold'>{fees.total}</span></p>
+                    <div className="d-flex gap-2">
+                        <Link to={"/checkout"} state={{prevPath: location.pathname}} className='btn btn-dark main-button border border-3 fs-5 w-100 text-center'>Checkout</Link>
+                        <Link to={"/cart"} variant='secondary' className='fs-5 text-white btn btn-secondary d-flex align-items-center'><BsCartFill/> </Link>
+                    </div>
                 </div>
-            </div>
+                : ""
+            }
+        </div>
         </Offcanvas>
     </>
   );

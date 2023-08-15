@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { Accordion, Button, Col, Container, FloatingLabel, Form, Modal, Row } from 'react-bootstrap';
-import ProductCard from '../Components/ProductCard';
+import { Accordion, Button, Col, Container, Dropdown, FloatingLabel, Form, Modal, Row } from 'react-bootstrap';
+import ProductCard from '../../Components/ProductCard';
 import { useDispatch, useSelector } from 'react-redux';
-import { addProduct, deleteProduct, editProduct, getProducts } from '../Store/Products/productsSlice';
+import { addProduct, deleteProduct, editProduct, getProducts } from '../../Store/Products/productsSlice';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import ProductInfoRow from '../Components/ProductInfoRow';
-import { BsCaretDown, BsCaretDownFill, BsCaretUpFill, BsPlus, BsStarFill } from 'react-icons/bs';
-import MultiRangeSlider from "multi-range-slider-react";
-import "../Components/MultiRangeSlider.css";
-import { getCapitalized, makeUniqueId } from '../helpers';
+import ProductInfoRow from '../../Components/ProductInfoRow';
+import { BsCaretDown, BsCaretDownFill, BsCaretUpFill, BsPlus, BsStarFill, BsCheck } from 'react-icons/bs';
+import { getCapitalized, makeUniqueId } from '../../helpers';
+import TwoRangeSlider from '../../Components/TwoRangeSlider';
 
 const schema = yup
   .object({
@@ -23,7 +22,7 @@ const schema = yup
   })
   .required();
 
-function ProductsManagementPage({}) {
+function ManageProducts({}) {
 
     const products = useSelector((store) => store.products.products);
     const productsInfo = useSelector((store) => store.products.productsInfo);
@@ -38,7 +37,9 @@ function ProductsManagementPage({}) {
     const [productToDelete,setProductToDelete] = useState();
 
     const [formMode,setFormMode] = useState("add");
-    const [filters,setFilters] = useState({search:"",minPrice:0,maxPrice:5000});
+    const [filters,setFilters] = useState({search:"",categories:[], minPrice: 0, maxPrice: 5000, specs:{}});
+    const [specFilterOptions,setSpecFilterOptions] = useState({});
+    const [filteredProducts,setFilteredProducts] = useState(products);
     const [sort,setSort] = useState({type: "id",order: "asc"});
     const [formAccordKey,setFormAccordKey] = useState("0");
 
@@ -157,6 +158,13 @@ function ProductsManagementPage({}) {
             filteredProducts = filteredProducts.filter((product) => (`${product.title} ${product.desc}`).toLowerCase().includes((filters.search).toLowerCase()));
         }
         filteredProducts = filteredProducts.filter((product) => product.price <= filters.maxPrice && product.price >= filters.minPrice);
+        
+        if(filters.categories.length) filteredProducts = filteredProducts.filter((product) => filters.categories.includes(product.category));
+
+        filteredProducts = filteredProducts.filter((product)=>Object.keys(filters.specs).every((specKey)=>
+            filters.specs[specKey].length ? product.specs[specKey].length && filters.specs[specKey].includes(product.specs[specKey]) : true));                
+     
+        console.log(filteredProducts);
         return filteredProducts;
     }
 
@@ -166,10 +174,11 @@ function ProductsManagementPage({}) {
         if(sort.type==="price")
         {
             sortedProducts = sortedProducts.sort((a,b)=>{
-                return a.price > b.price;
+                console.log(a.price, b.price);
+                return b.price - a.price;
             });
         }
-        if(sort.type==="name")
+        if(sort.type==="alphabetical")
         {
             sortedProducts = sortedProducts.sort((a,b)=>{
                 return a.title >= b.title ? 1 : -1;
@@ -183,42 +192,153 @@ function ProductsManagementPage({}) {
         return sortedProducts;
     }
 
+    function handleFilterCategories(category)
+    {
+        let updatedCategories = [];
+        if(filters.categories.includes(category))
+        {
+            updatedCategories = filters.categories.filter((categoryInList) => categoryInList !== category);
+        }
+        else
+        {
+            updatedCategories = [...filters.categories,category];
+        }
+        console.log(filteredProducts);
+        setFilters({...filters,categories: updatedCategories});
+    }
+
+    function handleFilterSpecs(specCode,specValue)
+    {
+        let updatedFilter = filters;
+        if(specValue)
+        {
+            if(filters.specs[specCode] && filters.specs[specCode].includes(specValue))
+            {
+                updatedFilter = {...filters,specs: {...filters.specs,[specCode]: filters.specs[specCode].filter((specInList) => specInList !== specValue)}};
+            }
+            else
+            {
+                updatedFilter = {...filters,specs: {...filters.specs,[specCode]: filters.specs[specCode] ?  [...filters.specs[specCode],specValue] : [specValue]}};
+            }
+        }
+        else
+        {
+            updatedFilter = {...filters,specs: {...filters.specs,[specCode]: []}};
+        }
+        setFilters(updatedFilter);
+    }
+
+    function getSpecFilterOptions(products)
+    {
+        if(productsInfo.categories && products)
+        {
+            let specList = productsInfo.categories;
+            let specOptions = {};
+            // console.log(specList.find((cat) => "cat"));
+            products.map((product)=>specList.find((cat) => cat.name === product.category).specs.map((spec)=>{specOptions[spec.code] = {...spec,availableValues:[]}}));
+            for (let i = 0; i < products.length; i++)
+            {
+                const product = products[i];
+                
+                for (let s = 0; s < Object.keys(product.specs).length; s++)
+                {
+                    if(specOptions[Object.keys(product.specs)[s]] && !specOptions[Object.keys(product.specs)[s]].availableValues.includes(Object.values(product.specs)[s]))
+                        specOptions[Object.keys(product.specs)[s]].availableValues.push(Object.values(product.specs)[s]);    
+                }
+                
+            }
+            return specOptions;
+        }
+    
+    }
+
     useEffect(()=>{
-        if(Object.keys(errors).length > 0)setFormAccordKey(errorInputIndexes[Object.keys(errors)[0]])
+        if(Object.keys(errors).length > 0) setFormAccordKey(errorInputIndexes[Object.keys(errors)[0]])
     },[errors]);
+
+    useEffect(()=>{
+        setFilteredProducts(getSortedProducts(getFilteredProducts(products)));
+        setSpecFilterOptions(getSpecFilterOptions(products));
+    },[filters, sort, products, productsInfo]);
+
 
     return (
         <div className='bg-light'>
             <div className='p-0 px-md-2 py-3'>
                 <Container className='px-2 pt-5'> <h2 className='mb-2'>Manage Products</h2> </Container>
-                <hr className='border-3 pb-2' />
-                <div className='d-flex bg-secondary rounded-sm-3 p-3 mb-2 d-flex flex-column justify-content-between align-items-start gap-2'>
-                    <div className='d-flex flex-column w-100 flex-sm-row gap-5 gap-md-2 align-items-center'>
-                        <Form.Control type="search" placeholder="Search Products"  value={filters.search} onChange={(e)=>{setFilters({...filters,search:e.target.value})}} />
-                        <div style={{width: "min(30rem,85vw)"}} className='fs-4'>
-                            <MultiRangeSlider
-                                min={0}
-                                max={5000}
-                                ruler={false}
-                                preventWheel={false}
-                                minValue={filters.minPrice}
-                                maxValue={filters.maxPrice}
-                                onChange={(e)=>{
-                                    console.log(e.min,filters.minPrice)
-                                    if(filters.minPrice!==e.minValue || filters.maxPrice!==e.maxValue)
-                                    {
-                                        setFilters({...filters,minPrice: e.minValue, maxPrice: e.maxValue});
-                                    }
-                                }}
-                                className='px-3'
-                            />
-                        </div>
-                    </div>
-                    <hr className='w-100 border-white border-2' />
-                    <Button variant="primary" className='w-xs-100 w-sm-auto d-flex p-1 px-2 align-items-center justify-content-center fs-5' onClick={startAddProduct}><BsPlus className='fs-2'/> Add Product</Button>
+                <hr className='border-3 pb-3' />
+                <Accordion alwaysOpen defaultActiveKey={"0"} className='w-100 rounded-sm-2'>
+                    <Accordion.Item eventKey="0" className='border-0 bg-light'>
+                        <Accordion.Header className='w-100 rounded bg-secondary px-3 py-2 text-white'>
+                            <h4 className='text-white m-0'>Filters</h4>
+                        </Accordion.Header>
+                        <Accordion.Body className='px-0 pt-2'>
+                            <div className='d-flex bg-secondary rounded-sm-3 p-3 d-flex flex-column justify-content-between align-items-start gap-2'>
+                                <div className='d-flex flex-column w-100  gap-2 align-items-start'>
+                                <h5 className='me-1 m-0 text-white'>Search</h5>
+                                    <Form.Control type="search" placeholder="Search Products"  value={filters.search} onChange={(e)=>{setFilters({...filters,search:e.target.value})}} />
+                                    <h5 className='me-1 m-0 text-white'>Price</h5>
+                                    <div style={{width: "min(30rem,85vw)"}} className='fs-4'>
+                                        <TwoRangeSlider minValue={filters.minPrice} maxValue={filters.maxPrice}
+                                        minLimit={0} maxLimit={5000} snap={100}
+                                        setMin={(value)=>{setFilters(prev => ({...prev,minPrice:value}));}}
+                                        setMax={(value)=>{setFilters(prev => ({...prev,maxPrice:value}));}} 
+                                        labelClassName={"text-white"}/>
+
+                                    </div>
+                                    <div className='d-flex flex-column gap-2'>
+                                        <h5 className='me-1 m-0 text-white'>Categories</h5>
+                                        <Dropdown autoClose="outside">
+                                            <Dropdown.Toggle className={`w-100 d-flex align-items-center justify-content-between ${filters.categories.length>0 ? "bg-primary border-primary" : "bg-secondary"}`} style={{width: "6em"}} variant="secondary" id="dropdown-basic">
+                                                {filters.categories.length>0 ? "Selected" : "Select..."}
+                                            </Dropdown.Toggle>
+
+                                            <Dropdown.Menu className='p-0 rounded-0 w-100' >
+                                                <Dropdown.Item className={`p-0 dropdown-select border-bottom border-dark`}><Button className='bg-transparent border-0 d-flex justify-content-between text-danger text-capitalize w-100' onClick={()=>{setFilters({...filters,categories:[]})}}> None </Button></Dropdown.Item>
+                                            {
+                                                productsInfo.categories && productsInfo.categories.map((category) => 
+                                                <Dropdown.Item className={`p-0 dropdown-select border-bottom border-dark ${filters.categories.includes(category.name) ? "selected" : ""}`}><Button className='bg-transparent border-0 d-flex justify-content-between text-dark text-capitalize w-100' onClick={()=>{handleFilterCategories(category.name)}} >{category.name} <BsCheck className='dropdown-item-check d-none fs-4'/> </Button> </Dropdown.Item>
+                                                )
+                                            }
+                                            </Dropdown.Menu>
+                                        </Dropdown>
+                                    </div>
+                                    <div className='d-flex flex-column gap-2'>
+                                        <h5 className='me-1 m-0 text-white'>Specs</h5>
+                                        <Row className='gy-2'>
+                                        {
+                                            specFilterOptions && Object.keys(specFilterOptions).map((spec) =>
+                                            
+                                            <Col className='pe-0'>
+                                                <Dropdown autoClose="outside">
+                                                    <Dropdown.Toggle className={`w-100 d-flex align-items-center justify-content-between text-capitalize ${(filters.specs[spec] && filters.specs[spec].length) ? "bg-primary border-primary" : "bg-secondary"}`} style={{width: "6em"}} variant="secondary" id="dropdown-basic">
+                                                        {specFilterOptions[spec].name}
+                                                    </Dropdown.Toggle>
+
+                                                    <Dropdown.Menu className='p-0 rounded-0 w-100' >
+                                                        <Dropdown.Item className={`p-0 dropdown-select border-bottom border-dark`}><Button className='bg-transparent border-0 d-flex justify-content-between text-danger text-capitalize w-100' onClick={()=>{handleFilterSpecs(spec)}}> None </Button></Dropdown.Item>
+                                                    {
+                                                        specFilterOptions[spec].availableValues.map((specValue) => 
+                                                        <Dropdown.Item className={`p-0 dropdown-select border-bottom border-dark ${(filters.specs[spec] && filters.specs[spec].includes(specValue)) ? "selected" : ""}`}><Button className='bg-transparent border-0 d-flex justify-content-between text-dark text-capitalize w-100' onClick={()=>{handleFilterSpecs(spec,specValue)}}>{specValue} <BsCheck className='dropdown-item-check d-none fs-4'/> </Button> </Dropdown.Item>
+                                                        )
+                                                    }
+                                                    </Dropdown.Menu>
+                                                </Dropdown>
+                                            </Col>
+                                            )
+                                        }
+                                        </Row>
+                                    </div>
+                                </div>
+                                {/* <hr className='w-100 border-white border-2' /> */}
+                            
+                            </div>
+                        </Accordion.Body>
+                    </Accordion.Item>
+                </Accordion>
                 
-                </div>
-                
+                <Button variant="primary" className='w-100 d-flex my-3 p-1 px-2 align-items-center justify-content-center fs-5' onClick={startAddProduct}><BsPlus className='fs-2'/> Add Product</Button>
+
                 <div className="d-flex flex-column product-info-row-group pb-5 scrollbar light" onScroll={handleOptionsScroll}>
                     <div className='d-flex flex-column gap-3 text-white'>
                         <Row className='bg-secondary shadow rounded-sm-3 py-2 px-0 m-0 product-info-row'>
@@ -245,7 +365,7 @@ function ProductsManagementPage({}) {
                                     
                                 </Button>
                             </Col>
-                            <Col className='col-1 pe-0'>
+                            <Col className='col-1 px-0' style={{width: "8%"}}>
                                 <Button variant="transparent" className='w-100 text-white d-flex align-items-center justify-content-between' onClick={()=>{handleSort("price")}}>
                                     Price
                                     {
@@ -256,13 +376,15 @@ function ProductsManagementPage({}) {
                                     
                                 </Button>
                             </Col>
-                            <Col className='col-3 pe-0 d-flex align-items-center'>Description</Col>
+                            <Col className='col-1 pe-0 d-flex align-items-center' style={{width: "8%"}}>Category</Col>
+
+                            <Col className='col-1 pe-0 d-flex align-items-center' style={{width: "22%"}}>Description</Col>
                             <Col className='pe-0 d-flex align-items-center'>Specs</Col>
                         </Row>
                         <hr className='m-0'/>
                         <div className="d-flex flex-column w-100 gap-1 pb-5">
                         {
-                            getSortedProducts(getFilteredProducts(products)).map((product) =>
+                            filteredProducts && filteredProducts.map((product) =>
                             <ProductInfoRow product={product} showProduct={showProduct} editProduct={startEditProduct}  deleteProduct={startDeleteProduct} />
                             )
                         }
@@ -307,7 +429,7 @@ function ProductsManagementPage({}) {
                                             <Col className='col-12 col-sm-6'>
                                                 <div className="d-flex flex-column">
                                                     <div className='d-flex align-items-center justify-content-center border border-bottom-0 rounded-top shadow-sm p-2 position-relative' style={{height: "200px", aspectRatio: "1"}}>
-                                                        <img className="h-100" src={productPreviewImage} onError={(e)=>{e.target.src = require("../img/image-placeholder.png")}} />
+                                                        <img className="h-100" src={productPreviewImage} onError={(e)=>{e.target.src = require("../../img/image-placeholder.png")}} />
                                                         <span className='position-absolute bottom-0 left-0 text-muted m-2' style={{fontSize:"0.8rem"}}>Image Preview</span>
                                                     </div>
                                                     <FloatingLabel controlId="floatingProductImage" label="Product Image Link">
@@ -407,7 +529,7 @@ function ProductsManagementPage({}) {
                                             <Col className='col-12 col-sm-6'>
                                                 <div className="d-flex flex-column">
                                                     <div className='d-flex align-items-center justify-content-center border border-bottom-0 rounded-top shadow-sm p-2 position-relative' style={{height: "200px", aspectRatio: "1"}}>
-                                                        <img className="h-100" src={productPreviewImage} onError={(e)=>{e.target.src = require("../img/image-placeholder.png")}} />
+                                                        <img className="h-100" src={productPreviewImage} onError={(e)=>{e.target.src = require("../../img/image-placeholder.png")}} />
                                                         <span className='position-absolute bottom-0 left-0 text-muted m-2' style={{fontSize:"0.8rem"}}>Image Preview</span>
                                                     </div>
                                                     <FloatingLabel controlId="floatingProductImage" label="Product Image Link">
@@ -511,7 +633,7 @@ function ProductsManagementPage({}) {
                     productToShow ?
                     <div>
                         <Row>
-                            <Col className='col-12 col-sm-4 h-100 p-0 d-flex justify-content-center'><img style={{width: "min(100%,75vw"}} src={require("../img/phone.png")} alt="" /></Col>
+                            <Col className='col-12 col-sm-4 h-100 p-0 d-flex justify-content-center'><img style={{width: "min(100%,75vw"}} src={productToShow.image} alt="" /></Col>
                             <Col className='col-12 col-sm-8 h-100'>
                                 <div className="d-flex flex-column justify-content-between h-100 product-page-col">
                                     <div className='d-flex flex-column gap-2'>
@@ -562,4 +684,4 @@ function ProductsManagementPage({}) {
     );
 }
 
-export default ProductsManagementPage;
+export default ManageProducts;

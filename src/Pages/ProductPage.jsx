@@ -30,6 +30,7 @@ function ProductPage({})
 {
     const {productId} = useParams();
 
+    const currentUser = useSelector((store) => store.auth.currentUser);
     const cart = useSelector((store) => store.cart.cart);
     const favorites = useSelector((store) => store.favorites.favorites);
     const reviews = useSelector((store) => store.reviews.reviews.filter((review) => review.productId === productId).reverse());
@@ -78,7 +79,8 @@ function ProductPage({})
 
     function onSumbit(data)
     {
-        dispatch(addReview({...data,productId:productId}));
+        
+        dispatch(addReview({...data,productId:productId,userId:currentUser.id,date: Date.now()}));
         dispatch(setProductRating({productId: product.id,rating: getRating([...reviews.map((review)=>review.rating),rating])}));
         reset();
         setRating(5);

@@ -23,7 +23,6 @@ function Shop({}) {
 
     const [searchParams] = useSearchParams();
 
-    const categories = ["phones","tablets","laptops","desktops","headphones","earphones"];
 
     function handleFilterCategories(category)
     {
@@ -57,7 +56,6 @@ function Shop({}) {
         {
             updatedFilter = {...filters,specs: {...filters.specs,[specCode]: []}};
         }
-        console.log(updatedFilter);
         setFilters(updatedFilter);
     }
 
@@ -69,9 +67,11 @@ function Shop({}) {
             filteredProducts = filteredProducts.filter((product) => (`${product.title} ${product.desc}`).toLowerCase().includes((filters.search).toLowerCase()));
         }
         filteredProducts = filteredProducts.filter((product) => product.price <= filters.maxPrice && product.price >= filters.minPrice);
-        
+
+        if(filters.categories.length) filteredProducts = filteredProducts.filter((product) => filters.categories.includes(product.category));
+
         filteredProducts = filteredProducts.filter((product)=>Object.keys(filters.specs).every((specKey)=>
-            filters.specs[specKey].length ? product.specs[specKey].length && filters.specs[specKey].includes(product.specs[specKey]) : true));                
+            filters.specs[specKey].length ? product.specs[specKey] && filters.specs[specKey].includes(product.specs[specKey]) : true));                
      
         console.log(filteredProducts);
         return filteredProducts;
@@ -126,11 +126,6 @@ function Shop({}) {
     }
 
 
-
-    useEffect(()=>{
-        dispatch(getProducts());
-    },[]);
-
     useEffect(()=>{
         setFilteredProducts(getSortedProducts(getFilteredProducts(products)));
         setSpecFilterOptions(getSpecFilterOptions(products));
@@ -178,8 +173,8 @@ function Shop({}) {
                                                 <Dropdown.Menu className='p-0 rounded-0 w-100' >
                                                     <Dropdown.Item className={`p-0 dropdown-select border-bottom border-dark`}><Button className='bg-transparent border-0 d-flex justify-content-between text-danger text-capitalize w-100' onClick={()=>{setFilters({...filters,categories:[]})}}> None </Button></Dropdown.Item>
                                                 {
-                                                    categories.map((category) => 
-                                                    <Dropdown.Item className={`p-0 dropdown-select border-bottom border-dark ${filters.categories.includes(category) ? "selected" : ""}`}><Button className='bg-transparent border-0 d-flex justify-content-between text-dark text-capitalize w-100' onClick={()=>{handleFilterCategories(category)}} >{category} <BsCheck className='dropdown-item-check d-none fs-4'/> </Button> </Dropdown.Item>
+                                                    productsInfo.categories && productsInfo.categories.map((category) => 
+                                                    <Dropdown.Item className={`p-0 dropdown-select border-bottom border-dark ${filters.categories.includes(category.name) ? "selected" : ""}`}><Button className='bg-transparent border-0 d-flex justify-content-between text-dark text-capitalize w-100' onClick={()=>{handleFilterCategories(category.name)}} >{category.name} <BsCheck className='dropdown-item-check d-none fs-4'/> </Button> </Dropdown.Item>
                                                     )
                                                 }
                                                 </Dropdown.Menu>

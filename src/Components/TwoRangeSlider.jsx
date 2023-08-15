@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-function TwoRangeSlider({minLimit=0, maxLimit=100, minValue=0, maxValue=100, setMin, setMax, snap=1}) {
+function TwoRangeSlider({minLimit=0, maxLimit=100, minValue=0, maxValue=100, setMin, setMax, snap=1, labelClassName=""}) {
 
     const rangeSlider = useRef();
 
@@ -38,7 +38,7 @@ function TwoRangeSlider({minLimit=0, maxLimit=100, minValue=0, maxValue=100, set
                 <input className='position-absolute w-100' type="range" min={minLimit} max={maxLimit} value={maxValue} onChange={handleMax} />
                 <input className='w-100' type="range" min={minLimit} max={maxLimit} value={minValue} onChange={handleMin} />
             </div>
-            <div className='d-flex justify-content-between fs-5 mt-1 text-muted'>
+            <div className={`d-flex justify-content-between fs-5 mt-1 ${labelClassName}`}>
                 <span>{minValue}</span>
                 <span>{maxValue}</span>
             </div>

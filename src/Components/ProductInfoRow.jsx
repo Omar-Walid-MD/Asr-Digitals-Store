@@ -12,9 +12,10 @@ function ProductInfoRow({product, showProduct, editProduct, deleteProduct}) {
             <Row className='bg-white shadow-sm w-sm-100 m-0 text-dark rounded-sm-3 border'>
                 <Col className='col-1 d-flex justify-content-center'>{product.id}</Col>
                 <Col className='col-2 d-flex justify-content-center py-2'><img className='rounded-3 shadow-sm border' style={{height: "9rem"}} src={product.image} alt="" /></Col>
-                <Col className='col-2 p-3 d-flex justify-content-center'><h3>{product.title}</h3></Col>
-                <Col className='col-1 p-3 d-flex justify-content-center'><h3 className='text-danger'>{product.price}</h3></Col>
-                <Col className='col-3 p-3 d-flex justify-content-start'>{product.desc}</Col>
+                <Col className='col-2 p-3 d-flex justify-content-center'><h5>{product.title}</h5></Col>
+                <Col className='col-1 p-3 d-flex justify-content-center' style={{width: "8%"}}><h5 className='text-danger'>{product.price}</h5></Col>
+                <Col className='col-1 p-3 d-flex justify-content-center text-capitalize' style={{width: "8%"}}>{product.category}</Col>
+                <Col className='col-1 p-3 d-flex justify-content-start' style={{width: "22%"}}>{product.desc}</Col>
                 <Col className='p-3 d-flex justify-content-center'>
                     <div>
                     {

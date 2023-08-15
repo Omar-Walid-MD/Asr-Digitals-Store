@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { addToCart, removeFromCart, setProductCount } from '../Store/Cart/cartSlice';
 import { addToFav, getFavs, removeFromFav } from '../Store/Favorites/favoritesSlice';
 
-function ProductCartItemOverview({productObject,productId,className}) {
+function ProductCartItemOverview({productObject,productId,productCount,productPrice,className}) {
 
     const [product,setProduct] = useState(productObject);
 
@@ -15,7 +15,6 @@ function ProductCartItemOverview({productObject,productId,className}) {
     const products = useSelector((store) => store.products.products);
     const dispatch = useDispatch();
 
-    const [added,setAdded] = useState(false);
     const [count, setCount] = useState(1);
 
     const [firstCountSet,setFirstCountSet] = useState(false);
@@ -34,7 +33,7 @@ function ProductCartItemOverview({productObject,productId,className}) {
     },[productId, products]);
 
     useEffect(()=>{
-        if(product)
+        if(product && !productCount)
         {
             setCount(getCount());
         }
@@ -62,10 +61,10 @@ function ProductCartItemOverview({productObject,productId,className}) {
                             <h5 className='m-0'>{product.title}</h5>
                         </Col>
                         <Col className="col-3 p-2 d-flex align-items-center">
-                            <h5 className='m-0 mt-1 mb-2 price-tag text-danger fw-bold d-flex align-items-end'>{count} <BsX/> {product.price}</h5>
+                            <h5 className='m-0 mt-1 mb-2 price-tag text-danger fw-bold d-flex align-items-end'>{productCount || count} <BsX/> {(productPrice || product.price)}</h5>
                         </Col>
                         <Col className="col-3 p-2 d-flex align-items-center">
-                            <h4 className='m-0 p-0 price-tag text-danger'>{product.price * count}</h4>
+                            <h4 className='m-0 p-0 price-tag text-danger'>{(productPrice || product.price) * (productCount || count)}</h4>
                         </Col>
                     </Row>
                 </Card.Body>

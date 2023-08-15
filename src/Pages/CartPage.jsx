@@ -28,7 +28,7 @@ function CartPage({}) {
             <hr className='border-3' />
             <div className='pb-2'>
                 <Row className='m-0'>
-                    <Col className='col-12 col-md-8 mb-4 m-md-0'>
+                    <Col className={`col-12 mb-4 m-md-0 ${cart.length ? "col-md-8" : "col-md-12"}`}>
                         <div className="d-flex flex-column rounded-sm-3 shadow">
                             <div className='p-1 py-2 p-sm-3 p-md-4 d-flex flex-column gap-3'>
                                 <Row className='g-2 g-sm-3 g-md-4'>
@@ -41,14 +41,14 @@ function CartPage({}) {
                                     :
                                     <div className='d-flex flex-column align-items-center gap-3 p-5'>
                                         <h2>Your cart is empty.</h2>
-                                        <Button variant='dark' className='btn-dark fs-5 p-3 px-4 text-uppercase fw-semibold'>Shop now!</Button>
+                                        <Link to={"/shop"} className='btn btn-dark main-button fs-5 p-3 px-4 text-uppercase fw-semibold'>Shop now!</Link>
                                     </div>
                                 }
                                 </Row>
                             </div>
                         </div>
                     </Col>
-                    <Col className='col-12 col-md-4 position-relative'>
+                    <Col className={`col-12 col-md-4 position-relative ${!cart.length ? "d-none" : ""}`}>
                         <div className="position-sticky" style={{top: "5rem"}}>
                             <div  className='shadow rounded-3 p-3'>
                                 <p className='fs-5'>Subtotal Fees: <span className='price-tag'>{fees.subtotal}</span> </p>

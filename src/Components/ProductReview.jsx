@@ -1,15 +1,18 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { BsStarFill, BsFillPersonFill } from "react-icons/bs";
-function ProductReview({review}) {
+import { useSelector } from 'react-redux';
+function ProductReview({review})
+{
+    const user = useSelector((store)=>store.auth.users.find((user) => user.id === review.userId));
     
     return (
         <Row className="w-100 border-3 border-bottom border-secondary-subtle rounded-3 p-3 shadow-sm gy-3">
             <Col className="col-12 col-md-2 col-lg-1 d-flex flex-row flex-md-column gap-3">
                 <BsFillPersonFill className='bg-light rounded-3 fs-1 shadow-sm border border-2 border-dark' />
                 <div className="d-flex flex-column">
-                    <h6 className='m-0'>Username</h6>
-                    <p className='m-0'>00/00/0000</p>
+                    <h6 className='m-0'>{user ? user.username || `${user.firstName} ${user.lastName}` : ""}</h6>
+                    <p className='m-0'>{new Date(review.date).toLocaleDateString()}</p>
                 </div>
             </Col>
             <Col className='col-12 col-md-10 d-flex align-items-start flex-column ps-5'>

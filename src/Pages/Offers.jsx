@@ -11,9 +11,7 @@ function Offers({}) {
 
     const date = new Date("1 Jan 2024");
 
-    
-    const offerCountDown = useRef();
-    
+     
     function handleCountDown()
     {
         let timeLeft = date.getTime() - Date.now();
@@ -39,28 +37,17 @@ function Offers({}) {
         return timeObject;
     }
 
-    function handleAnimation(targetClass)
-    {
-        let el = offerCountDown.current.querySelector(`.offer-timer-box.${targetClass}`)
-        el.classList.remove("animation");
-        setTimeout(() => {
-            el.classList.add("animation");
-        }, 10);
-    }
+
 
     useEffect(()=>{
         if(!first)
         {
-            console.log("should happen once");
             setFirst(true);
             handleCountDown();
             if(!timerInterval)
             {
                 let i = setInterval(()=>{
-                    console.log("set count");
                     setCountDown(x => x - 1000)
-                    // handleAnimation("secs");
-                    // if(getCounterObject().secs===0) handleAnimation("mins");
                 },1000);
                 setTimerInterval(i);
             }
@@ -70,7 +57,6 @@ function Offers({}) {
 
     useEffect(()=>{
         return ()=>{
-            console.log(timerInterval);
             clearInterval(timerInterval);
         };
     },[timerInterval]);
@@ -94,91 +80,44 @@ function Offers({}) {
 
     return (
         <div>
-            <section className='bg-success-subtle'>
-                <div className='d-flex flex-column flex-md-row align-items-center p-5'>
-                    <div className='px-xl-4'>
-                        <img style={{width: "min(20rem,80vw)"}} src={require("../img/phone.png")} alt="" />
-                    </div>
-                    <div className='d-flex flex-column align-items-center align-items-md-start'>
-                        <h1 className='text-center'>UPCOMING OFFER SEASON</h1>
-                        <h4 className='text-secondary mb-3'>STARTS AFTER:</h4>
-                        <div className='offer-countdown-container d-flex gap-2 gap-md-4 gap-lg-5' ref={offerCountDown}>
+            <section className='offers-header position-relative py-5'>
+                <div className='d-flex flex-column align-items-center p-5'>
+                    <div className='d-flex flex-column align-items-center'>
+                        <h1 className='text-center px-0 px-sm-3 px-md-5'>Deals Like You Have Never Seen Before!</h1>
+                        <h4 className='mb-4'>COMING IN:</h4>
+                        <div className='offer-countdown-container d-flex gap-2 gap-sm-3 gap-md-4'>
                             <div>
-                                <div className='bg-secondary rounded-3 shadow offer-timer-box days'>
-                                    {getCounterObject().days-1}
-                                    <div className="counter-halves top-0 w-100 h-100 position-absolute d-flex flex-column">
-                                        <div className="counter-half top bg-secondary rounded-3 h-50 d-flex justify-content-center overflow-hidden">
-                                            <span>{getCounterObject().days}</span>
-                                        </div>
-                                        <div className="counter-half mid bg-secondary rounded-3 position-absolute top-0 h-50 d-flex justify-content-center overflow-hidden">
-                                            <span>{getCounterObject().days-1}</span>
-                                        </div>
-                                        <div className="counter-half bottom bg-secondary rounded-3 h-50 d-flex justify-content-center overflow-hidden">
-                                            <span>{getCounterObject().days}</span>
-                                        </div>
-                                    </div>
+                                <div className='rounded-3 shadow offer-timer-box days'>
+                                    {getCounterObject().days}
                                     <span className='mb-1'>days</span>
                                 </div>
                             </div>
                             <div>
-                                <div className='bg-secondary rounded-3 shadow offer-timer-box hours'>
-                                    {getCounterObject().hours-1}
-                                    <div className="counter-halves top-0 w-100 h-100 position-absolute d-flex flex-column">
-                                        <div className="counter-half top bg-secondary rounded-3 h-50 d-flex justify-content-center overflow-hidden">
-                                            <span>{getCounterObject().hours}</span>
-                                        </div>
-                                        <div className="counter-half mid bg-secondary rounded-3 position-absolute top-0 h-50 d-flex justify-content-center overflow-hidden">
-                                            <span>{getCounterObject().hours-1}</span>
-                                        </div>
-                                        <div className="counter-half bottom bg-secondary rounded-3 h-50 d-flex justify-content-center overflow-hidden">
-                                            <span>{getCounterObject().hours}</span>
-                                        </div>
-                                    </div>
+                                <div className='rounded-3 shadow offer-timer-box hours'>
+                                    {getCounterObject().hours}
                                     <span className='mb-1'>hours</span>
                                 </div>
                             </div>
                             <div>
-                                <div className='bg-secondary rounded-3 shadow offer-timer-box mins'>
-                                    {getCounterObject().mins-1}
-                                    <div className="counter-halves top-0 w-100 h-100 position-absolute d-flex flex-column">
-                                        <div className="counter-half top bg-secondary rounded-3 h-50 d-flex justify-content-center overflow-hidden">
-                                            <span>{getCounterObject().mins}</span>
-                                        </div>
-                                        <div className="counter-half mid bg-secondary rounded-3 position-absolute top-0 h-50 d-flex justify-content-center overflow-hidden">
-                                            <span>{getCounterObject().mins-1}</span>
-                                        </div>
-                                        <div className="counter-half bottom bg-secondary rounded-3 h-50 d-flex justify-content-center overflow-hidden">
-                                            <span>{getCounterObject().mins}</span>
-                                        </div>
-                                    </div>
+                                <div className='rounded-3 shadow offer-timer-box mins'>
+                                    {getCounterObject().mins}
                                     <span className='mb-1'>minutes</span>
                                 </div>
                             </div>
                             <div>
-                                <div className='bg-secondary rounded-3 shadow offer-timer-box secs'>
+                                <div className='rounded-3 shadow offer-timer-box p-0'>
                                     {getCounterObject().secs}
-                                    <div className="counter-halves top-0 w-100 h-100 position-absolute d-flex flex-column">
-                                        <div className="counter-half top bg-secondary rounded-3 h-50 d-flex justify-content-center overflow-hidden">
-                                            <span>{getCounterObject().secs+1===60 ? 0 : getCounterObject().secs+1}</span>
-                                        </div>
-                                        <div className="counter-half mid bg-secondary rounded-3 position-absolute top-0 h-50 d-flex justify-content-center overflow-hidden">
-                                            <span>{getCounterObject().secs}</span>
-                                        </div>
-                                        <div className="counter-half bottom bg-secondary rounded-3 h-50 d-flex justify-content-center overflow-hidden">
-                                            <span>{getCounterObject().secs+1===60 ? 0 : getCounterObject().secs+1}</span>
-                                        </div>
-                                    </div>
                                     <span className='mb-1'>seconds</span>
 
                                 </div>
                             </div>
                         </div>
-                        <h5 className='mt-4 text-center'>Stay Tuned for Awesome Deals!</h5>
+                        <h5 className='mt-4 text-center text-uppercase fw-bold'>Stay Tuned for Awesome Deals!</h5>
                     </div>
                 </div>
             </section>
 
-            <section>
+            <section className='pt-4 pt-lg-0 bg-img-1'>
                 <div className='d-flex flex-column flex-sm-row align-items-center align-items-sm-start p-5'>
                     <div className='px-xl-4'>
                         <img style={{width: "min(20rem,60vw)"}} src={require("../img/phone.png")} alt="" />
@@ -196,22 +135,12 @@ function Offers({}) {
             </section>
 
             <section>
-                <div>
-                    <div className='d-flex flex-column flex-sm-row align-items-center align-items-sm-start p-5'>
-                        <div className='px-xl-4'>
-                            <img style={{width: "min(20rem,60vw)"}} src={require("../img/phone.png")} alt="" />
-                        </div>
-                        <div className='py-4 d-flex flex-column align-items-center align-items-sm-start'>
-                            <h1>Phone</h1>
-                            <p className='text-center text-sm-start w-md-50'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam, excepturi repellendus, cupiditate, iusto illum aspernatur maiores.</p>
-                            <div className="d-flex gap-4 align-items-center">
-                                <h5 className='price-old price-tag'>1200</h5>
-                                <h1 className='price-tag text-danger'>800</h1>
-                            </div>
-                            <Button className='d-flex align-items-center mt-3 btn-primary text-white fs-3 gap-2 gap-sm-3 rounded-3 shadow border-3'><BsFillCartPlusFill className='fs-2' /> Add to Cart</Button>
-                        </div>
+                <Container>
+                    <h3>Save up to 40% on these bundles!</h3>
+                    <div>
+
                     </div>
-                </div>
+                </Container>
             </section>
 
             <section className='bg-secondary d-flex flex-column text-white'>

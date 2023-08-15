@@ -15,11 +15,15 @@
       "street": "111",
       "cart": [
         {
-          "productId": "84353",
+          "productId": "91571",
           "count": 1
         },
         {
-          "productId": "98347",
+          "productId": "86558",
+          "count": 1
+        },
+        {
+          "productId": "25791",
           "count": 1
         }
       ],
@@ -84,7 +88,7 @@
         "cam": "20MP 40MP",
         "res": "640 x 1136"
       },
-      "rating": 0,
+      "rating": "5.0",
       "image": "https://i.imgur.com/04q9gFi.png",
       "date": 1691930697426
     },
@@ -224,7 +228,7 @@
         "cam": "10MP 20MP",
         "res": "750 x 1334"
       },
-      "rating": 0,
+      "rating": "5.0",
       "image": "https://i.imgur.com/QcDPuDO.png",
       "date": 1691930697426
     },
@@ -447,9 +451,1701 @@
       "rating": 0,
       "image": "https://i.imgur.com/OIqEpLJ.png",
       "date": 1691930697427
+    },
+    {
+      "id": "48799",
+      "title": "Aurora Pro X",
+      "desc": "Experience unparalleled performance and stunning visuals with the Aurora Pro X, a powerful laptop designed for gaming and resource-intensive tasks.",
+      "category": "laptop",
+      "price": 3400,
+      "specs": {
+          "os": "Windows 8",
+          "ram": "32 GB",
+          "storage": "128 GB",
+          "processor": "i5 1.8 GHz",
+          "gpu": "Intel HD Graphics 3000",
+          "battery": "3000 mAh",
+          "size": "15\"",
+          "res": "1366 x 768"
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/7VJqTE6.png",
+      "date": 1692059068558
+    },
+    {
+        "id": "27927",
+        "title": "ZedBook Prism 14",
+        "desc": "Immerse yourself in the world of productivity and creativity with the ZedBook Prism 14, a sleek and lightweight laptop featuring a vibrant display and exceptional battery life.",
+        "category": "laptop",
+        "price": 4700,
+        "specs": {
+            "os": "Linux",
+            "ram": "32 GB",
+            "storage": "1 TB",
+            "processor": "i5 1.2 GHz",
+            "gpu": "NVIDIA GeForce RTX 3080",
+            "battery": "4000 mAh",
+            "size": "15\"",
+            "res": "1366 x 768"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/QQa1HuO.png",
+        "date": 1692059068558
+    },
+    {
+        "id": "58932",
+        "title": "NovaBook Air 13",
+        "desc": "Stay connected and productive on the go with the NovaBook Air 13, an ultra-portable laptop that combines stylish design with reliable performance and long-lasting battery.",
+        "category": "laptop",
+        "price": 4600,
+        "specs": {
+            "os": "Windows 8",
+            "ram": "8 GB",
+            "storage": "2 TB",
+            "processor": "i7 2.2 GHz",
+            "gpu": "NVIDIA GeForce RTX 3080",
+            "battery": "4000 mAh",
+            "size": "12\"",
+            "res": "1920 x 1080"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/fwcfIs5.png",
+        "date": 1692059068558
+    },
+    {
+        "id": "18488",
+        "title": "Titanium Elite 15",
+        "desc": "Unleash your potential with the Titanium Elite 15, a high-performance laptop that offers cutting-edge features, uncompromising power, and a premium build quality.",
+        "category": "laptop",
+        "price": 3800,
+        "specs": {
+            "os": "Windows 10",
+            "ram": "6 GB",
+            "storage": "256 GB",
+            "processor": "i5 1.2 GHz",
+            "gpu": "NVIDIA GeForce MX250",
+            "battery": "5000 mAh",
+            "size": "12\"",
+            "res": "2560 x 1440"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/VySBjnE.png",
+        "date": 1692059068558
+    },
+    {
+        "id": "62972",
+        "title": "Spectra X1 Pro",
+        "desc": "Experience the future of computing with the Spectra X1 Pro, a versatile laptop that combines exceptional performance, stunning visuals, and advanced security features.",
+        "category": "laptop",
+        "price": 4500,
+        "specs": {
+            "os": "Linux",
+            "ram": "32 GB",
+            "storage": "128 GB",
+            "processor": "i7 3 GHz",
+            "gpu": "NVIDIA GeForce RTX 3080",
+            "battery": "5000 mAh",
+            "size": "12\"",
+            "res": "1920 x 1080"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/XBoGZef.png",
+        "date": 1692059068558
+    },
+    {
+        "id": "85718",
+        "title": "Lumos Flex 14",
+        "desc": "Adapt to any task with the Lumos Flex 14, a flexible and lightweight laptop that effortlessly transforms between laptop and tablet modes for optimal versatility.",
+        "category": "laptop",
+        "price": 4800,
+        "specs": {
+            "os": "Windows 11",
+            "ram": "8 GB",
+            "storage": "2 TB",
+            "processor": "i7 2.2 GHz",
+            "gpu": "Intel HD Graphics 3000",
+            "battery": "5000 mAh",
+            "size": "17\"",
+            "res": "2560 x 1440"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/gRdZGPD.png",
+        "date": 1692059068558
+    },
+    {
+        "id": "67748",
+        "title": "IdeaBook Pro 15",
+        "desc": "Unlock your productivity with the IdeaBook Pro 15, a professional-grade laptop that offers a spacious display, powerful performance, and a sleek, premium design.",
+        "category": "laptop",
+        "price": 4700,
+        "specs": {
+            "os": "Windows 10",
+            "ram": "16 GB",
+            "storage": "256 GB",
+            "processor": "i7 3 GHz",
+            "gpu": "NVIDIA GeForce RTX 3080",
+            "battery": "5000 mAh",
+            "size": "15\"",
+            "res": "2880 x 1800"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/7i2O3KV.png",
+        "date": 1692059068559
+    },
+    {
+        "id": "25559",
+        "title": "Echo Plus 17",
+        "desc": "Harness the power of innovation with the Echo Plus 17, a high-end laptop that delivers exceptional performance, stunning visuals, and advanced cooling technology.",
+        "category": "laptop",
+        "price": 3600,
+        "specs": {
+            "os": "Windows 10",
+            "ram": "4 GB",
+            "storage": "128 GB",
+            "processor": "i7 3 GHz",
+            "gpu": "Intel HD Graphics 5500",
+            "battery": "5000 mAh",
+            "size": "15\"",
+            "res": "1366 x 768"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/V0rFtrZ.png",
+        "date": 1692059068559
+    },
+    {
+        "id": "64375",
+        "title": "ZedPro Plus 13",
+        "desc": "Elevate your professional workflow with the ZedPro Plus 13, a compact and powerful laptop designed for demanding workloads and enhanced productivity.",
+        "category": "laptop",
+        "price": 3900,
+        "specs": {
+            "os": "Linux",
+            "ram": "16 GB",
+            "storage": "128 GB",
+            "processor": "i5 1.8 GHz",
+            "gpu": "NVIDIA GeForce MX250",
+            "battery": "3000 mAh",
+            "size": "15\"",
+            "res": "1920 x 1080"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/Ca6sDMH.png",
+        "date": 1692059068559
+    },
+    {
+        "id": "66583",
+        "title": "NovaBook Pro 16",
+        "desc": "Immerse yourself in a world of creativity and productivity with the NovaBook Pro 16, a high-performance laptop that combines a stunning display, powerful internals, and ample storage.",
+        "category": "laptop",
+        "price": 4900,
+        "specs": {
+            "os": "Linux",
+            "ram": "8 GB",
+            "storage": "512 GB",
+            "processor": "i5 1.8 GHz",
+            "gpu": "NVIDIA GeForce RTX 3080",
+            "battery": "10000 mAh",
+            "size": "15\"",
+            "res": "2560 x 1440"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/mJ6Gumg.png",
+        "date": 1692059068559
+    },
+    {
+        "id": "59474",
+        "title": "TitanBook X2",
+        "desc": "Conquer your tasks with the TitanBook X2, a rugged and durable laptop built to withstand challenging environments, featuring powerful performance and enhanced security features.",
+        "category": "laptop",
+        "price": 4200,
+        "specs": {
+            "os": "Windows 8",
+            "ram": "4 GB",
+            "storage": "512 GB",
+            "processor": "i7 2.2 GHz",
+            "gpu": "Intel HD Graphics 3000",
+            "battery": "10000 mAh",
+            "size": "15\"",
+            "res": "2880 x 1800"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/MyyEynt.png",
+        "date": 1692059068559
+    },
+    {
+        "id": "21997",
+        "title": "Spectra Slim 13",
+        "desc": "Experience elegance and performance with the Spectra Slim 13, an ultra-slim and lightweight laptop that packs a punch with its powerful internals and stunning visuals.",
+        "category": "laptop",
+        "price": 4100,
+        "specs": {
+            "os": "Windows 8",
+            "ram": "16 GB",
+            "storage": "256 GB",
+            "processor": "i5 1.8 GHz",
+            "gpu": "NVIDIA GeForce MX250",
+            "battery": "7500 mAh",
+            "size": "15\"",
+            "res": "1920 x 1080"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/4PQvytR.png",
+        "date": 1692059068559
+    },
+    {
+        "id": "28378",
+        "title": "Luminary Pro X",
+        "desc": "Illuminate your productivity with the Luminary Pro X, a feature-rich laptop that offers exceptional performance, a stunning display, and advanced connectivity options.",
+        "category": "laptop",
+        "price": 4800,
+        "specs": {
+            "os": "Linux",
+            "ram": "4 GB",
+            "storage": "1 TB",
+            "processor": "i7 3 GHz",
+            "gpu": "NVIDIA GeForce GT 1030",
+            "battery": "5000 mAh",
+            "size": "15\"",
+            "res": "2560 x 1440"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/gNnnk20.png",
+        "date": 1692059068559
+    },
+    {
+        "id": "99382",
+        "title": "IdeaBook Air 14",
+        "desc": "Stay productive on the move with the IdeaBook Air 14, an ultra-thin and lightweight laptop that combines portability with reliable performance and long battery life.",
+        "category": "laptop",
+        "price": 4700,
+        "specs": {
+            "os": "Windows 10",
+            "ram": "4 GB",
+            "storage": "2 TB",
+            "processor": "i7 2.2 GHz",
+            "gpu": "NVIDIA GeForce RTX 3080",
+            "battery": "5000 mAh",
+            "size": "10\"",
+            "res": "2880 x 1800"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/5y7Vp4i.png",
+        "date": 1692059068559
+    },
+    {
+        "id": "75669",
+        "title": "Echo Flex 15",
+        "desc": "Flexibility meets power with the Echo Flex 15, a versatile laptop that adapts to your needs, offering seamless transitions between laptop, tent, and tablet modes.",
+        "category": "laptop",
+        "price": 4300,
+        "specs": {
+            "os": "Windows 11",
+            "ram": "4 GB",
+            "storage": "2 TB",
+            "processor": "i7 3 GHz",
+            "gpu": "Intel HD Graphics 5500",
+            "battery": "4000 mAh",
+            "size": "12\"",
+            "res": "1366 x 768"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/T5jxPEA.png",
+        "date": 1692059068559
+    },
+    {
+        "id": "95132",
+        "title": "ZedPro Plus 14",
+        "desc": "Unleash your professional potential with the ZedPro Plus 14, a compact and powerful laptop designed for intensive workloads, featuring a stunning display and long battery life.",
+        "category": "laptop",
+        "price": 4100,
+        "specs": {
+            "os": "Windows 8",
+            "ram": "8 GB",
+            "storage": "256 GB",
+            "processor": "i9 4 GHz",
+            "gpu": "Intel HD Graphics 3000",
+            "battery": "7500 mAh",
+            "size": "10\"",
+            "res": "2880 x 1800"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/i8YWQGF.png",
+        "date": 1692059068559
+    },
+    {
+        "id": "11655",
+        "title": "NovaBook Slim 15",
+        "desc": "Experience sleekness and performance with the NovaBook Slim 15, an ultra-slim laptop that combines style, power, and portability, perfect for modern professionals.",
+        "category": "laptop",
+        "price": 3400,
+        "specs": {
+            "os": "Windows 10",
+            "ram": "4 GB",
+            "storage": "128 GB",
+            "processor": "i7 2.2 GHz",
+            "gpu": "Intel HD Graphics 5500",
+            "battery": "5000 mAh",
+            "size": "12\"",
+            "res": "1366 x 768"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/y5oSLsT.png",
+        "date": 1692059068559
+    },
+    {
+        "id": "39394",
+        "title": "TitaniumBook Pro 17",
+        "desc": "Embrace the power of titanium with the TitaniumBook Pro 17, a premium laptop that delivers uncompromising performance, stunning visuals, and exceptional durability.",
+        "category": "laptop",
+        "price": 4100,
+        "specs": {
+            "os": "Linux",
+            "ram": "8 GB",
+            "storage": "256 GB",
+            "processor": "i7 2.2 GHz",
+            "gpu": "Intel HD Graphics 3000",
+            "battery": "4000 mAh",
+            "size": "17\"",
+            "res": "1920 x 1080"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/fWie0Pz.png",
+        "date": 1692059068559
+    },
+    {
+        "id": "83416",
+        "title": "SpectraBook X1",
+        "desc": "Immerse yourself in the world of content creation and multimedia with the SpectraBook X1, a high-performance laptop that offers a stunning display and powerful graphics capabilities.",
+        "category": "laptop",
+        "price": 3900,
+        "specs": {
+            "os": "Windows 10",
+            "ram": "6 GB",
+            "storage": "512 GB",
+            "processor": "i5 1.8 GHz",
+            "gpu": "NVIDIA GeForce GT 1030",
+            "battery": "3000 mAh",
+            "size": "15\"",
+            "res": "1366 x 768"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/aLfhM3M.png",
+        "date": 1692059068559
+    },
+    {
+      "id": "89253",
+      "title": "Lumos Pro 16",
+      "desc": "Illuminate your productivity with the Lumos Pro 16, a powerful laptop that combines high-performance internals, a vibrant display, and a sleek design for enhanced productivity.",
+      "category": "laptop",
+      "price": 4200,
+      "specs": {
+          "os": "Windows 10",
+          "ram": "6 GB",
+          "storage": "256 GB",
+          "processor": "i7 2.2 GHz",
+          "gpu": "NVIDIA GeForce MX250",
+          "battery": "7500 mAh",
+          "size": "15\"",
+          "res": "2560 x 1440"
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/qAW3x6A.png",
+      "date": 1692059528900
+    },
+    {
+      "id": "56176",
+      "title": "TabX Pro",
+      "desc": "The TabX Pro is a premium tablet with a high-resolution display, powerful processor, and advanced camera capabilities.",
+      "category": "tablet",
+      "price": 3400,
+      "specs": {
+          "os": "Android 11",
+          "ram": "6 GB",
+          "storage": "64 GB",
+          "processor": "1.2 GHz",
+          "battery": "4000 mAh",
+          "size": "8\"",
+          "cam": "20MP 40MP",
+          "res": "2048 x 2732"
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/kRS82KU.png",
+      "date": 1692059919346
+    },
+    {
+        "id": "78227",
+        "title": "SlateBook Ultra",
+        "desc": "The SlateBook Ultra is a sleek and lightweight tablet that offers exceptional performance and long battery life.",
+        "category": "tablet",
+        "price": 3200,
+        "specs": {
+            "os": "Android 10",
+            "ram": "4 GB",
+            "storage": "64 GB",
+            "processor": "3 GHz",
+            "battery": "5000 mAh",
+            "size": "9\"",
+            "cam": "8MP 12MP",
+            "res": "768 x 1024"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/XLzINGb.png",
+        "date": 1692059919346
+    },
+    {
+        "id": "18939",
+        "title": "FusionTab Max",
+        "desc": "The FusionTab Max is a feature-rich tablet with a large screen, expandable storage, and a robust multimedia experience.",
+        "category": "tablet",
+        "price": 3200,
+        "specs": {
+            "os": "Android 10",
+            "ram": "8 GB",
+            "storage": "128 GB",
+            "processor": "3 GHz",
+            "battery": "2000 mAh",
+            "size": "9\"",
+            "cam": "8MP 12MP",
+            "res": "1536 x 2048"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/ctLphF7.png",
+        "date": 1692059919347
+    },
+    {
+        "id": "43341",
+        "title": "PixelTab Pro",
+        "desc": "The PixelTab Pro is a versatile tablet that combines productivity and entertainment features, making it perfect for work and play.",
+        "category": "tablet",
+        "price": 3200,
+        "specs": {
+            "os": "Android 12",
+            "ram": "8 GB",
+            "storage": "16 GB",
+            "processor": "4 GHz",
+            "battery": "2500 mAh",
+            "size": "12\"",
+            "cam": "8MP 12MP",
+            "res": "768 x 1024"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/D25ELWv.png",
+        "date": 1692059919347
+    },
+    {
+        "id": "54835",
+        "title": "AquaPad Elite",
+        "desc": "The AquaPad Elite is a water-resistant tablet designed for outdoor adventures, featuring a rugged build and enhanced durability.",
+        "category": "tablet",
+        "price": 3350,
+        "specs": {
+            "os": "Android 12",
+            "ram": "2 GB",
+            "storage": "32 GB",
+            "processor": "2.2 GHz",
+            "battery": "4000 mAh",
+            "size": "8\"",
+            "cam": "20MP 40MP",
+            "res": "2048 x 2732"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/bmYOkHi.png",
+        "date": 1692059919347
+    },
+    {
+        "id": "19499",
+        "title": "ZedTab Air",
+        "desc": "The ZedTab Air is an ultra-thin tablet that offers a seamless user experience, powerful performance, and stunning visuals.",
+        "category": "tablet",
+        "price": 3350,
+        "specs": {
+            "os": "Android 11",
+            "ram": "2 GB",
+            "storage": "128 GB",
+            "processor": "1.2 GHz",
+            "battery": "4000 mAh",
+            "size": "12\"",
+            "cam": "20MP 30MP",
+            "res": "2048 x 2732"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/6VlQFJr.png",
+        "date": 1692059919347
+    },
+    {
+        "id": "59358",
+        "title": "SwiftPad X1",
+        "desc": "The SwiftPad X1 is a budget-friendly tablet designed for everyday use, providing reliable performance and a range of essential features.",
+        "category": "tablet",
+        "price": 3250,
+        "specs": {
+            "os": "Android 10",
+            "ram": "1 GB",
+            "storage": "32 GB",
+            "processor": "4 GHz",
+            "battery": "4000 mAh",
+            "size": "10\"",
+            "cam": "10MP 20MP",
+            "res": "2048 x 2732"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/qtUAJS2.png",
+        "date": 1692059919347
+    },
+    {
+        "id": "87578",
+        "title": "AuraTab Pro",
+        "desc": "The AuraTab Pro is a premium tablet that boasts a vibrant display, immersive audio, and advanced security features.",
+        "category": "tablet",
+        "price": 2600,
+        "specs": {
+            "os": "Android 11",
+            "ram": "1 GB",
+            "storage": "32 GB",
+            "processor": "4 GHz",
+            "battery": "2000 mAh",
+            "size": "10\"",
+            "cam": "3MP 5MP",
+            "res": "768 x 1024"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/pnT8QEb.png",
+        "date": 1692059919347
+    },
+    {
+        "id": "43549",
+        "title": "NimbusTab Lite",
+        "desc": "The NimbusTab Lite is a compact and lightweight tablet that offers portability without compromising on performance and functionality.",
+        "category": "tablet",
+        "price": 3450,
+        "specs": {
+            "os": "Android 13",
+            "ram": "6 GB",
+            "storage": "256 GB",
+            "processor": "1.2 GHz",
+            "battery": "3000 mAh",
+            "size": "7\"",
+            "cam": "20MP 40MP",
+            "res": "1536 x 2048"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/Ulx6xWI.png",
+        "date": 1692059919347
+    },
+    {
+        "id": "29597",
+        "title": "EvoTab Plus",
+        "desc": "The EvoTab Plus is a versatile tablet that adapts to your needs, with a detachable keyboard and seamless compatibility with productivity tools.",
+        "category": "tablet",
+        "price": 2600,
+        "specs": {
+            "os": "Android 13",
+            "ram": "4 GB",
+            "storage": "32 GB",
+            "processor": "1.2 GHz",
+            "battery": "2000 mAh",
+            "size": "8\"",
+            "cam": "10MP 20MP",
+            "res": "768 x 1024"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/YHWNbww.png",
+        "date": 1692059919347
+    },
+    {
+        "id": "59975",
+        "title": "NovaTab Flex",
+        "desc": "The NovaTab Flex is a flexible tablet that can be easily transformed into a laptop or a stand, providing versatility for any task.",
+        "category": "tablet",
+        "price": 3250,
+        "specs": {
+            "os": "Android 11",
+            "ram": "6 GB",
+            "storage": "32 GB",
+            "processor": "3 GHz",
+            "battery": "3000 mAh",
+            "size": "9\"",
+            "cam": "10MP 20MP",
+            "res": "1536 x 2048"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/fkPuMVT.png",
+        "date": 1692059919347
+    },
+    {
+        "id": "89148",
+        "title": "VivoTab Max",
+        "desc": "The VivoTab Max is a multimedia-focused tablet with a stunning display, immersive audio, and optimized performance for entertainment.",
+        "category": "tablet",
+        "price": 3550,
+        "specs": {
+            "os": "Android 14",
+            "ram": "8 GB",
+            "storage": "256 GB",
+            "processor": "3 GHz",
+            "battery": "2500 mAh",
+            "size": "8\"",
+            "cam": "8MP 12MP",
+            "res": "1536 x 2048"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/O3S0Wch.png",
+        "date": 1692059919347
+    },
+    {
+        "id": "41193",
+        "title": "LunaTab Lite",
+        "desc": "The LunaTab Lite is an affordable tablet that offers a user-friendly experience, long battery life, and access to a variety of apps and content.",
+        "category": "tablet",
+        "price": 3500,
+        "specs": {
+            "os": "Android 13",
+            "ram": "4 GB",
+            "storage": "128 GB",
+            "processor": "4 GHz",
+            "battery": "2500 mAh",
+            "size": "8\"",
+            "cam": "20MP 30MP",
+            "res": "1536 x 2048"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/dc1uGYG.png",
+        "date": 1692059919347
+    },
+    {
+        "id": "53963",
+        "title": "TitaniumPad Pro",
+        "desc": "The TitaniumPad Pro is a rugged tablet built to withstand challenging environments, featuring enhanced durability and robust security measures.",
+        "category": "tablet",
+        "price": 3150,
+        "specs": {
+            "os": "Android 10",
+            "ram": "6 GB",
+            "storage": "128 GB",
+            "processor": "3 GHz",
+            "battery": "3000 mAh",
+            "size": "8\"",
+            "cam": "3MP 5MP",
+            "res": "1536 x 2048"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/2OxJiFl.png",
+        "date": 1692059919348
+    },
+    {
+        "id": "53215",
+        "title": "PulseTab Elite",
+        "desc": "The PulseTab Elite is a high-performance tablet that delivers smooth multitasking, stunning visuals, and an immersive gaming experience.",
+        "category": "tablet",
+        "price": 3400,
+        "specs": {
+            "os": "Android 14",
+            "ram": "1 GB",
+            "storage": "256 GB",
+            "processor": "1.8 GHz",
+            "battery": "2500 mAh",
+            "size": "12\"",
+            "cam": "20MP 40MP",
+            "res": "1536 x 2048"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/gpwsYhM.png",
+        "date": 1692059919348
+    },
+    {
+        "id": "23263",
+        "title": "AeroTab Ultra",
+        "desc": "The AeroTab Ultra is a premium tablet designed for professionals, offering powerful performance, advanced stylus support, and creative capabilities.",
+        "category": "tablet",
+        "price": 3800,
+        "specs": {
+            "os": "Android 14",
+            "ram": "8 GB",
+            "storage": "256 GB",
+            "processor": "4 GHz",
+            "battery": "3000 mAh",
+            "size": "7\"",
+            "cam": "10MP 20MP",
+            "res": "1536 x 2048"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/apsI8TG.png",
+        "date": 1692059919348
+    },
+    {
+        "id": "73833",
+        "title": "BlazePad X2",
+        "desc": "The BlazePad X2 is a gaming-focused tablet that delivers exceptional graphics, responsive controls, and an immersive gaming ecosystem.",
+        "category": "tablet",
+        "price": 2850,
+        "specs": {
+            "os": "Android 12",
+            "ram": "1 GB",
+            "storage": "16 GB",
+            "processor": "3 GHz",
+            "battery": "5000 mAh",
+            "size": "8\"",
+            "cam": "8MP 12MP",
+            "res": "768 x 1024"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/3NTWPEG.png",
+        "date": 1692059919348
+    },
+    {
+        "id": "76392",
+        "title": "SparkTab Flex",
+        "desc": "The SparkTab Flex is a versatile tablet with a flexible design, allowing you to bend and adjust it for optimal viewing angles and comfort.",
+        "category": "tablet",
+        "price": 3200,
+        "specs": {
+            "os": "Android 11",
+            "ram": "2 GB",
+            "storage": "32 GB",
+            "processor": "2.2 GHz",
+            "battery": "3000 mAh",
+            "size": "10\"",
+            "cam": "20MP 30MP",
+            "res": "2048 x 2732"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/dLDOE0C.png",
+        "date": 1692059919348
+    },
+    {
+        "id": "78551",
+        "title": "XenonTab Pro",
+        "desc": "The XenonTab Pro is a high-end tablet that combines cutting-edge technology, premium materials, and a sleek design for a luxurious experience.",
+        "category": "tablet",
+        "price": 3450,
+        "specs": {
+            "os": "Android 10",
+            "ram": "8 GB",
+            "storage": "64 GB",
+            "processor": "3 GHz",
+            "battery": "2500 mAh",
+            "size": "10\"",
+            "cam": "20MP 40MP",
+            "res": "768 x 1024"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/c9eZq62.png",
+        "date": 1692059919348
+    },
+    {
+        "id": "11824",
+        "title": "NovaPad Lite",
+        "desc": "The NovaPad Lite is an entry-level tablet that offers essential features, reliable performance, and a user-friendly interface at an affordable price.",
+        "category": "tablet",
+        "price": 2850,
+        "specs": {
+            "os": "Android 13",
+            "ram": "1 GB",
+            "storage": "32 GB",
+            "processor": "1.2 GHz",
+            "battery": "3000 mAh",
+            "size": "9\"",
+            "cam": "10MP 20MP",
+            "res": "2048 x 2732"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/0l0E7Ms.png",
+        "date": 1692059919348
+    },
+    {
+      "id": "12355",
+      "title": "SonicBlast Pro",
+      "desc": "The SonicBlast Pro headphones deliver an immersive audio experience with powerful bass and crystal-clear sound quality.",
+      "category": "headphone",
+      "price": 550,
+      "specs": {
+          "connection": "Wireless - Bluetooth",
+          "microphone": "With Mic",
+          "noiseCancelling": "No Noise Cancelling"
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/z1RDxCb.png",
+      "date": 1692061398071
+    },
+    {
+        "id": "69274",
+        "title": "AudioWave Elite",
+        "desc": "The AudioWave Elite headphones offer studio-grade audio reproduction, featuring high-fidelity sound, comfortable fit, and noise isolation technology for an exceptional listening experience.",
+        "category": "headphone",
+        "price": 550,
+        "specs": {
+            "connection": "Wire - Jack",
+            "microphone": "No Mic",
+            "noiseCancelling": "No Noise Cancelling"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/Uqph6Ew.png",
+        "date": 1692061398072
+    },
+    {
+        "id": "72514",
+        "title": "BassPulse Max",
+        "desc": "The BassPulse Max headphones are designed for bass lovers, delivering deep, punchy bass response without compromising on overall sound clarity and comfort.",
+        "category": "headphone",
+        "price": 550,
+        "specs": {
+            "connection": "Wireless - Bluetooth",
+            "microphone": "No Mic",
+            "noiseCancelling": "With Noise Cancelling"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/0etAuq3.png",
+        "date": 1692061398072
+    },
+    {
+        "id": "25774",
+        "title": "HarmonySound Pro",
+        "desc": "The HarmonySound Pro headphones provide a balanced audio profile with crisp highs, rich mids, and smooth lows.",
+        "category": "headphone",
+        "price": 450,
+        "specs": {
+            "connection": "Wire - USB",
+            "microphone": "With Mic",
+            "noiseCancelling": "No Noise Cancelling"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/QwLKuV4.png",
+        "date": 1692061398072
+    },
+    {
+        "id": "96634",
+        "title": "VelvetPhones Ultra",
+        "desc": "The VelvetPhones Ultra headphones combine style and performance, offering a dynamic sound signature, sleek design, and comfortable fit for an immersive listening experience on the go.",
+        "category": "headphone",
+        "price": 550,
+        "specs": {
+            "connection": "Wire - Jack",
+            "microphone": "No Mic",
+            "noiseCancelling": "No Noise Cancelling"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/9uj8RNs.png",
+        "date": 1692061398072
+    },
+    {
+        "id": "43786",
+        "title": "NoiseGuard X1",
+        "desc": "The NoiseGuard X1 headphones feature active noise cancellation technology, allowing you to focus on your audio without distractions, whether you're traveling or in a noisy environment.",
+        "category": "headphone",
+        "price": 550,
+        "specs": {
+            "connection": "Wire - Jack",
+            "microphone": "No Mic",
+            "noiseCancelling": "No Noise Cancelling"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/QzQW3C5.png",
+        "date": 1692061398072
+    },
+    {
+        "id": "15952",
+        "title": "EchoTech Pro",
+        "desc": "The EchoTech Pro headphones provide exceptional audio clarity and detail, thanks to their premium drivers and advanced acoustic engineering.",
+        "category": "headphone",
+        "price": 450,
+        "specs": {
+            "connection": "Wire - USB",
+            "microphone": "No Mic",
+            "noiseCancelling": "With Noise Cancelling"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/WW68sp3.png",
+        "date": 1692061398072
+    },
+    {
+        "id": "48528",
+        "title": "SoundScape Lite",
+        "desc": "The SoundScape Lite headphones offer a lightweight and comfortable design, along with a well-balanced sound profile, making them perfect for long listening sessions and daily use.",
+        "category": "headphone",
+        "price": 500,
+        "specs": {
+            "connection": "Wireless - Bluetooth",
+            "microphone": "With Mic",
+            "noiseCancelling": "With Noise Cancelling"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/X4ER8nE.png",
+        "date": 1692061398073
+    },
+    {
+        "id": "46657",
+        "title": "RingFlow Plus",
+        "desc": "The RingFlow Plus headphones deliver a dynamic and energetic sound experience, with enhanced bass response and precise audio reproduction.",
+        "category": "headphone",
+        "price": 400,
+        "specs": {
+            "connection": "Wire - USB",
+            "microphone": "With Mic",
+            "noiseCancelling": "With Noise Cancelling"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/dNMY8h5.png",
+        "date": 1692061398073
+    },
+    {
+        "id": "88237",
+        "title": "PureWave Flex",
+        "desc": "The PureWave Flex headphones provide a versatile listening experience, featuring a customizable EQ, wireless connectivity, and a foldable design for convenient portability.",
+        "category": "headphone",
+        "price": 500,
+        "specs": {
+            "connection": "Wireless - Bluetooth",
+            "microphone": "With Mic",
+            "noiseCancelling": "With Noise Cancelling"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/qHDw4Wp.png",
+        "date": 1692061398073
+    },
+    {
+        "id": "39513",
+        "title": "MemoPhone Max",
+        "desc": "The MemoPhone Max headphones offer high-resolution audio and wide soundstage, providing exceptional clarity and immersive detail.",
+        "category": "headphone",
+        "price": 400,
+        "specs": {
+            "connection": "Wire - USB",
+            "microphone": "With Mic",
+            "noiseCancelling": "With Noise Cancelling"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/1FQlPAB.png",
+        "date": 1692061398073
+    },
+    {
+        "id": "13777",
+        "title": "SoftSound Lite",
+        "desc": "The SoftSound Lite headphones provide a balanced and natural sound signature, along with a lightweight and ergonomic design, ensuring comfort for extended listening sessions.",
+        "category": "headphone",
+        "price": 450,
+        "specs": {
+            "connection": "Wire - Jack",
+            "microphone": "With Mic",
+            "noiseCancelling": "With Noise Cancelling"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/tW4pmA1.png",
+        "date": 1692061398073
+    },
+    {
+        "id": "81195",
+        "title": "VocalPulse Pro",
+        "desc": "The VocalPulse Pro headphones deliver powerful and punchy bass, crisp highs, and clear vocals.",
+        "category": "headphone",
+        "price": 550,
+        "specs": {
+            "connection": "Wire - Jack",
+            "microphone": "No Mic",
+            "noiseCancelling": "No Noise Cancelling"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/XHRpa4a.png",
+        "date": 1692061398073
+    },
+    {
+        "id": "86463",
+        "title": "HeadTone Elite",
+        "desc": "The HeadTone Elite headphones offer a harmoniously balanced sound, with precise instrument separation and accurate soundstage, delivering an authentic listening experience.",
+        "category": "headphone",
+        "price": 500,
+        "specs": {
+            "connection": "Wire - Jack",
+            "microphone": "No Mic",
+            "noiseCancelling": "With Noise Cancelling"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/Hgffgmk.png",
+        "date": 1692061398073
+    },
+    {
+        "id": "19784",
+        "title": "SonicBoost Max",
+        "desc": "The SonicBoost Max headphones are engineered to provide an enhanced sound quality.",
+        "category": "headphone",
+        "price": 500,
+        "specs": {
+            "connection": "Wire - USB",
+            "microphone": "No Mic",
+            "noiseCancelling": "No Noise Cancelling"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/ZHQtroo.png",
+        "date": 1692061398074
+    },
+    {
+        "id": "86596",
+        "title": "SonicScape Flex",
+        "desc": "The SonicScape Flex headphones offer a versatile listening experience, with customizable sound settings, wireless connectivity, and a flexible design for optimal comfort and convenience.",
+        "category": "headphone",
+        "price": 450,
+        "specs": {
+            "connection": "Wire - USB",
+            "microphone": "No Mic",
+            "noiseCancelling": "With Noise Cancelling"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/vNwhweg.png",
+        "date": 1692061398074
+    },
+    {
+        "id": "72266",
+        "title": "AudioBlend Ultra",
+        "desc": "The AudioBlend Ultra headphones combine style and performance, delivering a well-balanced sound signature, comfortable fit, and premium build quality for discerning audio enthusiasts.",
+        "category": "headphone",
+        "price": 450,
+        "specs": {
+            "connection": "Wire - USB",
+            "microphone": "No Mic",
+            "noiseCancelling": "With Noise Cancelling"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/HaAZWyK.png",
+        "date": 1692061398074
+    },
+    {
+        "id": "48162",
+        "title": "VocalTone Pro",
+        "desc": "The VocalTone Pro headphones are designed specifically for vocal enthusiasts and podcasters, providing exceptional vocal clarity and accurate sound reproduction.",
+        "category": "headphone",
+        "price": 500,
+        "specs": {
+            "connection": "Wire - USB",
+            "microphone": "No Mic",
+            "noiseCancelling": "No Noise Cancelling"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/rqxdsC6.png",
+        "date": 1692061398074
+    },
+    {
+        "id": "69714",
+        "title": "PulseFlow Lite",
+        "desc": "The PulseFlow Lite headphones offer a balanced sound profile with lightweight design, making them ideal for active lifestyles.",
+        "category": "headphone",
+        "price": 400,
+        "specs": {
+            "connection": "Wire - USB",
+            "microphone": "With Mic",
+            "noiseCancelling": "With Noise Cancelling"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/dGwIgTv.png",
+        "date": 1692061398074
+    },
+    {
+        "id": "94137",
+        "title": "AccentEcho Elite",
+        "desc": "The AccentEcho Elite headphones offer a premium listening experience with a focus on natural and accurate sound reproduction.",
+        "category": "headphone",
+        "price": 500,
+        "specs": {
+            "connection": "Wire - Jack",
+            "microphone": "With Mic",
+            "noiseCancelling": "No Noise Cancelling"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/M5KVXIs.png",
+        "date": 1692061398074
+    },
+    {
+      "id": "33687",
+      "title": "Velocity X1",
+      "desc": "A high-performance gaming mouse designed for professional gamers.",
+      "category": "mouse",
+      "price": 300,
+      "specs": {
+          "connection": "Wire",
+          "movement": "Laser"
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/yP7TzJ2.png",
+      "date": 1692062099810
+    },
+    {
+        "id": "31862",
+        "title": "ErgoTech MX",
+        "desc": "An ergonomic wireless mouse with a sleek design for everyday use.",
+        "category": "mouse",
+        "price": 500,
+        "specs": {
+            "connection": "Wireless - Bluetooth",
+            "movement": "Optical"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/F8QyRjo.png",
+        "date": 1692062099810
+    },
+    {
+        "id": "77124",
+        "title": "TurboGrip 200",
+        "desc": "A budget-friendly mouse with adjustable DPI and programmable buttons.",
+        "category": "mouse",
+        "price": 400,
+        "specs": {
+            "connection": "Wireless - Bluetooth",
+            "movement": "Laser"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/8fnSaOh.png",
+        "date": 1692062099810
+    },
+    {
+        "id": "89627",
+        "title": "TravelMaster Nano",
+        "desc": "A compact and portable mouse perfect for travelers and on-the-go use.",
+        "category": "mouse",
+        "price": 400,
+        "specs": {
+            "connection": "Wireless - Bluetooth",
+            "movement": "Laser"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/iM2Onm7.png",
+        "date": 1692062099811
+    },
+    {
+        "id": "19119",
+        "title": "Spectrum Pro",
+        "desc": "A customizable RGB mouse with advanced optical sensors for precise tracking.",
+        "category": "mouse",
+        "price": 400,
+        "specs": {
+            "connection": "Wireless - Bluetooth",
+            "movement": "Laser"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/OhjMuZE.png",
+        "date": 1692062099811
+    },
+    {
+        "id": "69737",
+        "title": "SwiftSense 500",
+        "desc": "A lightweight mouse with swift and accurate cursor movement.",
+        "category": "mouse",
+        "price": 400,
+        "specs": {
+            "connection": "Wire",
+            "movement": "Optical"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/6rEgWEX.png",
+        "date": 1692062099812
+    },
+    {
+        "id": "81992",
+        "title": "GlideMax Prime",
+        "desc": "An ultra-smooth mouse designed for seamless gliding on any surface.",
+        "category": "mouse",
+        "price": 400,
+        "specs": {
+            "connection": "Wireless - Bluetooth",
+            "movement": "Laser"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/gxD4Fhr.png",
+        "date": 1692062099812
+    },
+    {
+        "id": "97187",
+        "title": "StealthFusion X",
+        "desc": "A silent gaming mouse with responsive buttons and adjustable weight.",
+        "category": "mouse",
+        "price": 400,
+        "specs": {
+            "connection": "Wireless - Bluetooth",
+            "movement": "Laser"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/61lXWTa.png",
+        "date": 1692062099813
+    },
+    {
+        "id": "82844",
+        "title": "XceleroPulse 9000",
+        "desc": "A high-speed wireless mouse for fast-paced gaming and productivity.",
+        "category": "mouse",
+        "price": 300,
+        "specs": {
+            "connection": "Wire",
+            "movement": "Laser"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/1l7pKU8.png",
+        "date": 1692062099814
+    },
+    {
+        "id": "83365",
+        "title": "EcoSaver 200",
+        "desc": "An energy-efficient mouse with long battery life and eco-friendly materials.",
+        "category": "mouse",
+        "price": 500,
+        "specs": {
+            "connection": "Wireless - Bluetooth",
+            "movement": "Optical"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/E0BjhQj.png",
+        "date": 1692062099815
+    },
+    {
+        "id": "95623",
+        "title": "PrecisionMaster 360",
+        "desc": "A precise and accurate mouse with 360-degree scrolling and gesture support.",
+        "category": "mouse",
+        "price": 300,
+        "specs": {
+            "connection": "Wire",
+            "movement": "Laser"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/WMOtaGk.png",
+        "date": 1692062099816
+    },
+    {
+        "id": "88222",
+        "title": "ProGrip Elite",
+        "desc": "An ergonomic mouse with a textured grip for enhanced comfort and control.",
+        "category": "mouse",
+        "price": 500,
+        "specs": {
+            "connection": "Wireless - Bluetooth",
+            "movement": "Optical"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/en8scGr.png",
+        "date": 1692062099817
+    },
+    {
+        "id": "44487",
+        "title": "NovaSense X",
+        "desc": "A futuristic mouse with advanced sensors for enhanced precision and speed.",
+        "category": "mouse",
+        "price": 300,
+        "specs": {
+            "connection": "Wire",
+            "movement": "Laser"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/PCGRhWd.png",
+        "date": 1692062099817
+    },
+    {
+        "id": "65284",
+        "title": "BlazeFire Ultra",
+        "desc": "A gaming mouse with customizable lighting effects and programmable macros.",
+        "category": "mouse",
+        "price": 300,
+        "specs": {
+            "connection": "Wire",
+            "movement": "Laser"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/x1XJoAm.png",
+        "date": 1692062099817
+    },
+    {
+        "id": "67244",
+        "title": "SwiftSwipe Pro",
+        "desc": "A high-speed mouse with smooth scrolling and customizable sensitivity.",
+        "category": "mouse",
+        "price": 400,
+        "specs": {
+            "connection": "Wire",
+            "movement": "Optical"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/EYv1TMP.png",
+        "date": 1692062099817
+    },
+    {
+        "id": "34298",
+        "title": "ErgoFlow 800",
+        "desc": "An ergonomic mouse with a natural hand position and adjustable palm rest.",
+        "category": "mouse",
+        "price": 500,
+        "specs": {
+            "connection": "Wireless - Bluetooth",
+            "movement": "Optical"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/xY7yDtl.png",
+        "date": 1692062099817
+    },
+    {
+        "id": "58813",
+        "title": "TurboGrip 5000",
+        "desc": "A versatile mouse with a comfortable grip and adjustable weight.",
+        "category": "mouse",
+        "price": 300,
+        "specs": {
+            "connection": "Wire",
+            "movement": "Laser"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/7hpilMF.png",
+        "date": 1692062099818
+    },
+    {
+        "id": "32399",
+        "title": "HyperPulse Pro",
+        "desc": "A gaming mouse with ultra-responsive buttons and customizable RGB lighting.",
+        "category": "mouse",
+        "price": 500,
+        "specs": {
+            "connection": "Wireless - Bluetooth",
+            "movement": "Optical"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/x9icS9N.png",
+        "date": 1692062099818
+    },
+    {
+        "id": "28559",
+        "title": "PrecisionTrack 1000",
+        "desc": "A precise and reliable mouse with smooth tracking on any surface.",
+        "category": "mouse",
+        "price": 400,
+        "specs": {
+            "connection": "Wire",
+            "movement": "Optical"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/vDuIraS.png",
+        "date": 1692062099818
+    },
+    {
+        "id": "85954",
+        "title": "EcoMax Plus",
+        "desc": "An eco-friendly wireless mouse with long battery life and energy-saving features.",
+        "category": "mouse",
+        "price": 400,
+        "specs": {
+            "connection": "Wire",
+            "movement": "Optical"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/2TuDNLY.png",
+        "date": 1692062099818
+    },
+    {
+      "id": "15584",
+      "title": "MechanoStrike Pro",
+      "desc": "The MechanoStrike Pro keyboard is built for precision and durability, featuring mechanical key switches, customizable RGB lighting, and programmable macros for an immersive gaming experience.",
+      "category": "keyboard",
+      "price": 850,
+      "specs": {
+          "connection": "Wireless - Bluetooth",
+          "keyType": "Mechanical - Clicky",
+          "keysNumber": "104"
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/8Pzilj2.png",
+      "date": 1692062764876
+    },
+    {
+        "id": "32632",
+        "title": "RapidFire Elite",
+        "desc": "The RapidFire Elite keyboard offers lightning-fast responsiveness with its high-performance mechanical switches, anti-ghosting technology, and customizable backlighting to enhance your typing and gaming sessions.",
+        "category": "keyboard",
+        "price": 550,
+        "specs": {
+            "connection": "Wire",
+            "keyType": "Mechanical - Linear",
+            "keysNumber": "104"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/owFoO9q.png",
+        "date": 1692062764876
+    },
+    {
+        "id": "97348",
+        "title": "SilentWhisper Max",
+        "desc": "The SilentWhisper Max keyboard provides a whisper-quiet typing experience with its silent mechanical switches, while still offering precise tactile feedback and customizable lighting effects.",
+        "category": "keyboard",
+        "price": 750,
+        "specs": {
+            "connection": "Wireless - Bluetooth",
+            "keyType": "Mechanical - Linear",
+            "keysNumber": "100"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/bJCHt0K.png",
+        "date": 1692062764876
+    },
+    {
+        "id": "43994",
+        "title": "TactileTouch Pro",
+        "desc": "The TactileTouch Pro keyboard combines the best of both worlds, offering a tactile typing experience with its mechanical switches along with quiet operation to ensure a comfortable and satisfying keystroke.",
+        "category": "keyboard",
+        "price": 850,
+        "specs": {
+            "connection": "Wire",
+            "keyType": "Mechanical - Tactile",
+            "keysNumber": "87"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/qOp6kW0.png",
+        "date": 1692062764876
+    },
+    {
+        "id": "23693",
+        "title": "ErgoFlow Ultra",
+        "desc": "The ErgoFlow Ultra keyboard features an ergonomic design that promotes a natural hand and wrist position, reducing strain and fatigue during long typing sessions, making it ideal for professionals and writers.",
+        "category": "keyboard",
+        "price": 950,
+        "specs": {
+            "connection": "Wire",
+            "keyType": "Mechanical - Linear",
+            "keysNumber": "68"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/wgiMf7X.png",
+        "date": 1692062764877
+    },
+    {
+        "id": "94167",
+        "title": "RainbowGlow Lite",
+        "desc": "The RainbowGlow Lite keyboard adds a vibrant touch to your setup with its rainbow backlighting, while offering a comfortable typing experience and essential features for everyday use.",
+        "category": "keyboard",
+        "price": 650,
+        "specs": {
+            "connection": "Wireless - Bluetooth",
+            "keyType": "Mechanical - Linear",
+            "keysNumber": "104"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/0caZjmz.png",
+        "date": 1692062764877
+    },
+    {
+        "id": "21466",
+        "title": "WirelessFreedom Plus",
+        "desc": "The WirelessFreedom Plus keyboard gives you the freedom to work and play without cable clutter, providing a reliable wireless connection, comfortable typing, and multimedia shortcuts for convenience.",
+        "category": "keyboard",
+        "price": 750,
+        "specs": {
+            "connection": "Wireless - Bluetooth",
+            "keyType": "Mechanical - Tactile",
+            "keysNumber": "104"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/XqZLQYg.png",
+        "date": 1692062764877
+    },
+    {
+        "id": "54812",
+        "title": "CompactFlex Pro",
+        "desc": "The CompactFlex Pro keyboard offers a compact design without compromising functionality, featuring customizable key programming, detachable cable, and a durable build for on-the-go productivity.",
+        "category": "keyboard",
+        "price": 1150,
+        "specs": {
+            "connection": "Wireless - Bluetooth",
+            "keyType": "Mechanical - Tactile",
+            "keysNumber": "68"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/G1OpdZh.png",
+        "date": 1692062764877
+    },
+    {
+        "id": "73782",
+        "title": "GamerZone X1",
+        "desc": "The GamerZone X1 keyboard is designed with gamers in mind, providing responsive mechanical switches, anti-ghosting technology, customizable RGB lighting, and dedicated macro keys for optimal gaming performance.",
+        "category": "keyboard",
+        "price": 850,
+        "specs": {
+            "connection": "Wire",
+            "keyType": "Mechanical - Clicky",
+            "keysNumber": "100"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/NTkjwRe.png",
+        "date": 1692062764877
+    },
+    {
+        "id": "28574",
+        "title": "ProType Max",
+        "desc": "The ProType Max keyboard is a professional-grade typing companion, featuring a comfortable layout, whisper-quiet scissor switches, and multimedia keys for enhanced productivity and efficiency.",
+        "category": "keyboard",
+        "price": 950,
+        "specs": {
+            "connection": "Wire",
+            "keyType": "Mechanical - Tactile",
+            "keysNumber": "84"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/kEFsYQN.png",
+        "date": 1692062764877
+    },
+    {
+        "id": "76663",
+        "title": "TechMaster Elite",
+        "desc": "The TechMaster Elite keyboard is engineered for tech enthusiasts and programmers, offering programmable keys, customizable macros, and a sleek design to streamline your workflow and elevate your typing experience.",
+        "category": "keyboard",
+        "price": 650,
+        "specs": {
+            "connection": "Wireless - Bluetooth",
+            "keyType": "Mechanical - Linear",
+            "keysNumber": "104"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/wr7z1wn.png",
+        "date": 1692062764877
+    },
+    {
+        "id": "63879",
+        "title": "GlowType Lite",
+        "desc": "The GlowType Lite keyboard combines style and functionality with its vibrant backlighting, comfortable keycaps, and multimedia shortcuts, making it a great choice for both work and play.",
+        "category": "keyboard",
+        "price": 850,
+        "specs": {
+            "connection": "Wire",
+            "keyType": "Membrane",
+            "keysNumber": "68"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/n8c1oKw.png",
+        "date": 1692062764877
+    },
+    {
+        "id": "77775",
+        "title": "MacroFlex Pro",
+        "desc": "The MacroFlex Pro keyboard empowers you with advanced macro programming capabilities, allowing you to automate complex tasks and streamline your workflow, while providing a comfortable typing experience.",
+        "category": "keyboard",
+        "price": 850,
+        "specs": {
+            "connection": "Wire",
+            "keyType": "Mechanical - Tactile",
+            "keysNumber": "87"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/ggQLZza.png",
+        "date": 1692062764877
+    },
+    {
+        "id": "57339",
+        "title": "UltraSlim Touch",
+        "desc": "The UltraSlim Touch keyboard offers a slim and elegant design, featuring chiclet-style keys with a responsive touch, multimedia controls, and a compact layout for effortless typing on any surface.",
+        "category": "keyboard",
+        "price": 650,
+        "specs": {
+            "connection": "Wireless - Bluetooth",
+            "keyType": "Mechanical - Linear",
+            "keysNumber": "104"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/Maru0sp.png",
+        "date": 1692062764878
+    },
+    {
+        "id": "39237",
+        "title": "GamerTech X2",
+        "desc": "The GamerTech X2 keyboard is designed to deliver a competitive edge with its responsive mechanical switches, customizable RGB lighting effects, anti-ghosting technology, and dedicated gaming mode for enhanced gaming performance.",
+        "category": "keyboard",
+        "price": 850,
+        "specs": {
+            "connection": "Wire",
+            "keyType": "Mechanical - Linear",
+            "keysNumber": "84"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/kKLViow.png",
+        "date": 1692062764878
+    },
+    {
+        "id": "11759",
+        "title": "ArtisanCraft Max",
+        "desc": "The ArtisanCraft Max keyboard is a work of art, featuring a handcrafted wooden frame, premium keycaps, and a tactile typing experience, bringing a touch of elegance to your workspace.",
+        "category": "keyboard",
+        "price": 950,
+        "specs": {
+            "connection": "Wireless - Bluetooth",
+            "keyType": "Membrane",
+            "keysNumber": "68"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/6Sbggef.png",
+        "date": 1692062764878
+    },
+    {
+        "id": "64981",
+        "title": "MultiDevice Flex",
+        "desc": "The MultiDevice Flex keyboard allows you to seamlessly switch between multiple devices with its wireless connectivity, providing a comfortable typing experience and versatile compatibility for increased productivity.",
+        "category": "keyboard",
+        "price": 850,
+        "specs": {
+            "connection": "Wire",
+            "keyType": "Mechanical - Clicky",
+            "keysNumber": "100"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/g6HDUGm.png",
+        "date": 1692062764878
+    },
+    {
+        "id": "76643",
+        "title": "BacklitEdge Pro",
+        "desc": "The BacklitEdge Pro keyboard combines style and functionality with its customizable backlighting, comfortable key switches, and durable construction, offering a satisfying typing experience for both work and play.",
+        "category": "keyboard",
+        "price": 1050,
+        "specs": {
+            "connection": "Wire",
+            "keyType": "Mechanical - Clicky",
+            "keysNumber": "84"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/sAR99lI.png",
+        "date": 1692062764878
+    },
+    {
+        "id": "96693",
+        "title": "PlexType Lite",
+        "desc": "The PlexType Lite keyboard offers a reliable typing experience with its scissor switches, compact layout, and slim profile, making it a perfect companion for your laptop or desktop setup.",
+        "category": "keyboard",
+        "price": 1150,
+        "specs": {
+            "connection": "Wireless - Bluetooth",
+            "keyType": "Mechanical - Clicky",
+            "keysNumber": "84"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/MNkBxEo.png",
+        "date": 1692062764878
+    },
+    {
+        "id": "77367",
+        "title": "UltimateGrip Elite",
+        "desc": "The UltimateGrip Elite keyboard features an exciting typing experience with smooth key registers and comfortable surface.",
+        "category": "keyboard",
+        "price": 550,
+        "specs": {
+            "connection": "Wireless - Bluetooth",
+            "keyType": "Membrane",
+            "keysNumber": "104"
+        },
+        "rating": 0,
+        "image": "https://i.imgur.com/udQUMO8.png",
+        "date": 1692062764878
     }
   ],
-  "reviews": [],
+  "reviews": [
+    {
+      "cons": "",
+      "pros": "",
+      "rating": 5,
+      "body": "5",
+      "title": "55",
+      "productId": "25791",
+      "userId": 1,
+      "date": 1692046818432,
+      "id": 1
+    }
+  ],
   "purchases": [
     {
       "total": 310,
@@ -457,12 +2153,12 @@
       "deliveryFees": 0,
       "order": [
         {
-          "itemId": "1",
-          "count": 1,
+          "itemId": "25791",
+          "count": 4,
           "price": 100
         },
         {
-          "itemId": "2",
+          "itemId": "86558",
           "count": 1,
           "price": 210
         }
@@ -489,6 +2185,16 @@
       "userId": 1,
       "date": 1691584203267,
       "id": 1
+    }
+  ],
+  "offers": [
+    {
+      "end": "2023-08-22T21:00:00.000Z",
+      "start": "2023-08-15T21:00:00.000Z",
+      "newPrice": 26,
+      "productId": "38542",
+      "date": 1692056262967,
+      "id": "66147"
     }
   ],
   "productsInfo": {

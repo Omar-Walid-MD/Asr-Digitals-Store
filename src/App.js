@@ -12,6 +12,7 @@ import { getCart } from './Store/Cart/cartSlice';
 import { getFavs } from './Store/Favorites/favoritesSlice';
 import { getReviews } from './Store/Reviews/reviewsSlice';
 import { getPurchases } from './Store/Purchases/purchasesSlice';
+import { getOffers } from './Store/Offers/offers';
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
     dispatch(getCurrentUser());
     dispatch(getReviews());
     dispatch(getPurchases());
+    dispatch(getOffers());
   },[]);
   
   useEffect(()=>{
