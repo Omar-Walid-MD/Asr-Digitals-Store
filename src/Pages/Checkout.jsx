@@ -9,6 +9,7 @@ import ProductCartItemOverview from '../Components/ProductCartOverViewItem';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { addPurchase } from '../Store/Purchases/purchasesSlice';
 import { getTotalFees } from '../helpers';
+import { emptyCart } from '../Store/Cart/cartSlice';
 
 const schemas = [
     yup.object({
@@ -121,6 +122,7 @@ function Checkout({}) {
                 }
                 else
                 {
+                    
                     let newPurchase = {
                         total: fees.total,
                         subtotal: fees.subtotal,
@@ -128,14 +130,16 @@ function Checkout({}) {
                         order: cart.map((cartItem) => ({
                             itemId: cartItem.productId,
                             count: cartItem.count,
-                            price: products.find((product)=>product.id===+cartItem.productId).price
+                            price: products.find((product)=>product.id===cartItem.productId).price
                         })),
+                        orderCount: cart.reduce((t,item)=>{return t + item.count},0),
                         details: {...purchaseData,dateOfBirth: purchaseData.dateOfBirth.toISOString().split('T')[0]},
-                        estimatedDeliveryTime: "2 days",
-                        state: "pending",
+                        estimatedDeliveryHours: 2+Math.floor(Math.random()*3)+parseInt(fees.total/1000),
+                        status: "pending",
                         userId: currentUser ? currentUser.id : 0,
                         date: Date.now()
                     };
+                    console.log(cart.reduce((t,item)=>{t+=item.count},0));
                     dispatch(addPurchase(newPurchase));
                 }
             }
@@ -177,6 +181,7 @@ function Checkout({}) {
     useEffect(()=>{
         if(purchaseSuccess) 
         {
+            dispatch(emptyCart());
             setPurchaseState("loading");
             window.onbeforeunload = function() {
                 return true;
@@ -398,7 +403,7 @@ function Checkout({}) {
                                             checkoutStage > 0 &&
                                             <Button className='bg-transparent border-0 text-primary p-0 pb-2' onClick={()=>{setCheckoutStage(checkoutStage-1)}}>Back</Button>
                                         }
-                                        <Button variant='dark' type='submit' form={`checkout-form-${checkoutStage+1}`} className='btn-dark w-100 mt-1 fs-5'>{checkoutStage < 3 ? "Next" : "Confirm & Checkout"}</Button>
+                                        <Button variant='dark' type='submit' form={`checkout-form-${checkoutStage+1}`} className='btn-dark main-button border-0 w-100 mt-1 fs-5'>{checkoutStage < 3 ? "Next" : "Confirm & Checkout"}</Button>
                                     </div>
                                     <hr className='mt-4' />
                                 </div>
@@ -406,8 +411,8 @@ function Checkout({}) {
                             </Col>
                             <Col className='col-12 col-md-5 mb-4 m-md-0'>
                                 <Accordion defaultActiveKey="0">
-                                    <Accordion.Item eventKey="0" className='border-0 shadow bg-light cart-overview-accordion'>
-                                        <Accordion.Header>
+                                    <Accordion.Item eventKey="0" className='border-0 shadow bg-light rounded-bottom overflow-hidden'>
+                                        <Accordion.Header className='px-4 py-3 bg-white shadow-sm rounded-top'>
                                             <h4 className='m-0'>Cart Overview</h4>
                                         </Accordion.Header>
                                         <Accordion.Body className=''>

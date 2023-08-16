@@ -5,9 +5,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { BsPlus } from 'react-icons/bs';
+import { BsFillInfoCircleFill, BsPlus, BsTrashFill } from 'react-icons/bs';
 import { addOffer, deleteOffer, editOffer } from '../../Store/Offers/offers';
-import { makeUniqueId } from '../../helpers';
+import { getDateString, makeUniqueId } from '../../helpers';
+import { FaArrowUpRightFromSquare } from 'react-icons/fa6';
+import { PiPencilSimpleFill } from 'react-icons/pi';
 
 const schema = yup
   .object({
@@ -61,6 +63,7 @@ function ManageOffers({}) {
 
     function startEditOffer(offer)
     {
+        console.log("yes edit");
         setFormMode("edit");
         setOfferToEdit(offer);
         handleFormModalShow();
@@ -96,8 +99,7 @@ function ManageOffers({}) {
         }
         else
         {
-
-            let newOffer = {...data, productId: targetProduct.id, date: Date.now(), id: makeUniqueId(offers)};
+            let newOffer = {...data, start: getDateString(data.start), end: getDateString(data.end), productId: targetProduct.id, date: Date.now(), id: makeUniqueId(offers)};
             dispatch(addOffer(newOffer));
             reset();
             handleFormModalClose();
@@ -107,21 +109,35 @@ function ManageOffers({}) {
 
     function onSubmitEdit(data)
     {
-        let editedOffer = {...data};
+        let editedOffer = {...data, start: getDateString(data.start), end: getDateString(data.end)};
         dispatch(editOffer({offerId: offerToEdit.id,editedOffer: editedOffer}));
         reset();
         handleFormModalClose();
     }
 
+    function handleOptionsScroll(e)
+    {
+        console.log()
+        let optionRows = e.target.querySelectorAll(".product-info-row-options");
+        optionRows.forEach((optionsRow) => {
+            optionsRow.style.right = "unset";
+
+            optionsRow.style.transform = `translateX(${e.target.scrollLeft + window.innerWidth/2 - optionsRow.getBoundingClientRect().width/2}px)` ;
+
+            // optionsRow.style.left = e.target.scrollLeft + window.innerWidth/2 - optionsRow.getBoundingClientRect().width/2 + "px";
+        });
+        
+    }
+
 
 
     return (
-        <div className='page-container bg-light py-3 px-0 p-md-3'>
+        <div className='py-3 px-0 p-md-3'>
             <Container className='px-2'> <h2 className='mt-5 mb-2'>Manage Offers</h2> </Container>
             <hr className='border-3' />
             <Accordion alwaysOpen defaultActiveKey={"0"} className='w-100'>
                 <Accordion.Item eventKey="0" className='border-0 bg-light'>
-                    <Accordion.Header className='w-100 rounded-sm-3 bg-secondary px-3 py-2 text-white'>
+                    <Accordion.Header className='w-100 rounded-sm-3 bg-secondary px-3 py-2 arrow-white'>
                         <h4 className='text-white m-0'>Filters</h4>
                     </Accordion.Header>
                     <Accordion.Body className='px-0 pt-2'>
@@ -130,12 +146,7 @@ function ManageOffers({}) {
                                 <h5 className='me-1 m-0 text-white'>Search</h5>
                                 <Row className='g-1'>
 
-                                {/* {
-                                    Object.keys(filters).map((searchQuery) =>
-                                    
-                                    <Col className='col-12 col-sm-4 col-lg-3 p-1'><Form.Control type="search" placeholder={`Search by ${searchQuery==="generalSearch" ? "General" : searchQuery==="userId" ? "ID" : getCapitalized(searchQuery) }`}  value={filters[searchQuery]} onChange={(e)=>{setFilters({...filters,[searchQuery]:e.target.value})}} /></Col>
-                                    )
-                                } */}
+
                                 </Row>
                             </div>
                         
@@ -144,36 +155,60 @@ function ManageOffers({}) {
                 </Accordion.Item>
             </Accordion>
 
-            <Button variant="primary" className='w-100 d-flex my-3 p-1 px-2 align-items-center justify-content-center fs-5' onClick={startAddOffer}><BsPlus className='fs-2'/> Add Offer</Button>
+            <div className='rounded-sm-3 overflow-hidden my-3'><Button variant="primary" className='w-100 d-flex  p-1 px-2 align-items-center justify-content-center fs-5 rounded-0' onClick={startAddOffer}><BsPlus className='fs-2'/> Add Offer</Button></div>
 
-            <div className='p-0 py-2 d-flex flex-column gap-3 w-100'>
-            {
-                offers.map((offer) =>
-                {
-                    let product = products.find((p) => p.id === offer.productId);
+            <div className="d-flex flex-column product-info-row-group pb-5 scrollbar light" onScroll={handleOptionsScroll}>
+                <div className='d-flex flex-column gap-3 text-white'>
+                    <Row className='bg-secondary shadow rounded-sm-3 py-2 px-0 m-0 product-info-row'>
+                        <Col className='col-1' style={{width: "5%"}}>ID</Col>
+                        <Col className='col-2'>Image</Col>
+                        <Col className='col-2'>Item Title</Col>
+                        <Col className='col-2' style={{width: "15%"}}>Old Price</Col>
+                        <Col className='col-2' style={{width: "15%"}}>New Price</Col>
+                        <Col className='col-2' style={{width: "15%"}}>Start</Col>
+                        <Col className='col-2' style={{width: "15%"}}>End</Col>
+                    </Row>
+                    <div className="d-flex flex-column w-100 gap-1 pb-5">
+                    {
+                        offers.map((offer) =>
+                        {
+                            let product = products.find((p) => p.id === offer.productId);
 
-                    return (
-                        <Row className='p-3 bg-white shadow-sm border border-2 rounded-3'>
-                            <Col className='col-2'>
-                                <div className='rounded-2 overflow-hidden h-100' style={{width:"min(10rem,40vw)"}} ><img className='w-100' src={product.image} alt="" /></div>
-                            </Col>
-                            <Col className='col-3'>
-                                <div className='w-100 text-center text-md-start'>
-                                    <p className='m-0'>ID: {product.id}</p>
-                                    <h2>{product.title}</h2>
-                                    
+                            return (
+                                <div className='product-info-row position-relative'>
+                                    <Row className='py-3 bg-white shadow-sm border border-2 rounded-3 m-0 text-dark'>
+                                        <Col className='col-1' style={{width: "5%"}}>{offer.id}</Col>
+                                        <Col className='col-2'>
+                                            <div className='rounded-2 overflow-hidden h-100' style={{width:"min(10rem,40vw)"}} ><img className='w-100' src={product.image} alt="" /></div>
+                                        </Col>
+                                        <Col className='col-2'>
+                                            <div className='w-100'>
+                                                <p className='m-0'>ID: {product.id}</p>
+                                                <h4>{product.title}</h4>
+                                                
+                                            </div>
+                                        </Col>
+                                        <Col className='col-2' style={{width: "15%"}}><h4 className='text-muted price-tag'>{product.price}</h4></Col>
+                                        <Col className='col-2' style={{width: "15%"}}><h4 className='text-danger price-tag'>{offer.newPrice}</h4></Col>
+
+                                        <Col className='col-2' style={{width: "15%"}}><p className='m-0'>{offer.start}</p></Col>
+                                        <Col className='col-2' style={{width: "15%"}}><p className='m-0'>{offer.end}</p></Col>
+
+                                    </Row>
+                                    <div className="position-absolute product-info-row-options bg-light rounded-3 shadow d-flex align-items-center align-items-md-end">
+                                        <Link to={`/product/${product.id}`} className='fs-4 btn btn-primary d-flex align-items-center border-0 fw-bold bg-transparent text-info aspect-1 py-2 justify-content-center'><FaArrowUpRightFromSquare/></Link>
+                                        <Button variant='primary' className='fs-4 d-flex align-items-center border-0 fw-bold bg-transparent text-primary aspect-1 py-2 justify-content-center' onClick={()=>{startEditOffer(offer)}}><PiPencilSimpleFill/></Button>
+                                        <Button variant='danger'className='fs-4 d-flex align-items-center border-0 fw-bold bg-transparent text-danger aspect-1 py-2 justify-content-center' onClick={()=>{}}><BsTrashFill/></Button>
+                                    </div>
+
                                 </div>
-                            </Col>
-                            <Col className='col-2'><h4 className='text-muted price-tag mb-4'>{product.price}</h4></Col>
-                            <Col className='col-2'><h3 className='text-danger price-tag mb-4'>{offer.newPrice}</h3></Col>
-                        </Row>
-                    )
+                            )
 
-                })
-            }
+                        })
+                    }
+                    </div>
+                </div>
             </div>
-
-
 
 
             <Modal contentClassName='rounded-md-3' dialogClassName="product-show-modal m-0 position-relative" show={formModal} onHide={handleFormModalClose} centered={true} className='bg-transparent'>
@@ -183,7 +218,7 @@ function ManageOffers({}) {
                 <Modal.Body>
                 {
                     formMode==="add" ?
-                    !targetProduct ?
+                    (!targetProduct ?
                     <div>
                         <h5 className='mb-3'>Search Product To Add Offer</h5>
                         <FloatingLabel controlId="floatingProductSearch" label="Search Product name or ID">
@@ -240,12 +275,49 @@ function ManageOffers({}) {
 
 
                         </div>
-                    </form>
+                    </form>)
+                    :
+                    formMode==="edit" ?
+                    (function(){
+                        console.log("ugh?");
+                        let product = products.find((p) => p.id === offerToEdit.productId);
+                        return (
+                            <form className='d-flex flex-column flex-md-row align-items-center align-items-md-start gap-3' id='offer-management-edit' onSubmit={handleSubmit(onSubmitEdit)}>
+                                <div className='rounded-2 overflow-hidden h-100' style={{width:"min(20rem,40vw)"}} ><img className='w-100' src={product.image} alt="" /></div>
+                                <div className='w-100 text-center text-md-start'>
+                                    <p className='m-0'>ID: {product.id}</p>
+                                    <h2>{product.title}</h2>
+                                    <h4 className='text-danger price-tag price-old mb-4'>{product.price}</h4>
+
+                                    <FloatingLabel controlId="floatingProductSearch" label="New Price">
+                                        <Form.Control className='rounded' type="number" placeholder="Enter New Price" {...register("newPrice")} />
+                                        {errors.newPrice ? <div className='error-message text-danger mt-1'>{errors.newPrice.message}</div> : ''}
+                                        {validationError==="price" ? <div className='error-message text-danger mt-1'>New price must be less than current price.</div> : ''}
+
+                                    </FloatingLabel>
+                                    <div className='d-flex gap-2 mt-2'>
+                                        <FloatingLabel className='w-100' controlId="floatingProductSearch" label="Offer Start">
+                                            <Form.Control className='rounded' type="date" placeholder="Enter Offer Start" {...register("start")} />
+                                        </FloatingLabel>
+                                        {errors.start ? <div className='error-message text-danger mt-1'>{errors.start.message}</div> : ''}
+                                        <FloatingLabel className='w-100' controlId="floatingProductSearch" label="Offer End">
+                                            <Form.Control className='rounded' type="date" placeholder="Enter Offer End" {...register("end")} />
+                                        </FloatingLabel>
+                                        {errors.end ? <div className='error-message text-danger mt-1'>{errors.end.message}</div> : ''}
+                                    </div>
+                                    {validationError==="date" ? <div className='error-message text-danger mt-1'>End date must be after start date.</div> : ''}
+
+
+                                </div>
+                            </form>
+                        )
+                    })()
+                    
                     : ""
                 } 
                 </Modal.Body>
                 {
-                    targetProduct ?
+                    ((formMode==="add" && targetProduct) || formMode==="edit") ?
                     <Modal.Footer className='position-sticky z-2 bottom-0 bg-white'>
                         <div className="d-flex align-items-center w-100 gap-2">
                             <Button form={`offer-management-${formMode}`} className='w-100 text-capitalize' type='submit'>{formMode} offer</Button>

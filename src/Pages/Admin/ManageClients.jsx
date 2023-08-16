@@ -15,6 +15,11 @@ function ManageClients({}) {
     const [filters,setFilters] = useState({generalSearch:"",userId:"",email:"",username:"",name:"",phone:"",address:""});
     const [filteredUsers,setFilteredUsers] = useState(users);
 
+    function handleFilterSearch(e)
+    {
+        setFilters({...filters,[e.target.name]:e.target.value});
+    }
+
     function getFilteredUsers(users)
     {
         let filteredUsers = users;
@@ -73,26 +78,28 @@ function ManageClients({}) {
 
 
     return (
-        <div className='page-container bg-light py-3 px-0 p-md-3'>
+        <div className='py-3 px-0 p-md-3'>
             <Container className='px-2'> <h2 className='mt-5 mb-2'>Manage Clients</h2> </Container>
             <hr className='border-3' />
-            <Accordion alwaysOpen defaultActiveKey={"0"} className='w-100'>
+            <Accordion alwaysOpen className='w-100'>
                 <Accordion.Item eventKey="0" className='border-0 bg-light'>
-                    <Accordion.Header className='w-100 rounded-sm-3 bg-secondary px-3 py-2 text-white'>
+                    <Accordion.Header className='w-100 rounded-sm-3 bg-secondary px-3 py-2 arrow-white'>
                         <h4 className='text-white m-0'>Filters</h4>
                     </Accordion.Header>
                     <Accordion.Body className='px-0 pt-2'>
                         <div className='d-flex bg-secondary rounded-sm-3 p-3 d-flex flex-column justify-content-between align-items-start gap-2'>
                             <div className='d-flex flex-column w-100  gap-2 align-items-start'>
                                 <h5 className='me-1 m-0 text-white'>Search</h5>
-                                <Row className='g-1'>
+                                <Row className='g-1 w-100'>
+                                    <Col className='col-12 col-md-6 p-1'><Form.Control type="search" placeholder="Search by General" name='generalSearch'  value={filters.generalSearch} onChange={handleFilterSearch} /></Col>
+                                    <Col className='col-12 col-sm-6 col-md-3 p-1'><Form.Control type="search" placeholder="Search by ID" name='userId' value={filters.userId} onChange={handleFilterSearch} /></Col>
+                                    <Col className='col-12 col-sm-6 col-md-3 p-1'><Form.Control type="search" placeholder="Search by Email" name='email'  value={filters.email} onChange={handleFilterSearch} /></Col>
+                                    <Col className='col-12 col-sm-6 col-md-3 p-1'><Form.Control type="search" placeholder="Search by Username" name='username'  value={filters.username} onChange={handleFilterSearch} /></Col>
+                                    <Col className='col-12 col-sm-6 col-md-3 p-1'><Form.Control type="search" placeholder="Search by Name" name='name'  value={filters.name} onChange={handleFilterSearch} /></Col>
+                                    <Col className='col-12 col-sm-6 col-md-3 p-1'><Form.Control type="search" placeholder="Search by Phone" name='phone'  value={filters.phone} onChange={handleFilterSearch} /></Col>
+                                    <Col className='col-12 col-sm-6 col-md-3 p-1'><Form.Control type="search" placeholder="Search by Address" name='address'  value={filters.address} onChange={handleFilterSearch} /></Col>
 
-                                {
-                                    Object.keys(filters).map((searchQuery) =>
-                                    
-                                    <Col className='col-12 col-sm-4 col-lg-3 p-1'><Form.Control type="search" placeholder={`Search by ${searchQuery==="generalSearch" ? "General" : searchQuery==="userId" ? "ID" : getCapitalized(searchQuery) }`}  value={filters[searchQuery]} onChange={(e)=>{setFilters({...filters,[searchQuery]:e.target.value})}} /></Col>
-                                    )
-                                }
+
                                 </Row>
                             </div>
                         

@@ -33,7 +33,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "run:serve": "json-server --watch ./src/db/db.json --port 8899"
+    "run:serve": "json-server --watch ./src/db/db.json --port 8899 --host 127.0.0.1"
   },
   "eslintConfig": {
     "extends": [

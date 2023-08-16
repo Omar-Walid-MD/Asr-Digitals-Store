@@ -21,11 +21,13 @@ import ManagePurchases from "../Pages/Admin/ManagePurchases";
 import ManageReviews from "../Pages/Admin/ManageReviews";
 import ManageOffers from "../Pages/Admin/ManageOffers";
 import ManageProducts from "../Pages/Admin/ManageProducts";
+import ErrorPage from "../Layout/ErrorPage";
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: <App />,
+        errorElement: <ErrorPage />,
         children: [
             {
                 path: "",

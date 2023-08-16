@@ -28,7 +28,7 @@ function CartPage({}) {
             <hr className='border-3' />
             <div className='pb-2'>
                 <Row className='m-0'>
-                    <Col className={`col-12 mb-4 m-md-0 ${cart.length ? "col-md-8" : "col-md-12"}`}>
+                    <Col className={`col-12 mb-4 m-md-0 ${cart.length ? "col-lg-8" : ""}`}>
                         <div className="d-flex flex-column rounded-sm-3 shadow">
                             <div className='p-1 py-2 p-sm-3 p-md-4 d-flex flex-column gap-3'>
                                 <Row className='g-2 g-sm-3 g-md-4'>
@@ -48,7 +48,7 @@ function CartPage({}) {
                             </div>
                         </div>
                     </Col>
-                    <Col className={`col-12 col-md-4 position-relative ${!cart.length ? "d-none" : ""}`}>
+                    <Col className={`col-12 col-lg-4 position-relative ${!cart.length ? "d-none" : ""}`}>
                         <div className="position-sticky" style={{top: "5rem"}}>
                             <div  className='shadow rounded-3 p-3'>
                                 <p className='fs-5'>Subtotal Fees: <span className='price-tag'>{fees.subtotal}</span> </p>
@@ -56,7 +56,7 @@ function CartPage({}) {
                                 <p className='fs-5'>Delivery Fees: <span className='price-tag'>{fees.delivery}</span></p>
                                 <hr />
                                 <h3>Total Amount: <span className='price-tag fw-semibold'>{fees.total}</span></h3>
-                                <Link to={"/checkout"} state={{prevPath: location.pathname}} className='fs-5 mt-4 text-white btn btn-dark shadow w-100'>Checkout</Link>
+                                <Link to={"/checkout"} state={{prevPath: location.pathname}} className='fs-5 mt-4 text-white btn btn-dark main-button border-0 shadow w-100'>Checkout</Link>
                             </div>
                         </div>
                     </Col>

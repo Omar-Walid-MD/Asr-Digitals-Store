@@ -12,6 +12,33 @@ export const makeId = function(length)
     return id;
 }
 
+export const throttle = function(func,delay)
+{
+  let last = 0;
+  return(...args) => {
+    let now = Date.now();
+
+    if(now-last > delay)
+    {
+      last = now;
+      return func(...args)
+    }
+  }
+}
+
+export const refreshPurchases = function(purchases,setSuccessFunc)
+{
+  let now = Date.now();
+  purchases.forEach((purchase) => {
+    console.log("running");
+    if(purchase.date + purchase.estimatedDeliveryHours * 1000 * 3600 > now && purchase.status==="pending")
+    {
+      console.log(purchase.date + purchase.estimatedDeliveryHours * 1000 * 3600, now);
+      setSuccessFunc(purchase);
+    }
+  })
+}
+
 export const getCartTotalCount = function(cart)
 {
     let total = 0;
@@ -36,7 +63,7 @@ export const getCartSubTotal = function(cart,products)
 
 export const getCartDelivery = function(cart,products,productsInfo)
 {
-    if(!cart.length) return 0;
+    if(!cart.length || !productsInfo.baseDeliveryValue) return 0;
     let total = productsInfo.baseDeliveryValue;
     cart.forEach(cartItem => {
         let targetProduct = products.find((product) => product.id === cartItem.productId);
@@ -75,6 +102,12 @@ export const getRatingCount = function(reviews,rating)
 export const getCapitalized = function(string)
 {
    return string.split(" ").map((word) => word[0].toUpperCase() + word.slice(1)).join(" ");
+}
+
+export const getDateString = function(dateObject)
+{
+  let dateList = dateObject.toLocaleDateString().split("/").map((n) => n.length<2 ? `0${n}` : n);
+  return [dateList[2],dateList[0],dateList[1]].join("-");
 }
 
 export const makeUniqueId = function(list,length=5)
@@ -694,5 +727,4 @@ const keyboardModels = [
   }
 ]
 
-generateProductList(20,"keyboard",keyboardModels);
-
+// generateProductList(20,"keyboard",keyboardModels);

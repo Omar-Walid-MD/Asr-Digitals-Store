@@ -207,7 +207,7 @@ function NavBar({}) {
                                 </Row>
                                 :
                                 <div className='w-100 h-100 d-flex align-items-center justify-content-center'>
-                                    <h5 cl>No results for "{searchValue}"</h5>
+                                    <h5>No results for "{searchValue}"</h5>
                                 </div>
                             }
                             

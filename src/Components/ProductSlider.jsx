@@ -15,9 +15,15 @@ function ProductSlider({className, variant="dark", style, products=[]}) {
           
             index % 2 === 0
             &&
-            <div key={"product-carousel-product-"+product.id+"-"+index} className='d-flex align-items-start flex-column flex-md-row gap-2 gap-md-4 h-100'>
-              <div className='h-100' style={{width:"min(12rem,50vw)",minHeight: "100%"}}><ProductCard productObject={product} className="w-100 h-100" /></div>
-              {index+1 < products.length && <div style={{width:"min(12rem,50vw)"}}><ProductCard productObject={products[index+1]} className="w-100 h-100" /></div>}
+            <div key={"product-carousel-product-"+product.id+"-"+index} className='d-flex align-items-start flex-column flex-md-row gap-2 gap-md-4'>
+              <div style={{width:"min(12rem,50vw)"}} className="h-100">
+                <ProductCard productObject={product} className="w-100 h-100" />
+                </div>
+              {
+                index+1 < products.length && 
+                <div style={{width:"min(12rem,50vw)"}} className="h-100">
+                  <ProductCard productObject={products[index+1]} className="w-100 h-100" />
+                </div>}
             </div>          
           )
         }

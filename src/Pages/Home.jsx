@@ -278,7 +278,7 @@ function Home({}) {
                     <Carousel className='w-100' controls={false} indicators={false} interval={2000}>
                         <Carousel.Item>
                             <Row>
-                                <Col className='col-12 col-sm-6 col-md-4 py-2'>
+                                <Col className='col-12 col-md-6 col-lg-4 py-2'>
                                     <div className="d-flex flex-column w-100 h-100 rounded-3 p-3 shadow-sm" style={{backgroundColor: "rgba(255,255,255,0.3)",backdropFilter: "blur(0.2rem)"}}>
                                         <div className='h-100 d-flex flex-column align-items-center'>
                                             <h2 className='m-0'>Phone 1X</h2>
@@ -305,7 +305,7 @@ function Home({}) {
                                         </div>
                                     </div>
                                 </Col>
-                                <Col className='col-12 col-sm-6 col-md-4 py-2'>
+                                <Col className='col-12 col-md-6 col-lg-4 py-2'>
                                     <div className="d-flex flex-column w-100 h-100 rounded-3 p-3 shadow-sm" style={{backgroundColor: "rgba(255,255,255,0.3)",backdropFilter: "blur(0.2rem)"}}>
                                         <div className='h-100 d-flex flex-column align-items-center'>
                                             <h2 className='m-0 '>Phone 1X</h2>
@@ -332,7 +332,7 @@ function Home({}) {
                                         </div>
                                     </div>
                                 </Col>
-                                <Col className='col-12 col-sm-6 col-md-4 py-2'>
+                                <Col className='col-12 col-lg-4 py-2'>
                                     <div className="d-flex flex-column w-100 h-100 rounded-3 p-3 shadow-sm" style={{backgroundColor: "rgba(255,255,255,0.3)",backdropFilter: "blur(0.2rem)"}}>
                                         <div className='h-100 d-flex flex-column align-items-center'>
                                             <h2 className='m-0 '>Phone 1X</h2>
@@ -366,7 +366,7 @@ function Home({}) {
 
                         <Carousel.Item>
                             <Row>
-                                <Col className='col-12 col-sm-6 col-md-4 py-2'>
+                                <Col className='col-12 col-md-6 col-lg-4 py-2'>
                                     <div className="d-flex flex-column w-100 h-100 rounded-3 p-3 shadow-sm" style={{backgroundColor: "rgba(255,255,255,0.3)",backdropFilter: "blur(0.2rem)"}}>
                                         <div className='h-100 d-flex flex-column align-items-center'>
                                             <h2 className='m-0'>Phone 1X</h2>
@@ -393,7 +393,7 @@ function Home({}) {
                                         </div>
                                     </div>
                                 </Col>
-                                <Col className='col-12 col-sm-6 col-md-4 py-2'>
+                                <Col className='col-12 col-md-6 col-lg-4 py-2'>
                                     <div className="d-flex flex-column w-100 h-100 rounded-3 p-3 shadow-sm" style={{backgroundColor: "rgba(255,255,255,0.3)",backdropFilter: "blur(0.2rem)"}}>
                                         <div className='h-100 d-flex flex-column align-items-center'>
                                             <h2 className='m-0 '>Phone 1X</h2>
@@ -420,7 +420,7 @@ function Home({}) {
                                         </div>
                                     </div>
                                 </Col>
-                                <Col className='col-12 col-sm-6 col-md-4 py-2'>
+                                <Col className='col-12 col-lg-4 py-2'>
                                     <div className="d-flex flex-column w-100 h-100 rounded-3 p-3 shadow-sm" style={{backgroundColor: "rgba(255,255,255,0.3)",backdropFilter: "blur(0.2rem)"}}>
                                         <div className='h-100 d-flex flex-column align-items-center'>
                                             <h2 className='m-0 '>Phone 1X</h2>
@@ -452,7 +452,7 @@ function Home({}) {
 
                         <Carousel.Item>
                             <Row>
-                                <Col className='col-12 col-sm-6 col-md-4 py-2'>
+                                <Col className='col-12 col-md-6 col-lg-4 py-2'>
                                     <div className="d-flex flex-column w-100 h-100 rounded-3 p-3 shadow-sm" style={{backgroundColor: "rgba(255,255,255,0.3)",backdropFilter: "blur(0.2rem)"}}>
                                         <div className='h-100 d-flex flex-column align-items-center'>
                                             <h2 className='m-0'>Phone 1X</h2>
@@ -479,7 +479,7 @@ function Home({}) {
                                         </div>
                                     </div>
                                 </Col>
-                                <Col className='col-12 col-sm-6 col-md-4 py-2'>
+                                <Col className='col-12 col-md-6 col-lg-4 py-2'>
                                     <div className="d-flex flex-column w-100 h-100 rounded-3 p-3 shadow-sm" style={{backgroundColor: "rgba(255,255,255,0.3)",backdropFilter: "blur(0.2rem)"}}>
                                         <div className='h-100 d-flex flex-column align-items-center'>
                                             <h2 className='m-0 '>Phone 1X</h2>
@@ -506,7 +506,7 @@ function Home({}) {
                                         </div>
                                     </div>
                                 </Col>
-                                <Col className='col-12 col-sm-6 col-md-4 py-2'>
+                                <Col className='col-12 col-lg-4 py-2'>
                                     <div className="d-flex flex-column w-100 h-100 rounded-3 p-3 shadow-sm" style={{backgroundColor: "rgba(255,255,255,0.3)",backdropFilter: "blur(0.2rem)"}}>
                                         <div className='h-100 d-flex flex-column align-items-center'>
                                             <h2 className='m-0 '>Phone 1X</h2>
@@ -538,116 +538,6 @@ function Home({}) {
                        
                     </Carousel>
 
-                    {/* <Carousel className='w-100' controls={false} indicators={false} interval={3000}>
-                        <Carousel.Item>
-                            <div className="p-2 w-100 h-100">
-                                <div className="d-flex flex-column flex-md-row w-100 h-100 bg-warning-subtle rounded-3 p-2 shadow-sm">
-                                    <div className='h-100 d-flex justify-content-center'>
-                                        <img style={{height: "min(25rem,90vw)",filter:"drop-shadow(0 0 10px rgb(10,20,80))"}} src={require("../img/homepage-reviews-x.png")} alt="" />
-                                    </div>
-                                    <div className='w-100 d-flex flex-column p-3'>
-                                        <div className="d-flex flex-column flex-md-row align-items-center gap-0 gap-md-4 fs-1 text-secondary"><h1 style={{fontSize: "3rem"}}>Phone 1X</h1><div className='d-flex gap-2 text-warning'><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /></div>  </div>
-                                        <hr className='border-5' />
-                                        <div className="d-flex flex-column gap-3">
-
-                                            <div className="w-100 shadow rounded-3 p-3 d-flex flex-column flex-md-row gap-md-3 align-items-start gap-1">
-                                                <div className='bg-white px-2 fs-3 rounded-3'>
-                                                    <BsFillPersonFill />
-                                                </div>
-                                                <div className='d-flex flex-column fs-5'>
-                                                    <div className="d-flex flex-column flex-md-row align-items-start align-items-md-center gap-md-3 gap-1"><h3>I like it</h3><div className='d-flex gap-1 mb-2 text-warning rounded-pill shadow-sm p-1'><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /></div> </div>
-                                                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veritatis illo corporis distinctio officiis facilis.
-                                                </div>
-                                            </div>
-
-                                            <div className="w-100 shadow rounded-3 p-3 d-flex flex-column flex-md-row gap-md-3 align-items-start gap-1">
-                                                <div className='bg-white px-2 fs-3 rounded-3'>
-                                                    <BsFillPersonFill />
-                                                </div>
-                                                <div className='d-flex flex-column fs-5'>
-                                                    <div className="d-flex flex-column flex-md-row align-items-start align-items-md-center gap-md-3 gap-1"><h3>I like it</h3><div className='d-flex gap-1 mb-2 text-warning rounded-pill shadow-sm p-1'><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /></div> </div>
-                                                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veritatis illo corporis distinctio officiis facilis.
-                                                </div>
-                                            </div>
-                                        </div>
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                        </Carousel.Item>
-                        <Carousel.Item>
-                            <div className="p-2 w-100 h-100">
-                                <div className="d-flex flex-column flex-md-row w-100 h-100 bg-info-subtle rounded-3 p-2 shadow-sm">
-                                    <div className='h-100 d-flex justify-content-center'>
-                                        <img style={{height: "min(25rem,90vw)",filter:"drop-shadow(0 0 10px rgb(10,20,80))"}} src={require("../img/homepage-reviews-x.png")} alt="" />
-                                    </div>
-                                    <div className='w-100 d-flex flex-column p-3'>
-                                        <div className="d-flex flex-column flex-md-row align-items-center gap-0 gap-md-4 fs-1 text-secondary"><h1 style={{fontSize: "3rem"}}>Phone 1X</h1><div className='d-flex gap-2 text-warning'><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /></div>  </div>
-                                        <hr className='border-5' />
-                                        <div className="d-flex flex-column gap-3">
-
-                                            <div className="w-100 shadow rounded-3 p-3 d-flex flex-column flex-md-row gap-md-3 align-items-start gap-1">
-                                                <div className='bg-white px-2 fs-3 rounded-3'>
-                                                    <BsFillPersonFill />
-                                                </div>
-                                                <div className='d-flex flex-column fs-5'>
-                                                    <div className="d-flex flex-column flex-md-row align-items-start align-items-md-center gap-md-3 gap-1"><h3>I like it</h3><div className='d-flex gap-1 mb-2 text-warning rounded-pill shadow-sm p-1'><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /></div> </div>
-                                                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veritatis illo corporis distinctio officiis facilis.
-                                                </div>
-                                            </div>
-
-                                            <div className="w-100 shadow rounded-3 p-3 d-flex flex-column flex-md-row gap-md-3 align-items-start gap-1">
-                                                <div className='bg-white px-2 fs-3 rounded-3'>
-                                                    <BsFillPersonFill />
-                                                </div>
-                                                <div className='d-flex flex-column fs-5'>
-                                                    <div className="d-flex flex-column flex-md-row align-items-start align-items-md-center gap-md-3 gap-1"><h3>I like it</h3><div className='d-flex gap-1 mb-2 text-warning rounded-pill shadow-sm p-1'><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /></div> </div>
-                                                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veritatis illo corporis distinctio officiis facilis.
-                                                </div>
-                                            </div>
-                                        </div>
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                        </Carousel.Item>
-                        <Carousel.Item>
-                            <div className="p-2 w-100 h-100">
-                                <div className="d-flex flex-column flex-md-row w-100 h-100 bg-secondary-subtle rounded-3 p-2 shadow-sm">
-                                    <div className='h-100 d-flex justify-content-center'>
-                                        <img style={{height: "min(25rem,90vw)",filter:"drop-shadow(0 0 10px rgb(10,20,80))"}} src={require("../img/homepage-reviews-x.png")} alt="" />
-                                    </div>
-                                    <div className='w-100 d-flex flex-column p-3'>
-                                        <div className="d-flex flex-column flex-md-row align-items-center gap-0 gap-md-4 fs-1 text-secondary"><h1 style={{fontSize: "3rem"}}>Phone 1X</h1><div className='d-flex gap-2 text-warning'><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /></div>  </div>
-                                        <hr className='border-5' />
-                                        <div className="d-flex flex-column gap-3">
-
-                                            <div className="w-100 shadow rounded-3 p-3 d-flex flex-column flex-md-row gap-md-3 align-items-start gap-1">
-                                                <div className='bg-white px-2 fs-3 rounded-3'>
-                                                    <BsFillPersonFill />
-                                                </div>
-                                                <div className='d-flex flex-column fs-5'>
-                                                    <div className="d-flex flex-column flex-md-row align-items-start align-items-md-center gap-md-3 gap-1"><h3>I like it</h3><div className='d-flex gap-1 mb-2 text-warning rounded-pill shadow-sm p-1'><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /></div> </div>
-                                                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veritatis illo corporis distinctio officiis facilis.
-                                                </div>
-                                            </div>
-
-                                            <div className="w-100 shadow rounded-3 p-3 d-flex flex-column flex-md-row gap-md-3 align-items-start gap-1">
-                                                <div className='bg-white px-2 fs-3 rounded-3'>
-                                                    <BsFillPersonFill />
-                                                </div>
-                                                <div className='d-flex flex-column fs-5'>
-                                                    <div className="d-flex flex-column flex-md-row align-items-start align-items-md-center gap-md-3 gap-1"><h3>I like it</h3><div className='d-flex gap-1 mb-2 text-warning rounded-pill shadow-sm p-1'><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /></div> </div>
-                                                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veritatis illo corporis distinctio officiis facilis.
-                                                </div>
-                                            </div>
-                                        </div>
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                        </Carousel.Item>
-                    </Carousel> */}
                 </Container>
             </section>
 
@@ -672,7 +562,7 @@ function Home({}) {
                                     {
                                         branches.map((branch,index)=>
 
-                                        <Carousel.Item>
+                                        <Carousel.Item style={{zIndex:"0"}}>
                                             <div className='text-white bg-secondary'>
                                                 <div className="d-flex flex-column align-items-center align-items-md-start flex-xl-row gap-2 justify-content-between gap-xl-5 w-100">
                                                     <div className="d-flex flex-column text-md-start text-center align-items-center align-items-md-start gap-2">
@@ -703,14 +593,14 @@ function Home({}) {
                 <div className="w-100 position-absolute bottom-100 fs-2 fw-semibold"><div className='section-title bg-white d-inline-block m-0 h-100 p-2 ps-4 pe-3'>Frequently asked questions</div></div>
                 <Container className="p-0 py-5">
                     <div className='m-0 d-flex flex-column'>
-                        <Accordion flush className='shadow my-5 m-0 w-100'>
+                        <Accordion flush className=' my-5 m-0 w-100'>
                             
                         {
                             faqs.map((faq, index) => (
 
-                            <Accordion.Item eventKey={index}>
-                                <Accordion.Header><h5>{faq.q}</h5></Accordion.Header>
-                                <Accordion.Body>{faq.a}</Accordion.Body>
+                            <Accordion.Item eventKey={index} className='border-0 rounded-3 mb-2 rounded-bottom overflow-hidden shadow'>
+                                <Accordion.Header className='px-4 py-3 rounded-top '><h5 className='m-0'>{faq.q}</h5></Accordion.Header>
+                                <Accordion.Body className='border-top border-2 rounded-bottom'>{faq.a}</Accordion.Body>
                             </Accordion.Item>
                             ))
                         }

@@ -64,16 +64,14 @@ function ProductCartItem({productObject,productId,className}) {
                 product &&
                 <Card.Body className='p-0 position-relative rounded-0'>
                     <Row className='g-0'>
-                        <Col className='col-6 col-sm-4 pt-4 p-sm-0'>
-                            <Link to={`/product/${product.id}`} className='w-100 h-100 d-flex justify-content-center align-items-center p-4'>
-                                <div className='product-card-img position-relative overflow-hidden rounded-3'>
-                                    <div className='w-100 h-100 d-flex justify-content-center align-items-center position-relative'>
-                                        <img className='position-absolute' src={product.image} />
-                                    </div>
+                        <Col className='col-6 col-sm-5 p-sm-0'>
+                            <Link to={`/product/${product.id}`} className='w-100 h-100 d-flex justify-content-center align-items-start align-items-md-center p-3'>
+                                <div className='product-card-img position-relative overflow-hidden rounded-3' style={{width:"min(20rem,40vw)"}}>
+                                    <img src={product.image} />
                                 </div>
                             </Link>
                         </Col>
-                        <Col className="col-6 col-sm-8 p-0">
+                        <Col className=" p-0">
                             <div className='py-3 pe-3 d-flex flex-column gap-2 justify-content-start justify-content-sm-between h-100'>
                                 <div>
                                     <div className='d-flex align-items-start flex-column gap-1'>
@@ -90,7 +88,7 @@ function ProductCartItem({productObject,productId,className}) {
                                             )
                                         }
                                         </div>
-                                        <h5 className='m-0 mt-1 mb-2 price-tag text-danger' style={{opacity: "0.6"}}>{product.price}</h5>
+                                        <h5 className='m-0 mt-1 mb-2 price-tag text-danger'>{product.price}</h5>
                                     </div>
                                 </div>
                                 <div className="justify-content-between align-items-start align-items-sm-end flex-column flex-sm-row product-cart-item-bottom-row above-small gap-4 gap-sm-0">
@@ -107,11 +105,11 @@ function ProductCartItem({productObject,productId,className}) {
                             </div>
                         </Col>
                         <Col className='col-12 p-3 pt-0 product-card-item-small-col'>
-                            <div className="d-flex flex-column align-items-start justify-content-between gap-2">
-                                <div className="d-flex flex-column align-items-center gap-2">
-                                    <div className='d-flex align-items-center w-100 product-cart-item-options'>
-                                        <Button className='d-flex align-items-center h-100 rounded-start-3 rounded-0 border-2 px-1' onClick={()=>{handleCount(count-1)}}> <BsCaretLeftFill/> </Button>
-                                        <input type="number" className="d-flex h-100 rounded-0 text-center border-2 border-primary bg-transparent text-primary" min={0} max={10} value={count} onChange={(e)=>{handleCount(e.target.value)}}  />
+                            <div className="d-flex flex-column align-items-center justify-content-between gap-2 w-100">
+                                <div className="d-flex flex-column align-items-center gap-2 w-100">
+                                    <div className='d-flex justify-content-center w-100 product-cart-item-options'>
+                                        <Button className='d-flex justify-content-center h-100 rounded-start-3 rounded-0 border-2 px-1' onClick={()=>{handleCount(count-1)}}> <BsCaretLeftFill/> </Button>
+                                        <input type="number" className="d-flex h-100 w-100 rounded-0 text-center border-2 border-primary bg-transparent text-primary" min={0} max={10} value={count} onChange={(e)=>{handleCount(e.target.value)}}  />
                                         <Button className='d-flex align-items-center h-100 rounded-end-3 rounded-0 border-2 px-1' onClick={()=>{handleCount(count+1)}}> <BsCaretRightFill/> </Button>
                                     </div>
                                     <Button variant='danger' className='product-cart-item-options d-flex w-100 align-items-center justify-content-center p-1 w-100 btn-danger border-2 gap-2 rounded-3 shadow'  onClick={()=>{dispatch(removeFromCart(productId)); setAdded(false);}}><BsFillCartDashFill className='fs-4' /> Remove</Button>
@@ -120,12 +118,6 @@ function ProductCartItem({productObject,productId,className}) {
                             </div>
                         </Col>
                     </Row>
-                    {
-                        favorite ?
-                        <Button className='d-flex m-2 position-absolute top-0 left-0 align-items-center btn-warning bg-warning border-3 border-warning text-white gap-3 rounded-2 favorite-button' onClick={()=>{dispatch(removeFromFav(product.id)); setFavorite(false);}}> <BsStarFill /> </Button>
-                        :
-                        <Button className='d-flex m-2 position-absolute top-0 left-0 align-items-center bg-transparent text-warning border-warning border-3 gap-3 rounded-2 favorite-button' onClick={()=>{dispatch(addToFav(product.id)); setFavorite(true);}}> <BsStarFill /></Button>
-                    }
                 </Card.Body>
             }
             </div>

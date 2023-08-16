@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { addToCart, removeFromCart, setProductCount } from '../Store/Cart/cartSlice';
 import { addToFav, getFavs, removeFromFav } from '../Store/Favorites/favoritesSlice';
+import { throttle } from '../helpers';
 
 function ProductCard({productObject,productId,className,showSingle=true}) {
 
@@ -60,10 +61,10 @@ function ProductCard({productObject,productId,className,showSingle=true}) {
 
     return (
         <Card className={`h-100 position-relative border-0 bg-transparent product-card-container  ${className}`}>
-            <div className=' '>
+            <div className='h-100'>
             {
                 product &&
-                <Card.Body className='p-0 rounded-0 product-card bg-light shadow border border-1 rounded-3 overflow-hidden'>
+                <Card.Body className='p-0 h-100 rounded-0 product-card bg-light shadow border border-1 rounded-3 overflow-hidden'>
                     <div className='d-flex flex-column align-items-center justify-content-between h-100 w-100'>
                         <Link className="text-center w-100 text-decoration-none text-dark pb-1" to={`/product/${product.id}`}>
                             <div className='mb-3 product-card-img position-relative overflow-hidden'>
@@ -72,10 +73,9 @@ function ProductCard({productObject,productId,className,showSingle=true}) {
                                 </div>
                             </div>
                             <Card.Title className='product-card-title'>{product.title}</Card.Title>
-                            <Card.Text className='product-card-price price-tag fw-bold text-danger'>{product.price}</Card.Text>
+                            <Card.Text className='product-card-price price-tag fw-bold text-danger mb-4 mb-md-0'>{product.price}</Card.Text>
                         </Link>
-                        {/* <hr className='w-100 border-2 m-0 mt-2' /> */}
-                        <div className="d-flex w-100 justify-content-end p-2 position-relative ">
+                        <div className="d-flex w-100 justify-content-end p-2 pt-1 position-relative ">
                             {
                                 product.rating ?
                                 <p className='m-0 ms-2 fs-6 d-flex fw-semibold align-items-center gap-1 position-absolute product-card-rating left-0 text-warning'>{product.rating} <BsStarFill /></p>
@@ -84,15 +84,15 @@ function ProductCard({productObject,productId,className,showSingle=true}) {
                             <div className="d-flex gap-2 justify-content-between w-100">
                                 {
                                     added ?
-                                    <Button className='d-flex p-2 bg-danger text-white border-2 border-danger fs-4 rounded-3 w-100 d-flex justify-content-center' onClick={()=>{dispatch(removeFromCart(product.id)); setAdded(false);}}><BsFillCartDashFill /></Button>
+                                    <Button className='d-flex p-2 bg-danger text-white border-2 border-danger fs-4 rounded-3 w-100 d-flex justify-content-center' onClick={()=>{throttle(dispatch(removeFromCart(product.id)),1000); setAdded(false);}}><BsFillCartDashFill /></Button>
                                         :
-                                    <Button variant='primary' className='d-flex p-2 text-white border-2 fs-4 rounded-3 w-100 d-flex justify-content-center' onClick={()=>{dispatch(addToCart(product.id)); setAdded(true);}}><BsFillCartPlusFill /></Button>
+                                    <Button variant='primary' className='d-flex p-2 text-white border-2 fs-4 rounded-3 w-100 d-flex justify-content-center' onClick={()=>{throttle(dispatch(addToCart(product.id)),1000); setAdded(true);}}><BsFillCartPlusFill /></Button>
                                 }
                                 {
                                     favorite ?
-                                    <Button className='d-flex p-2 bg-warning border-3 border-warning fs-4 rounded-3' onClick={()=>{dispatch(removeFromFav(product.id)); setFavorite(false);}}><BsStarFill /></Button>
+                                    <Button className='d-flex p-2 bg-warning border-3 border-warning fs-4 rounded-3' onClick={()=>{throttle(dispatch(removeFromFav(product.id)),1000); setFavorite(false);}}><BsStarFill /></Button>
                                     :
-                                    <Button className='d-flex p-2 bg-transparent text-warning border-3 border-warning fs-4 rounded-3' onClick={()=>{dispatch(addToFav(product.id)); setFavorite(true);}}><BsStarFill /></Button>
+                                    <Button className='d-flex p-2 bg-transparent text-warning border-3 border-warning fs-4 rounded-3' onClick={()=>{throttle(dispatch(addToFav(product.id)),1000); setFavorite(true);}}><BsStarFill /></Button>
                                 }
                             </div>
                         </div>
@@ -108,8 +108,8 @@ function ProductCard({productObject,productId,className,showSingle=true}) {
                     <span className='badge shadow p-1 mx-1 mx-md-2 bg-primary'>{count}</span>
                 }
                     <div className='p-1 p-md-2 rounded-3 shadow d-flex flex-column gap-1 gap-sm-2 product-card-count-btn-row'>
-                        <Button variant='primary' className='p-1 product-card-count-btn d-flex align-items-center justify-content-center' onClick={()=>{handleCount(count+1)}}><BsFillCaretUpFill /></Button>
-                        <Button variant='danger' className='p-1 product-card-count-btn d-flex align-items-center justify-content-center' onClick={()=>{handleCount(count-1)}}><BsFillCaretDownFill /></Button>
+                        <Button variant='primary' className='p-1 product-card-count-btn d-flex align-items-center justify-content-center' onClick={()=>{throttle(handleCount(count+1),1500)}}><BsFillCaretUpFill /></Button>
+                        <Button variant='danger' className='p-1 product-card-count-btn d-flex align-items-center justify-content-center' onClick={()=>{throttle(handleCount(count-1),1500)}}><BsFillCaretDownFill /></Button>
                     </div>
                 </div>
             }

@@ -155,9 +155,9 @@ export const authSlice = createSlice({
         },
         [loginUser.fulfilled]: (state, { payload }) => {
             console.log("logged in");
+            state.loggedIn = true;
             state.loading = false
             state.currentUser = payload;
-            state.loggedIn = true;
           },
         [loginUser.rejected]: (state) => {
             state.loading = false
@@ -169,9 +169,9 @@ export const authSlice = createSlice({
           state.loading = true
         },
         [getCurrentUser.fulfilled]: (state, { payload }) => {
-            state.loading = false
-            state.currentUser = payload;
-            if(payload) state.loggedIn = true;
+          if(payload) state.loggedIn = true;
+          state.currentUser = payload;
+          state.loading = false
           },
         [getCurrentUser.rejected]: (state) => {
             state.loading = false
@@ -195,15 +195,15 @@ export const authSlice = createSlice({
 
         //editUser
         [editUser.pending]: (state) => {
-          state.loading = true
+          // state.loading = true
         },
         [editUser.fulfilled]: (state, { payload }) => {
-            state.loading = false
+            // state.loading = false
             state.currentUser = payload;
-            state.loggedIn = false;
+            // state.loggedIn = true;
           },
         [editUser.rejected]: (state) => {
-            state.loading = false
+            // state.loading = false
             console.log("rejected");
         },
 

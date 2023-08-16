@@ -129,13 +129,11 @@ function ManageProducts({}) {
 
     function handleOptionsScroll(e)
     {
-        console.log()
         let optionRows = e.target.querySelectorAll(".product-info-row-options");
         optionRows.forEach((optionsRow) => {
             optionsRow.style.right = "unset";
-            optionsRow.style.left = e.target.scrollLeft + window.innerWidth/2 - optionsRow.getBoundingClientRect().width/2 + "px";
-        });
-        
+            optionsRow.style.left = `${e.target.scrollLeft + window.innerWidth/2 - optionsRow.getBoundingClientRect().width/2}px`;
+        });        
     }
 
     function handleSort(sortType)
@@ -162,7 +160,7 @@ function ManageProducts({}) {
         if(filters.categories.length) filteredProducts = filteredProducts.filter((product) => filters.categories.includes(product.category));
 
         filteredProducts = filteredProducts.filter((product)=>Object.keys(filters.specs).every((specKey)=>
-            filters.specs[specKey].length ? product.specs[specKey].length && filters.specs[specKey].includes(product.specs[specKey]) : true));                
+            filters.specs[specKey].length ? product.specs[specKey] && filters.specs[specKey].includes(product.specs[specKey]) : true));                
      
         console.log(filteredProducts);
         return filteredProducts;
@@ -263,132 +261,126 @@ function ManageProducts({}) {
 
 
     return (
-        <div className='bg-light'>
-            <div className='p-0 px-md-2 py-3'>
-                <Container className='px-2 pt-5'> <h2 className='mb-2'>Manage Products</h2> </Container>
-                <hr className='border-3 pb-3' />
-                <Accordion alwaysOpen defaultActiveKey={"0"} className='w-100 rounded-sm-2'>
-                    <Accordion.Item eventKey="0" className='border-0 bg-light'>
-                        <Accordion.Header className='w-100 rounded bg-secondary px-3 py-2 text-white'>
-                            <h4 className='text-white m-0'>Filters</h4>
-                        </Accordion.Header>
-                        <Accordion.Body className='px-0 pt-2'>
-                            <div className='d-flex bg-secondary rounded-sm-3 p-3 d-flex flex-column justify-content-between align-items-start gap-2'>
-                                <div className='d-flex flex-column w-100  gap-2 align-items-start'>
+        <div className='py-3 px-0 p-md-3'>
+            <Container className='px-2'> <h2 className='mt-5 mb-2'>Manage Products</h2> </Container>
+            <hr className='border-3' />
+            <Accordion className='w-100 rounded-sm-2'>
+                <Accordion.Item eventKey="0" className='border-0 bg-light'>
+                    <Accordion.Header className='w-100 rounded-sm-3 bg-secondary px-3 py-2 text-white arrow-white'>
+                        <h4 className='text-white m-0'>Filters</h4>
+                    </Accordion.Header>
+                    <Accordion.Body className='px-0 pt-2'>
+                        <div className='d-flex bg-secondary rounded-sm-3 p-3 d-flex flex-column justify-content-between align-items-start gap-2'>
+                            <div className='d-flex flex-column w-100  gap-2 align-items-start'>
                                 <h5 className='me-1 m-0 text-white'>Search</h5>
-                                    <Form.Control type="search" placeholder="Search Products"  value={filters.search} onChange={(e)=>{setFilters({...filters,search:e.target.value})}} />
-                                    <h5 className='me-1 m-0 text-white'>Price</h5>
-                                    <div style={{width: "min(30rem,85vw)"}} className='fs-4'>
-                                        <TwoRangeSlider minValue={filters.minPrice} maxValue={filters.maxPrice}
-                                        minLimit={0} maxLimit={5000} snap={100}
-                                        setMin={(value)=>{setFilters(prev => ({...prev,minPrice:value}));}}
-                                        setMax={(value)=>{setFilters(prev => ({...prev,maxPrice:value}));}} 
-                                        labelClassName={"text-white"}/>
+                                <Form.Control type="search" placeholder="Search Products"  value={filters.search} onChange={(e)=>{setFilters({...filters,search:e.target.value})}} />
+                                <hr className='w-100 border-white border-2 my-2 mb-1' />
+                                <h5 className='me-1 m-0 text-white'>Price</h5>
+                                <div style={{width: "min(30rem,85vw)"}} className='fs-4'>
+                                    <TwoRangeSlider minValue={filters.minPrice} maxValue={filters.maxPrice}
+                                    minLimit={0} maxLimit={5000} snap={100}
+                                    setMin={(value)=>{setFilters(prev => ({...prev,minPrice:value}));}}
+                                    setMax={(value)=>{setFilters(prev => ({...prev,maxPrice:value}));}} 
+                                    labelClassName={"text-white"}/>
 
-                                    </div>
-                                    <div className='d-flex flex-column gap-2'>
-                                        <h5 className='me-1 m-0 text-white'>Categories</h5>
-                                        <Dropdown autoClose="outside">
-                                            <Dropdown.Toggle className={`w-100 d-flex align-items-center justify-content-between ${filters.categories.length>0 ? "bg-primary border-primary" : "bg-secondary"}`} style={{width: "6em"}} variant="secondary" id="dropdown-basic">
-                                                {filters.categories.length>0 ? "Selected" : "Select..."}
-                                            </Dropdown.Toggle>
-
-                                            <Dropdown.Menu className='p-0 rounded-0 w-100' >
-                                                <Dropdown.Item className={`p-0 dropdown-select border-bottom border-dark`}><Button className='bg-transparent border-0 d-flex justify-content-between text-danger text-capitalize w-100' onClick={()=>{setFilters({...filters,categories:[]})}}> None </Button></Dropdown.Item>
-                                            {
-                                                productsInfo.categories && productsInfo.categories.map((category) => 
-                                                <Dropdown.Item className={`p-0 dropdown-select border-bottom border-dark ${filters.categories.includes(category.name) ? "selected" : ""}`}><Button className='bg-transparent border-0 d-flex justify-content-between text-dark text-capitalize w-100' onClick={()=>{handleFilterCategories(category.name)}} >{category.name} <BsCheck className='dropdown-item-check d-none fs-4'/> </Button> </Dropdown.Item>
-                                                )
-                                            }
-                                            </Dropdown.Menu>
-                                        </Dropdown>
-                                    </div>
-                                    <div className='d-flex flex-column gap-2'>
-                                        <h5 className='me-1 m-0 text-white'>Specs</h5>
-                                        <Row className='gy-2'>
+                                </div>
+                                <hr className='w-100 border-white border-2 my-2 mb-1' />
+                                <div className='d-flex flex-column gap-2'>
+                                    <h5 className='m-0 text-white'>Categories</h5>
+                                    <div>
+                                        <Row className='gy-2 m-0'>
                                         {
-                                            specFilterOptions && Object.keys(specFilterOptions).map((spec) =>
-                                            
-                                            <Col className='pe-0'>
-                                                <Dropdown autoClose="outside">
-                                                    <Dropdown.Toggle className={`w-100 d-flex align-items-center justify-content-between text-capitalize ${(filters.specs[spec] && filters.specs[spec].length) ? "bg-primary border-primary" : "bg-secondary"}`} style={{width: "6em"}} variant="secondary" id="dropdown-basic">
-                                                        {specFilterOptions[spec].name}
-                                                    </Dropdown.Toggle>
-
-                                                    <Dropdown.Menu className='p-0 rounded-0 w-100' >
-                                                        <Dropdown.Item className={`p-0 dropdown-select border-bottom border-dark`}><Button className='bg-transparent border-0 d-flex justify-content-between text-danger text-capitalize w-100' onClick={()=>{handleFilterSpecs(spec)}}> None </Button></Dropdown.Item>
-                                                    {
-                                                        specFilterOptions[spec].availableValues.map((specValue) => 
-                                                        <Dropdown.Item className={`p-0 dropdown-select border-bottom border-dark ${(filters.specs[spec] && filters.specs[spec].includes(specValue)) ? "selected" : ""}`}><Button className='bg-transparent border-0 d-flex justify-content-between text-dark text-capitalize w-100' onClick={()=>{handleFilterSpecs(spec,specValue)}}>{specValue} <BsCheck className='dropdown-item-check d-none fs-4'/> </Button> </Dropdown.Item>
-                                                        )
-                                                    }
-                                                    </Dropdown.Menu>
-                                                </Dropdown>
-                                            </Col>
+                                            productsInfo.categories && productsInfo.categories.map((category) =>
+                                            <Col className='px-1 col-6 col-sm-3 col-md-2'><Button variant='secondary' className={`w-100 d-flex btn-secondary align-items-center justify-content-between text-capitalize ${filters.categories.includes(category.name) ? "bg-primary border-primary" : "bg-secondary"}`} onClick={()=>{handleFilterCategories(category.name)}}>{category.name}</Button></Col>
                                             )
                                         }
                                         </Row>
                                     </div>
                                 </div>
-                                {/* <hr className='w-100 border-white border-2' /> */}
-                            
+                                <hr className='w-100 border-white border-2 my-2 mb-1' />
+                                <div className='d-flex flex-column gap-2'>
+                                    <h5 className='me-1 m-0 text-white'>Specs</h5>
+                                    <Row className='gy-2 m-0'>
+                                    {
+                                        specFilterOptions && Object.keys(specFilterOptions).map((spec) =>
+                                        
+                                        <Col className='px-1'>
+                                            <Dropdown autoClose="outside">
+                                                <Dropdown.Toggle className={`w-100 d-flex align-items-center justify-content-between text-capitalize ${(filters.specs[spec] && filters.specs[spec].length) ? "bg-primary border-primary" : "bg-secondary"}`} style={{width: "6em"}} variant="secondary" id="dropdown-basic">
+                                                    {specFilterOptions[spec].name}
+                                                </Dropdown.Toggle>
+
+                                                <Dropdown.Menu className='p-0 rounded-2 overflow-hidden w-100 dropdown-select-menu' >
+                                                    <Dropdown.Item className={`p-0 dropdown-select border-bottom border-dark`}><Button className='bg-transparent border-0 d-flex justify-content-between text-danger text-capitalize w-100' onClick={()=>{handleFilterSpecs(spec)}}> None </Button></Dropdown.Item>
+                                                {
+                                                    specFilterOptions[spec].availableValues.map((specValue) => 
+                                                    <Dropdown.Item className={`p-0 dropdown-select border-bottom border-dark ${(filters.specs[spec] && filters.specs[spec].includes(specValue)) ? "selected" : ""}`}><Button className='bg-transparent border-0 d-flex justify-content-between text-dark text-capitalize w-100' onClick={()=>{handleFilterSpecs(spec,specValue)}}>{specValue} <BsCheck className='dropdown-item-check d-none fs-4'/> </Button> </Dropdown.Item>
+                                                    )
+                                                }
+                                                </Dropdown.Menu>
+                                            </Dropdown>
+                                        </Col>
+                                        )
+                                    }
+                                    </Row>
+                                </div>
                             </div>
-                        </Accordion.Body>
-                    </Accordion.Item>
-                </Accordion>
-                
-                <Button variant="primary" className='w-100 d-flex my-3 p-1 px-2 align-items-center justify-content-center fs-5' onClick={startAddProduct}><BsPlus className='fs-2'/> Add Product</Button>
-
-                <div className="d-flex flex-column product-info-row-group pb-5 scrollbar light" onScroll={handleOptionsScroll}>
-                    <div className='d-flex flex-column gap-3 text-white'>
-                        <Row className='bg-secondary shadow rounded-sm-3 py-2 px-0 m-0 product-info-row'>
-                            <Col className='col-1 pe-0'>
-                                <Button variant="transparent" className='w-100 text-white d-flex align-items-center justify-content-between' onClick={()=>{handleSort("id")}}>
-                                    ID
-                                    {
-                                        sort.type==="id" ? sort.order==="asc" ?
-                                        <BsCaretDownFill /> : <BsCaretUpFill/>
-                                        : <BsCaretDownFill style={{opacity:"0.25"}} />
-                                    }
-                                    
-                                </Button>
-                            </Col>
-                            <Col className='col-2 pe-0 d-flex align-items-center'>Image</Col>
-                            <Col className='col-2 pe-0'>
-                                <Button variant="transparent" className='w-100 text-white d-flex align-items-center justify-content-between' onClick={()=>{handleSort("name")}}>
-                                    Name
-                                    {
-                                        sort.type==="name" ? sort.order==="asc" ?
-                                        <BsCaretDownFill /> : <BsCaretUpFill/>
-                                        : <BsCaretDownFill style={{opacity:"0.25"}} />
-                                    }
-                                    
-                                </Button>
-                            </Col>
-                            <Col className='col-1 px-0' style={{width: "8%"}}>
-                                <Button variant="transparent" className='w-100 text-white d-flex align-items-center justify-content-between' onClick={()=>{handleSort("price")}}>
-                                    Price
-                                    {
-                                        sort.type==="price" ? sort.order==="asc" ?
-                                        <BsCaretDownFill /> : <BsCaretUpFill/>
-                                        : <BsCaretDownFill style={{opacity:"0.25"}} />
-                                    }
-                                    
-                                </Button>
-                            </Col>
-                            <Col className='col-1 pe-0 d-flex align-items-center' style={{width: "8%"}}>Category</Col>
-
-                            <Col className='col-1 pe-0 d-flex align-items-center' style={{width: "22%"}}>Description</Col>
-                            <Col className='pe-0 d-flex align-items-center'>Specs</Col>
-                        </Row>
-                        <hr className='m-0'/>
-                        <div className="d-flex flex-column w-100 gap-1 pb-5">
-                        {
-                            filteredProducts && filteredProducts.map((product) =>
-                            <ProductInfoRow product={product} showProduct={showProduct} editProduct={startEditProduct}  deleteProduct={startDeleteProduct} />
-                            )
-                        }
+                        
                         </div>
+                    </Accordion.Body>
+                </Accordion.Item>
+            </Accordion>
+            
+            <div className='rounded-sm-3 overflow-hidden my-3'><Button variant="primary" className='w-100 d-flex  p-1 px-2 align-items-center justify-content-center fs-5 rounded-0' onClick={startAddProduct}><BsPlus className='fs-2'/> Add Product</Button></div>
+
+            <div className="d-flex flex-column product-info-row-group pb-5 scrollbar light" onScroll={handleOptionsScroll}>
+                <div className='d-flex flex-column gap-3 text-white'>
+                    <Row className='bg-secondary shadow rounded-sm-3 py-2 px-0 m-0 product-info-row'>
+                        <Col className='col-1 pe-0'>
+                            <Button variant="transparent" className='w-100 text-white d-flex align-items-center justify-content-between' onClick={()=>{handleSort("id")}}>
+                                ID
+                                {
+                                    sort.type==="id" ? sort.order==="asc" ?
+                                    <BsCaretDownFill /> : <BsCaretUpFill/>
+                                    : <BsCaretDownFill style={{opacity:"0.25"}} />
+                                }
+                                
+                            </Button>
+                        </Col>
+                        <Col className='col-2 pe-0 d-flex align-items-center'>Image</Col>
+                        <Col className='col-2 pe-0'>
+                            <Button variant="transparent" className='w-100 text-white d-flex align-items-center justify-content-between' onClick={()=>{handleSort("name")}}>
+                                Name
+                                {
+                                    sort.type==="name" ? sort.order==="asc" ?
+                                    <BsCaretDownFill /> : <BsCaretUpFill/>
+                                    : <BsCaretDownFill style={{opacity:"0.25"}} />
+                                }
+                                
+                            </Button>
+                        </Col>
+                        <Col className='col-1 px-0' style={{width: "8%"}}>
+                            <Button variant="transparent" className='w-100 text-white d-flex align-items-center justify-content-between' onClick={()=>{handleSort("price")}}>
+                                Price
+                                {
+                                    sort.type==="price" ? sort.order==="asc" ?
+                                    <BsCaretDownFill /> : <BsCaretUpFill/>
+                                    : <BsCaretDownFill style={{opacity:"0.25"}} />
+                                }
+                                
+                            </Button>
+                        </Col>
+                        <Col className='col-1 pe-0 d-flex align-items-center' style={{width: "8%"}}>Category</Col>
+
+                        <Col className='col-1 pe-0 d-flex align-items-center' style={{width: "22%"}}>Description</Col>
+                        <Col className='pe-0 d-flex align-items-center'>Specs</Col>
+                    </Row>
+                    <div className="d-flex flex-column w-100 gap-1 pb-5">
+                    {
+                        filteredProducts && filteredProducts.map((product) =>
+                        <ProductInfoRow product={product} showProduct={showProduct} editProduct={startEditProduct}  deleteProduct={startDeleteProduct} />
+                        )
+                    }
                     </div>
                 </div>
             </div>
@@ -633,7 +625,7 @@ function ManageProducts({}) {
                     productToShow ?
                     <div>
                         <Row>
-                            <Col className='col-12 col-sm-4 h-100 p-0 d-flex justify-content-center'><img style={{width: "min(100%,75vw"}} src={productToShow.image} alt="" /></Col>
+                            <Col className='col-12 col-sm-4 h-100 p-0 d-flex justify-content-center p-3'><img className='rounded-3' style={{width: "min(100%,75vw"}} src={productToShow.image} alt="" /></Col>
                             <Col className='col-12 col-sm-8 h-100'>
                                 <div className="d-flex flex-column justify-content-between h-100 product-page-col">
                                     <div className='d-flex flex-column gap-2'>
@@ -681,6 +673,7 @@ function ManageProducts({}) {
                 </Modal.Footer>
             </Modal>
         </div>
+
     );
 }
 

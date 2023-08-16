@@ -12,7 +12,7 @@ import { addToCart, removeFromCart, setProductCount } from '../Store/Cart/cartSl
 import { addReview, getReviews } from '../Store/Reviews/reviewsSlice';
 import { addToFav, getFavs, removeFromFav } from '../Store/Favorites/favoritesSlice';
 import { setProductRating } from '../Store/Products/productsSlice';
-import { getRating, getRatingCount } from '../helpers';
+import { getRating, getRatingCount, throttle } from '../helpers';
 
 
 const schema = yup
@@ -66,9 +66,11 @@ function ProductPage({})
 
     function handlePreviewImage(e)
     {
+        let pageX = e.pageX || e.touches[0].pageX;
+        let pageY = e.pageY || e.touches[0].pageY;
         let el = e.currentTarget; let rect = el.getBoundingClientRect();
-        let xOffset = (e.pageX - rect.left - document.documentElement.scrollLeft) / rect.width * 100;
-        let yOffset = (e.pageY - rect.top  - document.documentElement.scrollTop) / rect.height * 100;
+        let xOffset = (pageX - rect.left - document.documentElement.scrollLeft) / rect.width * 100;
+        let yOffset = (pageY - rect.top  - document.documentElement.scrollTop) / rect.height * 100;
         el.style.backgroundPosition = `${xOffset}% ${yOffset}%`;
     }
 
@@ -84,6 +86,49 @@ function ProductPage({})
         dispatch(setProductRating({productId: product.id,rating: getRating([...reviews.map((review)=>review.rating),rating])}));
         reset();
         setRating(5);
+    }
+
+    function getRelatedProducts()
+    {
+        if(product)
+        {
+            let filteredProducts = products.filter((productInList) => productInList.category===product.category && productInList!==product);
+
+            let relatedProducts = filteredProducts.filter((productInList) => {
+
+                if(productInList === product) return false;
+    
+                let nameWords = productInList.title.split(" ").join("").split(/(?=[A-Z])/);
+
+                let includesWord = false;
+                nameWords.forEach(word => {
+    
+                    if(word.length >= 3 && product.title.toLowerCase().includes(word.toLowerCase()))
+                    {
+                        includesWord = true;
+                        return;
+                    }
+                });
+    
+                if(includesWord) return true;
+                
+                return false;
+            });
+
+            relatedProducts =[...relatedProducts,...filteredProducts.filter((productInList) => {
+                if(relatedProducts.includes(productInList)) return false;
+                if(productInList.category!==product.category) return false;
+
+                let sharedSpecCount = 0;
+                Object.keys(product.specs).forEach((specKey) => {
+                    if(product.specs[specKey]===productInList.specs[specKey]) sharedSpecCount++;
+                });
+                // console.log(sharedSpecCount);
+                return sharedSpecCount > 2;
+            })];
+            console.log(relatedProducts);
+            return relatedProducts;
+        }
     }
 
     useEffect(()=>{
@@ -106,110 +151,161 @@ function ProductPage({})
 
     return (
         <div className='bg-light'>
-            <div>
-                {
-                    product ?
-                    <Container className='py-5'>
-                        <Row className='m-0 gy-4'>
-                            <Col className='col-12 col-md-4 h-100 p-0'>
-                                <div className="d-flex w-100 position-relative">
-                                    <div className='bg-white w-100 overflow-hidden rounded-3 shadow'>
-                                        <img className='w-100' src={product.image} />
-                                        <div className='product-img-preview rounded-3 w-100 h-100 position-absolute top-0 left-0'
-                                        onMouseEnter={(e)=>{e.target.style.opacity = "1"}}
-                                        onMouseLeave={(e)=>{e.target.style.opacity = "0"}}
-                                        onMouseMove={handlePreviewImage}
-                                        style={{background: `url("${product.image}")`}}
-                                        ></div>
-                                    </div>
+            <div className='page-section'>
+            {
+                product ?
+
+                <Container className='py-5'>
+                    <Row className='m-0 gy-4'>
+                        <Col className='col-12 col-md-4 h-100 p-0'>
+                            <div className="d-flex w-100 position-relative">
+                                <div className='bg-white w-100 overflow-hidden rounded-3 shadow'>
+                                    <img className='w-100' src={product.image} />
+                                    <div className='product-img-preview rounded-3 w-100 h-100 position-absolute top-0 left-0'
+                                    onMouseEnter={(e)=>{e.target.style.opacity = "1"}}
+                                    onMouseLeave={(e)=>{e.target.style.opacity = "0"}}
+                                    onMouseMove={handlePreviewImage}
+                                    onTouchStart={(e)=>{e.target.style.opacity = "1"}}
+                                    onTouchEnd={(e)=>{e.target.style.opacity = "0"}}
+                                    onTouchMove={handlePreviewImage}
+                                    style={{background: `url("${product.image}")`}}
+                                    ></div>
                                 </div>
-                            </Col>
-                            <Col className='col-12 col-md-8 h-100'>
-                                <div className="d-flex flex-column justify-content-between h-100 product-page-col">
-                                    <div className='d-flex flex-column gap-2'>
-                                        <h1>{product.title}</h1>
-                                        <p className='m-0'>{product.desc}</p>
-                                        {
-                                            reviews.length >= 5 ?
-                                            <div className="d-flex flex-column flex-md-row gap-2">
-                                                <p className='m-0 fs-5 text-warning-emphasis fw-semibold'>{product.rating} ({reviews.length} reviews)</p>
-                                                <div className="d-flex gap-2">
-                                                    {
-                                                        [1,2,3,4,5].map((n)=>
-                                                        <div className='position-relative'>
-                                                            <BsStarFill key={"pr-p-g-s-"+n} className={"text-dark fs-3 d-flex justify-content-center"} />
-                                                            <div style={{width: `${n <= product.rating ? 100 : n === Math.ceil(product.rating) ? product.rating % 1 * 100 : 0}%`}} className='position-absolute top-0 overflow-hidden'>
-                                                                <BsStarFill key={"pr-p-g-s-"+n} className={"text-warning fs-3 d-flex justify-content-center"} />
-                                                            </div>
+                            </div>
+                        </Col>
+                        <Col className='col-12 col-md-8 h-100 p-0 px-md-2'>
+                            <div className="d-flex flex-column align-items-center align-items-md-start justify-content-between h-100 p-0 ps-md-4">
+                                <div className='d-flex flex-column align-items-center align-items-md-start gap-2'>
+                                    <h1>{product.title}</h1>
+                                    <p className='m-0'>{product.desc}</p>
+                                    {
+                                        reviews.length >= 5 ?
+                                        <div className="d-flex flex-column flex-md-row gap-2">
+                                            <p className='m-0 fs-5 text-warning-emphasis fw-semibold'>{product.rating} ({reviews.length} reviews)</p>
+                                            <div className="d-flex gap-2">
+                                                {
+                                                    [1,2,3,4,5].map((n)=>
+                                                    <div className='position-relative'>
+                                                        <BsStarFill key={"pr-p-g-s-"+n} className={"text-dark fs-3 d-flex justify-content-center"} />
+                                                        <div style={{width: `${n <= product.rating ? 100 : n === Math.ceil(product.rating) ? product.rating % 1 * 100 : 0}%`}} className='position-absolute top-0 overflow-hidden'>
+                                                            <BsStarFill key={"pr-p-g-s-"+n} className={"text-warning fs-3 d-flex justify-content-center"} />
                                                         </div>
-                                                        )
-                                                    }
-                                                </div>
-                                            </div>
-                                            : ""
-                                        }
-                                        
-                                        <h1 className='text-danger price-tag mt-2 fw-semibold'>{product.price}</h1>
-                                    </div>
-                                    <div className="d-flex flex-column flex-lg-row align-items-start align-items-lg-center gap-4 mt-4">
-                                        {
-                                            added ? 
-                                            <div className='d-flex gap-3 flex-column flex-sm-row'>
-                                                <Button variant='danger' className='d-flex align-items-center p-3 btn-danger fs-3 gap-3 rounded-3 shadow' onClick={()=>{dispatch(removeFromCart(productId)); setAdded(false);}}><BsFillCartDashFill className='fs-2' /> Remove</Button>
-                                                <div className="d-flex gap-3">
-                                                    <input type="number" className="rounded-3 fs-1 text-center border-3 border-primary bg-transparent text-primary" min={0} max={10} value={count} onChange={(e)=>{handleCount(e.target.value)}}  style={{width: "5rem"}} />
-                                                    <div className='d-flex flex-column gap-3 gap-md-0 justify-content-between'>
-                                                        <Button className='d-flex align-items-center p-3 py-0 btn-primary fs-3 gap-3 rounded-3 shadow border-3' onClick={()=>{handleCount(count+1)}}><BsFillCaretUpFill /></Button>
-                                                        <Button className='d-flex align-items-center p-3 py-0 btn-primary fs-3 gap-3 rounded-3 shadow border-3' onClick={()=>{handleCount(count-1)}}><BsFillCaretDownFill /></Button>
                                                     </div>
-                                                </div>
+                                                    )
+                                                }
                                             </div>
-                                            :
-                                            <Button className='d-flex align-items-center p-3 btn-primary text-white fs-3 gap-3 rounded-3 shadow border-3' onClick={()=>{dispatch(addToCart(productId)); setAdded(true);}}><BsFillCartPlusFill className='fs-2' /> Add to Cart</Button>
-                                        }
-                                        {
-                                            favorite ?
-                                            <Button className='d-flex align-items-center p-3 btn-warning bg-warning border-3 border-warning text-white fs-3 gap-3 rounded-3' onClick={()=>{dispatch(removeFromFav(product.id)); setFavorite(false);}}><BsStarFill className='fs-2' /> Favorited</Button>
-                                            :
-                                            <Button className='d-flex align-items-center p-3 bg-transparent text-warning border-warning border-3 fs-3 gap-3 rounded-3' onClick={()=>{dispatch(addToFav(product.id)); setFavorite(true);}}><BsStarFill className='fs-2' />Favorite</Button>
-                                        }
-                                    </div>
+                                        </div>
+                                        : ""
+                                    }
+                                    
+                                    <h1 className='text-danger price-tag mt-2 fw-semibold'>{product.price}</h1>
+                                </div>
+                                <div className="d-flex w-xs-100 w-md-auto flex-column flex-lg-row align-items-center align-items-md-start  align-items-lg-center gap-4 mt-4">
+                                    {
+                                        added ? 
+                                        <div className='d-flex gap-3 w-xs-100 w-md-auto flex-column flex-sm-row'>
+                                            <Button variant='danger' className='d-flex w-xs-100 w-sm-50 align-items-center justify-content-center justify-content-md-start p-3 btn-danger fs-3 gap-3 rounded-3 shadow' onClick={()=>{throttle(dispatch(removeFromCart(productId)),1000); setAdded(false);}}><BsFillCartDashFill className='fs-2' /> Remove</Button>
+                                            <div className="d-flex w-xs-100 w-sm-50 gap-3">
+                                                <input type="number" className="rounded-3 w-xs-100 w-sm-100 fs-1 text-center border-3 border-primary bg-transparent text-primary" min={0} max={10} value={count} onChange={(e)=>{throttle(handleCount(e.target.value),1500)}}  style={{width: "5rem"}} />
+                                                <div className='d-flex flex-column gap-3 gap-md-0 justify-content-between'>
+                                                    <Button className='d-flex align-items-center p-3 py-0 btn-primary fs-3 gap-3 rounded-3 shadow border-3' onClick={throttle(()=>{handleCount(count+1)},2000)}><BsFillCaretUpFill /></Button>
+                                                    <Button className='d-flex align-items-center p-3 py-0 btn-primary fs-3 gap-3 rounded-3 shadow border-3' onClick={throttle(()=>{handleCount(count-1)},2000)}><BsFillCaretDownFill /></Button>
+                                                </div> 
+                                            </div>
+                                        </div>
+                                        :
+                                        <Button className='d-flex align-items-center w-xs-100 align-items-center justify-content-center justify-content-md-start p-3 btn-primary text-white fs-3 gap-3 rounded-3 shadow border-3' onClick={()=>{throttle(dispatch(addToCart(productId)),1000); setAdded(true);}}><BsFillCartPlusFill className='fs-2' /> Add to Cart</Button>
+                                    }
+                                    {
+                                        favorite ?
+                                        <Button className='d-flex w-xs-100 w-md-auto align-items-center justify-content-center justify-content-md-start p-3 btn-warning bg-warning border-3 border-warning text-white fs-3 gap-3 rounded-3' onClick={()=>{throttle(dispatch(removeFromFav(product.id)),1000); setFavorite(false);}}><BsStarFill className='fs-2' /> Favorited</Button>
+                                        :
+                                        <Button className='d-flex w-xs-100 w-md-auto align-items-center justify-content-center justify-content-md-start p-3 bg-transparent text-warning border-warning border-3 fs-3 gap-3 rounded-3' onClick={()=>{throttle(dispatch(addToFav(product.id)),1000); setFavorite(true);}}><BsStarFill className='fs-2' />Favorite</Button>
+                                    }
+                                </div>
+
+                            </div>
+                        </Col>
+                    </Row>
+                </Container>
+                :
+                <Container className='py-5'>
+                    <Row className='m-0 gy-4'>
+                        <Col className='col-12 col-md-4 h-100 p-0'>
+                            <div className='d-flex w-100 justify-content-center'>
+                                <div className='loading-bg shadow rounded-3' style={{width:"min(27rem,100%)",aspectRatio: "1"}}></div>
+                            </div>
+                        </Col>
+                        <Col className='col-12 col-md-8 h-100 p-0 px-md-2'>
+                            <div className="d-flex flex-column align-items-center align-items-md-start gap-3 p-0 ps-md-4">
+                                <div className='loading-bg shadow rounded-3' style={{height: "4rem", width:"min(20rem,100%)"}}></div>
+                                <div className='loading-bg shadow rounded-3' style={{height: "4rem", width:"min(40rem,100%)"}}></div>
+                                <div className='loading-bg shadow rounded-3' style={{height: "4rem", width:"min(10rem,100%)"}}></div>
+                                <div className="d-flex flex-column flex-md-row align-items-start w-100 gap-3 mt-5">
+                                    <div className='loading-bg shadow w-xs-100 w-md-50 w-lg-25 rounded-3' style={{height: "5rem", width:"min(15rem,100%)"}}></div>
+                                    <div className='loading-bg shadow w-xs-100 w-md-50 w-lg-25 rounded-3' style={{height: "5rem", width:"min(12rem,100%)"}}></div>
 
                                 </div>
-                            </Col>
-                        </Row>
-                    </Container>
-                    :
-                    <Spinner />
-                }
-
-                <div className='bg-light-gradient overflow-hidden'><Container><h3 className='mt-5 m-0 p-2 px-4 bg-secondary text-white rounded-top shadow d-inline-block'>Specs</h3></Container></div>
-                <div className='bg-secondary'>
-                    <Container className='py-5'>
-                        <Row className='text-white fs-5 g-3 m-0'>
-                        {
-                            product && productsInfo.categories && productsInfo.categories.find((category) => category.name === product.category).specs.map((spec, index) =>
-                            
-                            product.specs[spec.code] ?
-                            <Col key={"related-product-"+index} className='col-12 p-0'>
-                                <div className='d-flex flex-column align-items-start product-spec'>
-                                    <div className='p-0' style={{minWidth: "8rem"}}><div className='bg-info fw-semibold p-2 px-3 rounded-top shadow-sm text-capitalize'>{spec.name}</div></div>
-                                    <div className='w-100 border border-info border-3 shadow-sm' style={{borderRadius: "0 0.5rem 0.5rem 0.5rem"}}><div className='p-2 px-3'>{product.specs[spec.code]}</div></div>
-                                </div>
-                            </Col>
-                            : ""
-                            )
-                        }
-                        </Row>
-                    </Container>
-                </div>
 
 
-                <div className='bg-dark-gray-gradient overflow-hidden'><Container><h3 className='mt-5 m-0 p-2 px-4 bg-light rounded-top shadow d-inline-block'>Related Products</h3></Container></div>
-                <div className='d-flex align-items-start flex-column p-0 py-5 px-md-4 gap-3'>
-                    <ProductSlider variant={"light"}/>
-                </div>
+                            </div>
+                        </Col>
+                    </Row>
+                </Container>
+            }
+            </div>
+            <div className='bg-secondary position-relative page-section'>
+                <div className='position-absolute bottom-100 left-0 w-100'><Container><h3 className='mt-5 m-0 p-2 px-4 bg-secondary text-white rounded-top shadow d-inline-block'>Specs</h3></Container></div>
+                <Container className='py-5'>
+                    <Row className='text-white fs-5 g-3 m-0'>
+                    {
+                        product ?
+                        
+                        productsInfo.categories && productsInfo.categories.find((category) => category.name === product.category).specs.map((spec, index) =>
+                        
+                        product.specs[spec.code] ?
+                        <Col key={"product-spec-"+index} className='col-12 p-0'>
+                            <div className='d-flex flex-column align-items-start product-spec'>
+                                <div className='p-0' style={{minWidth: "8rem"}}><div className='bg-info fw-semibold p-2 px-3 rounded-top shadow-sm text-capitalize'>{spec.name}</div></div>
+                                <div className='w-100 border border-info border-3 shadow-sm' style={{borderRadius: "0 0.5rem 0.5rem 0.5rem"}}><div className='p-2 px-3'>{product.specs[spec.code]}</div></div>
+                            </div>
+                        </Col>
+                        : ""
+                        )
 
+                        :
+
+                        <div className='d-flex flex-column w-100 gap-5'>
+                            <div className='loading-bg shadow rounded-3 w-100' style={{height: "4rem"}}></div>
+                            <div className='loading-bg shadow rounded-3 w-100' style={{height: "4rem"}}></div>
+                            <div className='loading-bg shadow rounded-3 w-100' style={{height: "4rem"}}></div>
+                        </div>
+                    }
+                    </Row>
+                </Container>
+            </div>
+
+
+            <div className='d-flex position-relative align-items-start flex-column p-0 py-5 px-md-4 gap-3'>
+                <div className='position-absolute bottom-100 left-0 w-100'><Container><h3 className='mt-5 m-0 p-2 px-4 bg-light rounded-top d-inline-block'>Related Products</h3></Container></div>
+            {
+                product ?
+                <ProductSlider variant={"light"} products={getRelatedProducts()}/>
+                :
+                <Container>
+                    <Row className="gy-3">
+                        <Col className='col-6 col-sm-3 col-xl-2 px-2' style={{height: "18rem"}}><div className='loading-bg shadow rounded-3 w-100 h-100'></div></Col>
+                        <Col className='col-6 col-sm-3 col-xl-2 px-2' style={{height: "18rem"}}><div className='loading-bg shadow rounded-3 w-100 h-100'></div></Col>
+                        <Col className='col-6 col-sm-3 col-xl-2 px-2' style={{height: "18rem"}}><div className='loading-bg shadow rounded-3 w-100 h-100'></div></Col>
+                        <Col className='col-6 col-sm-3 col-xl-2 px-2' style={{height: "18rem"}}><div className='loading-bg shadow rounded-3 w-100 h-100'></div></Col>
+                        <Col className='col-6 col-sm-3 col-xl-2 px-2' style={{height: "18rem"}}><div className='loading-bg shadow rounded-3 w-100 h-100'></div></Col>
+                        <Col className='col-6 col-sm-3 col-xl-2 px-2' style={{height: "18rem"}}><div className='loading-bg shadow rounded-3 w-100 h-100'></div></Col>
+                    </Row>
+                </Container>
+            }
+            </div>
+
+            <div>
                 <div className='bg-light-gradient overflow-hidden'><Container><h3 className='mt-5 m-0 p-2 px-4 bg-light rounded-top shadow d-inline-block'>Reviews</h3></Container></div>
                 <div className='py-5'>
                     {
@@ -280,7 +376,11 @@ function ProductPage({})
                             </div>
                         </Container>
                         :
-                        <Spinner />
+                        <Container className='d-flex flex-column w-100 gap-5 py-5'>
+                            <div className='loading-bg shadow rounded-3 w-100' style={{height: "15rem"}}></div>
+                            <div className='loading-bg shadow rounded-3 w-100' style={{height: "4rem"}}></div>
+                            <div className='loading-bg shadow rounded-3 w-100' style={{height: "12rem"}}></div>
+                        </Container>
                     }
                 </div>
             </div>

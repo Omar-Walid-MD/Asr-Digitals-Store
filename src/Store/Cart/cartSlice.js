@@ -62,7 +62,6 @@ async (productId, {getState}) => {
     }
 });
 
-
 export const removeFromCart = createAsyncThunk(
 'cart/removeFromCart',
 async (productId, {getState}) => {
@@ -73,7 +72,6 @@ async (productId, {getState}) => {
         let updatedCart = getState().cart.cart.filter((product) => product.productId !== productId);
         res = axios.patch(`http://localhost:8899/users/${currentUserId}`,{cart: updatedCart}).then(
         (data) => data);
-        console.log(res);
         return updatedCart;
     }
     else
@@ -110,7 +108,30 @@ export const setProductCount = createAsyncThunk(
                 return localCart;
             }
         }
-    });
+});
+
+export const emptyCart = createAsyncThunk(
+    'cart/emptyCart',
+    async (productId, {getState}) => {
+        let res;
+        let currentUserId = localStorage.getItem("currentUser");
+        if(currentUserId)
+        {
+            res = axios.patch(`http://localhost:8899/users/${currentUserId}`,{cart: []}).then(
+            (data) => data);
+            return;
+        }
+        else
+        {
+            let localCart = JSON.parse(localStorage.getItem("userCart"))
+            if(localCart)
+            {
+                localCart = [];
+                localStorage.setItem("userCart",JSON.stringify(localCart));
+                return;
+            }
+        }
+}); 
 
 export const cartSlice = createSlice({
     name: "cart",
@@ -157,6 +178,21 @@ export const cartSlice = createSlice({
             state.cart = payload;
         },
         [removeFromCart.rejected]: (state) => {
+            state.loading = false;
+            console.log("rejected");
+        },
+
+        //emptyCart 
+        [emptyCart.pending]: (state) => {
+            state.loading = true
+            console.log("removing item");
+        },
+        [emptyCart.fulfilled]: (state) => {
+            state.loading = false;
+            console.log("removed item");
+            state.cart = [];
+        },
+        [emptyCart.rejected]: (state) => {
             state.loading = false;
             console.log("rejected");
         },

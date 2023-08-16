@@ -8,6 +8,7 @@ import { BsFillEraserFill, BsFillPencilFill } from 'react-icons/bs';
 import { FaSave } from "react-icons/fa";
 import { deleteUser, editUser } from '../Store/Auth/auth';
 import { useNavigate } from 'react-router';
+import { getDateString } from '../helpers';
 
 const schemas = [
     yup.object({
@@ -113,7 +114,7 @@ function ProfilePage({}) {
                 else
                 {
                     handleValidationError("");
-                    if(typeof(updatedUserData.dateOfBirth)==="object") updatedUserData.dateOfBirth = updatedUserData.dateOfBirth.toISOString().split('T')[0];
+                    if(typeof(updatedUserData.dateOfBirth)==="object") updatedUserData.dateOfBirth = getDateString(updatedUserData.dateOfBirth);
                     dispatch(editUser(updatedUserData));
                     setEdit(false);
                     setPasswordEdit({...passwordEdit,confirmPassword:""})

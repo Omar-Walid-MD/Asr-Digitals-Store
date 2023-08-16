@@ -16,11 +16,11 @@ function PurchaseCard({purchase, className=""}) {
                         </div>
                         <div className="d-flex flex-column align-items-start">
                             <p className='m-0'>{purchase.subtotal}</p>
-                            <p className='m-0'>{purchase.delivery || "0"}</p>
+                            <p className='m-0'>{purchase.deliveryFees || "0"}</p>
                             <p className='m-0 fw-semibold'>{purchase.total}</p>
                         </div>
                     </div>
-                    <h3>Status: {purchase.state}</h3>
+                    <h3>Status: {purchase.status}</h3>
                 </div>
                 <hr className='w-100 d-lg-none border-3'/>
                 <div className='w-xs-100 w-lg-50'>

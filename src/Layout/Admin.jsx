@@ -4,7 +4,7 @@ import NavBarAdmin from './NavBarAdmin';
 
 function Admin({}) {
     return (
-        <div>
+        <div className='bg-light bg-img-dashboard page-container'>
             <NavBarAdmin />
             <Outlet />
         </div>

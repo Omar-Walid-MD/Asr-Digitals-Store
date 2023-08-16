@@ -6,20 +6,26 @@ import Footer from './Layout/Footer';
 import CartSideBar from './Layout/CartSideBar';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCurrentUser, getUsers } from './Store/Auth/auth';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { getProducts, getProductsInfo } from './Store/Products/productsSlice';
 import { getCart } from './Store/Cart/cartSlice';
 import { getFavs } from './Store/Favorites/favoritesSlice';
 import { getReviews } from './Store/Reviews/reviewsSlice';
-import { getPurchases } from './Store/Purchases/purchasesSlice';
+import { getPurchases, setPurchaseState } from './Store/Purchases/purchasesSlice';
 import { getOffers } from './Store/Offers/offers';
+import ScrollToTop from './Layout/ScrollToTop';
+import { refreshPurchases } from './helpers';
 
 function App() {
 
   const dispatch = useDispatch();
   const currentUser = useSelector((store) => store.auth.currentUser);
+  const purchases = useSelector((store) => store.purchases.purchases);
+
+  const [refreshInterval,setRefreshInterval] = useState();
 
   useEffect(()=>{
+    console.log("fetching all data");
     dispatch(getUsers());
     dispatch(getProducts());
     dispatch(getProductsInfo());
@@ -32,10 +38,26 @@ function App() {
   useEffect(()=>{
     dispatch(getCart());
     dispatch(getFavs());
-  },[currentUser])
+  },[currentUser]);
+
+  // useEffect(()=>{
+  //   if(purchases.length && !refreshInterval)
+  //   {
+
+  //     console.log(purchases);
+  //     setRefreshInterval(
+  
+  //       setInterval(() => {
+  //       console.log("refresh");
+  //       refreshPurchases(purchases,(purchase)=>{
+  //         dispatch(setPurchaseState({purchase,status:"success"}))})
+  //     }, 5000));
+  //   }
+  // },[purchases])
 
   return (
     <div className="App">
+      <ScrollToTop />
       <Outlet />
     </div>
   );

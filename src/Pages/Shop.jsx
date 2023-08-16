@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Accordion, Button, Col, Container, Dropdown, DropdownButton, Row } from 'react-bootstrap';
+import { Accordion, Button, Col, Container, Dropdown, DropdownButton, Row, Spinner } from 'react-bootstrap';
 import ProductCard from '../Components/ProductCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProducts } from '../Store/Products/productsSlice';
@@ -14,15 +14,13 @@ function Shop({}) {
     const products = useSelector((store) => store.products.products);
     const productsInfo = useSelector((store) => store.products.productsInfo);
     const dispatch = useDispatch();
+    const [searchParams] = useSearchParams();
 
-    const [filters,setFilters] = useState({categories:[], minPrice: 0, maxPrice: 5000, specs:{}});
+    const [filters,setFilters] = useState({categories:[searchParams.get("cat")], minPrice: 0, maxPrice: 5000, specs:{}});
     const [specFilterOptions,setSpecFilterOptions] = useState({});
     const [sort,setSort] = useState({type: "alphabetical",order: "asc"});
     const [resultsCount,setResultsCount] = useState(12);
     const [filteredProducts,setFilteredProducts] = useState(products);
-
-    const [searchParams] = useSearchParams();
-
 
     function handleFilterCategories(category)
     {
@@ -131,22 +129,39 @@ function Shop({}) {
         setSpecFilterOptions(getSpecFilterOptions(products));
     },[filters, sort, products, productsInfo]);
 
+    useEffect(()=>{
+        if(productsInfo.categories)
+        {
+            if(searchParams.get("gr"))
+            {
+                if(productsInfo.categoryGroups[searchParams.get("gr")])
+                setFilters({...filters,categories:[...productsInfo.categoryGroups[searchParams.get("gr")]]});
+            }
+            else if(searchParams.get("cat"))
+            {
+                if(productsInfo.categories.find((category) => category.name === searchParams.get("cat")))
+                setFilters({...filters,categories:[searchParams.get("cat")]});
+            }
+        }
+    },[searchParams, productsInfo])
+
 
     return (
         <div className='page-container bg-light p-sm-1 px-sm-3'>
             <Container className='px-2'>
                 <h2 className='mt-5 mb-2'>Shop</h2>
                 {searchParams.get("search") ? <h5 className='text-muted mt-2'>Search results for "{searchParams.get("search")}"</h5> : ""}
-                {searchParams.get("cat") ? <h5 className='text-muted mt-2'> Shopping for <span className='text-capitalize'>{searchParams.get("cat")+"s"}</span></h5> : ""}
+                {searchParams.get("gr") ? <h5 className='text-muted mt-2'> Shopping for <span className='text-capitalize'>{searchParams.get("gr")} Products</span></h5> :
+                 searchParams.get("cat") ? <h5 className='text-muted mt-2'> Shopping for <span className='text-capitalize'>{searchParams.get("cat")+"s"}</span></h5> : ""}
             </Container>
 
             <hr className='border-3 mb-4' />
             <div>
                 <Row className='m-0 g-0 gy-3 gy-md-0 gx-sm-4 pb-4' >
                     <Col className='col-12 col-md-4 col-xl-3 d-flex flex-column align-items-start p-0 px-lg-2 z-1'>
-                        <Accordion alwaysOpen defaultActiveKey={["0","1"]} className='shop-filter-accordion w-100 rounded-sm-2 shadow'>
+                        <Accordion alwaysOpen defaultActiveKey={["0","1"]} className='shop-filter-accordion w-100 rounded-bottom overflow-hidden shadow'>
                             <Accordion.Item eventKey="0" className='border-0 bg-light'>
-                                <Accordion.Header className='bg-white w-100 rounded-top border-bottom border-2'>
+                                <Accordion.Header className='bg-white w-100 rounded-top border-bottom border-2 px-3 py-2'>
                                     <h3>Filters</h3>
                                 </Accordion.Header>
                                 <Accordion.Body className='px-0 pb-5'>
@@ -187,7 +202,7 @@ function Shop({}) {
                                             <h5 className='me-1 m-0'>Specs</h5>
                                             <Row className='gy-2'>
                                             {
-                                                specFilterOptions && Object.keys(specFilterOptions).map((spec) =>
+                                                specFilterOptions ? Object.keys(specFilterOptions).map((spec) =>
                                                 
                                                 <Col className='col-12'>
                                                     <Dropdown autoClose="outside">
@@ -206,6 +221,12 @@ function Shop({}) {
                                                     </Dropdown>
                                                 </Col>
                                                 )
+                                                :
+                                                [1,2,3,4,5].map((n) =>
+                                                <Col className='col-12'>
+                                                    <div className='loading-bg w-100 rounded-3 shadow' style={{height: "2.2rem"}}></div>
+                                                </Col>
+                                                )
                                             }
                                             </Row>
                                         </div>
@@ -214,7 +235,7 @@ function Shop({}) {
                             </Accordion.Item>
 
                             <Accordion.Item eventKey="1" className='border-0 bg-light'>
-                                <Accordion.Header className='bg-white w-100'>
+                                <Accordion.Header className='bg-white w-100 px-3 py-2'>
                                     <h3>Sort</h3>
                                 </Accordion.Header>
                                 <Accordion.Body className='px-0 border-top border-2'>
@@ -240,18 +261,33 @@ function Shop({}) {
                         </Accordion>
                         
                     </Col>
-                    <Col className='col-12 col-md-8 col-xl-9 p-0 ps-md-2 px-lg-1'>
-                        <Row className='g-0 p-0 p-sm-3 shadow rounded-3 w-100 m-0'>
+                    {
+                        filteredProducts.length ?
+                        <Col className='col-12 col-md-8 col-xl-9 p-0 ps-md-2 px-lg-1'>
+                            <Row className='g-0 p-0 p-sm-3 shadow rounded-3 w-100 m-0'>
+                                {
+                                    filteredProducts && filteredProducts.slice(0,resultsCount).map((product) =>(
+                                        <Col className='col-6 col-sm-4 col-xl-3 p-1 p-xl-2'>
+                                            <ProductCard productObject={product} key={`shop-page-${product.id}`} />
+                                        </Col>                                
+                                    ))
+                                }
+                                {filteredProducts && resultsCount < filteredProducts.length ? <Col className='col-12 mb-2 mt-2 mt-sm-4'><Button variant='dark' className='btn-dark w-100 5' onClick={()=>setResultsCount(c => c+12)}>Load More</Button></Col> : ""}
+                            </Row>
+                        </Col>
+                        :
+                        <Col className='col-12 col-md-8 col-xl-9 p-0 ps-md-2 px-lg-1'>
+                            <Row className='g-0 p-0 p-sm-3 shadow rounded-3 w-100 m-0'>
                             {
-                                filteredProducts && filteredProducts.slice(0,resultsCount).map((product) =>(
-                                    <Col className='col-6 col-sm-4 col-xl-3 p-1 p-xl-2'>
-                                        <ProductCard productObject={product} key={`shop-page-${product.id}`} />
-                                    </Col>                                
-                                ))
+                                [1,2,3,4,5,6,7,8].map((n) =>
+                                <Col className='col-6 col-sm-4 col-xl-3 p-1 p-xl-2'>
+                                    <div className='loading-bg w-100 rounded-3 shadow' style={{height: "25rem"}}></div>
+                                </Col>
+                                )
                             }
-                            {products && resultsCount < products.length ? <Col className='col-12 mb-2 mt-2 mt-sm-4'><Button variant='dark' className='btn-dark w-100 5' onClick={()=>setResultsCount(c => c+12)}>Load More</Button></Col> : ""}
-                        </Row>
-                    </Col>
+                            </Row>
+                        </Col>
+                    }
                 </Row>
             </div>
         </div>

@@ -7,7 +7,7 @@ function ProductReview({review})
     const user = useSelector((store)=>store.auth.users.find((user) => user.id === review.userId));
     
     return (
-        <Row className="w-100 border-3 border-bottom border-secondary-subtle rounded-3 p-3 shadow-sm gy-3">
+        <Row className="w-100 bg-white-gradient border-3 border-bottom border-secondary-subtle rounded-3 p-3 shadow-sm gy-3">
             <Col className="col-12 col-md-2 col-lg-1 d-flex flex-row flex-md-column gap-3">
                 <BsFillPersonFill className='bg-light rounded-3 fs-1 shadow-sm border border-2 border-dark' />
                 <div className="d-flex flex-column">

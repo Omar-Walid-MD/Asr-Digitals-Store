@@ -41,11 +41,11 @@ function CartSideBar() {
         <Button variant="primary" onClick={handleClose} className='cart-sidebar-btn btn-in position-absolute bg-secondary border-4 border-light border-end-0'>
             <BsFillCartFill />
         </Button>
-        <div className='overflow-hidden'>
+        <div className='overflow-hidden h-100 d-flex flex-column justify-content-between'>
             <Offcanvas.Header closeButton className='bg-secondary text-white shadow' closeVariant='white'>
             <Offcanvas.Title><h4>Cart</h4></Offcanvas.Title>
             </Offcanvas.Header>
-            <Offcanvas.Body className='p-1 p-sm-3'>
+            <Offcanvas.Body className='p-1 p-sm-3 '>
                 <Row className='g-0 gy-sm-4 m-0 mx-sm-2 pt-2'>
                 {
                     cart.length ? cart.map((product,index) =>(
