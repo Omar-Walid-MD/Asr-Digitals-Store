@@ -7,10 +7,10 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import ProductInfoRow from '../../Components/ProductInfoRow';
-import { BsCaretDown, BsCaretDownFill, BsCaretUpFill, BsPlus, BsStarFill, BsCheck } from 'react-icons/bs';
-import { getCapitalized, makeUniqueId } from '../../helpers';
+import { BsCaretDown, BsCaretDownFill, BsCaretUpFill, BsPlus, BsStarFill, BsCheck, BsFillPhoneFill } from 'react-icons/bs';
+import { getCapitalized, makeUniqueId, onImgError } from '../../helpers';
 import TwoRangeSlider from '../../Components/TwoRangeSlider';
-
+import { BiSolidCopy } from 'react-icons/bi';
 const schema = yup
   .object({
     title: yup.string().required("Please enter a product title..."),
@@ -36,8 +36,10 @@ function ManageProducts({}) {
     const [productToEdit,setProductToEdit] = useState();
     const [productToDelete,setProductToDelete] = useState();
 
+    const initialFilters = {search:"",categories:[], minPrice: 0, maxPrice: 5000, specs:{}};
+
     const [formMode,setFormMode] = useState("add");
-    const [filters,setFilters] = useState({search:"",categories:[], minPrice: 0, maxPrice: 5000, specs:{}});
+    const [filters,setFilters] = useState(initialFilters);
     const [specFilterOptions,setSpecFilterOptions] = useState({});
     const [filteredProducts,setFilteredProducts] = useState(products);
     const [sort,setSort] = useState({type: "id",order: "asc"});
@@ -262,31 +264,41 @@ function ManageProducts({}) {
 
     return (
         <div className='py-3 px-0 p-md-3'>
-            <Container className='px-2'> <h2 className='mt-5 mb-2'>Manage Products</h2> </Container>
+            <div className="d-flex mt-4 ps-4 gap-1 gap-sm-3 align-items-end justify-content-center justify-content-md-start">
+                <BsFillPhoneFill fontSize={"5rem"}/>
+                <h2 className='mt-5 mb-2'>Manage Products</h2>
+            </div>
             <hr className='border-3' />
-            <Accordion className='w-100 rounded-sm-2'>
-                <Accordion.Item eventKey="0" className='border-0 bg-light'>
-                    <Accordion.Header className='w-100 rounded-sm-3 bg-secondary px-3 py-2 text-white arrow-white'>
+            <Accordion className='w-100 rounded-md-3'>
+                <Accordion.Item eventKey="0" className='border-0 bg-transparent'>
+                    <Accordion.Header className='w-100 rounded-md-3 bg-secondary px-3 py-2 text-white arrow-white'>
                         <h4 className='text-white m-0'>Filters</h4>
                     </Accordion.Header>
-                    <Accordion.Body className='px-0 pt-2'>
-                        <div className='d-flex bg-secondary rounded-sm-3 p-3 d-flex flex-column justify-content-between align-items-start gap-2'>
+                    <Accordion.Body className='px-0 pt-2 pb-0'>
+                        <div className='d-flex bg-secondary rounded-md-3 p-3 d-flex flex-column justify-content-between align-items-start gap-2'>
                             <div className='d-flex flex-column w-100  gap-2 align-items-start'>
-                                <h5 className='me-1 m-0 text-white'>Search</h5>
-                                <Form.Control type="search" placeholder="Search Products"  value={filters.search} onChange={(e)=>{setFilters({...filters,search:e.target.value})}} />
-                                <hr className='w-100 border-white border-2 my-2 mb-1' />
-                                <h5 className='me-1 m-0 text-white'>Price</h5>
-                                <div style={{width: "min(30rem,85vw)"}} className='fs-4'>
-                                    <TwoRangeSlider minValue={filters.minPrice} maxValue={filters.maxPrice}
-                                    minLimit={0} maxLimit={5000} snap={100}
-                                    setMin={(value)=>{setFilters(prev => ({...prev,minPrice:value}));}}
-                                    setMax={(value)=>{setFilters(prev => ({...prev,maxPrice:value}));}} 
-                                    labelClassName={"text-white"}/>
+                                <div className="d-flex flex-column flex-sm-row w-100 gap-5">
+                                    <div className='w-100'>
+                                        <p className='me-1 m-0 text-white fw-semibold mb-2'>Search</p>
+                                        <Form.Control type="search" placeholder="Search Products"  value={filters.search} onChange={(e)=>{setFilters({...filters,search:e.target.value})}} />
+                                    </div>
+                                    <div className='w-100'>
+                                        <p className='me-1 m-0 text-white fw-semibold mb-2'>Price</p>
+                                        <div style={{width: "min(30rem,100%)"}} className='fs-4'>
+                                            <TwoRangeSlider minValue={filters.minPrice} maxValue={filters.maxPrice}
+                                            minLimit={0} maxLimit={5000} snap={100}
+                                            setMin={(value)=>{setFilters(prev => ({...prev,minPrice:value}));}}
+                                            setMax={(value)=>{setFilters(prev => ({...prev,maxPrice:value}));}} 
+                                            labelClassName={"text-white"}/>
 
+                                        </div>
+
+                                    </div>
                                 </div>
+                                {/* <hr className='w-100 border-white border-2 my-2 mb-1' /> */}
                                 <hr className='w-100 border-white border-2 my-2 mb-1' />
                                 <div className='d-flex flex-column gap-2'>
-                                    <h5 className='m-0 text-white'>Categories</h5>
+                                    <p className='m-0 text-white fw-semibold'>Categories</p>
                                     <div>
                                         <Row className='gy-2 m-0'>
                                         {
@@ -299,7 +311,7 @@ function ManageProducts({}) {
                                 </div>
                                 <hr className='w-100 border-white border-2 my-2 mb-1' />
                                 <div className='d-flex flex-column gap-2'>
-                                    <h5 className='me-1 m-0 text-white'>Specs</h5>
+                                    <p className='me-1 m-0 text-white fw-semibold'>Specs</p>
                                     <Row className='gy-2 m-0'>
                                     {
                                         specFilterOptions && Object.keys(specFilterOptions).map((spec) =>
@@ -325,17 +337,18 @@ function ManageProducts({}) {
                                     </Row>
                                 </div>
                             </div>
-                        
+                            <hr className='w-100 border-white border-2 my-2 mb-1' />
+                            <Button className='bg-transparent border-0 text-info p-0' onClick={()=>{setFilters(initialFilters)}}>Clear</Button>
                         </div>
                     </Accordion.Body>
                 </Accordion.Item>
             </Accordion>
             
-            <div className='rounded-sm-3 overflow-hidden my-3'><Button variant="primary" className='w-100 d-flex  p-1 px-2 align-items-center justify-content-center fs-5 rounded-0' onClick={startAddProduct}><BsPlus className='fs-2'/> Add Product</Button></div>
+            <div className='rounded-3 m-3 overflow-hidden'><Button variant="primary" className='w-100 d-flex main-button border-0 p-1 px-2 align-items-center justify-content-center fs-5 rounded-0' onClick={startAddProduct}><BsPlus className='fs-2'/> Add Product</Button></div>
 
             <div className="d-flex flex-column product-info-row-group pb-5 scrollbar light" onScroll={handleOptionsScroll}>
                 <div className='d-flex flex-column gap-3 text-white'>
-                    <Row className='bg-secondary shadow rounded-sm-3 py-2 px-0 m-0 product-info-row'>
+                    <Row className='bg-secondary shadow rounded-md-3 py-2 px-0 m-0 product-info-row'>
                         <Col className='col-1 pe-0'>
                             <Button variant="transparent" className='w-100 text-white d-flex align-items-center justify-content-between' onClick={()=>{handleSort("id")}}>
                                 ID
@@ -421,7 +434,7 @@ function ManageProducts({}) {
                                             <Col className='col-12 col-sm-6'>
                                                 <div className="d-flex flex-column">
                                                     <div className='d-flex align-items-center justify-content-center border border-bottom-0 rounded-top shadow-sm p-2 position-relative' style={{height: "200px", aspectRatio: "1"}}>
-                                                        <img className="h-100" src={productPreviewImage} onError={(e)=>{e.target.src = require("../../img/image-placeholder.png")}} />
+                                                        <img className="h-100" src={productPreviewImage} onError={onImgError} />
                                                         <span className='position-absolute bottom-0 left-0 text-muted m-2' style={{fontSize:"0.8rem"}}>Image Preview</span>
                                                     </div>
                                                     <FloatingLabel controlId="floatingProductImage" label="Product Image Link">
@@ -597,8 +610,8 @@ function ManageProducts({}) {
                 </Modal.Body>
                 <Modal.Footer className='position-sticky z-2 bottom-0 bg-white'>
                     <div className="d-flex align-items-center w-100 gap-2">
-                        <Button form={`product-management-${formMode}`} className='w-100 text-capitalize' type='submit'>{formMode} product</Button>
-                        <Button variant="danger" onClick={handleFormModalClose}>Discard</Button>
+                        <Button form={`product-management-${formMode}`} className='w-100 main-button border-0 text-capitalize' type='submit'>{formMode} product</Button>
+                        <Button variant="danger" className='main-button border-0' onClick={handleFormModalClose}>Discard</Button>
                     </div>
                 </Modal.Footer>
             </Modal>
@@ -625,7 +638,12 @@ function ManageProducts({}) {
                     productToShow ?
                     <div>
                         <Row>
-                            <Col className='col-12 col-sm-4 h-100 p-0 d-flex justify-content-center p-3'><img className='rounded-3' style={{width: "min(100%,75vw"}} src={productToShow.image} alt="" /></Col>
+                            <Col className='col-12 col-sm-4 h-100 p-0 d-flex justify-content-center p-2 position-relative'>
+                                <div className='position-relative'>
+                                    <img className='rounded-3' style={{width: "min(100%,75vw"}} src={productToShow.image} onError={onImgError} alt="" />
+                                    <Button className='position-absolute m-2 top-0 right-0 bg-white border-0 text-secondary d-flex p-1 shadow-sm' onClick={()=>{navigator.clipboard.writeText(productToShow.image);}}><BiSolidCopy className='fs-2' /></Button>
+                                </div>
+                            </Col>
                             <Col className='col-12 col-sm-8 h-100'>
                                 <div className="d-flex flex-column justify-content-between h-100 product-page-col">
                                     <div className='d-flex flex-column gap-2'>
@@ -669,7 +687,7 @@ function ManageProducts({}) {
                 }
                 </Modal.Body>
                 <Modal.Footer className='position-sticky z-2 bottom-0 bg-white'>
-                    <Button variant="secondary" onClick={handleShowModalClose}>Close</Button>
+                    <Button variant="secondary" className='main-button border-0' onClick={handleShowModalClose}>Close</Button>
                 </Modal.Footer>
             </Modal>
         </div>

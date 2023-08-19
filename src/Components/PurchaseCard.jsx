@@ -5,8 +5,11 @@ import ProductCartItemOverview from '../Components/ProductCartOverViewItem';
 function PurchaseCard({purchase, className=""}) {
     return (
         <div className={`p-3 ${className}`}>
-            <p>{new Date(purchase.date).toLocaleDateString()}</p>
-            <div className='d-flex flex-column flex-lg-row align-items-start justify-content-between'>
+            <p className='m-0'>ID: {purchase.id}</p>
+            <p className='m-0'>User ID: {purchase.userId}</p>
+            <p className='m-0'>{new Date(purchase.date).toLocaleDateString("en")}</p>
+
+            <div className='d-flex flex-column flex-lg-row align-items-start justify-content-between mt-3'>
                 <div>
                     <div className='d-flex gap-4 rounded-3  mb-3'>
                         <div className="d-flex flex-column align-items-start">
@@ -15,12 +18,12 @@ function PurchaseCard({purchase, className=""}) {
                             <p className='m-0 fw-semibold'>Total fees:</p>
                         </div>
                         <div className="d-flex flex-column align-items-start">
-                            <p className='m-0'>{purchase.subtotal}</p>
-                            <p className='m-0'>{purchase.deliveryFees || "0"}</p>
-                            <p className='m-0 fw-semibold'>{purchase.total}</p>
+                            <p className='m-0 price-tag'>{purchase.subtotal}</p>
+                            <p className='m-0 price-tag'>{purchase.deliveryFees || "0"}</p>
+                            <p className='m-0 price-tag fw-semibold'>{purchase.total}</p>
                         </div>
                     </div>
-                    <h3>Status: {purchase.status}</h3>
+                    <h5 className={`status ${purchase.status}`}>Status: {purchase.status}</h5>
                 </div>
                 <hr className='w-100 d-lg-none border-3'/>
                 <div className='w-xs-100 w-lg-50'>
@@ -76,6 +79,7 @@ function PurchaseCard({purchase, className=""}) {
                                 <h6 className='m-0'>Purchase Order</h6>
                             </Accordion.Header>
                             <Accordion.Body className='px-0'>
+                            <p className='fw-semibold'>Order Count: {purchase.orderCount}</p>
                             {
                                 <div className='overflow-x-scroll scrollbar light'>
                                     <div style={{width: "500px"}}>

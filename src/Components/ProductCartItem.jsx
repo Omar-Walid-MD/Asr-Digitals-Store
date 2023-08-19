@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { addToCart, removeFromCart, setProductCount } from '../Store/Cart/cartSlice';
 import { addToFav, getFavs, removeFromFav } from '../Store/Favorites/favoritesSlice';
+import { onImgError, throttle } from '../helpers';
 
 function ProductCartItem({productObject,productId,className}) {
 
@@ -13,13 +14,13 @@ function ProductCartItem({productObject,productId,className}) {
     const cart = useSelector((store) => store.cart.cart);
     const favorites = useSelector((store) => store.favorites.favorites);
     const products = useSelector((store) => store.products.products);
+    const offers = useSelector((store) => store.offers.offers);
     const dispatch = useDispatch();
 
     const [added,setAdded] = useState(false);
     const [count, setCount] = useState(1);
     const [favorite,setFavorite] = useState(false);
-
-    const [firstCountSet,setFirstCountSet] = useState(false);
+    const [offerPrice,setOfferPrice] = useState(0);
 
     function getCount()
     {
@@ -53,9 +54,17 @@ function ProductCartItem({productObject,productId,className}) {
     },[product,cart]);
 
 
+    // useEffect(()=>{
+    //     if(product) setFavorite(favorites.includes(product.id));
+    // },[favorites, product]);
+
     useEffect(()=>{
-        if(product) setFavorite(favorites.includes(product.id));
-    },[favorites, product]);
+        if(product && offers)
+        {
+            let availableOffer = offers.find((offer) => offer.productId === product.id);
+            if(availableOffer) setOfferPrice(availableOffer.newPrice);
+        }
+    },[offers,product])
 
     return (
         <Card className={`h-100 position-relative product-cart-item shadow border border-1 rounded-2 ${className}`}>
@@ -67,7 +76,7 @@ function ProductCartItem({productObject,productId,className}) {
                         <Col className='col-6 col-sm-5 p-sm-0'>
                             <Link to={`/product/${product.id}`} className='w-100 h-100 d-flex justify-content-center align-items-start align-items-md-center p-3'>
                                 <div className='product-card-img position-relative overflow-hidden rounded-3' style={{width:"min(20rem,40vw)"}}>
-                                    <img src={product.image} />
+                                    <img src={product.image} onError={onImgError} />
                                 </div>
                             </Link>
                         </Col>
@@ -88,19 +97,27 @@ function ProductCartItem({productObject,productId,className}) {
                                             )
                                         }
                                         </div>
-                                        <h5 className='m-0 mt-1 mb-2 price-tag text-danger'>{product.price}</h5>
+                                        {
+                                            offerPrice ?
+                                            <div className='mt-1 mb-2'>
+                                                <h6 className='m-0 price-old price-tag text-muted'>{product.price}</h6>
+                                                <h4 className='m-0 price-tag text-danger'>{offerPrice}</h4>
+                                            </div>
+                                            :
+                                            <h4 className='m-0 mt-1 mb-2 price-tag text-danger'>{product.price}</h4>
+                                        }
                                     </div>
                                 </div>
                                 <div className="justify-content-between align-items-start align-items-sm-end flex-column flex-sm-row product-cart-item-bottom-row above-small gap-4 gap-sm-0">
                                     <div className="d-flex flex-column align-items-center gap-2">
                                         <div className='d-flex align-items-center w-100 product-cart-item-options'>
-                                            <Button className='d-flex align-items-center h-100 rounded-start-3 rounded-0 border-2 px-1' onClick={()=>{handleCount(count-1)}}> <BsCaretLeftFill/> </Button>
+                                            <Button className='d-flex align-items-center h-100 rounded-start-3 rounded-0 border-2 px-1' onClick={()=>{throttle(handleCount(count-1),1000)}}> <BsCaretLeftFill/> </Button>
                                             <input type="number" className="d-flex h-100 rounded-0 fs-5 text-center border-2 border-primary bg-transparent text-primary" min={0} max={10} value={count} onChange={(e)=>{handleCount(e.target.value)}} />
-                                            <Button className='d-flex align-items-center h-100 rounded-end-3 rounded-0 border-2 px-1' onClick={()=>{handleCount(count+1)}}> <BsCaretRightFill/> </Button>
+                                            <Button className='d-flex align-items-center h-100 rounded-end-3 rounded-0 border-2 px-1' onClick={()=>{throttle(handleCount(count+1),1000)}}> <BsCaretRightFill/> </Button>
                                         </div>
-                                        <Button variant='danger' className='product-cart-item-options d-flex align-items-center justify-content-center p-1 w-100 btn-danger border-2 gap-2 rounded-3 shadow'  onClick={()=>{dispatch(removeFromCart(productId)); setAdded(false);}}><BsFillCartDashFill className='fs-4' /> Remove</Button>
+                                        <Button variant='danger' className='product-cart-item-options d-flex align-items-center justify-content-center p-1 w-100 btn-danger border-0 gap-2 rounded-3 shadow main-button'  onClick={()=>{throttle((()=>{dispatch(removeFromCart(product.id));setAdded(false);})(),1000);}}><BsFillCartDashFill className='fs-4' /> Remove</Button>
                                     </div>
-                                    <h2 className='m-0 p-0 price-tag text-danger'>{product.price * count}</h2>
+                                    <h2 className='m-0 p-0 price-tag text-danger'>{(offerPrice || product.price) * count}</h2>
                                 </div>
                             </div>
                         </Col>
@@ -108,13 +125,13 @@ function ProductCartItem({productObject,productId,className}) {
                             <div className="d-flex flex-column align-items-center justify-content-between gap-2 w-100">
                                 <div className="d-flex flex-column align-items-center gap-2 w-100">
                                     <div className='d-flex justify-content-center w-100 product-cart-item-options'>
-                                        <Button className='d-flex justify-content-center h-100 rounded-start-3 rounded-0 border-2 px-1' onClick={()=>{handleCount(count-1)}}> <BsCaretLeftFill/> </Button>
+                                        <Button className='d-flex justify-content-center h-100 rounded-start-3 rounded-0 border-2 px-1' onClick={()=>{throttle(handleCount(count-1),1000)}}> <BsCaretLeftFill/> </Button>
                                         <input type="number" className="d-flex h-100 w-100 rounded-0 text-center border-2 border-primary bg-transparent text-primary" min={0} max={10} value={count} onChange={(e)=>{handleCount(e.target.value)}}  />
-                                        <Button className='d-flex align-items-center h-100 rounded-end-3 rounded-0 border-2 px-1' onClick={()=>{handleCount(count+1)}}> <BsCaretRightFill/> </Button>
+                                        <Button className='d-flex align-items-center h-100 rounded-end-3 rounded-0 border-2 px-1' onClick={()=>{throttle(handleCount(count+1),1000)}}> <BsCaretRightFill/> </Button>
                                     </div>
-                                    <Button variant='danger' className='product-cart-item-options d-flex w-100 align-items-center justify-content-center p-1 w-100 btn-danger border-2 gap-2 rounded-3 shadow'  onClick={()=>{dispatch(removeFromCart(productId)); setAdded(false);}}><BsFillCartDashFill className='fs-4' /> Remove</Button>
+                                    <Button variant='danger' className='product-cart-item-options d-flex w-100 align-items-center justify-content-center p-1 w-100 btn-danger border-0 gap-2 rounded-3 shadow main-button'  onClick={()=>{dispatch(removeFromCart(productId)); setAdded(false);}}><BsFillCartDashFill className='fs-4' /> Remove</Button>
                                 </div>
-                                <h1 className='m-0 p-0 price-tag text-danger'>{product.price * count}</h1>
+                                <h1 className='m-0 p-0 price-tag text-danger'>{(offerPrice || product.price) * count}</h1>
                             </div>
                         </Col>
                     </Row>

@@ -9,24 +9,28 @@ function ProductSlider({className, variant="dark", style, products=[]}) {
 
     function handleProducts(products)
     {
-      let output = <>
+      let output =
+      <>
+        <div key={"product-carousel-product-1"} className='d-flex align-items-stretch gap-2 gap-md-4'>
         {
-          products.map((product,index) => 
+          Array.from({length:products.length/2}).map((x,index) => 
           
-            index % 2 === 0
-            &&
-            <div key={"product-carousel-product-"+product.id+"-"+index} className='d-flex align-items-start flex-column flex-md-row gap-2 gap-md-4'>
-              <div style={{width:"min(12rem,50vw)"}} className="h-100">
-                <ProductCard productObject={product} className="w-100 h-100" />
-                </div>
-              {
-                index+1 < products.length && 
-                <div style={{width:"min(12rem,50vw)"}} className="h-100">
-                  <ProductCard productObject={products[index+1]} className="w-100 h-100" />
-                </div>}
-            </div>          
+            <div style={{width:"min(12rem,50vw)"}} className="">
+              <ProductCard productObject={products[index*2]} className="w-100 h-100" />
+            </div>
           )
         }
+        </div>
+        <div key={"product-carousel-product-2"} className='d-flex align-items-stretch gap-2 gap-md-4'>
+        {
+          Array.from({length:products.length/2}).map((x,index) => 
+          
+            <div style={{width:"min(12rem,50vw)"}} className="">
+              <ProductCard productObject={products[index*2+1]} className="w-100 h-100" />
+            </div>
+          )
+        }
+        </div>
       </>;
       
       return output;
@@ -44,3 +48,20 @@ function ProductSlider({className, variant="dark", style, products=[]}) {
 }
 
 export default ProductSlider;
+
+
+{/* // products.map((product,index) => 
+        
+        //   index % 2 === 0
+        //   &&
+        //   <div key={"product-carousel-product-"+product.id+"-"+index} className='d-flex align-items-center flex-column flex-md-row gap-2 gap-md-4'>
+        //     <div style={{width:"min(12rem,50vw)"}} className="h-100">
+        //       <ProductCard productObject={product} className="w-100 h-100" />
+        //       </div>
+        //     {
+        //       index+1 < products.length && 
+        //       <div style={{width:"min(12rem,50vw)"}} className="h-100">
+        //         <ProductCard productObject={products[index+1]} className="w-100 h-100" />
+        //       </div>}
+        //   </div>          
+        // ) */}

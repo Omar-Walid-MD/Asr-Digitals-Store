@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { addToCart, removeFromCart, setProductCount } from '../Store/Cart/cartSlice';
 import { addToFav, getFavs, removeFromFav } from '../Store/Favorites/favoritesSlice';
+import { onImgError } from '../helpers';
 
 function ProductCartItemOverview({productObject,productId,productCount,productPrice,className}) {
 
@@ -13,11 +14,11 @@ function ProductCartItemOverview({productObject,productId,productCount,productPr
     const cart = useSelector((store) => store.cart.cart);
     const favorites = useSelector((store) => store.favorites.favorites);
     const products = useSelector((store) => store.products.products);
+    const offers = useSelector((store) => store.offers.offers);
     const dispatch = useDispatch();
 
     const [count, setCount] = useState(1);
-
-    const [firstCountSet,setFirstCountSet] = useState(false);
+    const [offerPrice,setOfferPrice] = useState(0);
 
     function getCount()
     {
@@ -39,6 +40,14 @@ function ProductCartItemOverview({productObject,productId,productCount,productPr
         }
     },[product,cart]);
 
+    useEffect(()=>{
+        if(product && offers)
+        {
+            let availableOffer = offers.find((offer) => offer.productId === product.id);
+            if(availableOffer) setOfferPrice(availableOffer.newPrice);
+        }
+    },[offers,product])
+
 
 
     return (
@@ -52,7 +61,7 @@ function ProductCartItemOverview({productObject,productId,productCount,productPr
                             <Link to={`/product/${product.id}`} className='w-100 h-100 d-flex justify-content-center align-items-center p-2'>
                                 <div className='product-card-img position-relative overflow-hidden rounded-1'>
                                     <div className='w-100 h-100 d-flex justify-content-center align-items-center position-relative'>
-                                        <img className='position-absolute' src={product.image} />
+                                        <img className='position-absolute' src={product.image} onError={onImgError} />
                                     </div>
                                 </div>
                             </Link>
@@ -61,10 +70,10 @@ function ProductCartItemOverview({productObject,productId,productCount,productPr
                             <h5 className='m-0'>{product.title}</h5>
                         </Col>
                         <Col className="col-3 p-2 d-flex align-items-center">
-                            <h5 className='m-0 mt-1 mb-2 price-tag text-danger fw-bold d-flex align-items-end'>{productCount || count} <BsX/> {(productPrice || product.price)}</h5>
+                            <h5 className='m-0 mt-1 mb-2 price-tag text-danger fw-bold d-flex align-items-end'>{productCount || count} <BsX/> {(productPrice || offerPrice || product.price)}</h5>
                         </Col>
                         <Col className="col-3 p-2 d-flex align-items-center">
-                            <h4 className='m-0 p-0 price-tag text-danger'>{(productPrice || product.price) * (productCount || count)}</h4>
+                            <h4 className='m-0 p-0 price-tag text-danger'>{(productPrice || offerPrice || product.price) * (productCount || count)}</h4>
                         </Col>
                     </Row>
                 </Card.Body>

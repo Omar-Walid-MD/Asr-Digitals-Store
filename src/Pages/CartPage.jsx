@@ -6,26 +6,34 @@ import { getCart } from '../Store/Cart/cartSlice';
 import { getProducts } from '../Store/Products/productsSlice';
 import { getCartTotalPrice, getTotalFees } from '../helpers';
 import ProductCartItem from '../Components/ProductCartItem';
+import { BiSolidShoppingBag } from 'react-icons/bi';
+import { BsFillCartFill } from 'react-icons/bs';
 
 function CartPage({}) {
 
     const products = useSelector((store) => store.products.products);
     const productsInfo = useSelector((store) => store.products.productsInfo);
     const cart = useSelector((store) => store.cart.cart);
+    const offers = useSelector((store) => store.offers.offers);
     const location = useLocation();
-    
+
     const [fees, setFees]  = useState({subtotal:0,delivery:0,total:0});
 
     useEffect(()=>{
-        if(products && cart && productsInfo) setFees(getTotalFees(cart,products,productsInfo));
-    },[cart,products,productsInfo]);
+        if(products && cart && productsInfo && offers) setFees(getTotalFees(cart,products,productsInfo,offers));
+    },[cart,products,productsInfo,offers]);
   
 
 
     return (
-        <div className='bg-light py-3 px-0 p-md-3'>
-            <Container className='px-2'> <h2 className='mt-5 mb-2'>Cart</h2> </Container>
-            <hr className='border-3' />
+        <div className='page-container bg-light p-sm-1 px-sm-3'>
+            <div className="d-flex ps-4 pt-4 gap-1 gap-sm-3 align-items-end justify-content-center justify-content-md-start">
+                <BsFillCartFill fontSize={"5rem"}/>
+                <div>
+                    <h2 className='mt-5 mb-2'>Cart</h2>
+                </div>
+            </div>
+            <hr className='border-3 mb-4' />
             <div className='pb-2'>
                 <Row className='m-0'>
                     <Col className={`col-12 mb-4 m-md-0 ${cart.length ? "col-lg-8" : ""}`}>
@@ -61,13 +69,6 @@ function CartPage({}) {
                         </div>
                     </Col>
                 </Row>
-                {/* <h2 className='my-4 bg-secondary text-white p-3 px-5 mb-3 mb-sm-2 rounded-sm-3 rounded-bottom-0 shadow d-sm-inline-block'>Cart</h2> */}
-                {/* <div className="d-flex justify-content-end w-100">
-                    <div className='p-4 w-xs-100 w-sm-50 d-flex flex-column flex-md-row align-items-center justify-content-between gap-3 bg-secondary rounded-sm-3 rounded-top-0 mt-3 mt-sm-2 shadow'>
-                        <h2 className='text-white'><span className='text-info'>Total:</span> {totalPrice} EGP</h2>
-                        <Link className='fs-3 text-white btn btn-dark shadow'>Checkout</Link>
-                    </div>
-                </div> */}
             </div>
         </div>
     );

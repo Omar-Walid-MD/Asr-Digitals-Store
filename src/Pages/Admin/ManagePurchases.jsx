@@ -3,13 +3,14 @@ import { Accordion, Button, Col, Container, Row, Form, FloatingLabel } from 'rea
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import PurchaseCard from '../../Components/PurchaseCard';
+import { BsFillCartCheckFill } from 'react-icons/bs';
 
 function ManagePurchases({}) {
 
     // const purchases = useSelector((store) => store.auth.purchases);
     const purchases = useSelector((store) => store.purchases.purchases);
 
-    const [filters,setFilters] = useState({
+    const initialFilters = {
         purchaseId: "",
         dateBefore: "",
         dateAfter: "",
@@ -21,8 +22,8 @@ function ManagePurchases({}) {
         userInfo: "",
         userAddress: "",
         orderCount: "",
-        // orderIncludes: ""
-    });
+    };
+    const [filters,setFilters] = useState(initialFilters);
     const [filteredPurchases,setFilteredPurchases] = useState(purchases);
 
     function handleFilterSearch(e)
@@ -64,20 +65,23 @@ function ManagePurchases({}) {
     }
 
     useEffect(()=>{
-        setFilteredPurchases((getFilteredPurchases(purchases)));
+        setFilteredPurchases(getFilteredPurchases(purchases));
     },[filters, purchases]);
 
     return (
         <div className='py-3 px-0 p-md-3'>
-            <Container className='px-2'> <h2 className='mt-5 mb-2'>Manage Purchases</h2> </Container>
+            <div className="d-flex mt-4 ps-4 gap-1 gap-sm-3 align-items-end justify-content-center justify-content-md-start">
+                <BsFillCartCheckFill fontSize={"5rem"}/>
+                <h2 className='mt-5 mb-2'>Manage Purchases</h2>
+            </div>
             <hr className='border-3' />
             <Accordion alwaysOpen defaultActiveKey={"0"} className='w-100'>
-                <Accordion.Item eventKey="0" className='border-0 bg-light'>
-                    <Accordion.Header className='w-100 rounded-sm-3 bg-secondary px-3 py-2 arrow-white'>
+                <Accordion.Item eventKey="0" className='border-0 bg-transparent'>
+                    <Accordion.Header className='w-100 rounded-md-3 bg-secondary px-3 py-2 arrow-white'>
                         <h4 className='text-white m-0'>Filters</h4>
                     </Accordion.Header>
                     <Accordion.Body className='px-0 pt-2'>
-                        <div className='d-flex bg-secondary rounded-sm-3 p-3 d-flex flex-column justify-content-between align-items-start gap-2'>
+                        <div className='d-flex bg-secondary rounded-md-3 p-3 d-flex flex-column justify-content-between align-items-start gap-2'>
                             <div className='d-flex flex-column w-100  gap-2 align-items-start'>
 
                             <Accordion alwaysOpen className='w-100'>
@@ -112,6 +116,7 @@ function ManagePurchases({}) {
                                             <Col className='col-12 col-sm-6 col-md-3'>
                                                 <FloatingLabel controlId="" label="Status">
                                                     <Form.Control as="select" className='text-capitalize' type="text" placeholder="Status" name='status' value={filters.status} onChange={handleFilterSearch} >
+                                                        <option value={""}>--</option>
                                                         <option value={"pending"}>Pending</option>
                                                         <option value={"success"}>Success</option>
                                                         <option value={"cancelled"}>Cancelled</option>
@@ -206,13 +211,8 @@ function ManagePurchases({}) {
                                 </Accordion.Item>
                             </Accordion>
                                 
-
-                            
-
-
-
                             </div>
-                        
+                            <Button className='bg-transparent border-0 text-info p-0' onClick={()=>{setFilters(initialFilters)}}>Clear</Button>
                         </div>
                     </Accordion.Body>
                 </Accordion.Item>
@@ -221,7 +221,7 @@ function ManagePurchases({}) {
             {
                 purchases.length ? filteredPurchases.map((purchase) => (
 
-                <PurchaseCard purchase={purchase} className='bg-white border rounded-2  shadow-sm' />
+                <PurchaseCard purchase={purchase} className='bg-white border rounded-md-3  shadow-sm' />
                 ))
                 :
                 ""

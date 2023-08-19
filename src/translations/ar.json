@@ -1,0 +1,478 @@
+{
+    
+    "title": "رقميات العصر",
+
+    "user": "مستخدم",
+    "user-p": "مستخدمون",
+    "client": "عميل",
+    "client-p": "عملاء",
+    "product": "منتح",
+    "product-p": "منتجات",
+    "purchase": "عملية شراء",
+    "purchase-p": "عمليات شراء",
+    "offer": "عرض",
+    "offer-p": "عروض",
+
+
+    "home": {
+        "header": "موطن كل الأجهزة الرقمية التي تحتاجها. احصل على أجهزتك التالية بتكاليف معقولة وأفضل الصفات.",
+        "shopNow": "تسوق الان",
+        "wcu": "لماذا نحن",
+        "wcu-1": {
+            "h": "Wide Collection",
+            "c": {
+                "1": "Explore a ",
+                "2": "diverse selection",
+                "3": "of electronic devices to suit your needs."
+            }
+        },
+        "wcu-2": {
+            "h": "Quality Products",
+            "c": {
+                "1": "We offer",
+                "2": "top-quality",
+                "3": "electronic devices for superior performance."
+            }
+        },
+        "wcu-3": {
+            "h": "Fair Prices",
+            "c": {
+                "1": "Get the latest technology at ",
+                "2": "affordable prices.",
+                "3": ""
+            }
+        },
+        "wcu-4": {
+            "h": "Swift Delivery",
+            "c": {
+                "1": "",
+                "2": "Don't wait long",
+                "3": "for your orders with our excellent delivery services."
+            }
+        },
+        "trending": "رائج",
+        "trending-label": "Check our popular products",
+
+        "offers": "عروضنا",
+        "offers-h": "تبحث عن عرض؟",
+        "offers-p": "لدينا عروض جيدة لك دائما !",
+        "offers-b": "لا تفوتها",
+
+        "about": "عنا",
+        "about-h": "من نحن",
+        "about-p": "Learn more about us",
+        "about-b": "أقرأ المزيد",
+
+        "newest": "احدث المنتجات",
+        "newest-1-h": "Electro Series",
+        "newest-1-p": "Fresh new set of Smartphones with design and performance equally astonishing.",
+        "newest-2-h": "Zoom",
+        "newest-2-p": "Zoom faster into the future's tech with Zoom's Lightweight, Professional Smartphones.",
+
+        "services": "خدماتنا",
+        "services-1-h": "الضمان و الصيانة",
+        "services-1-p": 
+        {
+            "1": "We ensure that you get",
+            "2": "absolutely no less",
+            "3": "than what you are promised. Any defects and issues are carefully taken care of."
+        },
+
+        "services-2-h": "خدمة العملاء",
+        "services-2-p": 
+        {
+            "1": "Our staff are always ready to help. We look after even the slightest inconveniences to ensure",
+            "2": "the best shopping experience",
+            "3": "our customers could have."
+        },
+
+        "services-3-h": "تحتاج مساعدة ؟",
+        "services-3-p":
+        {
+            "1": "We would love to help or simply hear your thoughts! We listen to you and strive to improve!",
+            "2": "Call us at:",
+            "3": "OR"
+        },
+        "services-3-b": "اتصل بنا الان",
+
+        "customers": "من عملائنا",
+        "reviews-1-h": "Didn't disappoint",
+        "reviews-1-p": "Qualities are just like advertised. Great performance and experience overall.",
+        
+        "reviews-2-h": "I liked it",
+        "reviews-2-p": "Very nice phone. I recommend it along with the rest of the series.",
+        
+        "reviews-3-h": "Easy use",
+        "reviews-3-p": "This tablets is a must-have for graphic designers. Smooth experience.",
+
+        "reviews-4-h": "Good Value for Money",
+        "reviews-4-p": "This budget-friendly headphones provide decent audio quality and comfort, making them a solid choice for everyday use.",
+
+        "reviews-5-h": "Excellent Picture Quality",
+        "reviews-5-p": "The high-resolution display of this monitor ensures vibrant colors and sharp details, perfect for multimedia and graphic design work.",
+        
+        "reviews-6-h": "Reliable Performance",
+        "reviews-6-p": "This desktop computer offers reliable performance for everyday tasks, making it suitable for both work and entertainment purposes.",
+
+        "reviews-7-h": "Decent Performance",
+        "reviews-7-p": "The laptop is reliable for everyday tasks, and nicely handles large applications as well.",
+
+        "reviews-8-h": "Impressive Battery Life",
+        "reviews-8-p": "This smartphone lasts all day on a single charge, even with heavy usage. No more worrying about running out of battery!",
+
+        "reviews-9-h": "Sleek Design",
+        "reviews-9-p": "The slim and elegant design of this tablet makes it a pleasure to hold and use. A great combination of style and functionality.",
+
+        "branches": "فروعنا",
+        "branch": "فرع",
+
+        "branch-1-h": "الإبراهيمية",
+        "branch-2-h": "رأس التين",
+        "branch-3-h": "المعمورة",
+        "branch-4-h": "سموحة",
+
+        "faqs": "أسئلة متكرره",
+
+        "faq-1":
+        {
+            "q": "How do I place an order on your website?",
+            "a": "To place an order, simply browse our products, select the item(s) you wish to purchase, add them to your cart, and proceed to checkout. Follow the prompts to enter your shipping and payment information, and confirm your order."
+        },
+        "faq-2":
+        {
+            "q": "How long does it take to process and deliver an order?",
+            "a": "We strive to process and deliver orders as quickly as possible. Typically, orders are processed within 1-3 business days. Delivery times vary depending on your location."
+        },
+        "faq-3":
+        {
+            "q": "What are your delivery options and costs?",
+            "a": "We offer standard and express delivery options. You can select Express for faster delivery, but it comes with additional fees"
+        },
+        "faq-4":
+        {
+            "q": "What is your return policy?",
+            "a": "We have a flexible return policy. If you are not satisfied with your purchase, you can return the item within 30 days of delivery for a refund or exchange. Please review our Returns & Exchanges page for detailed instructions and any specific criteria that may apply."
+        },
+        "faq-5":
+        {
+            "q": "How do I initiate a return or exchange?",
+            "a": "To initiate a return or exchange, please contact our customer support team through our designated channels. They will guide you through the process, provide you with a return shipping label if applicable, and assist with any further inquiries."
+        },
+        "faq-6":
+        {
+            "q": "Can I place an order over the phone?",
+            "a": "Currently, we only accept orders placed through our website or at our branches. Our online ordering process is secure, convenient, and designed to provide you with the best shopping experience."
+        },
+        "faq-7":
+        {
+            "q": "Do you offer a warranty on your products?",
+            "a": "Yes, we offer warranties on all of our products. The duration and coverage of the warranty may vary depending on the manufacturer and specific product. For detailed information about the warranty for a particular item, please refer to the product description or contact our customer support team."
+        },
+        "faq-8":
+        {
+            "q": "What should I do if I receive a defective or damaged product?",
+            "a": "We apologize for any inconvenience caused. If you receive a defective or damaged product, please contact our customer support team immediately. We will guide you through the return/exchange process and ensure that you receive a replacement or refund as quickly as possible."
+        },
+        "faq-9":
+        {
+            "q": "What are your customer service hours?",
+            "a": "Our customer service team is available [number of hours] a day, [number of days] a week, to assist you with any inquiries or concerns you may have. Please feel free to reach out to us during our business hours, and we'll be happy to help."
+        },
+        "faq-10":
+        {
+            "q": "Do you offer bulk or corporate discounts?",
+            "a": "Yes, we offer bulk or corporate discounts for qualifying orders. If you are interested in making a bulk purchase or have specific corporate requirements, please contact our sales team at [email address]. They will assist you with pricing, availability, and any special arrangements that may apply."
+        },
+        "faq-11":
+        {
+            "q": "Can I change the shipping address for my order?",
+            "a": "If you need to change the shipping address for your order, please contact our customer support team as soon as possible. We will do our best to accommodate your request if the order has not been shipped yet. However, please note that once the order has been shipped, we may not be able to modify the shipping address."
+        },
+        "faq-12":
+        {
+            "q": "How can I contact technical support for a product issue?",
+            "a": "If you are experiencing a technical issue with a product you purchased from us, please reach out to our technical support team at [email address] or call our dedicated technical support hotline at [phone number]. Our skilled technicians will assist you in troubleshooting and resolving the issue."
+        },
+        "faq-13":
+        {
+            "q": "Do you have a physical store or showroom",
+            "a": "Yes, we have four branches where you can buy our products. Please refer to our Home Page to find the nearest branch to you."
+        },
+        "faq-14":
+        {
+            "q": "Are all products on your website brand new?",
+            "a": "Yes, all products featured on our website are brand new unless otherwise specified. We source our products directly from reputable manufacturers and authorized distributors to ensure their authenticity and quality."
+        },
+        "faq-15":
+        {
+            "q": "Do you provide product recommendations or consultations?",
+            "a": "Absolutely! Our team of experts is available to provide personalized product recommendations and consultations. If you need assistance in finding the right product for your specific needs, please reach out to our customer support team. Provide us with details about your requirements, preferences, and budget, and we will be happy to assist you in making an informed decision."
+        },
+
+        "faq-label":
+        {
+            "1": "Can't find your question? Feel free to",
+            "2": "Contact Us",
+            "3": "for any assistance!",
+            "4": "We are happy to help!"
+        }
+
+    },
+
+    "pages": {
+        "home": "الرئيسي",
+        "Shop": "تسوق",
+        "about": "عنا",
+        "contact": "اتصل بنا",
+        "cart": "السلة",
+        "purchases": "عمليات الشراء",
+        "profile": "الملف الشخصي",
+        "favorites": "المفضلات"
+    },
+
+    "categories": {
+        "smartphone": "هاتف ذكي",
+        "smartphone-p": "هواتف ذكية",
+
+        "tablet": "تابلت",
+        "tablet-p": "تابلت",
+
+        "laptop": "لابتوب",
+        "laptop-p": "لابتوب",
+        
+        "desktop": "ديسكتوب",
+        "desktop-p": "ديسكتوب",
+
+        "mouse": "ماوس",
+        "mouse-p": "أجهزة ماوس",
+
+        "keyboard": "كيبورد",
+        "keyboard-p": "أجهزة كيبورد",
+
+        "headphone": "سماعات رأس",
+        "headphone-p": "سماعات رأس",
+
+        "earphone": "سماعات أذن",
+        "earphone-p": "سماعات أذن",
+
+        "microphone": "ميكروفون",
+        "microphone-p": "أجهرزة ميكروفون",
+
+        "speaker": "مكبر صوت",
+        "speaker-p": "مكبرات صوت",
+
+        "monitor": "شاشة عرض",
+        "monitor-p": "شاشات عرض"
+
+    },
+
+    "specs": {
+        "os": "نظام التشغيل",
+        "ram": "الرامات",
+        "storage": "التخزين",
+        "processor": "المعالج",
+        "battery": "سعة البطارية",
+        "cam": "دقة الكاميرا",
+        "size": "الحجم",
+        "res": "الدقة",
+        "gpu": "كارت الشاشة",
+        "connection": "نوع التوصيل",
+        "movement": "كشف الحركة",
+        "keyType": "نوع المفاتيح",
+        "keysNumber": "عدد المفاتيح",
+
+        "microphone": "مع ميكروفون",
+        "noiseCancelling": "إلغاء الضوضاء",
+
+        "control": "نوع التحكم",
+        "sensitivity": "الحساسية",
+        "refreshRate": "معدل التحديث"
+
+    },
+
+    "categoryGroups": {
+        "computer": "أجهزة الكمبيوتر",
+        "mobile": "أجهزة المحمول",
+        "audio": "أجهزة الصوت"
+    },
+
+    "filters": {
+        "filters": "الفلاتر",
+        "clear": "مسح",
+        "price": "سعر",
+        "name": "اسم",
+        "id": "رقم التعريف",
+        "info": "معلومات",
+        "specs": "مواصفات",
+        "general": "عام"
+    },
+
+    "form": {
+        "email": "البريد",
+        "password": "كلمة السر",
+        "confirmPassword": "تأكيد كلمة السر",
+        "username": "اسم المستخدم",
+        "name": "الاسم",
+        "firstName": "الاسم الأول",
+        "lastName": "اسم العائلة",
+        "phone": "رقم الهاتف",
+        "dateOfBirth": "تاريخ الميلاد",
+        "address": "العنوان",
+        "city": "المدينة",
+        "street": "الشارع",
+        "zipcode": "zipcode",
+        "creditCard": "البطاقة",
+        "exp": "انتهاء",
+        "date": "تاريخ",
+        "no": "رقم",
+        "pin": "رقم سر",
+        "month": "شهر",
+        "year": "عام",
+        "start": "بداية",
+        "end": "نهاية",
+        "image": "السعر",
+        "price": "السعر",
+        "old": "قديم",
+        "new": "جديد",
+        "search": "بحث"
+    },
+
+    "navbar": 
+    {
+        "search": "ابحث عن منتج...",
+        "login": "الدخول",
+        "register": "التسجيل",
+        "logout": "الخروج",
+        "toDashboard": "الى لوحة التحكم",
+        "toApp": "الى التطبيق",
+
+        "shopExplore": "استكشاف",
+        "shopAll": "الجميع",
+
+        "dashboard": "لوحة التحكم",
+        "manage": "إدارة"
+    },
+
+    "footer": {
+        "sub": "Always here to provide.",
+        "form-title": "تريد معرفة أحدث المنتجات؟",
+        "form-b": "اشتراك",
+        "quick": "وصول سريع",
+        "find-1": "تجدنا من خلال",
+        "find-2": "وتابعنا على وسائل التواصل الاجتماعي",
+        "address": "Street Name, Alexandria, Egypt 12345"
+    },
+
+    "shop": {
+        "header-h": "Chromo Prime 12T",
+        "header-p": "Stay ahead of the curve with the Chromo Prime 12T",
+        "header-b": "احصل عليه الان",
+
+        "categories": "أشهر الأقسام",
+        "offers": "أفضل العروض",
+
+        "moreOffers": "عروض أكثر",
+        "moreItems": "منتجات أكثر",
+
+        "topSelling": "أفضل مبيعا",
+
+        "shoppingFor": "تسوق ل"
+
+    },
+
+    "cart": {
+        "empty": "سلتك فارغة",
+        "subtotal": "المجموع الفرعي",
+        "delivery": "رسوم التوصيل",
+        "total": "المجموع الكلي",
+
+        "checkout": "الحساب",
+
+        "remove": "إزالة",
+        "add": "أضف الى السلة",
+        "favorite": "تفضيل",
+        "favorited": "مفضلة"
+    },
+
+    "about": {
+        "header-h": "About Us",
+        "header-p-1": "Welcome to [Website Name], your ultimate destination for cutting-edge electronic devices. We are passionate about technology and strive to provide our customers with the latest smartphones, laptops, tablets, and more.",
+        "header-p-2": "As technology enthusiasts ourselves, we understand the importance of staying connected in today's fast-paced world. With our wide range of products and exceptional customer service, we aim to make your shopping experience a seamless and enjoyable one.",
+
+        "section-1-h": "Our Mission",
+        "section-1-p-1": "At [Website Name], our mission is to empower individuals and businesses by offering top-quality electronic devices that enhance productivity, connectivity, and entertainment.",
+        "section-1-p-2": "We believe in delivering innovative solutions that simplify your daily life, whether you're a student, professional, or tech-savvy individual. Our team carefully curates a diverse selection of devices from renowned brands, ensuring that you have access to the best-in-class products that meet your unique needs.",
+        
+        "section-2-h": "Product Quality",
+        "section-2-p-1": "We take great pride in offering only the highest quality electronic devices. Each product featured on our website undergoes rigorous testing and evaluation to ensure its performance, durability, and reliability.",
+        "section-2-p-3": "We collaborate closely with trusted manufacturers and suppliers to source genuine and authentic devices, providing you with peace of mind and value for your investment. Our commitment to quality extends beyond the products themselves to the overall shopping experience we offer.",
+
+        "section-3-h": "Expert Guidance",
+        "section-3-p-1": "Navigating the world of electronic devices can be overwhelming, especially with the constant advancements in technology. That's why our team of knowledgeable experts is here to guide you every step of the way.",
+        "section-3-p-2": "Whether you have questions about specific features, compatibility, or need recommendations, we are dedicated to providing you with accurate and up-to-date information.",
+        "section-3-p-3": "We believe in empowering our customers with the knowledge they need to make informed decisions and find the perfect device that meets their requirements.",
+
+        "section-4-h": "Customer Satisfaction",
+        "section-4-p-1": "Your satisfaction is our top priority. We strive to exceed your expectations by offering exceptional customer service throughout your shopping journey.",
+        "section-4-p-2": "From pre-purchase inquiries to post-sale support, our friendly and responsive team is always ready to assist you. We value your feedback and continuously work towards enhancing our services to ensure that you have a seamless and enjoyable experience with us.",
+        "section-4-p-3": "Your trust in our brand is of utmost importance, and we are committed to building long-lasting relationships with our customers."
+    },
+
+    "contact": {
+        "header-h": "Get In Touch",
+        "header-p": "We'd love to hear from you! Whether you have a question, need assistance, or simply want to share feedback, our team is here to help.",
+
+        "section-1-h": "Reach us easily",
+        "section-1-p-1": "You can reach us via email at [email protected] Our dedicated support team will respond to your inquiries promptly.",
+        "section-1-p-2": "Or if you prefer to speak with us directly, please feel free to call our customer service hotline at [phone number]. Our knowledgeable representatives are available [business hours] to assist you.",
+        
+        "section-2-h": "Customer Support",
+        "section-2-p-1": "You can reach us via email at [email protected] Our dedicated support team will respond to your inquiries promptly.",
+        "section-2-p-2": "Our customer support team is dedicated to providing you with the best possible assistance. Whether you have a question about a product, need help with an order, or require technical support, we are here to lend a hand. Please don't hesitate to get in touch, and we'll do our utmost to resolve your query promptly and satisfactorily.",
+
+        "section-3-h": "Frequently Asked Questions (FAQ)",
+        "section-3-p-1": "You can reach us via email at [email protected] Our dedicated support team will respond to your inquiries promptly.",
+
+        "section-4-h": "Feedback and Suggestions",
+        "section-4-p-1": "Your input is essential in shaping our offerings and ensuring that we meet your expectations. Please feel free to reach out and share your thoughts with us.",
+        "section-4-form-1": "Message Subject",
+        "section-4-form-2": "Message Body",
+        "section-4-form-b": "Send",
+
+        "section-5-h": "Business Inquiries",
+        "section-5-p-1": "For business-related inquiries, partnerships, or collaborations, please contact our business development team at [email address]. We are always open to exploring new opportunities and working with like-minded individuals and organizations.",
+
+        "section-6-h": "Social Media",
+        "sm-1-h": "Follow our Facebook page to get all the news",
+        "sm-1-b": "Follow Us",
+
+        "sm-2-h": "Subscribe to our YouTube channel and stay tuned on all our offers.",
+        "sm-2-b": "Subscribe",
+        
+        "sm-3-h": "Message us on WhatsApp for any assistance",
+        "sm-3-b": "Message Us",
+
+        "sm-4-h": "Don't miss our daily updates on Twitter",
+        "sm-4-b": "Follow Us",
+
+        "sm-5-h": "Check our latest product gallery on Instagram",
+        "sm-5-b": "Follow Us",
+
+        "sm-6-h": "Contact us through LinkedIn for partnerships",
+        "sm-6-b": "Contact us"
+    },
+
+    "productPage": {
+        "lo": "عرض لفترة محدودة",
+        "specs": "المواصفات",
+
+        "related": "منتجات ذات صلة",
+        "reviews": "التقييمات",
+        "first": "كن أول من يقيم هذا المنتج",
+        "empty": "لا تقييمات لهذا المنتج",
+        "customerReviews": "تقييمات العملاء",
+        "loadMore": "تحميل المزيد"
+    }
+
+
+}

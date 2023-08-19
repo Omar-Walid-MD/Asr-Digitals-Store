@@ -12,7 +12,7 @@ import { addToCart, removeFromCart, setProductCount } from '../Store/Cart/cartSl
 import { addReview, getReviews } from '../Store/Reviews/reviewsSlice';
 import { addToFav, getFavs, removeFromFav } from '../Store/Favorites/favoritesSlice';
 import { setProductRating } from '../Store/Products/productsSlice';
-import { getRating, getRatingCount, throttle } from '../helpers';
+import { getRating, getRatingCount, onImgError, throttle } from '../helpers';
 
 
 const schema = yup
@@ -35,6 +35,8 @@ function ProductPage({})
     const favorites = useSelector((store) => store.favorites.favorites);
     const reviews = useSelector((store) => store.reviews.reviews.filter((review) => review.productId === productId).reverse());
     const productsInfo = useSelector((store) => store.products.productsInfo);
+    const offers = useSelector((store) => store.offers.offers);
+
     const dispatch = useDispatch();
     const { register, handleSubmit, reset, formState: { errors } } = useForm({ resolver: yupResolver(schema) });
 
@@ -43,11 +45,11 @@ function ProductPage({})
     const [product,setProduct] = useState();
     const [added,setAdded] = useState(false);
     const [count, setCount] = useState(1);
+    const [offerPrice,setOfferPrice] = useState(0);
     const [favorite,setFavorite] = useState(false);
-
-    const [firstCountSet,setFirstCountSet] = useState(false);
-
     const [rating,setRating] = useState(5);
+    const [relatedProducts,setRelatedProducts] = useState([]);
+    const [reviewsCount,setReviewsCount] = useState(5);
 
     function getCount()
     {
@@ -126,13 +128,17 @@ function ProductPage({})
                 // console.log(sharedSpecCount);
                 return sharedSpecCount > 2;
             })];
+
             console.log(relatedProducts);
             return relatedProducts;
         }
     }
 
     useEffect(()=>{
-        if(products.length) setProduct(products.find((product) => product.id === productId));
+        if(products.length)
+        {
+            setProduct(products.find((product) => product.id === productId));
+        };
     },[productId, products]);
 
     useEffect(()=>{
@@ -140,13 +146,29 @@ function ProductPage({})
         {
             setCount(getCount());
             setAdded(cart.map((i) => i.productId).includes(product.id));
-            // setFirstCountSet(true);
+            if(!relatedProducts.length) setRelatedProducts(getRelatedProducts());
         }
     },[product,cart]);
 
     useEffect(()=>{
        if(product) setFavorite(favorites.includes(product.id));
     },[favorites, product]);
+
+    useEffect(()=>{
+        if(product && offers)
+        {
+            let availableOffer = offers.find((offer) => offer.productId === productId);
+            if(availableOffer) setOfferPrice(availableOffer.newPrice);
+        }
+    },[offers,product]);
+
+    useEffect(()=>{
+        if(reviews.length && product)
+        {
+            let updatedRating = getRating([...reviews.map((review)=>review.rating),rating]);
+            if(updatedRating !== product.rating) dispatch(setProductRating({productId,rating: updatedRating}));
+        }
+    },[reviews,product])
 
 
     return (
@@ -160,7 +182,7 @@ function ProductPage({})
                         <Col className='col-12 col-md-4 h-100 p-0'>
                             <div className="d-flex w-100 position-relative">
                                 <div className='bg-white w-100 overflow-hidden rounded-3 shadow'>
-                                    <img className='w-100' src={product.image} />
+                                    <img className='w-100' src={product.image} onError={onImgError} />
                                     <div className='product-img-preview rounded-3 w-100 h-100 position-absolute top-0 left-0'
                                     onMouseEnter={(e)=>{e.target.style.opacity = "1"}}
                                     onMouseLeave={(e)=>{e.target.style.opacity = "0"}}
@@ -197,30 +219,41 @@ function ProductPage({})
                                         </div>
                                         : ""
                                     }
-                                    
-                                    <h1 className='text-danger price-tag mt-2 fw-semibold'>{product.price}</h1>
+                                    {
+                                        offerPrice ?
+                                        <div className='mt-2'>
+                                            <h6 className='m-0 text-uppercase text-danger fw-bold mb-2' style={{letterSpacing:"0.2em"}}>Limited Offer</h6>
+                                            <div className='d-flex align-items-center gap-3'>
+                                                {offerPrice ? <h5 className='price-tag mt-2 price-old m-0'>{product.price}</h5> : ""}
+                                                <h1 className='text-danger price-tag fw-semibold discount-text' style={{fontSize:"3rem"}}>{offerPrice}</h1>
+                                            </div>
+                                        </div>
+                                        :
+                                        <h1 className='text-danger price-tag fw-semibold'>{product.price}</h1>
+
+                                    }
                                 </div>
-                                <div className="d-flex w-xs-100 w-md-auto flex-column flex-lg-row align-items-center align-items-md-start  align-items-lg-center gap-4 mt-4">
+                                <div className="d-flex w-xs-100 w-md-auto flex-column flex-lg-row align-items-stretch align-items-md-start  align-items-lg-stretch gap-4 mt-4">
                                     {
                                         added ? 
                                         <div className='d-flex gap-3 w-xs-100 w-md-auto flex-column flex-sm-row'>
-                                            <Button variant='danger' className='d-flex w-xs-100 w-sm-50 align-items-center justify-content-center justify-content-md-start p-3 btn-danger fs-3 gap-3 rounded-3 shadow' onClick={()=>{throttle(dispatch(removeFromCart(productId)),1000); setAdded(false);}}><BsFillCartDashFill className='fs-2' /> Remove</Button>
+                                            <Button variant='danger' className='d-flex w-xs-100 w-sm-50 align-items-center justify-content-center justify-content-md-start p-3 btn-danger fs-3 gap-3 rounded-3 shadow main-button border-0' onClick={()=>{throttle((()=>{dispatch(removeFromCart(productId));setAdded(false);})(),1000);}}><BsFillCartDashFill className='fs-2' /> Remove</Button>
                                             <div className="d-flex w-xs-100 w-sm-50 gap-3">
                                                 <input type="number" className="rounded-3 w-xs-100 w-sm-100 fs-1 text-center border-3 border-primary bg-transparent text-primary" min={0} max={10} value={count} onChange={(e)=>{throttle(handleCount(e.target.value),1500)}}  style={{width: "5rem"}} />
                                                 <div className='d-flex flex-column gap-3 gap-md-0 justify-content-between'>
-                                                    <Button className='d-flex align-items-center p-3 py-0 btn-primary fs-3 gap-3 rounded-3 shadow border-3' onClick={throttle(()=>{handleCount(count+1)},2000)}><BsFillCaretUpFill /></Button>
-                                                    <Button className='d-flex align-items-center p-3 py-0 btn-primary fs-3 gap-3 rounded-3 shadow border-3' onClick={throttle(()=>{handleCount(count-1)},2000)}><BsFillCaretDownFill /></Button>
+                                                    <Button className='d-flex align-items-center p-3 py-0 btn-primary fs-3 gap-3 rounded-3 shadow border-3' onClick={throttle(()=>{handleCount(count+1)},1000)}><BsFillCaretUpFill /></Button>
+                                                    <Button className='d-flex align-items-center p-3 py-0 btn-primary fs-3 gap-3 rounded-3 shadow border-3' onClick={throttle(()=>{handleCount(count-1)},1000)}><BsFillCaretDownFill /></Button>
                                                 </div> 
                                             </div>
                                         </div>
                                         :
-                                        <Button className='d-flex align-items-center w-xs-100 align-items-center justify-content-center justify-content-md-start p-3 btn-primary text-white fs-3 gap-3 rounded-3 shadow border-3' onClick={()=>{throttle(dispatch(addToCart(productId)),1000); setAdded(true);}}><BsFillCartPlusFill className='fs-2' /> Add to Cart</Button>
+                                        <Button className='d-flex align-items-center w-xs-100 align-items-center justify-content-center justify-content-md-start p-3 btn-primary text-white fs-3 gap-3 rounded-3 shadow border-0 main-button' onClick={()=>{throttle((()=>{dispatch(addToCart(productId));setAdded(true);})(),1000);}}><BsFillCartPlusFill className='fs-2' /> Add to Cart</Button>
                                     }
                                     {
                                         favorite ?
-                                        <Button className='d-flex w-xs-100 w-md-auto align-items-center justify-content-center justify-content-md-start p-3 btn-warning bg-warning border-3 border-warning text-white fs-3 gap-3 rounded-3' onClick={()=>{throttle(dispatch(removeFromFav(product.id)),1000); setFavorite(false);}}><BsStarFill className='fs-2' /> Favorited</Button>
+                                        <Button className='d-flex w-xs-100 w-md-auto align-items-center justify-content-center justify-content-md-start p-3 btn-warning bg-warning border-0 border-warning text-white fs-3 gap-3 rounded-3 main-button' onClick={()=>{throttle((()=>{dispatch(removeFromFav(productId));setFavorite(false);})(),1000);}}><BsStarFill className='fs-2' /> Favorited</Button>
                                         :
-                                        <Button className='d-flex w-xs-100 w-md-auto align-items-center justify-content-center justify-content-md-start p-3 bg-transparent text-warning border-warning border-3 fs-3 gap-3 rounded-3' onClick={()=>{throttle(dispatch(addToFav(product.id)),1000); setFavorite(true);}}><BsStarFill className='fs-2' />Favorite</Button>
+                                        <Button className='d-flex w-xs-100 w-md-auto align-items-center justify-content-center justify-content-md-start p-3 bg-transparent text-warning border-warning border-3 fs-3 gap-3 rounded-3' onClick={()=>{throttle((()=>{dispatch(addToFav(productId));setFavorite(true);})(),1000);}}><BsStarFill className='fs-2' />Favorite</Button>
                                     }
                                 </div>
 
@@ -289,8 +322,8 @@ function ProductPage({})
             <div className='d-flex position-relative align-items-start flex-column p-0 py-5 px-md-4 gap-3'>
                 <div className='position-absolute bottom-100 left-0 w-100'><Container><h3 className='mt-5 m-0 p-2 px-4 bg-light rounded-top d-inline-block'>Related Products</h3></Container></div>
             {
-                product ?
-                <ProductSlider variant={"light"} products={getRelatedProducts()}/>
+                (product && relatedProducts) ?
+                <ProductSlider variant={"light"} products={relatedProducts}/>
                 :
                 <Container>
                     <Row className="gy-3">
@@ -352,7 +385,7 @@ function ProductPage({})
                                     </div>
                                     
                                     <div className="d-flex w-100 mt-2">
-                                        <Button variant='dark' type='submit' className='btn-dark'>Add Review</Button>
+                                        <Button variant='dark' type='submit' className='btn main-button border-3 border-white'>Add Review</Button>
                                     </div>
                                 </form>
 
@@ -363,7 +396,7 @@ function ProductPage({})
                                 </div>
                                 <div className="d-flex flex-column gap-4 align-items-center">
                                 {
-                                    reviews.length > 0 ? reviews.map((review,index) => 
+                                    reviews.length > 0 ? reviews.slice(0,reviewsCount).map((review,index) => 
                                     <ProductReview key={"product-page-review-"+index} review={review}/>
                                     )
                                     :
@@ -372,7 +405,8 @@ function ProductPage({})
                                     </div>
                                 }
                                 </div>
-                                <Button variant='dark' className='btn-dark w-100 fs-5'>Load More</Button>
+                                {reviews && reviewsCount < reviews.length ? <Button variant='dark' className='btn-dark main-button border-0 w-100 fs-5' onClick={()=>setReviewsCount(c => c+5)}>Load More</Button> : ""}
+                                
                             </div>
                         </Container>
                         :

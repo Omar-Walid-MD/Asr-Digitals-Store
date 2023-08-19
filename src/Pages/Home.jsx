@@ -9,11 +9,13 @@ import { HiSparkles } from "react-icons/hi";
 import { RiHandCoinFill } from "react-icons/ri";
 import { useSelector } from 'react-redux';
 
+import i18next from "i18next";
+
 function Home({}) {
 
     const style = {
         header: {
-            height: "675px"
+            minHeight: "675px"
         },
         section: {
             height: "525px"
@@ -54,22 +56,26 @@ function Home({}) {
         {
             image: "https://i.imgur.com/gKLFcVE.png",
             coordinates: "31.2163837,29.9274562",
-            title: "Al-Ibrahimiya"
+            title: "Al-Ibrahimiya",
+            desc: "Behind the Masjid of Al-Shaheed Abdul-Men'em Riyadh."
         },
         {
             image: "https://i.imgur.com/HmJiIBI.png",
             coordinates: "31.2036875,29.8836064",
-            title: "Ra's Al-Tin"
+            title: "Ra's Al-Tin",
+            desc: "Near Farouq Cafe, at Al-Sheikh Al-Banna Street."
         },
         {
             image: "https://i.imgur.com/HnKrc0F.png",
-            coordinates: "31.2867826,30.023901",
-            title: "Al-Mamoura"
+            coordinates: "31.2869326,30.0193644",
+            title: "Al-Montazah",
+            desc: "In front of Al-Saa'a Square."
         },
         {
             image: "https://i.imgur.com/or6wJfW.png",
             coordinates: "31.2171035,29.9427816",
-            title: "Smouha"
+            title: "Smouha",
+            desc: "Mostafa Kamel Street, near Andalusiyya Smouha Hosptial."
         }
     ]
 
@@ -104,12 +110,24 @@ function Home({}) {
 
     return (
         <div>
-            <header className='homepage-header d-flex align-items-center justify-content-center justify-content-sm-start pb-5' style={style.header}>
-                <Container className='m-5 d-flex justify-content-center justify-content-sm-start'>
-                    <div className='header-content text-white p-0 m-0 m-sm-5 w-xs-100 w-sm-50 d-flex flex-column gap-3 align-items-center align-items-sm-start'>
-                        <h1 className='large-title text-center text-sm-start'>Asr Digitals</h1>
-                        <p className='text-center text-sm-start w-xs-100 w-lg-75 fs-5 fw-bold'>The home of all the digitals you need. Get your next devices with fair costs and best qualities.</p>
-                        <Button variant='dark' className='btn-dark fs-5 p-3 px-4 text-uppercase fw-semibold border-white border-3 main-button'>Shop now!</Button>
+            <header className='d-flex bg-black align-items-start pt-3 pt-md-0 align-items-md-center justify-content-center justify-content-md-start pb-5 position-relative z-0' style={style.header}>
+                <Carousel style={{zIndex:"-1"}} className='position-absolute top-0 left-0 w-100 h-100' controls={false} indicators={false} fade interval={5000}>
+                    <Carousel.Item>
+                        <div className="w-100 h-100 homepage-header-animation homepage-header"></div>
+                    </Carousel.Item>
+                    <Carousel.Item>
+                        <div className="w-100 h-100 homepage-header-animation homepage-header-1"></div>
+                    </Carousel.Item>
+                    <Carousel.Item>
+                        <div className="w-100 h-100 homepage-header-animation homepage-header-2"></div>
+                    </Carousel.Item>
+                </Carousel>
+                <div className="position-absolute top-0 left-0 w-100 h-100 homepage-header-overlay"></div>
+                <Container className='m-5 d-flex justify-content-center justify-content-md-start z-1'>
+                    <div className='header-content text-white p-0 m-0 m-md-5 w-xs-100 w-md-50 d-flex flex-column gap-3 align-items-center align-items-md-start'>
+                        <h1 className='large-title text-center text-md-start'>Asr Digitals</h1>
+                        <p style={{color: "rgb(157, 186, 221)"}} className='text-center text-md-start w-xs-100 w-lg-75 fs-5 fw-bold'>The home of all the digitals you need. Get your next devices with fair costs and best qualities.</p>
+                        <Link to={"/shop"} className='btn btn-dark fs-5 p-3 px-4 text-uppercase fw-semibold border-white border-3 main-button shadow'>Shop now!</Link>
                     </div>
                 </Container>
             </header>
@@ -119,12 +137,12 @@ function Home({}) {
                 <div className="position-absolute bottom-100 w-100 fs-2 fw-semibold"><div className='section-title bg-white d-inline-block m-0 h-100 p-2 ps-4 pe-3'>Why Choose Us</div></div>
                 {/* <div className="w-100 position-absolute bottom-100 fs-2 fw-semibold"><div className='section-title bg-white d-inline-block m-0 h-100 p-2 ps-4 pe-3'>Why Choose Us</div></div> */}
                 <Container className='d-flex align-items-center justify-content-center p-0 py-5 w-100'>
-                    <Row className='gy-4 py-4 w-100 h-100'>
+                    <Row className='gy-4 py-4 w-100 h-100 align-items-start'>
                     {
                         whyChooseUs.map((w) => (
 
-                        <Col className=' d-flex align-items-center justify-content-center posotion-relative px-2 px-md-3'>
-                            <div className="wcu-card">
+                        <Col className='col-12 col-sm-6 col-lg-3 d-flex align-items-center justify-content-center posotion-relative px-2 px-md-3'>
+                            <div className="wcu-card w-100">
                                 <div className="d-flex align-items-center wcu-card-header bg-dark text-white p-3 position-relative shadow-sm">
                                     <div className="d-flex position-absolute wcu-card-icon bg-dark rounded-circle border border-4 border-white p-3">{w.icon}</div>
                                     <h5 className='m-0'>{w.header}</h5>
@@ -162,7 +180,7 @@ function Home({}) {
                         <p className='text-center text-md-start fs-5 mb-5'>
                             We always have interesting offers for you!
                         </p>
-                        <Link to={"/offers"} className='btn fs-5 p-3 px-4 text-uppercase fw-semibold border-0 main-button'>Don't Miss Out!</Link>
+                        <Link to={"/offers"} className='btn fs-5 p-3 px-4 text-uppercase fw-semibold border-0 main-button bg-secondary'>Don't Miss Out!</Link>
                     </div>
                 </Container>
             </section>
@@ -172,10 +190,10 @@ function Home({}) {
                 <div className="w-100 position-absolute bottom-100 fs-2 fw-semibold"><div className='section-title bg-secondary text-white d-inline-block m-0 h-100 p-2 ps-4 pe-3'>About Us</div></div>
                 <Container className='d-flex align-items-center h-100 py-5'>
                     <div className="d-flex flex-column align-items-center w-100 gap-2 px-2 text-white">
-                        <h1 className='text-center text-md-start'>How we started...</h1>
+                        <h1 className='text-center'>What are <b className='text-info'>We?</b> <br /> And What Do We Offer To <b className='text-info'>You?</b></h1>
                         <hr className='w-50 mt-0' />
                         <p className='fs-5 text-center text-light w-xs-100 w-md-50'>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi error illo quasi aut facere sint necessitatibus temporibus iure iste. Lorem ipsum, dolor sit amet.
+                        We are passionate about technology and strive to provide our customers with the latest and best everyday devices including smartphones, laptops, tablets, and more.
                         </p>
 
                         <Link className='text-info fs-5 text-decoration-none'>Read More...</Link>
@@ -198,13 +216,13 @@ function Home({}) {
                             <ProductCard productId={"82592"} className={"w-xs-50 w-md-100"} />
                         </Col>
                         <Col className='col-12 col-sm-6 col-lg-3 d-flex align-items-center justify-content-center justify-content-lg-start pb-3 pb-sm-0'>
-                            <img className='' src={require("../img/homepage-newest-1.png")} alt="" style={{width:"min(120%,80vw)",filter: "drop-shadow(0 2px 5px rgb(0,20,100,0.8))"}} />
+                            <img className='' src={require("../img/home/homepage-newest-1.png")} alt="" style={{width:"min(120%,80vw)",filter: "drop-shadow(0 2px 5px rgb(0,20,100,0.8))"}} />
                         </Col>
                     </Row>
                     <hr className='bg-dark w-100' />
                     <Row className='gy-4 gx-2 g-sm-5 pb-3'>
                         <Col className='col-12 col-sm-6 col-md-6 col-lg-3 order-1 order-lg-0 d-flex align-items-center justify-content-center justify-content-lg-end pb-3 pb-sm-0'>
-                            <img className='' src={require("../img/homepage-newest-2.png")} alt="" style={{width:"min(120%,80vw)",filter: "drop-shadow(0 2px 5px rgb(0,20,100,0.8))"}} />
+                            <img className='' src={require("../img/home/homepage-newest-2.png")} alt="" style={{width:"min(120%,80vw)",filter: "drop-shadow(0 2px 5px rgb(0,20,100,0.8))"}} />
                         </Col>
                         <Col className="col-6 col-md-4 col-lg-2 order-1 order-lg-0 px-1 px-sm-2"><ProductCard productId={"11241"} col={4} /></Col>
                         <Col className="col-6 col-md-4 col-lg-2 order-1 order-lg-0 px-1 px-sm-2"><ProductCard productId={"99461"} col={4} /></Col>
@@ -216,8 +234,7 @@ function Home({}) {
                 </Container>
             </section>
 
-             {/* HIDDEN */}
-            <section className='position-relative page-section bg-secondary d-flex flex-column'>
+            <section className='position-relative page-section bg-secondary bg-img-6 d-flex flex-column'>
                 <div className="w-100 position-absolute bottom-100 fs-2 fw-semibold"><div className='section-title bg-secondary text-white d-inline-block m-0 h-100 p-2 ps-4 pe-3'>Our Services</div></div>
                 <Container className='h-100 py-5'>
                     <Row className='h-100 g-2 g-md-4'>
@@ -231,12 +248,12 @@ function Home({}) {
                                 </Col>
                                 <Col className='col-6 col-sm-4'>
                                 <div className='w-100 bg-light rounded-1 shadow d-flex align-items-center justify-content-center p-0 p-md-4 service-card' style={{height: "15rem"}}>
-                                        <img style={{width: "min(10rem,25vw)",height:"fit-content"}} src={require("../img/services-2.png")} />
+                                        <img style={{width: "min(7rem,20vw)",height:"fit-content"}} src={require("../img/home/services-2.png")} />
                                     </div>
                                 </Col>
                                 <Col className='col-6 col-sm-4'>
                                     <div className='w-100 bg-light rounded-1 shadow d-flex align-items-center justify-content-center p-0 p-md-4 service-card' style={{height: "15rem"}}>
-                                        <img style={{width: "min(8rem,20vw)",height:"fit-content"}} src={require("../img/services-1.png")} />
+                                        <img style={{width: "min(7rem,20vw)",height:"fit-content"}} src={require("../img/home/services-1.png")} />
                                     </div>
                                 </Col>
                                 <Col className='col-12 col-sm-8'>
@@ -270,7 +287,6 @@ function Home({}) {
                 </Container>
             </section>
 
-            {/* HIDDEN */}
             <section className='position-relative page-section bg-white d-flex flex-column bg-img-1'>
                 <div className="w-100 position-absolute bottom-100 fs-2 fw-semibold"><div className='section-title bg-white d-inline-block m-0 h-100 p-2 ps-4 pe-3'>Hear from our customers</div></div>
                 <Container className='w-100 py-5 d-flex flex-column'>
@@ -281,9 +297,9 @@ function Home({}) {
                                 <Col className='col-12 col-md-6 col-lg-4 py-2'>
                                     <div className="d-flex flex-column w-100 h-100 rounded-3 p-3 shadow-sm" style={{backgroundColor: "rgba(255,255,255,0.3)",backdropFilter: "blur(0.2rem)"}}>
                                         <div className='h-100 d-flex flex-column align-items-center'>
-                                            <h2 className='m-0'>Phone 1X</h2>
+                                            <h2 className='m-0'>Photon Surge 10T</h2>
                                             <div className='d-flex gap-2 text-warning fs-3 mt-2'><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /></div>
-                                            <img style={{height: "min(20rem,50vw)",filter:"drop-shadow(0 0 10px rgb(10,20,80))"}} src={require("../img/homepage-reviews-1.png")} alt="" />
+                                            <img className='homepage-review-product-img' style={{height: "min(20rem,50vw)"}} src={require("../img/home/homepage-reviews-1.png")} alt="" />
                                         </div>
                                         <div className='w-100 d-flex flex-column'>
                                             <div className="d-flex flex-column gap-3">
@@ -308,9 +324,9 @@ function Home({}) {
                                 <Col className='col-12 col-md-6 col-lg-4 py-2'>
                                     <div className="d-flex flex-column w-100 h-100 rounded-3 p-3 shadow-sm" style={{backgroundColor: "rgba(255,255,255,0.3)",backdropFilter: "blur(0.2rem)"}}>
                                         <div className='h-100 d-flex flex-column align-items-center'>
-                                            <h2 className='m-0 '>Phone 1X</h2>
+                                            <h2 className='m-0 '>Horizon Elite 9L</h2>
                                             <div className='d-flex gap-2 text-warning fs-3 mt-2'><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /></div>
-                                            <img style={{height: "min(20rem,50vw)",filter:"drop-shadow(0 0 10px rgb(10,20,80))"}} src={require("../img/homepage-reviews-2.png")} alt="" />
+                                            <img className='homepage-review-product-img' style={{height: "min(20rem,50vw)"}} src={require("../img/home/homepage-reviews-2.png")} alt="" />
                                         </div>
                                         <div className='w-100 d-flex flex-column'>
                                             <div className="d-flex flex-column gap-3">
@@ -335,9 +351,9 @@ function Home({}) {
                                 <Col className='col-12 col-lg-4 py-2'>
                                     <div className="d-flex flex-column w-100 h-100 rounded-3 p-3 shadow-sm" style={{backgroundColor: "rgba(255,255,255,0.3)",backdropFilter: "blur(0.2rem)"}}>
                                         <div className='h-100 d-flex flex-column align-items-center'>
-                                            <h2 className='m-0 '>Phone 1X</h2>
+                                            <h2 className='m-0 '>ZedTab Air</h2>
                                             <div className='d-flex gap-2 text-warning fs-3 mt-2'><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /></div>
-                                            <img style={{height: "min(20rem,50vw)",filter:"drop-shadow(0 0 10px rgb(10,20,80))"}} src={require("../img/homepage-reviews-3.png")} alt="" />
+                                            <img className='homepage-review-product-img' style={{height: "min(20rem,50vw)"}} src={require("../img/home/homepage-reviews-3.png")} alt="" />
                                         </div>
                                         <div className='w-100 d-flex flex-column'>
                                             <div className="d-flex flex-column gap-3">
@@ -369,9 +385,9 @@ function Home({}) {
                                 <Col className='col-12 col-md-6 col-lg-4 py-2'>
                                     <div className="d-flex flex-column w-100 h-100 rounded-3 p-3 shadow-sm" style={{backgroundColor: "rgba(255,255,255,0.3)",backdropFilter: "blur(0.2rem)"}}>
                                         <div className='h-100 d-flex flex-column align-items-center'>
-                                            <h2 className='m-0'>Phone 1X</h2>
+                                            <h2 className='m-0'>PulseFlow Lite</h2>
                                             <div className='d-flex gap-2 text-warning fs-3 mt-2'><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /></div>
-                                            <img style={{height: "min(20rem,50vw)",filter:"drop-shadow(0 0 10px rgb(10,20,80))"}} src={require("../img/homepage-reviews-4.png")} alt="" />
+                                            <img className='homepage-review-product-img' style={{height: "min(20rem,50vw)"}} src={require("../img/home/homepage-reviews-4.png")} alt="" />
                                         </div>
                                         <div className='w-100 d-flex flex-column'>
                                             <div className="d-flex flex-column gap-3">
@@ -396,9 +412,9 @@ function Home({}) {
                                 <Col className='col-12 col-md-6 col-lg-4 py-2'>
                                     <div className="d-flex flex-column w-100 h-100 rounded-3 p-3 shadow-sm" style={{backgroundColor: "rgba(255,255,255,0.3)",backdropFilter: "blur(0.2rem)"}}>
                                         <div className='h-100 d-flex flex-column align-items-center'>
-                                            <h2 className='m-0 '>Phone 1X</h2>
+                                            <h2 className='m-0 '>BusinessPro B4</h2>
                                             <div className='d-flex gap-2 text-warning fs-3 mt-2'><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /></div>
-                                            <img style={{height: "min(20rem,50vw)",filter:"drop-shadow(0 0 10px rgb(10,20,80))"}} src={require("../img/homepage-reviews-5.png")} alt="" />
+                                            <img className='homepage-review-product-img' style={{height: "min(20rem,50vw)"}} src={require("../img/home/homepage-reviews-5.png")} alt="" />
                                         </div>
                                         <div className='w-100 d-flex flex-column'>
                                             <div className="d-flex flex-column gap-3">
@@ -423,9 +439,9 @@ function Home({}) {
                                 <Col className='col-12 col-lg-4 py-2'>
                                     <div className="d-flex flex-column w-100 h-100 rounded-3 p-3 shadow-sm" style={{backgroundColor: "rgba(255,255,255,0.3)",backdropFilter: "blur(0.2rem)"}}>
                                         <div className='h-100 d-flex flex-column align-items-center'>
-                                            <h2 className='m-0 '>Phone 1X</h2>
+                                            <h2 className='m-0 '>FusionTower Max</h2>
                                             <div className='d-flex gap-2 text-warning fs-3 mt-2'><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /></div>
-                                            <img style={{height: "min(20rem,50vw)",filter:"drop-shadow(0 0 10px rgb(10,20,80))"}} src={require("../img/homepage-reviews-6.png")} alt="" />
+                                            <img className='homepage-review-product-img' style={{height: "min(20rem,50vw)"}} src={require("../img/home/homepage-reviews-6.png")} alt="" />
                                         </div>
                                         <div className='w-100 d-flex flex-column'>
                                             <div className="d-flex flex-column gap-3">
@@ -455,9 +471,9 @@ function Home({}) {
                                 <Col className='col-12 col-md-6 col-lg-4 py-2'>
                                     <div className="d-flex flex-column w-100 h-100 rounded-3 p-3 shadow-sm" style={{backgroundColor: "rgba(255,255,255,0.3)",backdropFilter: "blur(0.2rem)"}}>
                                         <div className='h-100 d-flex flex-column align-items-center'>
-                                            <h2 className='m-0'>Phone 1X</h2>
+                                            <h2 className='m-0'>NovaBook Air 13</h2>
                                             <div className='d-flex gap-2 text-warning fs-3 mt-2'><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /></div>
-                                            <img style={{height: "min(20rem,50vw)",filter:"drop-shadow(0 0 10px rgb(10,20,80))"}} src={require("../img/homepage-reviews-7.png")} alt="" />
+                                            <img className='homepage-review-product-img' style={{height: "min(20rem,50vw)"}} src={require("../img/home/homepage-reviews-7.png")} alt="" />
                                         </div>
                                         <div className='w-100 d-flex flex-column'>
                                             <div className="d-flex flex-column gap-3">
@@ -482,9 +498,9 @@ function Home({}) {
                                 <Col className='col-12 col-md-6 col-lg-4 py-2'>
                                     <div className="d-flex flex-column w-100 h-100 rounded-3 p-3 shadow-sm" style={{backgroundColor: "rgba(255,255,255,0.3)",backdropFilter: "blur(0.2rem)"}}>
                                         <div className='h-100 d-flex flex-column align-items-center'>
-                                            <h2 className='m-0 '>Phone 1X</h2>
+                                            <h2 className='m-0 '>Chromo Prime 12T</h2>
                                             <div className='d-flex gap-2 text-warning fs-3 mt-2'><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /></div>
-                                            <img style={{height: "min(20rem,50vw)",filter:"drop-shadow(0 0 10px rgb(10,20,80))"}} src={require("../img/homepage-reviews-8.png")} alt="" />
+                                            <img className='homepage-review-product-img' style={{height: "min(20rem,50vw)"}} src={require("../img/home/homepage-reviews-8.png")} alt="" />
                                         </div>
                                         <div className='w-100 d-flex flex-column'>
                                             <div className="d-flex flex-column gap-3">
@@ -509,9 +525,9 @@ function Home({}) {
                                 <Col className='col-12 col-lg-4 py-2'>
                                     <div className="d-flex flex-column w-100 h-100 rounded-3 p-3 shadow-sm" style={{backgroundColor: "rgba(255,255,255,0.3)",backdropFilter: "blur(0.2rem)"}}>
                                         <div className='h-100 d-flex flex-column align-items-center'>
-                                            <h2 className='m-0 '>Phone 1X</h2>
+                                            <h2 className='m-0 '>AquaPad Elite</h2>
                                             <div className='d-flex gap-2 text-warning fs-3 mt-2'><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /><BsFillStarFill /></div>
-                                            <img style={{height: "min(20rem,50vw)",filter:"drop-shadow(0 0 10px rgb(10,20,80))"}} src={require("../img/homepage-reviews-9.png")} alt="" />
+                                            <img className='homepage-review-product-img' style={{height: "min(20rem,50vw)"}} src={require("../img/home/homepage-reviews-9.png")} alt="" />
                                         </div>
                                         <div className='w-100 d-flex flex-column'>
                                             <div className="d-flex flex-column gap-3">
@@ -541,7 +557,7 @@ function Home({}) {
                 </Container>
             </section>
 
-            <section className='position-relative page-section bg-secondary d-flex flex-column'>
+            <section className='position-relative page-section bg-secondary bg-img-5 d-flex flex-column'>
                 <div className="w-100 position-absolute bottom-100 fs-2 fw-semibold"><div className='section-title bg-secondary text-white d-inline-block m-0 h-100 p-2 ps-4 pe-3'>Our Branches</div></div>
                 <Container className='h-100 py-5'>
                     <Row className="d-flex h-100">
@@ -558,19 +574,19 @@ function Home({}) {
                                     
                                 </Nav>
                                 <hr className='w-100 border-white border-2 mt-0 mb-2'/>
-                                <Carousel className='w-100 pt-4' controls={false} indicators={false} fade={"true"} activeIndex={+branchSelect-1}>
+                                <Carousel className='w-100 pt-4' controls={false} indicators={false} activeIndex={+branchSelect-1}>
                                     {
                                         branches.map((branch,index)=>
 
                                         <Carousel.Item style={{zIndex:"0"}}>
-                                            <div className='text-white bg-secondary'>
-                                                <div className="d-flex flex-column align-items-center align-items-md-start flex-xl-row gap-2 justify-content-between gap-xl-5 w-100">
-                                                    <div className="d-flex flex-column text-md-start text-center align-items-center align-items-md-start gap-2">
+                                            <div className='text-white p-2 shadow rounded-3'>
+                                                <div className="d-flex flex-column align-items-center align-items-lg-start flex-xl-row gap-2 justify-content-between gap-xl-5 w-100">
+                                                    <div className="d-flex flex-column text-md-start text-center align-items-center align-items-lg-start gap-2">
                                                         <h4>{branch.title} Branch</h4>
                                                         <div className='position-relative d-flex align-items-end justify-content-center overflow-hidden rounded-3 border border-2' style={{width: "min(20rem,80vw)",aspectRatio: "16/9"}}>
                                                             <img className='position-absolute w-100' src={branch.image} />
                                                         </div>
-                                                        <p className='mt-3'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere voluptatem quidem distinctio libero, culpa modis.</p>
+                                                        <p className='mt-3'>{branch.desc}</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -589,9 +605,9 @@ function Home({}) {
                 </Container>
             </section>
 
-            <section className='position-relative bg-white d-flex flex-column'>
+            <section className='position-relative bg-white d-flex flex-column bg-img-7'>
                 <div className="w-100 position-absolute bottom-100 fs-2 fw-semibold"><div className='section-title bg-white d-inline-block m-0 h-100 p-2 ps-4 pe-3'>Frequently asked questions</div></div>
-                <Container className="p-0 py-5">
+                <Container className="px-2 px-sm-0 py-5">
                     <div className='m-0 d-flex flex-column'>
                         <Accordion flush className=' my-5 m-0 w-100'>
                             
@@ -600,14 +616,14 @@ function Home({}) {
 
                             <Accordion.Item eventKey={index} className='border-0 rounded-3 mb-2 rounded-bottom overflow-hidden shadow'>
                                 <Accordion.Header className='px-4 py-3 rounded-top '><h5 className='m-0'>{faq.q}</h5></Accordion.Header>
-                                <Accordion.Body className='border-top border-2 rounded-bottom'>{faq.a}</Accordion.Body>
+                                <Accordion.Body className='border-top border-2 rounded-bottom fs-5'>{faq.a}</Accordion.Body>
                             </Accordion.Item>
                             ))
                         }
                         </Accordion>
                         <div className="w-100 px-3 p-sm-0">
                             <div className='text-center'>
-                                <h4>Can't find your question? Feel free to <Link className='text-decoration-none text-primary'>Contact Us</Link> for any assistance!</h4>
+                                <h4>Can't find your question? Feel free to <Link to={"/contact"} className='text-decoration-none text-primary'>Contact Us</Link> for any assistance!</h4>
                                 <h4 className='text-info'>We are happy to help!</h4>
                             </div>
                         </div>
@@ -619,16 +635,4 @@ function Home({}) {
 }
 
 
-function SampleReview({text, className})
-{
-    return (
-        <div className={`bg-white w-auto shadow border border-2 rounded-3 d-flex flex-column gap-1 overflow-hidden ${className}`} >
-            <div className="d-flex gap-3 p-2">
-                <BsFillPersonFill className='bg-white border border-dark rounded-2 fs-1' />
-                <p className='fs-4 m-0 text-nowrap'>{text}</p>
-            </div>
-            <div className="d-flex gap-1 fs-5 p-2"><BsFillStarFill cla style={{backdropFilter: "blur(0.5em)"}}ssName='text-warning' /><BsFillStarFill className='text-warning' /><BsFillStarFill className='text-warning' /><BsFillStarFill className='text-warning' /><BsFillStarFill className='text-warning' /></div>
-        </div>
-    )
-}
 export default Home;

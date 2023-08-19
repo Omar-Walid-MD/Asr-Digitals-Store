@@ -23,11 +23,13 @@ function CartSideBar() {
   const products = useSelector((store) => store.products.products);
   const productsInfo = useSelector((store) => store.products.productsInfo);
   const cart = useSelector((store) => store.cart.cart);
+  const offers = useSelector((store) => store.offers.offers);
+
   const [fees, setFees]  = useState({subtotal:0,delivery:0,total:0});
 
   useEffect(()=>{
-    if(products && cart && productsInfo) setFees(getTotalFees(cart,products,productsInfo));
-},[cart,products,productsInfo]);
+    if(products && cart && productsInfo && offers) setFees(getTotalFees(cart,products,productsInfo,offers));
+},[cart,products,productsInfo,offers]);
 
   return (
     <>

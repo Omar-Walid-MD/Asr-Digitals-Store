@@ -26,15 +26,34 @@ export const throttle = function(func,delay)
   }
 }
 
-export const refreshPurchases = function(purchases,setSuccessFunc)
+export const refreshPurchases = function(purchases,setStatusFunc)
 {
   let now = Date.now();
+  console.log("running purchase checks...")
   purchases.forEach((purchase) => {
-    console.log("running");
-    if(purchase.date + purchase.estimatedDeliveryHours * 1000 * 3600 > now && purchase.status==="pending")
+    // console.log(purchase.date + purchase.estimatedDeliveryHours * 1000 * 3600 > now);
+    if(purchase.date + purchase.estimatedDeliveryHours * 1000 * 3600 <= now && purchase.status==="pending")
     {
-      console.log(purchase.date + purchase.estimatedDeliveryHours * 1000 * 3600, now);
-      setSuccessFunc(purchase);
+      console.log("updating...");
+      setStatusFunc(purchase,"success");
+    }
+  })
+}
+
+export const refreshOffers = function(offers,setStatusFunc)
+{
+  let now = Date.now();
+  console.log("running offer checks...")
+  offers.forEach((offer) => {
+    // console.log(offer.date + offer.estimatedDeliveryHours * 1000 * 3600 > now);
+    if(offer.start <= now && offer.status==="upcoming")
+    {
+      console.log("updating...");
+      setStatusFunc(offer,"running");
+    }
+    if(offer.end <= now && offer.status==="running")
+    {
+      setStatusFunc(offer,"closed");
     }
   })
 }
@@ -49,13 +68,15 @@ export const getCartTotalCount = function(cart)
     return total;
 }
 
-export const getCartSubTotal = function(cart,products)
+export const getCartSubTotal = function(cart,products,offers)
 {
     let total = 0;
     cart.forEach(cartItem => {
         let targetProduct = products.find((product) => product.id === cartItem.productId);
         if(!targetProduct) return;
-        total += cartItem.count * targetProduct.price;
+        let availableOffer = offers.find((offer) => offer.productId===targetProduct.id);
+        // console.log(availableOffer);
+        total += cartItem.count * (availableOffer ? availableOffer.newPrice : targetProduct.price);
     });
 
     return total;
@@ -75,9 +96,9 @@ export const getCartDelivery = function(cart,products,productsInfo)
     return total;
 }
 
-export const getTotalFees = function(cart,products,productsInfo)
+export const getTotalFees = function(cart,products,productsInfo,offers)
 {
-    let subtotal = getCartSubTotal(cart,products);
+    let subtotal = getCartSubTotal(cart,products,offers);
     let delivery = getCartDelivery(cart,products,productsInfo);
     return {subtotal,delivery,total:subtotal+delivery};
 }
@@ -106,6 +127,7 @@ export const getCapitalized = function(string)
 
 export const getDateString = function(dateObject)
 {
+  console.log(dateObject);
   let dateList = dateObject.toLocaleDateString().split("/").map((n) => n.length<2 ? `0${n}` : n);
   return [dateList[2],dateList[0],dateList[1]].join("-");
 }
@@ -182,6 +204,14 @@ export const generateProductList = function(length,category,titleList)
             },
             "basePrice": 250
         },
+        "earphone": {
+          "specs": {
+              "connection": {values: ["Wire - USB","Wire - Jack","Wireless - Bluetooth"], w: 50},
+              "microphone": {values: ["With Mic","No Mic"], w: 50},
+              "noiseCancelling": {values: ["With Noise Cancelling","No Noise Cancelling"], w: 50}
+          },
+          "basePrice": 150
+        },
         "mouse": {
             "specs": {
                 "connection": {values: ["Wire","Wireless - Bluetooth"], w: 100},
@@ -197,7 +227,31 @@ export const generateProductList = function(length,category,titleList)
                 "keysNumber": {values: ["104","100","87","84","68"], w:100}
             },
             "basePrice": 150
+        },
+        "speaker": {
+          "specs": {
+            "connection": {values: ["Wire - Jack","Wire - USB","Wireless - Bluetooth"],w:100},
+            "control": {values:["Touch","Buttons"],w:100},
+            "size": {values:['6"','10"','15"'],w:100}
+          },
+          "basePrice": 350
+        },
+        "monitor": {
+          "specs": {
+            "res": {values: ["1366 x 768","1920 x 1080","2560 x 1440","2880 x 1800"], w: 100},
+            "size": {values: ['12"','15"','20"','25"'],w:100},
+            "refreshRate": {values: ["60 Hz","120 Hz","240 Hz"],w:100}
+          },
+          basePrice: 600
+        },
+        "microphone": {
+          "specs": {
+            "connection": {values: ["Wire - Jack","Wire - USB","Wireless - Bluetooth"],w:100},
+            "sensitity": {values: ["35 dB","45 dB","55 dB","65 dB"],w:50},
+          },
+          basePrice: 600
         }
+
 
     }
 
@@ -227,6 +281,10 @@ export const generateProductList = function(length,category,titleList)
     console.log(productList);
 }
 
+export const onImgError = function(e)
+{
+  e.target.src = require("./img/image-placeholder.png")
+}
 
 const smartphoneModels = [
     { title: "Arcadia X1", desc: "A cutting-edge smartphone that seamlessly blends sleek design with powerful performance, offering an immersive display and advanced camera capabilities.",
@@ -727,4 +785,345 @@ const keyboardModels = [
   }
 ]
 
-// generateProductList(20,"keyboard",keyboardModels);
+const desktopModels = [
+  {
+    title: "VelocityX Pro",
+    desc: "The VelocityX Pro is a high-performance desktop computer designed for power users and gamers, featuring top-of-the-line components and advanced cooling systems."
+    ,image:"https://i.imgur.com/4N0E9Lv.png"
+  },
+  {
+    title: "MegaStation Elite",
+    desc: "The MegaStation Elite is a professional-grade desktop workstation that offers exceptional processing power, extensive storage options, and robust graphics capabilities."
+    ,image:"https://i.imgur.com/R7xmPRU.png"
+  },
+  {
+    title: "FusionTower Max",
+    desc: "The FusionTower Max is a feature-rich desktop computer with a sleek design, powerful performance, and expandable configurations to meet various computing needs."
+    ,image:"https://i.imgur.com/HboOKB8.png"
+  },
+  {
+    title: "PixelStation Pro",
+    desc: "The PixelStation Pro is a versatile desktop computer optimized for creative professionals, delivering high-resolution graphics, fast rendering capabilities, and ample storage."
+    ,image:"https://i.imgur.com/sr6H9po.png"
+  },
+  {
+    title: "ZedDesk Ultra",
+    desc: "The ZedDesk Ultra is a compact and stylish desktop computer that combines elegance with performance, offering a seamless computing experience for home or office use."
+    ,image:"https://i.imgur.com/8LBDMoU.png"
+  },
+  {
+    title: "SwiftTower X1",
+    desc: "The SwiftTower X1 is a budget-friendly desktop computer that provides reliable performance and essential features, making it ideal for everyday computing tasks."
+    ,image:"https://i.imgur.com/5lsqItL.png"
+  },
+  {
+    title: "AuraStation Pro",
+    desc: "The AuraStation Pro is a premium desktop computer that combines cutting-edge technology with elegant design, delivering powerful performance and immersive visuals."
+    ,image:"https://i.imgur.com/bNPLZoi.png"
+  },
+  {
+    title: "NimbusTower Lite",
+    desc: "The NimbusTower Lite is a compact and energy-efficient desktop computer that offers a balance of performance and affordability, perfect for home or small office use."
+    ,image:"https://i.imgur.com/E5U2gpU.png"
+  },
+  {
+    title: "EvoStation Plus",
+    desc: "The EvoStation Plus is a versatile desktop computer that delivers impressive performance and adaptability, featuring easy upgradability and customizable configurations."
+    ,image:"https://i.imgur.com/UDhTRbx.png"
+  },
+  {
+    title: "NovaTower Flex",
+    desc: "The NovaTower Flex is a flexible desktop computer that offers a space-saving design and customizable orientations, providing versatility for any workspace."
+    ,image:"https://i.imgur.com/62JOfk9.png"
+  },
+  {
+    title: "VivoStation Max",
+    desc: "The VivoStation Max is a powerful desktop computer designed for multimedia enthusiasts, offering exceptional graphics, immersive audio, and optimized performance."
+    ,image:"https://i.imgur.com/Veg8OPx.png"
+  },
+  {
+    title: "LunaTower Lite",
+    desc: "The LunaTower Lite is an affordable desktop computer that delivers reliable performance for everyday computing needs, making it suitable for home or educational use."
+    ,image:"https://i.imgur.com/TgN4e5v.png"
+  },
+  {
+    title: "TitaniumStation Pro",
+    desc: "The TitaniumStation Pro is a high-end desktop computer that delivers uncompromising performance, robust security features, and expandability for demanding tasks."
+    ,image:"https://i.imgur.com/GAkkyCx.png"
+  },
+  {
+    title: "PulseTower Elite",
+    desc: "The PulseTower Elite is a high-performance desktop computer built for intense gaming and multimedia experiences, featuring advanced graphics and responsive gameplay."
+    ,image:"https://i.imgur.com/lQYDAfA.png"
+  },
+  {
+    title: "AeroStation Ultra",
+    desc: "The AeroStation Ultra is a premium desktop computer designed for professionals, offering powerful processing capabilities, extensive storage, and advanced connectivity options."
+    ,image:"https://i.imgur.com/z3Thf12.png"
+  },
+  {
+    title: "BlazeTower X2",
+    desc: "The BlazeTower X2 is a gaming-focused desktop computer that delivers exceptional performance, immersive visuals, and customizable RGB lighting for an enhanced gaming experience."
+    ,image:"https://i.imgur.com/mkBfXaw.png"
+  },
+  {
+    title: "SparkStation Flex",
+    desc: "The SparkStation Flex is a versatile desktop computer with a flexible form factor, allowing easy upgrades and adaptability to different workspace configurations."
+    ,image:"https://i.imgur.com/SNvRBIu.png"
+  },
+  {
+    title: "XenonTower Pro",
+    desc: "The XenonTower Pro is a high-end desktop computer that combines cutting-edge technology, premium components, and meticulous craftsmanship, delivering uncompromising performance and reliability."
+    ,image:"https://i.imgur.com/cfHtucm.png"
+  },
+  {
+    title: "NovaStation Lite",
+    desc: "The NovaStation Lite is an entry-level desktop computer that offers reliable performance for everyday computing tasks, making it suitable for home or office use at an affordable price."
+    ,image:"https://i.imgur.com/RGHeqxy.png"
+  },
+  {
+    title: "MegaTower Elite",
+    desc: "The MegaTower Elite is a powerful and expandable desktop computer designed for professionals and content creators, offering unparalleled performance and scalability."
+    ,image:"https://i.imgur.com/wvYOfsP.png"
+  }
+];
+
+const earphoneModels = [
+  {
+    title: "SonicBlast X1",
+    desc: "Experience stunning audio quality with the SonicBlast X1 earphones. These sleek and lightweight earphones deliver immersive sound and a comfortable fit."
+    ,image: "https://i.imgur.com/auXQy9L.png"
+  },
+  {
+    title: "Aurora Spark Z2",
+    desc: "Ignite your audio experience with the Aurora Spark Z2 earphones. With their dazzling design and powerful sound, these earphones provide a captivating blend of style and performance, ensuring an immersive listening journey."
+    ,image: "https://i.imgur.com/oagpxVD.png"
+  },
+  {
+    title: "LunaWave S3",
+    desc: "Embark on a sonic adventure with the LunaWave S3 earphones. Crafted for comfort and precision, these earphones deliver exceptional audio quality and a stylish design that complements your unique personality."
+    ,image: "https://i.imgur.com/C0WsPNg.png"
+  },
+  {
+    title: "Nebula Pulse H4",
+    desc: "Immerse yourself in celestial soundscapes with the Nebula Pulse H4 earphones. With their cutting-edge technology and stellar audio performance."
+    ,image: "https://i.imgur.com/iZat0NN.png"
+  },
+  {
+    title: "ZedSound V2",
+    desc: "Achieve inner harmony with the ZedSound V2 earphones. Designed to deliver balanced and soothing audio, these earphones provide a tranquil listening experience, allowing you to escape the noise of the outside world."
+    ,image: "https://i.imgur.com/M0SiKGk.png"
+  },
+  {
+    title: "PulseWave X2",
+    desc: "Feel the pulse of the audio with the PulseWave X2 earphones. Featuring powerful drivers and enhanced bass."
+    ,image: "https://i.imgur.com/pKGuhVj.png"
+  },
+  {
+    title: "EchoBuds X3",
+    desc: "Experience the power of sound with the EchoBuds X3 earphones. Engineered for deep bass and crystal-clear highs."
+    ,image: "https://i.imgur.com/c3paYbA.png"
+  },
+  {
+    title: "SoundFlow S5",
+    desc: "Dive into a river of pure sound with the SoundFlow S5 earphones. Featuring advanced sound technology and a comfortable ergonomic design."
+    ,image: "https://i.imgur.com/ojYK0T1.png"
+  },
+  {
+    title: "WaveZone E9",
+    desc: "Get in the zone with the WaveZone E9 earphones. These energetic and vibrant earphones deliver powerful bass and dynamic sound."
+    ,image: "https://i.imgur.com/Bl93zdS.png"
+  },
+  {
+    title: "PulseWave Pro Z5",
+    desc: "Elevate your audio game with the PulseWave Pro Z5 earphones. Equipped with advanced audio technology and customizable sound profiles, these earphones provide a professional-grade audio experience for discerning listeners."
+    ,image: "https://i.imgur.com/i2GjqoX.png"
+  },
+  {
+    title: "SonicBoom H5",
+    desc: "Unleash explosive sound with the SonicBoom H5 earphones. Designed for those who crave powerful audio, these earphones deliver smooth frequency and precise clarity, leaving you in awe of their sonic impact."
+    ,image: "https://i.imgur.com/foUDKGS.png"
+  },
+  {
+    title: "WavePod S6",
+    desc: "Indulge in tranquil melodies with the WavePod S6 earphones. Designed to deliver soothing audio and exceptional comfort, these earphones provide a serene audio sanctuary."
+    ,image: "https://i.imgur.com/B0uQTCI.png"
+  }
+];
+
+const microphoneModels = [
+  {
+    title: "VocalPro M1",
+    desc: "The VocalPro M1 microphone is a professional-grade dynamic microphone designed for studio recordings and live performances. It delivers clear and crisp vocals with excellent feedback rejection, making it a top choice for vocalists and speakers."
+    ,image: "https://i.imgur.com/ZOTtCwd.png"
+  },
+  {
+    title: "AudioTech XLR2",
+    desc: "The AudioTech XLR2 microphone is a versatile condenser microphone that captures audio with exceptional detail and accuracy. It features a wide frequency response and low self-noise, making it ideal for recording vocals, instruments, and podcasts."
+    ,image: "https://i.imgur.com/D4XZSJH.png"
+  },
+  {
+    title: "SoundCapture C3",
+    desc: "The SoundCapture C3 microphone is a compact and portable USB microphone that offers plug-and-play convenience. It delivers high-quality audio for voiceovers, podcasting, and video conferencing, making it a great choice for content creators on the go."
+    ,image: "https://i.imgur.com/whANYD3.png"
+  },
+  {
+    title: "StudioPro P4",
+    desc: "The StudioPro P4 microphone is a large-diaphragm condenser microphone designed for professional studio recordings. It provides warm and rich sound reproduction, making it suitable for capturing vocals, acoustic instruments, and ambient recordings."
+    ,image: "https://i.imgur.com/xaRk0IS.png"
+  },
+  {
+    title: "ProAudio Wireless W2",
+    desc: "The ProAudio Wireless W2 microphone is a wireless microphone system that offers freedom of movement without compromising audio quality. It features a reliable wireless connection and clear sound transmission, making it perfect for stage performances and presentations."
+    ,image: "https://i.imgur.com/xeRSHmg.png"
+  },
+  {
+    title: "PodCast Master M2",
+    desc: "The PodCast Master M2 microphone is a dedicated microphone for podcasting and broadcasting. It offers a built-in pop filter and adjustable gain control, ensuring professional-quality sound for interviews, discussions, and voice recordings."
+    ,image: "https://i.imgur.com/d372AOK.png"
+  },
+  {
+    title: "ConferenceTalk C4",
+    desc: "The ConferenceTalk C4 microphone is a tabletop conference microphone designed for clear and intelligible audio during meetings and conferences. It features omnidirectional pickup and noise-cancellation technology, providing optimal sound capture in group settings."
+    ,image: "https://i.imgur.com/waL9DeZ.png"
+  },
+  {
+    title: "BroadcastPro B3",
+    desc: "The BroadcastPro B3 microphone is a professional broadcast microphone designed for radio and TV broadcasting. It offers exceptional clarity and off-axis rejection, ensuring clear and focused audio capture in broadcasting environments."
+    ,image: "https://i.imgur.com/cu0MIa9.png"
+  },
+  {
+    title: "TourGuide T2",
+    desc: "The TourGuide T2 microphone is a wireless tour guide system that includes a microphone transmitter and receivers. It provides clear and stable audio transmission, making it ideal for guided tours, presentations, and educational events."
+    ,image: "https://i.imgur.com/tGD75mG.png"
+  },
+  {
+    title: "StudioDynamic D5",
+    desc: "The StudioDynamic D5 microphone is a dynamic microphone designed for studio and live applications. It offers a wide frequency response and high SPL handling, making it suitable for capturing vocals, drums, and guitar amplifiers."
+    ,image: "https://i.imgur.com/E2a1oNF.png"
+  },
+  {
+    title: "USBRecord R6",
+    desc: "The USBRecord R6 microphone is a USB recording microphone that offers plug-and-play functionality. It provides high-fidelity audio recording for vocals, instruments, and podcasts, making it a convenient choice for home studios and mobile recording setups."
+    ,image: "https://i.imgur.com/VeCqFbt.png"
+  },
+  {
+    title: "LavalierPro L4",
+    desc: "The LavalierPro L4 microphone is a clip-on lavalier microphone designed for hands-free audio capture. It offers clear and natural sound reproduction, making it ideal for presentations, interviews, and video productions."
+    ,image: "https://i.imgur.com/JImbqya.png"
+  },
+  {
+    title: "WirelessTalk W3",
+    desc: "The WirelessTalk W3 microphone is a wireless handheld microphone system that delivers reliable and interference-free audio transmission. It offers selectable channels and long-range coverage, making it suitable for performances, conferences, and public speaking."
+    ,image: "https://i.imgur.com/phqtrsv.png"
+  }
+];
+
+const monitorProducts = [
+  {
+    title: "ProView P4",
+    desc: "The ProView P4 is a professional-grade monitor designed for color-critical work. It features a 32-inch QHD display with excellent color accuracy and wide viewing angles, making it perfect for photographers, graphic designers, and video editors."
+    ,image: "https://i.imgur.com/VItVW0s.png"
+  },
+  {
+    title: "UltraSlim S2",
+    desc: "The UltraSlim S2 is a sleek and slim monitor designed for space-conscious users. With its ultra-thin bezels and compact design, it maximizes screen real estate while providing a crisp and vibrant viewing experience."
+    ,image: "https://i.imgur.com/3Jbg1WN.png"
+  },
+  {
+    title: "PortablePro P5",
+    desc: "The PortablePro P5 is a portable monitor that offers convenience and versatility. It features a 15.6-inch Full HD display with USB-C connectivity, making it a perfect companion for on-the-go professionals and travelers."
+    ,image: "https://i.imgur.com/3Jbg1WN.png"
+  },
+  {
+    title: "DesignStudio D5",
+    desc: "The DesignStudio D5 is a premium monitor tailored for creative professionals. It boasts a 34-inch ultrawide display with a curved screen, accurate color reproduction, and extensive connectivity options, making it an ideal choice for graphic designers and video editors."
+    ,image: "https://i.imgur.com/7aRMJqa.png"
+  },
+  {
+    title: "BudgetSaver B3",
+    desc: "The BudgetSaver B3 is an affordable monitor that doesn't compromise on quality. It features a 21.5-inch Full HD display with a slim profile, making it a great option for everyday use, office work, and casual gaming."
+    ,image: "https://i.imgur.com/eSN490a.png"
+  },
+  {
+    title: "CurvedView C4",
+    desc: "The CurvedView C4 is a curved monitor that enhances immersion and visual appeal. With its 32-inch curved display, wide color gamut, and high contrast ratio, it offers an immersive viewing experience for gaming, movies, and multimedia content."
+    ,image: "https://i.imgur.com/75jMKLM.png"
+  },
+  {
+    title: "OfficeEssentials O2",
+    desc: "The OfficeEssentials O2 is a monitor optimized for office productivity. With its ergonomic design, adjustable stand, and eye-care technologies, it provides a comfortable and efficient workspace for long hours of work or study."
+    ,image: "https://i.imgur.com/qW744CK.png"
+  },
+  {
+    title: "MultiConnect M3",
+    desc: "The MultiConnect M3 is a multitasking monitor that simplifies connectivity. With its built-in KVM switch, USB-C, and HDMI ports, it allows you to easily switch between multiple devices, making it ideal for professionals working with multiple computers or laptops."
+    ,image: "https://i.imgur.com/KKZey0A.png"
+  },
+  {
+    title: "UltraWideVision U3",
+    desc: "The UltraWideVision U3 is an ultrawide monitor that expands your field of view. With its 29-inch ultrawide display and multitasking features, it enables seamless productivity and immersive entertainment experiences for professionals and content creators."
+    ,image: "https://i.imgur.com/O3M64jA.png"
+  },
+  {
+    title: "BusinessPro B4",
+    desc: "The BusinessPro B4 is a professional monitor designed for business environments. With its ergonomic design, adjustable stand, and advanced connectivity options, it enhances productivity and comfort for corporate users, office work, and presentations."
+    ,image: "https://i.imgur.com/9oZceRN.png"
+  }
+];
+
+const speakerProducts = [
+  {
+    title: "SoundBlaster S1",
+    desc: "The SoundBlaster S1 is a compact wireless speaker that delivers powerful and clear audio. It features Bluetooth connectivity, built-in microphone for hands-free calls, and a long-lasting battery."
+    ,image: "https://i.imgur.com/Cd0D8Md.png"
+  },
+  {
+    title: "StudioMonitor M4",
+    desc: "The StudioMonitor M4 is a professional studio monitor speaker that delivers accurate and detailed sound reproduction. It features a bi-amplified design, adjustable frequency response, and multiple connectivity options, making it a top choice for audio production and mixing."
+    ,image: "https://i.imgur.com/zP62ktV.png"
+  },
+  {
+    title: "HomeTheaterPro H2",
+    desc: "The HomeTheaterPro H2 is a complete home theater speaker system that provides immersive audio for your entertainment setup. It includes a soundbar, subwoofer, and satellite speakers."
+    ,image: "https://i.imgur.com/CUQYZ6t.png"
+  },
+  {
+    title: "SoundBarPro S2",
+    desc: "The SoundBarPro S2 is a sleek and versatile soundbar that enhances your TV audio experience. It features multiple audio modes, wireless connectivity, and a slim design that fits seamlessly into any living room setup."
+    ,image: "https://i.imgur.com/1FmtHWd.png"
+  },
+  {
+    title: "SmartHomeSpeaker S3",
+    desc: "The SmartHomeSpeaker S3 is a voice-activated smart speaker that integrates with your smart home ecosystem. It features virtual assistant support, multi-room audio capabilities, and smart home control, allowing you to enjoy music and manage your home with ease."
+    ,image: "https://i.imgur.com/RDNuBFy.png"
+  },
+  {
+    title: "ConferencePro C4",
+    desc: "The ConferencePro C4 is a professional conference speakerphone that provides clear and natural audio for conference calls. It features advanced noise cancellation technology, 360-degree voice pickup, and connectivity options for smooth collaboration in meetings."
+    ,image: "https://i.imgur.com/7Jb03fC.png"
+  },
+  {
+    title: "SoundBarPlus S4",
+    desc: "The SoundBarPlus S4 is a premium soundbar with Dolby Atmos technology, delivering immersive and cinematic sound. It features multiple audio drivers, wireless subwoofer, and support for high-resolution audio formats."
+    ,image: "https://i.imgur.com/ZvMVUVq.png"
+  },
+  {
+    title: "BookshelfAudio B3",
+    desc: "The BookshelfAudio B3 is a stylish bookshelf speaker that provides rich and balanced sound. It features a wooden cabinet, high-quality drivers, and versatile placement options, making it a great addition to your home audio setup."
+    ,image: "https://i.imgur.com/EBBmoTw.png"
+  },
+  {
+    title: "BluetoothBoom B2",
+    desc: "The BluetoothBoom B2 is a portable Bluetooth speaker that delivers impressive audio performance. It features a rugged design, water resistance, and long battery life."
+    ,image: "https://i.imgur.com/BbkhRN2.png"
+  },
+  {
+    title: "WirelessSurround W3",
+    desc: "The WirelessSurround W3 is a wireless surroundspeaker system that brings immersive sound to your home theater. It includes multiple wireless satellite speakers, a central hub, and easy setup, allowing you to enjoy a true surround sound experience without the hassle of wires."
+    ,image: "https://i.imgur.com/rivZQOI.png"
+  }
+];
+
+
+// generateProductList(earphoneModels.length,"earphone",earphoneModels);

@@ -11,16 +11,21 @@ import { getProducts, getProductsInfo } from './Store/Products/productsSlice';
 import { getCart } from './Store/Cart/cartSlice';
 import { getFavs } from './Store/Favorites/favoritesSlice';
 import { getReviews } from './Store/Reviews/reviewsSlice';
-import { getPurchases, setPurchaseState } from './Store/Purchases/purchasesSlice';
-import { getOffers } from './Store/Offers/offers';
+import { getPurchases, setPurchaseStatus } from './Store/Purchases/purchasesSlice';
+import { getOffers, setOfferStatus } from './Store/Offers/offers';
 import ScrollToTop from './Layout/ScrollToTop';
-import { refreshPurchases } from './helpers';
+import { refreshOffers, refreshPurchases } from './helpers';
+import { getPreviewStats } from './Store/PreviewStats/previewStats';
 
 function App() {
 
   const dispatch = useDispatch();
   const currentUser = useSelector((store) => store.auth.currentUser);
   const purchases = useSelector((store) => store.purchases.purchases);
+  const offers = useSelector((store) => store.offers.offers);
+
+
+  // const select = (args)=>{useSelector(args)};
 
   const [refreshInterval,setRefreshInterval] = useState();
 
@@ -33,6 +38,7 @@ function App() {
     dispatch(getReviews());
     dispatch(getPurchases());
     dispatch(getOffers());
+    dispatch(getPreviewStats());
   },[]);
   
   useEffect(()=>{
@@ -40,20 +46,14 @@ function App() {
     dispatch(getFavs());
   },[currentUser]);
 
-  // useEffect(()=>{
-  //   if(purchases.length && !refreshInterval)
-  //   {
+  useEffect(()=>{
+    const interval = setInterval(() => {
+      refreshPurchases(purchases,(purchase,status)=>{dispatch(setPurchaseStatus({purchase,status}))})
+      refreshOffers(offers,(offer,status)=>{dispatch(setOfferStatus({offer,status}))})
 
-  //     console.log(purchases);
-  //     setRefreshInterval(
-  
-  //       setInterval(() => {
-  //       console.log("refresh");
-  //       refreshPurchases(purchases,(purchase)=>{
-  //         dispatch(setPurchaseState({purchase,status:"success"}))})
-  //     }, 5000));
-  //   }
-  // },[purchases])
+    }, 1000 * 60 * 5);
+    return ()=> clearInterval(interval);  
+  },[purchases,offers]);
 
   return (
     <div className="App">

@@ -3,6 +3,7 @@ import { Accordion, Button, Col, Container, Row, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { BsFillPersonFill } from 'react-icons/bs';
+import { PiUsersThreeFill } from "react-icons/pi";
 import ProductCartItemOverview from '../../Components/ProductCartOverViewItem';
 import PurchaseCard from '../../Components/PurchaseCard';
 import { getCapitalized } from '../../helpers';
@@ -12,7 +13,8 @@ function ManageClients({}) {
     const users = useSelector((store) => store.auth.users);
     const purchases = useSelector((store) => store.purchases.purchases);
 
-    const [filters,setFilters] = useState({generalSearch:"",userId:"",email:"",username:"",name:"",phone:"",address:""});
+    const initialFilters = {generalSearch:"",userId:"",email:"",username:"",name:"",phone:"",address:""}
+    const [filters,setFilters] = useState(initialFilters);
     const [filteredUsers,setFilteredUsers] = useState(users);
 
     function handleFilterSearch(e)
@@ -79,15 +81,18 @@ function ManageClients({}) {
 
     return (
         <div className='py-3 px-0 p-md-3'>
-            <Container className='px-2'> <h2 className='mt-5 mb-2'>Manage Clients</h2> </Container>
+            <div className="d-flex mt-4 ps-4 gap-1 gap-sm-3 align-items-end justify-content-center justify-content-md-start">
+                <PiUsersThreeFill fontSize={"5rem"}/>
+                <h2 className='mt-5 mb-2'>Manage Clients</h2>
+            </div>
             <hr className='border-3' />
             <Accordion alwaysOpen className='w-100'>
-                <Accordion.Item eventKey="0" className='border-0 bg-light'>
-                    <Accordion.Header className='w-100 rounded-sm-3 bg-secondary px-3 py-2 arrow-white'>
+                <Accordion.Item eventKey="0" className='border-0 bg-transparent'>
+                    <Accordion.Header className='w-100 rounded-md-3 bg-secondary px-3 py-2 arrow-white'>
                         <h4 className='text-white m-0'>Filters</h4>
                     </Accordion.Header>
                     <Accordion.Body className='px-0 pt-2'>
-                        <div className='d-flex bg-secondary rounded-sm-3 p-3 d-flex flex-column justify-content-between align-items-start gap-2'>
+                        <div className='d-flex bg-secondary rounded-md-3 p-3 d-flex flex-column justify-content-between align-items-start gap-2'>
                             <div className='d-flex flex-column w-100  gap-2 align-items-start'>
                                 <h5 className='me-1 m-0 text-white'>Search</h5>
                                 <Row className='g-1 w-100'>
@@ -102,7 +107,7 @@ function ManageClients({}) {
 
                                 </Row>
                             </div>
-                        
+                            <Button className='bg-transparent border-0 text-info p-0' onClick={()=>{setFilters(initialFilters)}}>Clear</Button>
                         </div>
                     </Accordion.Body>
                 </Accordion.Item>
@@ -110,7 +115,7 @@ function ManageClients({}) {
             <div className='p-0 py-2 d-flex flex-column gap-3 w-100'>
             {
                 filteredUsers.map((user) =>
-                <div className='bg-white border rounded-3 p-3 shadow-sm d-flex flex-column align-items-start gap-3 w-100'>
+                <div className='bg-white border rounded-md-3 p-3 shadow-sm d-flex flex-column align-items-start gap-3 w-100'>
                     <div className='d-flex flex-column flex-lg-row align-items-start gap-3 w-100'>
                         <div>
                             <BsFillPersonFill fontSize={"5rem"} className='rounded-3 shadow-sm border border-2' />

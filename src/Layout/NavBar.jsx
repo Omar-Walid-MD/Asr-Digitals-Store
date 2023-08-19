@@ -10,22 +10,27 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getCurrentUser, logoutUser } from '../Store/Auth/auth';
 import { getCartTotalCount } from '../helpers';
 import ProductCard from '../Components/ProductCard';
+import { MdDashboard } from "react-icons/md";
+
+import i18next from "i18next";
 
 function NavBar({}) {
 
     const location = useLocation();
     const loggedIn = useSelector((store) => store.auth.loggedIn);
+    const currentUser = useSelector((store) => store.auth.currentUser);
     const authLoading = useSelector((store) => store.auth.loading);
     const products = useSelector((store) => store.products.products);
     const cart = useSelector((store) => store.cart.cart);
-    // const productsInfo = useSelector((store) => store.products.productsInfo);
+    const productsInfo = useSelector((store) => store.products.productsInfo);
 
     const [searchModal,setSearchModal] = useState(false);
     const handleSearchModalShow = () => setSearchModal(true);
     const handleSearchModalClose = () => {setSearchModal(false); setSearchValue("");};
 
-
     const [searchValue,setSearchValue] = useState("");
+    const dispatch = useDispatch();
+
 
     function handleSearch(e)
     {
@@ -44,37 +49,35 @@ function NavBar({}) {
 
     const [cartTotal, setCartTotal]  = useState(0);
 
-    const shoppingMenu = [
-        {
-            label: "mobile",
-            categories: ["smartphone","tablet"]
-        },
-        {
-            label: "computer",
-            categories: ["desktop","laptop","keyboard","mouse"]
-        },
-        {
-            label: "audio",
-            categories: ["earphone","headphone","speaker","microphone"]
-        }
-    ]
-
     function linkActive(pathname)
     {
         return `/${pathname}`===location.pathname ? "active" : "";
     }
 
-    const dispatch = useDispatch();
+    // function setLanguage(lang)
+    // {
+    //   i18next.changeLanguage(lang);
+    //   document.documentElement.setAttribute("lang",lang);
+    //   document.documentElement.setAttribute("dir",lang==="ar" ? "rtl" : "ltr");
+
+    //   localStorage.setItem("lang",lang);
+    // }
+
 
     useEffect(()=>{
         if(cart) setCartTotal(getCartTotalCount(cart));
     },[cart]);
+
+    useEffect(()=>{
+        setSearchModal(false);
+    },[location.pathname])
 
     return (
         <Navbar expand="md" className="bg-body-tertiary position-sticky top-0 shadow py-1 py-md-2">
             <Container className="navbar-container d-flex align-items-center justify-content-between gap-0 gap-md-4 w-100">
                 <div className="d-flex gap-3 w-75">
                     <Navbar.Brand as={NavLink} to={"/"}>Asr Digitals</Navbar.Brand>
+
                     <div className="w-100 align-items-center justify-content-start d-none d-sm-flex search-container">
                         <div className="w-100 d-flex align-items-center border border-2 border-secondary rounded-2 overflow-hidden" style={{height:"2.25rem"}}>
                             <BsSearch className='bg-secondary fs-1 p-2 text-white h-100' />
@@ -99,29 +102,29 @@ function NavBar({}) {
                                         <Nav.Link className={`navbar-link position-relative d-flex justify-content-center ${linkActive("shop")}`}>Shop</Nav.Link>
                                     </div>
                                     <div className="position-absolute navbar-dropdown-container">
-                                        <div className="bg-light shadow navbar-dropdown">
+                                        <div className="bg-white shadow navbar-dropdown">
                                             <Link to={"/shop"} className='px-4 py-2 border-bottom d-flex justify-content-center text-decoration-none text-capitalize fw-semibold'>Explore!</Link>
                                             {
-                                                shoppingMenu.map((menuItem) => 
+                                                productsInfo.categoryGroups && Object.keys(productsInfo.categoryGroups).map((menuItem) => 
                                                 
 
                                                 <div className='d-flex justify-content-end justify-content-md-start position-relative navbar-dropdown-menu'>
                                                     <div className='navbar-dropdown-button'>
                                                         <div className='px-3 py-2 gap-2 border-bottom d-flex align-items-center justify-content-end text-decoration-none text-capitalize fw-semibold'>
                                                             <BsCaretLeftFill className='d-none d-md-block' />  
-                                                            {menuItem.label} 
+                                                            {menuItem} 
                                                             <BsCaretRightFill className='d-block d-md-none' /> 
                                                         </div>
                                                     </div>
-                                                    <div className="position-absolute navbar-dropdown-container left">
-                                                        <div className="bg-light shadow navbar-dropdown overflow-hidden">
+                                                    <div className="position-absolute navbar-dropdown-container left" style={{width:"min(8rem,40vw)"}}>
+                                                        <div className="bg-white shadow navbar-dropdown overflow-hidden">
 
                                                         {
-                                                            menuItem.categories.map((category) =>
-                                                            <Link to={`/shop/q?cat=${category}`} onClick={()=>{handleSearchModalClose();}} className='px-3 py-2 border-bottom d-flex align-items-center gap-2 justify-content-center text-decoration-none text-capitalize fw-semibold'> {category}s </Link>
+                                                            productsInfo.categoryGroups[menuItem].map((category) =>
+                                                            <Link to={`/shop?cat=${category}`} onClick={()=>{handleSearchModalClose();}} className='py-2 border-bottom d-flex align-items-center gap-2 justify-content-center text-decoration-none text-capitalize fw-semibold'> {category}s </Link>
                                                             )
                                                         }
-                                                        <Link to={`/shop/q?gr=${menuItem.label}`} onClick={()=>{handleSearchModalClose();}} className='px-3 py-2 border-bottom d-flex align-items-center gap-2 justify-content-center text-decoration-none text-capitalize fw-semibold'> All </Link>
+                                                        <Link to={`/shop?gr=${menuItem}`} onClick={()=>{handleSearchModalClose();}} className='py-2 border-bottom d-flex align-items-center gap-2 justify-content-center text-decoration-none text-capitalize fw-semibold'> All </Link>
                                                                                         
                                                         </div>
                                                     </div>
@@ -132,25 +135,17 @@ function NavBar({}) {
                                                 )
                                             }
                                             
-                                            {/* <div className='px-3 py-2 border-bottom d-flex align-items-center gap-2 justify-content-center text-decoration-none text-capitalize fw-semibold'>Memory</div>
-                                            <div className='px-3 py-2 border-bottom d-flex align-items-center gap-2 justify-content-center text-decoration-none text-capitalize fw-semibold'>Audio</div> */}
-
-
-                                            {/* {
-                                                productsInfo.categories.map((category) => 
-                                                    <Link to={"/shop"} state={{category: category}} className='px-4 py-2 border-bottom d-flex justify-content-center text-decoration-none text-capitalize'>{category.name}</Link>
-                                                )
-                                            } */}
+                                         
                                         </div>
                                     </div>
                                     
                                 </div>
-                                <Nav.Link className={`navbar-link position-relative d-flex justify-content-center ${linkActive("about")}`} href="">About</Nav.Link>
-                                <Nav.Link className={`navbar-link position-relative d-flex justify-content-center ${linkActive("contact")}`} href="">Contact</Nav.Link>
+                                <Nav.Link as={Link} to={"/about"} className={`navbar-link position-relative d-flex justify-content-center ${linkActive("about")}`}>About</Nav.Link>
+                                <Nav.Link as={Link} to={"/contact"} className={`navbar-link position-relative d-flex justify-content-center ${linkActive("contact")}`}>Contact</Nav.Link>
 
                                 <Nav.Link className={`cart-link position-relative d-flex justify-content-center ${linkActive("cart")}`} as={NavLink} to="/cart">
                                     <BsFillCartFill className='fs-4 text-secondary' />
-                                    {cartTotal ? <span className='badge bg-danger fw-bold position-absolute top-0 left-0 rounded-pill d-flex justify-content-center align-items-center text-white' style={{transform: "translate(-50%,-15%)", fontSize: "0.6rem"}}>{cartTotal}</span> : ""}
+                                    {cartTotal ? <span className='badge bg-danger fw-bold position-absolute top-0 left-0 rounded-pill d-flex justify-content-center align-items-center text-white' style={{transform: "translate(-50%,-15%)", fontSize: "0.6rem",boxShadow:"-0.1em 0.1em 0.2em rgb(0,0,0,0.3)"}}>{cartTotal}</span> : ""}
                                 </Nav.Link>
                             </div>
                             <div>
@@ -163,9 +158,9 @@ function NavBar({}) {
                                 </div>
                                 :
                                 <div className='d-flex justify-content-end justify-content-xl-center navbar-dropdown-menu'>
-                                    <div className='bg-light p-1 d-flex fs-3 border rounded-circle navbar-dropdown-button'><BsFillPersonFill /></div>
+                                    <div className='bg-white p-1 d-flex fs-3 border rounded-circle navbar-dropdown-button'><BsFillPersonFill /></div>
                                     <div className="position-absolute navbar-dropdown-container">
-                                        <div className="bg-light shadow navbar-dropdown overflow-hidden">
+                                        <div className="bg-white shadow navbar-dropdown overflow-hidden">
                                             <Link to={"/profile"} className='px-4 py-2 border-bottom d-flex justify-content-center text-decoration-none'>Profile</Link>
                                             <Link to={"/purchases"} className='px-4 py-2 border-bottom d-flex justify-content-center text-decoration-none'>Purchases</Link>
                                             <Link to={"/favorites"} className='px-4 py-2 border-bottom d-flex justify-content-center text-decoration-none'>Favorites</Link>
@@ -184,6 +179,12 @@ function NavBar({}) {
                     </Nav>
                 </Navbar.Collapse>
             </Container>
+
+            {
+                (currentUser && currentUser.role)==="admin" ? 
+                <Link to={"/admin"} className='text-dark text-decoration-none position-absolute top-100 bg-body-tertiary px-2 py-2 rounded-1 rounded-top-0 ms-2 shadow d-flex align-items-center gap-1' style={{zIndex:"-1"}}>To Dashboard <MdDashboard/> </Link>
+                : ""
+            }
             
 
             <div className={`navbar-search-results-overlay top-100 w-100 position-absolute d-flex align-items-start justify-content-center pt-3 p-0 p-sm-3 ${searchModal ? "active" : ""}`}>
@@ -217,7 +218,7 @@ function NavBar({}) {
                         <div className="d-flex align-items-center w-100 gap-2 justify-content-end">
                         {
                             getSearchResults().length > 3 ?
-                            <Link to={`/shop/q?search=${searchValue}`} onClick={()=>{setSearchModal(false);}} className='btn main-button w-100 border-0 fs-5'>More results</Link>
+                            <Link to={`/shop?q=${searchValue}`} onClick={()=>{setSearchModal(false);}} className='btn main-button w-100 border-0 fs-5'>More results</Link>
                             : ""
                         }
                             <Button variant="secondary" className='fs-2 d-flex p-2 border-0' onClick={handleSearchModalClose}><BsX /></Button>

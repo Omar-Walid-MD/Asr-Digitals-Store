@@ -37,14 +37,12 @@ export const deleteOffer = createAsyncThunk(
     return offerId;
 });
 
-// export const setProductRating = createAsyncThunk(
-//   'offers/setProductRating',
-//   async ({offerId,rating}) => {
-//     const res = axios.patch(`http://localhost:8899/offers/${offerId}`,{rating: rating}).then(
-//     (data) => data)
-//   return (await res).data;
-// });
-
+export const setOfferStatus = createAsyncThunk(
+  'offers/setOfferStatus',
+  async ({offer,status}) => {
+    const res = axios.  patch(`http://localhost:8899/offers/${offer.id}`,{status: status});
+    return (await res).data;
+});
 export const offersSlice = createSlice({
     name: "offers",
     initialState,
@@ -101,6 +99,20 @@ export const offersSlice = createSlice({
             state.offers = state.offers.filter((offer) => offer.id!==payload);
         },
         [deleteOffer.rejected]: (state) => {
+            state.loading = false;
+            console.log("rejected");
+        },
+
+        //setOfferStatus
+        [setOfferStatus.pending]: (state) => {
+          state.loading = true;
+        },
+        [setOfferStatus.fulfilled]: (state, { payload }) => {
+            state.loading = false
+            console.log(payload);
+            state.offers = state.offers.map((offer) => offer.id===payload.id ? {...offer,status:payload.status} : offer);
+        },
+        [setOfferStatus.rejected]: (state) => {
             state.loading = false;
             console.log("rejected");
         },

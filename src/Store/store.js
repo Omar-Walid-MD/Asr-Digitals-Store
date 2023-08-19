@@ -6,6 +6,7 @@ import favoritesReducer from './Favorites/favoritesSlice';
 import reviewsReducer from './Reviews/reviewsSlice';
 import purchasesReducer from './Purchases/purchasesSlice';
 import offersReducer from './Offers/offers';
+import previewStatsReducer from './PreviewStats/previewStats';
 
 export default configureStore({
   reducer: {
@@ -15,6 +16,7 @@ export default configureStore({
     favorites: favoritesReducer,
     reviews: reviewsReducer,
     purchases: purchasesReducer,
-    offers: offersReducer
+    offers: offersReducer,
+    previewStats: previewStatsReducer
   },
 })

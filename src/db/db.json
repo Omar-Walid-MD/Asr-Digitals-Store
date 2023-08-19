@@ -13,9 +13,58 @@
       "zipcode": "42221",
       "creditCardNo": 1,
       "street": "111",
-      "cart": [],
+      "role": "client",
+      "cart": [
+        {
+          "productId": "75669",
+          "count": 1
+        }
+      ],
       "favorites": [],
       "id": 1
+    },
+    {
+      "email": "omar.madinah49@yah3oo.com",
+      "password": "123",
+      "firstName": "New",
+      "lastName": "User",
+      "username": "owmd",
+      "phone": "+966560917203",
+      "dateOfBirth": "2023-08-30",
+      "city": "Al-Madinah",
+      "address": "Al- Awali Abo Zoaib Al-Hazly 3530",
+      "zipcode": "42221",
+      "creditCardNo": 11,
+      "street": "22",
+      "cart": [],
+      "favorites": [],
+      "role": "client",
+      "id": 2
+    },
+    {
+      "email": "admin@admin.com",
+      "password": "123",
+      "firstName": "Omar",
+      "lastName": "Admin",
+      "username": "",
+      "phone": "+966560917203",
+      "dateOfBirth": "2023-08-22",
+      "city": "Al-Madinah",
+      "address": "Al- Awali Abo Zoaib Al-Hazly 3530",
+      "zipcode": "42221",
+      "creditCardNo": 1,
+      "street": "1",
+      "cart": [
+        {
+          "productId": "76324",
+          "count": 1
+        }
+      ],
+      "favorites": [
+        "76324"
+      ],
+      "role": "admin",
+      "id": 3
     }
   ],
   "products": [
@@ -2118,6 +2167,1028 @@
       "rating": 0,
       "image": "https://i.imgur.com/udQUMO8.png",
       "date": 1692062764878
+    },
+    {
+      "id": "21344",
+      "title": "VelocityX Pro",
+      "desc": "The VelocityX Pro is a high-performance desktop computer designed for power users and gamers, featuring top-of-the-line components and advanced cooling systems.",
+      "category": "desktop",
+      "price": 4500,
+      "specs": {
+        "os": "Linux",
+        "ram": "8 GB",
+        "storage": "512 GB",
+        "processor": "i5 1.2 GHz",
+        "gpu": "Intel HD Graphics 5500",
+        "size": "25"
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/4N0E9Lv.png",
+      "date": 1692192551443
+    },
+    {
+      "id": "53367",
+      "title": "MegaStation Elite",
+      "desc": "The MegaStation Elite is a professional-grade desktop workstation that offers exceptional processing power, extensive storage options, and robust graphics capabilities.",
+      "category": "desktop",
+      "price": 4600,
+      "specs": {
+        "os": "Windows 8",
+        "ram": "6 GB",
+        "storage": "1 TB",
+        "processor": "i7 3 GHz",
+        "gpu": "Intel HD Graphics 5500",
+        "size": "25"
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/R7xmPRU.png",
+      "date": 1692192551443
+    },
+    {
+      "id": "19132",
+      "title": "FusionTower Max",
+      "desc": "The FusionTower Max is a feature-rich desktop computer with a sleek design, powerful performance, and expandable configurations to meet various computing needs.",
+      "category": "desktop",
+      "price": 4700,
+      "specs": {
+        "os": "Linux",
+        "ram": "16 GB",
+        "storage": "2 TB",
+        "processor": "i5 1.2 GHz",
+        "gpu": "Intel HD Graphics 5500",
+        "size": "14\""
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/HboOKB8.png",
+      "date": 1692192551443
+    },
+    {
+      "id": "22443",
+      "title": "PixelStation Pro",
+      "desc": "The PixelStation Pro is a versatile desktop computer optimized for creative professionals, delivering high-resolution graphics, fast rendering capabilities, and ample storage.",
+      "category": "desktop",
+      "price": 4700,
+      "specs": {
+        "os": "Windows 8",
+        "ram": "8 GB",
+        "storage": "1 TB",
+        "processor": "i9 4 GHz",
+        "gpu": "Intel HD Graphics 3000",
+        "size": "25"
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/sr6H9po.png",
+      "date": 1692192551443
+    },
+    {
+      "id": "57919",
+      "title": "ZedDesk Ultra",
+      "desc": "The ZedDesk Ultra is a compact and stylish desktop computer that combines elegance with performance, offering a seamless computing experience for home or office use.",
+      "category": "desktop",
+      "price": 5100,
+      "specs": {
+        "os": "Windows 8",
+        "ram": "32 GB",
+        "storage": "2 TB",
+        "processor": "i5 1.8 GHz",
+        "gpu": "NVIDIA GeForce MX250",
+        "size": "30\""
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/8LBDMoU.png",
+      "date": 1692192551444
+    },
+    {
+      "id": "73617",
+      "title": "SwiftTower X1",
+      "desc": "The SwiftTower X1 is a budget-friendly desktop computer that provides reliable performance and essential features, making it ideal for everyday computing tasks.",
+      "category": "desktop",
+      "price": 4700,
+      "specs": {
+        "os": "Windows 11",
+        "ram": "8 GB",
+        "storage": "512 GB",
+        "processor": "i7 3 GHz",
+        "gpu": "NVIDIA GeForce RTX 3080",
+        "size": "14\""
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/5lsqItL.png",
+      "date": 1692192551444
+    },
+    {
+      "id": "79424",
+      "title": "AuraStation Pro",
+      "desc": "The AuraStation Pro is a premium desktop computer that combines cutting-edge technology with elegant design, delivering powerful performance and immersive visuals.",
+      "category": "desktop",
+      "price": 4200,
+      "specs": {
+        "os": "Windows 10",
+        "ram": "6 GB",
+        "storage": "128 GB",
+        "processor": "i5 1.8 GHz",
+        "gpu": "NVIDIA GeForce RTX 3080",
+        "size": "25"
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/bNPLZoi.png",
+      "date": 1692192551444
+    },
+    {
+      "id": "27153",
+      "title": "NimbusTower Lite",
+      "desc": "The NimbusTower Lite is a compact and energy-efficient desktop computer that offers a balance of performance and affordability, perfect for home or small office use.",
+      "category": "desktop",
+      "price": 4300,
+      "specs": {
+        "os": "Windows 10",
+        "ram": "32 GB",
+        "storage": "128 GB",
+        "processor": "i5 1.2 GHz",
+        "gpu": "NVIDIA GeForce RTX 3080",
+        "size": "20\""
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/E5U2gpU.png",
+      "date": 1692192551444
+    },
+    {
+      "id": "74473",
+      "title": "EvoStation Plus",
+      "desc": "The EvoStation Plus is a versatile desktop computer that delivers impressive performance and adaptability, featuring easy upgradability and customizable configurations.",
+      "category": "desktop",
+      "price": 4100,
+      "specs": {
+        "os": "Windows 8",
+        "ram": "6 GB",
+        "storage": "512 GB",
+        "processor": "i7 3 GHz",
+        "gpu": "Intel HD Graphics 3000",
+        "size": "17\""
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/UDhTRbx.png",
+      "date": 1692192551444
+    },
+    {
+      "id": "31935",
+      "title": "NovaTower Flex",
+      "desc": "The NovaTower Flex is a flexible desktop computer that offers a space-saving design and customizable orientations, providing versatility for any workspace.",
+      "category": "desktop",
+      "price": 4200,
+      "specs": {
+        "os": "Windows 8",
+        "ram": "32 GB",
+        "storage": "128 GB",
+        "processor": "i5 1.8 GHz",
+        "gpu": "NVIDIA GeForce MX250",
+        "size": "25"
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/62JOfk9.png",
+      "date": 1692192551444
+    },
+    {
+      "id": "44919",
+      "title": "VivoStation Max",
+      "desc": "The VivoStation Max is a powerful desktop computer designed for multimedia enthusiasts, offering exceptional graphics, immersive audio, and optimized performance.",
+      "category": "desktop",
+      "price": 4500,
+      "specs": {
+        "os": "Windows 10",
+        "ram": "6 GB",
+        "storage": "1 TB",
+        "processor": "i5 1.8 GHz",
+        "gpu": "NVIDIA GeForce MX250",
+        "size": "20\""
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/Veg8OPx.png",
+      "date": 1692192551444
+    },
+    {
+      "id": "26928",
+      "title": "LunaTower Lite",
+      "desc": "The LunaTower Lite is an affordable desktop computer that delivers reliable performance for everyday computing needs, making it suitable for home or educational use.",
+      "category": "desktop",
+      "price": 5700,
+      "specs": {
+        "os": "Linux",
+        "ram": "32 GB",
+        "storage": "1 TB",
+        "processor": "i9 4 GHz",
+        "gpu": "NVIDIA GeForce RTX 3080",
+        "size": "30\""
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/TgN4e5v.png",
+      "date": 1692192551445
+    },
+    {
+      "id": "86696",
+      "title": "TitaniumStation Pro",
+      "desc": "The TitaniumStation Pro is a high-end desktop computer that delivers uncompromising performance, robust security features, and expandability for demanding tasks.",
+      "category": "desktop",
+      "price": 4500,
+      "specs": {
+        "os": "Windows 10",
+        "ram": "6 GB",
+        "storage": "512 GB",
+        "processor": "i7 2.2 GHz",
+        "gpu": "NVIDIA GeForce GT 1030",
+        "size": "20\""
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/GAkkyCx.png",
+      "date": 1692192551445
+    },
+    {
+      "id": "43335",
+      "title": "PulseTower Elite",
+      "desc": "The PulseTower Elite is a high-performance desktop computer built for intense gaming and multimedia experiences, featuring advanced graphics and responsive gameplay.",
+      "category": "desktop",
+      "price": 4200,
+      "specs": {
+        "os": "Windows 10",
+        "ram": "32 GB",
+        "storage": "128 GB",
+        "processor": "i5 1.2 GHz",
+        "gpu": "NVIDIA GeForce MX250",
+        "size": "25"
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/lQYDAfA.png",
+      "date": 1692192551445
+    },
+    {
+      "id": "93128",
+      "title": "AeroStation Ultra",
+      "desc": "The AeroStation Ultra is a premium desktop computer designed for professionals, offering powerful processing capabilities, extensive storage, and advanced connectivity options.",
+      "category": "desktop",
+      "price": 5200,
+      "specs": {
+        "os": "Linux",
+        "ram": "6 GB",
+        "storage": "2 TB",
+        "processor": "i7 3 GHz",
+        "gpu": "Intel HD Graphics 5500",
+        "size": "30\""
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/z3Thf12.png",
+      "date": 1692192551445
+    },
+    {
+      "id": "13721",
+      "title": "BlazeTower X2",
+      "desc": "The BlazeTower X2 is a gaming-focused desktop computer that delivers exceptional performance, immersive visuals, and customizable RGB lighting for an enhanced gaming experience.",
+      "category": "desktop",
+      "price": 4400,
+      "specs": {
+        "os": "Windows 11",
+        "ram": "8 GB",
+        "storage": "128 GB",
+        "processor": "i7 2.2 GHz",
+        "gpu": "NVIDIA GeForce RTX 3080",
+        "size": "20\""
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/mkBfXaw.png",
+      "date": 1692192551445
+    },
+    {
+      "id": "74233",
+      "title": "SparkStation Flex",
+      "desc": "The SparkStation Flex is a versatile desktop computer with a flexible form factor, allowing easy upgrades and adaptability to different workspace configurations.",
+      "category": "desktop",
+      "price": 5200,
+      "specs": {
+        "os": "Windows 11",
+        "ram": "16 GB",
+        "storage": "1 TB",
+        "processor": "i7 3 GHz",
+        "gpu": "NVIDIA GeForce RTX 3080",
+        "size": "20\""
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/SNvRBIu.png",
+      "date": 1692192551445
+    },
+    {
+      "id": "92854",
+      "title": "XenonTower Pro",
+      "desc": "The XenonTower Pro is a high-end desktop computer that combines cutting-edge technology, premium components, and meticulous craftsmanship, delivering uncompromising performance and reliability.",
+      "category": "desktop",
+      "price": 4200,
+      "specs": {
+        "os": "Windows 10",
+        "ram": "16 GB",
+        "storage": "128 GB",
+        "processor": "i5 1.8 GHz",
+        "gpu": "NVIDIA GeForce RTX 3080",
+        "size": "17\""
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/cfHtucm.png",
+      "date": 1692192551446
+    },
+    {
+      "id": "59166",
+      "title": "NovaStation Lite",
+      "desc": "The NovaStation Lite is an entry-level desktop computer that offers reliable performance for everyday computing tasks, making it suitable for home or office use at an affordable price.",
+      "category": "desktop",
+      "price": 4800,
+      "specs": {
+        "os": "Linux",
+        "ram": "8 GB",
+        "storage": "512 GB",
+        "processor": "i7 3 GHz",
+        "gpu": "NVIDIA GeForce GT 1030",
+        "size": "17\""
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/RGHeqxy.png",
+      "date": 1692192551446
+    },
+    {
+      "id": "48135",
+      "title": "MegaTower Elite",
+      "desc": "The MegaTower Elite is a powerful and expandable desktop computer designed for professionals and content creators, offering unparalleled performance and scalability.",
+      "category": "desktop",
+      "price": 4000,
+      "specs": {
+        "os": "Windows 10",
+        "ram": "8 GB",
+        "storage": "128 GB",
+        "processor": "i7 2.2 GHz",
+        "gpu": "NVIDIA GeForce MX250",
+        "size": "17\""
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/wvYOfsP.png",
+      "date": 1692192551446
+    },
+    {
+      "id": "69555",
+      "title": "VocalPro M1",
+      "desc": "The VocalPro M1 microphone is a professional-grade dynamic microphone designed for studio recordings and live performances. It delivers clear and crisp vocals with excellent feedback rejection, making it a top choice for vocalists and speakers.",
+      "category": "microphone",
+      "price": 1000,
+      "specs": {
+        "connection": "Wire - USB",
+        "sensitity": "65 dB"
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/ZOTtCwd.png",
+      "date": 1692203382302
+    },
+    {
+      "id": "42862",
+      "title": "AudioTech XLR2",
+      "desc": "The AudioTech XLR2 microphone is a versatile condenser microphone that captures audio with exceptional detail and accuracy. It features a wide frequency response and low self-noise, making it ideal for recording vocals, instruments, and podcasts.",
+      "category": "microphone",
+      "price": 750,
+      "specs": {
+        "connection": "Wire - Jack",
+        "sensitity": "35 dB"
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/D4XZSJH.png",
+      "date": 1692203382302
+    },
+    {
+      "id": "32129",
+      "title": "SoundCapture C3",
+      "desc": "The SoundCapture C3 microphone is a compact and portable USB microphone that offers plug-and-play convenience. It delivers high-quality audio for voiceovers, podcasting, and video conferencing, making it a great choice for content creators on the go.",
+      "category": "microphone",
+      "price": 850,
+      "specs": {
+        "connection": "Wire - Jack",
+        "sensitity": "55 dB"
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/whANYD3.png",
+      "date": 1692203382302
+    },
+    {
+      "id": "48969",
+      "title": "StudioPro P4",
+      "desc": "The StudioPro P4 microphone is a large-diaphragm condenser microphone designed for professional studio recordings. It provides warm and rich sound reproduction, making it suitable for capturing vocals, acoustic instruments, and ambient recordings.",
+      "category": "microphone",
+      "price": 900,
+      "specs": {
+        "connection": "Wire - USB",
+        "sensitity": "45 dB"
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/xaRk0IS.png",
+      "date": 1692203382303
+    },
+    {
+      "id": "16972",
+      "title": "ProAudio Wireless W2",
+      "desc": "The ProAudio Wireless W2 microphone is a wireless microphone system that offers freedom of movement without compromising audio quality. It features a reliable wireless connection and clear sound transmission, making it perfect for stage performances and presentations.",
+      "category": "microphone",
+      "price": 900,
+      "specs": {
+        "connection": "Wire - USB",
+        "sensitity": "45 dB"
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/xeRSHmg.png",
+      "date": 1692203382303
+    },
+    {
+      "id": "61692",
+      "title": "PodCast Master M2",
+      "desc": "The PodCast Master M2 microphone is a dedicated microphone for podcasting and broadcasting. It offers a built-in pop filter and adjustable gain control, ensuring professional-quality sound for interviews, discussions, and voice recordings.",
+      "category": "microphone",
+      "price": 950,
+      "specs": {
+        "connection": "Wire - USB",
+        "sensitity": "55 dB"
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/d372AOK.png",
+      "date": 1692203382303
+    },
+    {
+      "id": "72717",
+      "title": "ConferenceTalk C4",
+      "desc": "The ConferenceTalk C4 microphone is a tabletop conference microphone designed for clear and intelligible audio during meetings and conferences. It features omnidirectional pickup and noise-cancellation technology, providing optimal sound capture in group settings.",
+      "category": "microphone",
+      "price": 1000,
+      "specs": {
+        "connection": "Wire - USB",
+        "sensitity": "65 dB"
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/waL9DeZ.png",
+      "date": 1692203382303
+    },
+    {
+      "id": "82495",
+      "title": "BroadcastPro B3",
+      "desc": "The BroadcastPro B3 microphone is a professional broadcast microphone designed for radio and TV broadcasting. It offers exceptional clarity and off-axis rejection, ensuring clear and focused audio capture in broadcasting environments.",
+      "category": "microphone",
+      "price": 800,
+      "specs": {
+        "connection": "Wire - Jack",
+        "sensitity": "45 dB"
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/cu0MIa9.png",
+      "date": 1692203382303
+    },
+    {
+      "id": "53981",
+      "title": "TourGuide T2",
+      "desc": "The TourGuide T2 microphone is a wireless tour guide system that includes a microphone transmitter and receivers. It provides clear and stable audio transmission, making it ideal for guided tours, presentations, and educational events.",
+      "category": "microphone",
+      "price": 1100,
+      "specs": {
+        "connection": "Wireless - Bluetooth",
+        "sensitity": "65 dB"
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/tGD75mG.png",
+      "date": 1692203382303
+    },
+    {
+      "id": "45292",
+      "title": "StudioDynamic D5",
+      "desc": "The StudioDynamic D5 microphone is a dynamic microphone designed for studio and live applications. It offers a wide frequency response and high SPL handling, making it suitable for capturing vocals, drums, and guitar amplifiers.",
+      "category": "microphone",
+      "price": 900,
+      "specs": {
+        "connection": "Wire - Jack",
+        "sensitity": "65 dB"
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/E2a1oNF.png",
+      "date": 1692203382303
+    },
+    {
+      "id": "69454",
+      "title": "USBRecord R6",
+      "desc": "The USBRecord R6 microphone is a USB recording microphone that offers plug-and-play functionality. It provides high-fidelity audio recording for vocals, instruments, and podcasts, making it a convenient choice for home studios and mobile recording setups.",
+      "category": "microphone",
+      "price": 850,
+      "specs": {
+        "connection": "Wire - USB",
+        "sensitity": "35 dB"
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/VeCqFbt.png",
+      "date": 1692203382303
+    },
+    {
+      "id": "56741",
+      "title": "LavalierPro L4",
+      "desc": "The LavalierPro L4 microphone is a clip-on lavalier microphone designed for hands-free audio capture. It offers clear and natural sound reproduction, making it ideal for presentations, interviews, and video productions.",
+      "category": "microphone",
+      "price": 850,
+      "specs": {
+        "connection": "Wire - USB",
+        "sensitity": "35 dB"
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/JImbqya.png",
+      "date": 1692203382303
+    },
+    {
+      "id": "48657",
+      "title": "WirelessTalk W3",
+      "desc": "The WirelessTalk W3 microphone is a wireless handheld microphone system that delivers reliable and interference-free audio transmission. It offers selectable channels and long-range coverage, making it suitable for performances, conferences, and public speaking.",
+      "category": "microphone",
+      "price": 850,
+      "specs": {
+        "connection": "Wire - Jack",
+        "sensitity": "55 dB"
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/phqtrsv.png",
+      "date": 1692203382304
+    },
+    {
+      "id": "78297",
+      "title": "SoundBlaster S1",
+      "desc": "The SoundBlaster S1 is a compact wireless speaker that delivers powerful and clear audio. It features Bluetooth connectivity, built-in microphone for hands-free calls, and a long-lasting battery.",
+      "category": "speaker",
+      "price": 850,
+      "specs": {
+        "connection": "Wire - USB",
+        "control": "Touch",
+        "size": "10\""
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/Cd0D8Md.png",
+      "date": 1692203507433
+    },
+    {
+      "id": "75876",
+      "title": "StudioMonitor M4",
+      "desc": "The StudioMonitor M4 is a professional studio monitor speaker that delivers accurate and detailed sound reproduction. It features a bi-amplified design, adjustable frequency response, and multiple connectivity options, making it a top choice for audio production and mixing.",
+      "category": "speaker",
+      "price": 850,
+      "specs": {
+        "connection": "Wireless - Bluetooth",
+        "control": "Touch",
+        "size": "6\""
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/zP62ktV.png",
+      "date": 1692203507433
+    },
+    {
+      "id": "53331",
+      "title": "HomeTheaterPro H2",
+      "desc": "The HomeTheaterPro H2 is a complete home theater speaker system that provides immersive audio for your entertainment setup. It includes a soundbar, subwoofer, and satellite speakers.",
+      "category": "speaker",
+      "price": 1050,
+      "specs": {
+        "connection": "Wireless - Bluetooth",
+        "control": "Buttons",
+        "size": "10\""
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/CUQYZ6t.png",
+      "date": 1692203507433
+    },
+    {
+      "id": "11972",
+      "title": "SoundBarPro S2",
+      "desc": "The SoundBarPro S2 is a sleek and versatile soundbar that enhances your TV audio experience. It features multiple audio modes, wireless connectivity, and a slim design that fits seamlessly into any living room setup.",
+      "category": "speaker",
+      "price": 950,
+      "specs": {
+        "connection": "Wire - USB",
+        "control": "Touch",
+        "size": "15\""
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/1FmtHWd.png",
+      "date": 1692203507433
+    },
+    {
+      "id": "65865",
+      "title": "SmartHomeSpeaker S3",
+      "desc": "The SmartHomeSpeaker S3 is a voice-activated smart speaker that integrates with your smart home ecosystem. It features virtual assistant support, multi-room audio capabilities, and smart home control, allowing you to enjoy music and manage your home with ease.",
+      "category": "speaker",
+      "price": 950,
+      "specs": {
+        "connection": "Wireless - Bluetooth",
+        "control": "Buttons",
+        "size": "6\""
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/RDNuBFy.png",
+      "date": 1692203507433
+    },
+    {
+      "id": "74936",
+      "title": "ConferencePro C4",
+      "desc": "The ConferencePro C4 is a professional conference speakerphone that provides clear and natural audio for conference calls. It features advanced noise cancellation technology, 360-degree voice pickup, and connectivity options for smooth collaboration in meetings.",
+      "category": "speaker",
+      "price": 1150,
+      "specs": {
+        "connection": "Wireless - Bluetooth",
+        "control": "Buttons",
+        "size": "15\""
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/7Jb03fC.png",
+      "date": 1692203507433
+    },
+    {
+      "id": "56712",
+      "title": "SoundBarPlus S4",
+      "desc": "The SoundBarPlus S4 is a premium soundbar with Dolby Atmos technology, delivering immersive and cinematic sound. It features multiple audio drivers, wireless subwoofer, and support for high-resolution audio formats.",
+      "category": "speaker",
+      "price": 950,
+      "specs": {
+        "connection": "Wire - USB",
+        "control": "Buttons",
+        "size": "10\""
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/ZvMVUVq.png",
+      "date": 1692203507433
+    },
+    {
+      "id": "74373",
+      "title": "BookshelfAudio B3",
+      "desc": "The BookshelfAudio B3 is a stylish bookshelf speaker that provides rich and balanced sound. It features a wooden cabinet, high-quality drivers, and versatile placement options, making it a great addition to your home audio setup.",
+      "category": "speaker",
+      "price": 950,
+      "specs": {
+        "connection": "Wire - USB",
+        "control": "Buttons",
+        "size": "10\""
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/EBBmoTw.png",
+      "date": 1692203507434
+    },
+    {
+      "id": "79213",
+      "title": "BluetoothBoom B2",
+      "desc": "The BluetoothBoom B2 is a portable Bluetooth speaker that delivers impressive audio performance. It features a rugged design, water resistance, and long battery life.",
+      "category": "speaker",
+      "price": 850,
+      "specs": {
+        "connection": "Wire - Jack",
+        "control": "Buttons",
+        "size": "10\""
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/BbkhRN2.png",
+      "date": 1692203507434
+    },
+    {
+      "id": "94964",
+      "title": "WirelessSurround W3",
+      "desc": "The WirelessSurround W3 is a wireless surroundspeaker system that brings immersive sound to your home theater. It includes multiple wireless satellite speakers, a central hub, and easy setup, allowing you to enjoy a true surround sound experience without the hassle of wires.",
+      "category": "speaker",
+      "price": 950,
+      "specs": {
+        "connection": "Wire - USB",
+        "control": "Touch",
+        "size": "15\""
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/rivZQOI.png",
+      "date": 1692203507434
+    },
+    {
+      "id": "57756",
+      "title": "ProView P4",
+      "desc": "The ProView P4 is a professional-grade monitor designed for color-critical work. It features a 32-inch QHD display with excellent color accuracy and wide viewing angles, making it perfect for photographers, graphic designers, and video editors.",
+      "category": "monitor",
+      "price": 1000,
+      "specs": {
+        "res": "1366 x 768",
+        "size": "12\"",
+        "refreshRate": "120 Hz"
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/VItVW0s.png",
+      "date": 1692203577622
+    },
+    {
+      "id": "51612",
+      "title": "UltraSlim S2",
+      "desc": "The UltraSlim S2 is a sleek and slim monitor designed for space-conscious users. With its ultra-thin bezels and compact design, it maximizes screen real estate while providing a crisp and vibrant viewing experience.",
+      "category": "monitor",
+      "price": 1300,
+      "specs": {
+        "res": "2880 x 1800",
+        "size": "12\"",
+        "refreshRate": "120 Hz"
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/3Jbg1WN.png",
+      "date": 1692203577623
+    },
+    {
+      "id": "38858",
+      "title": "PortablePro P5",
+      "desc": "The PortablePro P5 is a portable monitor that offers convenience and versatility. It features a 15.6-inch Full HD display with USB-C connectivity, making it a perfect companion for on-the-go professionals and travelers.",
+      "category": "monitor",
+      "price": 1400,
+      "specs": {
+        "res": "2560 x 1440",
+        "size": "20\"",
+        "refreshRate": "120 Hz"
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/3Jbg1WN.png",
+      "date": 1692203577623
+    },
+    {
+      "id": "51843",
+      "title": "DesignStudio D5",
+      "desc": "The DesignStudio D5 is a premium monitor tailored for creative professionals. It boasts a 34-inch ultrawide display with a curved screen, accurate color reproduction, and extensive connectivity options, making it an ideal choice for graphic designers and video editors.",
+      "category": "monitor",
+      "price": 1100,
+      "specs": {
+        "res": "1366 x 768",
+        "size": "12\"",
+        "refreshRate": "240 Hz"
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/7aRMJqa.png",
+      "date": 1692203577623
+    },
+    {
+      "id": "95188",
+      "title": "BudgetSaver B3",
+      "desc": "The BudgetSaver B3 is an affordable monitor that doesn't compromise on quality. It features a 21.5-inch Full HD display with a slim profile, making it a great option for everyday use, office work, and casual gaming.",
+      "category": "monitor",
+      "price": 1500,
+      "specs": {
+        "res": "2560 x 1440",
+        "size": "20\"",
+        "refreshRate": "240 Hz"
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/eSN490a.png",
+      "date": 1692203577623
+    },
+    {
+      "id": "52937",
+      "title": "CurvedView C4",
+      "desc": "The CurvedView C4 is a curved monitor that enhances immersion and visual appeal. With its 32-inch curved display, wide color gamut, and high contrast ratio, it offers an immersive viewing experience for gaming, movies, and multimedia content.",
+      "category": "monitor",
+      "price": 1300,
+      "specs": {
+        "res": "1366 x 768",
+        "size": "20\"",
+        "refreshRate": "240 Hz"
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/75jMKLM.png",
+      "date": 1692203577623
+    },
+    {
+      "id": "96346",
+      "title": "OfficeEssentials O2",
+      "desc": "The OfficeEssentials O2 is a monitor optimized for office productivity. With its ergonomic design, adjustable stand, and eye-care technologies, it provides a comfortable and efficient workspace for long hours of work or study.",
+      "category": "monitor",
+      "price": 1600,
+      "specs": {
+        "res": "2560 x 1440",
+        "size": "25\"",
+        "refreshRate": "240 Hz"
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/qW744CK.png",
+      "date": 1692203577624
+    },
+    {
+      "id": "53966",
+      "title": "MultiConnect M3",
+      "desc": "The MultiConnect M3 is a multitasking monitor that simplifies connectivity. With its built-in KVM switch, USB-C, and HDMI ports, it allows you to easily switch between multiple devices, making it ideal for professionals working with multiple computers or laptops.",
+      "category": "monitor",
+      "price": 1200,
+      "specs": {
+        "res": "1920 x 1080",
+        "size": "15\"",
+        "refreshRate": "120 Hz"
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/KKZey0A.png",
+      "date": 1692203577624
+    },
+    {
+      "id": "37256",
+      "title": "UltraWideVision U3",
+      "desc": "The UltraWideVision U3 is an ultrawide monitor that expands your field of view. With its 29-inch ultrawide display and multitasking features, it enables seamless productivity and immersive entertainment experiences for professionals and content creators.",
+      "category": "monitor",
+      "price": 1000,
+      "specs": {
+        "res": "1366 x 768",
+        "size": "12\"",
+        "refreshRate": "120 Hz"
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/O3M64jA.png",
+      "date": 1692203577624
+    },
+    {
+      "id": "43666",
+      "title": "BusinessPro B4",
+      "desc": "The BusinessPro B4 is a professional monitor designed for business environments. With its ergonomic design, adjustable stand, and advanced connectivity options, it enhances productivity and comfort for corporate users, office work, and presentations.",
+      "category": "monitor",
+      "price": 1500,
+      "specs": {
+        "res": "2880 x 1800",
+        "size": "15\"",
+        "refreshRate": "240 Hz"
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/9oZceRN.png",
+      "date": 1692203577624
+    },
+    {
+      "id": "56852",
+      "title": "SonicBlast X1",
+      "desc": "Experience stunning audio quality with the SonicBlast X1 earphones. These sleek and lightweight earphones deliver immersive sound and a comfortable fit.",
+      "category": "earphone",
+      "price": 400,
+      "specs": {
+        "connection": "Wire - Jack",
+        "microphone": "With Mic",
+        "noiseCancelling": "No Noise Cancelling"
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/auXQy9L.png",
+      "date": 1692217287443
+    },
+    {
+      "id": "86813",
+      "title": "Aurora Spark Z2",
+      "desc": "Ignite your audio experience with the Aurora Spark Z2 earphones. With their dazzling design and powerful sound, these earphones provide a captivating blend of style and performance, ensuring an immersive listening journey.",
+      "category": "earphone",
+      "price": 500,
+      "specs": {
+        "connection": "Wireless - Bluetooth",
+        "microphone": "No Mic",
+        "noiseCancelling": "No Noise Cancelling"
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/oagpxVD.png",
+      "date": 1692217287444
+    },
+    {
+      "id": "59582",
+      "title": "LunaWave S3",
+      "desc": "Embark on a sonic adventure with the LunaWave S3 earphones. Crafted for comfort and precision, these earphones deliver exceptional audio quality and a stylish design that complements your unique personality.",
+      "category": "earphone",
+      "price": 300,
+      "specs": {
+        "connection": "Wire - USB",
+        "microphone": "With Mic",
+        "noiseCancelling": "With Noise Cancelling"
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/C0WsPNg.png",
+      "date": 1692217287444
+    },
+    {
+      "id": "65665",
+      "title": "Nebula Pulse H4",
+      "desc": "Immerse yourself in celestial soundscapes with the Nebula Pulse H4 earphones. With their cutting-edge technology and stellar audio performance.",
+      "category": "earphone",
+      "price": 350,
+      "specs": {
+        "connection": "Wire - USB",
+        "microphone": "No Mic",
+        "noiseCancelling": "With Noise Cancelling"
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/iZat0NN.png",
+      "date": 1692217287444
+    },
+    {
+      "id": "28458",
+      "title": "ZedSound V2",
+      "desc": "Achieve inner harmony with the ZedSound V2 earphones. Designed to deliver balanced and soothing audio, these earphones provide a tranquil listening experience, allowing you to escape the noise of the outside world.",
+      "category": "earphone",
+      "price": 350,
+      "specs": {
+        "connection": "Wire - USB",
+        "microphone": "No Mic",
+        "noiseCancelling": "With Noise Cancelling"
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/M0SiKGk.png",
+      "date": 1692217287444
+    },
+    {
+      "id": "56849",
+      "title": "PulseWave X2",
+      "desc": "Feel the pulse of the audio with the PulseWave X2 earphones. Featuring powerful drivers and enhanced bass.",
+      "category": "earphone",
+      "price": 400,
+      "specs": {
+        "connection": "Wireless - Bluetooth",
+        "microphone": "With Mic",
+        "noiseCancelling": "With Noise Cancelling"
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/pKGuhVj.png",
+      "date": 1692217287445
+    },
+    {
+      "id": "71121",
+      "title": "EchoBuds X3",
+      "desc": "Experience the power of sound with the EchoBuds X3 earphones. Engineered for deep bass and crystal-clear highs.",
+      "category": "earphone",
+      "price": 300,
+      "specs": {
+        "connection": "Wire - USB",
+        "microphone": "With Mic",
+        "noiseCancelling": "With Noise Cancelling"
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/c3paYbA.png",
+      "date": 1692217287445
+    },
+    {
+      "id": "12987",
+      "title": "SoundFlow S5",
+      "desc": "Dive into a river of pure sound with the SoundFlow S5 earphones. Featuring advanced sound technology and a comfortable ergonomic design.",
+      "category": "earphone",
+      "price": 450,
+      "specs": {
+        "connection": "Wireless - Bluetooth",
+        "microphone": "With Mic",
+        "noiseCancelling": "No Noise Cancelling"
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/ojYK0T1.png",
+      "date": 1692217287445
+    },
+    {
+      "id": "79956",
+      "title": "WaveZone E9",
+      "desc": "Get in the zone with the WaveZone E9 earphones. These energetic and vibrant earphones deliver powerful bass and dynamic sound.",
+      "category": "earphone",
+      "price": 450,
+      "specs": {
+        "connection": "Wire - Jack",
+        "microphone": "No Mic",
+        "noiseCancelling": "No Noise Cancelling"
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/Bl93zdS.png",
+      "date": 1692217287445
+    },
+    {
+      "id": "44233",
+      "title": "PulseWave Pro Z5",
+      "desc": "Elevate your audio game with the PulseWave Pro Z5 earphones. Equipped with advanced audio technology and customizable sound profiles, these earphones provide a professional-grade audio experience for discerning listeners.",
+      "category": "earphone",
+      "price": 400,
+      "specs": {
+        "connection": "Wire - USB",
+        "microphone": "No Mic",
+        "noiseCancelling": "No Noise Cancelling"
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/i2GjqoX.png",
+      "date": 1692217287445
+    },
+    {
+      "id": "94836",
+      "title": "SonicBoom H5",
+      "desc": "Unleash explosive sound with the SonicBoom H5 earphones. Designed for those who crave powerful audio, these earphones deliver smooth frequency and precise clarity, leaving you in awe of their sonic impact.",
+      "category": "earphone",
+      "price": 400,
+      "specs": {
+        "connection": "Wire - Jack",
+        "microphone": "With Mic",
+        "noiseCancelling": "No Noise Cancelling"
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/foUDKGS.png",
+      "date": 1692217287446
+    },
+    {
+      "id": "68748",
+      "title": "WavePod S6",
+      "desc": "Indulge in tranquil melodies with the WavePod S6 earphones. Designed to deliver soothing audio and exceptional comfort, these earphones provide a serene audio sanctuary.",
+      "category": "earphone",
+      "price": 350,
+      "specs": {
+        "connection": "Wire - Jack",
+        "microphone": "With Mic",
+        "noiseCancelling": "With Noise Cancelling"
+      },
+      "rating": 0,
+      "image": "https://i.imgur.com/B0uQTCI.png",
+      "date": 1692217287446
     }
   ],
   "reviews": [
@@ -2173,21 +3244,75 @@
           "creditCardExpMonth": 1
         }
       },
-      "estimatedDeliveryHours": 12,
-      "status": "pending",
+      "estimatedDeliveryHours": 1,
+      "status": "success",
       "userId": 1,
-      "date": 1692136160758,
+      "date": 1692208261795,
       "id": 1
+    },
+    {
+      "total": 2250,
+      "subtotal": 2120,
+      "deliveryFees": 130,
+      "order": [
+        {
+          "itemId": "72628",
+          "count": 8,
+          "price": 265
+        }
+      ],
+      "orderCount": 8,
+      "details": {
+        "firstName": "Omar",
+        "lastName": "Diab",
+        "email": "omar.madinah49@yahoo.com",
+        "phone": "+966560917203",
+        "dateOfBirth": "2023-08-14",
+        "city": "Al-Madinah",
+        "address": "Al- Awali Abo Zoaib Al-Hazly 3530",
+        "street": "111",
+        "zipcode": "42221",
+        "creditCardNo": 1,
+        "creditCardPin": 1,
+        "creditCardExp": {
+          "creditCardExpYear": 23,
+          "creditCardExpMonth": 1
+        }
+      },
+      "estimatedDeliveryHours": 5,
+      "status": "success",
+      "userId": 1,
+      "date": 1692237786484,
+      "id": 2
     }
   ],
   "offers": [
     {
-      "end": "2023-08-14",
-      "start": "2023-07-31",
-      "newPrice": 26,
-      "productId": "38542",
-      "date": 1692056262967,
-      "id": "66147"
+      "end": "2023-09-15",
+      "start": "2023-08-23",
+      "newPrice": 265,
+      "productId": "72628",
+      "date": 1692209066172,
+      "id": "38463",
+      "status": "upcoming"
+    },
+    {
+      "end": "2023-09-15",
+      "start": "2023-08-17",
+      "newPrice": 350,
+      "productId": "86463",
+      "date": 1692209421597,
+      "id": "45896",
+      "status": "upcoming"
+    },
+    {
+      "end": "2023-09-15",
+      "start": "2023-08-16",
+      "newPrice": 245,
+      "productId": "91571",
+      "date": 1692209592061,
+      "id": "44269",
+      "status": "running"
     }
   ],
   "productsInfo": {
@@ -2294,10 +3419,6 @@
           {
             "code": "battery",
             "name": "battery life"
-          },
-          {
-            "code": "cam",
-            "name": "camera resolution"
           },
           {
             "code": "size",
@@ -2420,8 +3541,8 @@
             "name": "control type"
           },
           {
-            "code": "volume",
-            "name": "volume level"
+            "code": "size",
+            "name": "size"
           }
         ],
         "deliveryValue": 15
@@ -2434,10 +3555,6 @@
             "name": "connection type"
           },
           {
-            "code": "frequency",
-            "name": "frequency"
-          },
-          {
             "code": "sensitivity",
             "name": "sensitivity"
           }
@@ -2445,28 +3562,22 @@
         "deliveryValue": 10
       },
       {
-        "name": "usb drive",
+        "name": "monitor",
         "specs": [
           {
-            "code": "storage",
-            "name": "storage"
+            "code": "res",
+            "name": "resolution"
           },
           {
-            "code": "speed",
-            "name": "speed"
+            "code": "size",
+            "name": "size"
+          },
+          {
+            "code": "refreshRate",
+            "name": "refresh rate"
           }
         ],
-        "deliveryValue": 2
-      }
-    ],
-    "generalSpecs": [
-      {
-        "code": "weight",
-        "name": "weight"
-      },
-      {
-        "code": "color",
-        "name": "color"
+        "deliveryValue": 20
       }
     ],
     "categoryGroups": {
@@ -2478,20 +3589,42 @@
         "desktop",
         "laptop",
         "keyboard",
-        "mouse"
+        "mouse",
+        "monitor"
       ],
       "audio": [
         "earphone",
         "headphone",
         "speaker",
         "microphone"
-      ],
-      "memory": [
-        "usb card",
-        "sd card",
-        "external hard drive"
       ]
     },
     "baseDeliveryValue": 50
+  },
+  "previewStats": {
+    "users": {
+      "total": "6739023",
+      "new": "250832",
+      "removed": "627",
+      "guest": "15438"
+    },
+    "purchases": {
+      "total": "26739023",
+      "new": "1748932",
+      "refunds": "1621",
+      "deliveries": "832749"
+    },
+    "products": {
+      "total": "48396",
+      "new": "2540",
+      "removed": "834",
+      "edit": "1435"
+    },
+    "offers": {
+      "total": "14892",
+      "running": "174",
+      "closed": "1628",
+      "upcoming": "539"
+    }
   }
 }

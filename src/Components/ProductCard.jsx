@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { addToCart, removeFromCart, setProductCount } from '../Store/Cart/cartSlice';
 import { addToFav, getFavs, removeFromFav } from '../Store/Favorites/favoritesSlice';
-import { throttle } from '../helpers';
+import { onImgError, throttle } from '../helpers';
 
 function ProductCard({productObject,productId,className,showSingle=true}) {
 
@@ -14,13 +14,13 @@ function ProductCard({productObject,productId,className,showSingle=true}) {
     const cart = useSelector((store) => store.cart.cart);
     const favorites = useSelector((store) => store.favorites.favorites);
     const products = useSelector((store) => store.products.products);
+    const offers = useSelector((store) => store.offers.offers);
     const dispatch = useDispatch();
 
     const [added,setAdded] = useState(false);
     const [count, setCount] = useState(1);
     const [favorite,setFavorite] = useState(false);
-
-    const [firstCountSet,setFirstCountSet] = useState(false);
+    const [offerPrice,setOfferPrice] = useState(0);
 
     function getCount()
     {
@@ -38,7 +38,6 @@ function ProductCard({productObject,productId,className,showSingle=true}) {
         }
     }
 
-    // console.log(product)
     
     useEffect(()=>{
         if(products.length && !productObject) setProduct(products.find((product) => product.id === productId));
@@ -49,7 +48,6 @@ function ProductCard({productObject,productId,className,showSingle=true}) {
         {
             setAdded(cart.map((i) => i.productId).includes(product.id));
             setCount(getCount());
-            // setFirstCountSet(true);
         }
     },[product,cart]);
 
@@ -57,6 +55,14 @@ function ProductCard({productObject,productId,className,showSingle=true}) {
     useEffect(()=>{
         if(product) setFavorite(favorites.includes(product.id));
     },[favorites, product]);
+
+    useEffect(()=>{
+        if(product && offers)
+        {
+            let availableOffer = offers.find((offer) => offer.productId === product.id);
+            if(availableOffer) setOfferPrice(availableOffer.newPrice);
+        }
+    },[offers,product]);
 
 
     return (
@@ -69,30 +75,40 @@ function ProductCard({productObject,productId,className,showSingle=true}) {
                         <Link className="text-center w-100 text-decoration-none text-dark pb-1" to={`/product/${product.id}`}>
                             <div className='mb-3 product-card-img position-relative overflow-hidden'>
                                 <div className='w-100 h-100 d-flex justify-content-center align-items-center position-relative'>
-                                    <img className='position-absolute' src={product.image} />
+                                    <img className='position-absolute' src={product.image} onError={onImgError} />
                                 </div>
+                                {
+                                    product.rating ?
+                                    <p className='m-0 fs-6 d-flex fw-semibold align-items-center gap-1 position-absolute product-card-rating left-0 bottom-0 bg-light text-warning z-2 px-1'>{product.rating} <BsStarFill /></p>
+                                    : ""
+                                }
                             </div>
                             <Card.Title className='product-card-title'>{product.title}</Card.Title>
-                            <Card.Text className='product-card-price price-tag fw-bold text-danger mb-4 mb-md-0'>{product.price}</Card.Text>
+                            {
+                                offerPrice ?
+                                <div className='d-flex flex-column w-100 align-items-center'>
+                                    <Card.Text className='product-card-price price-tag price-old fw-bold m-0'>{product.price}</Card.Text>
+                                    <Card.Text className='product-card-price price-tag fw-bold text-danger m-0'>{offerPrice}</Card.Text>
+                                </div>
+                                :
+                                <Card.Text className='product-card-price price-tag fw-bold text-danger'>{product.price}</Card.Text>
+                            }
+                            
                         </Link>
                         <div className="d-flex w-100 justify-content-end p-2 pt-1 position-relative ">
-                            {
-                                product.rating ?
-                                <p className='m-0 ms-2 fs-6 d-flex fw-semibold align-items-center gap-1 position-absolute product-card-rating left-0 text-warning'>{product.rating} <BsStarFill /></p>
-                                : ""
-                            }
-                            <div className="d-flex gap-2 justify-content-between w-100">
+                            
+                            <div className="d-flex gap-2 justify-content-between w-100 align-items-stretch">
                                 {
                                     added ?
-                                    <Button className='d-flex p-2 bg-danger text-white border-2 border-danger fs-4 rounded-3 w-100 d-flex justify-content-center' onClick={()=>{throttle(dispatch(removeFromCart(product.id)),1000); setAdded(false);}}><BsFillCartDashFill /></Button>
+                                    <Button className='d-flex p-2 bg-danger text-white border-3 border-transparent fs-4 rounded-3 w-100 d-flex justify-content-center main-button' onClick={()=>{throttle((()=>{dispatch(removeFromCart(product.id));setAdded(false);})(),1000);}}><BsFillCartDashFill /></Button>
                                         :
-                                    <Button variant='primary' className='d-flex p-2 text-white border-2 fs-4 rounded-3 w-100 d-flex justify-content-center' onClick={()=>{throttle(dispatch(addToCart(product.id)),1000); setAdded(true);}}><BsFillCartPlusFill /></Button>
+                                    <Button variant='primary' className='d-flex p-2 text-white border-0 fs-4 rounded-3 w-100 d-flex justify-content-center main-button' onClick={()=>{throttle((()=>{dispatch(addToCart(product.id));setAdded(true);})(),1000);}}><BsFillCartPlusFill /></Button>
                                 }
                                 {
                                     favorite ?
-                                    <Button className='d-flex p-2 bg-warning border-3 border-warning fs-4 rounded-3' onClick={()=>{throttle(dispatch(removeFromFav(product.id)),1000); setFavorite(false);}}><BsStarFill /></Button>
+                                    <Button className='d-flex align-items-center p-2 bg-warning border-3 border-warning fs-4 rounded-3 main-button aspect-1' onClick={()=>{throttle((()=>{dispatch(removeFromFav(product.id));setFavorite(false);})(),1000);}}><BsStarFill /></Button>
                                     :
-                                    <Button className='d-flex p-2 bg-transparent text-warning border-3 border-warning fs-4 rounded-3' onClick={()=>{throttle(dispatch(addToFav(product.id)),1000); setFavorite(true);}}><BsStarFill /></Button>
+                                    <Button className='d-flex p-2 bg-transparent text-warning border-3 border-warning fs-4 rounded-3' onClick={()=>{throttle((()=>{dispatch(addToFav(product.id));setFavorite(true);})(),1000);}}><BsStarFill /></Button>
                                 }
                             </div>
                         </div>
@@ -108,8 +124,8 @@ function ProductCard({productObject,productId,className,showSingle=true}) {
                     <span className='badge shadow p-1 mx-1 mx-md-2 bg-primary'>{count}</span>
                 }
                     <div className='p-1 p-md-2 rounded-3 shadow d-flex flex-column gap-1 gap-sm-2 product-card-count-btn-row'>
-                        <Button variant='primary' className='p-1 product-card-count-btn d-flex align-items-center justify-content-center' onClick={()=>{throttle(handleCount(count+1),1500)}}><BsFillCaretUpFill /></Button>
-                        <Button variant='danger' className='p-1 product-card-count-btn d-flex align-items-center justify-content-center' onClick={()=>{throttle(handleCount(count-1),1500)}}><BsFillCaretDownFill /></Button>
+                        <Button variant='primary' className='p-1 product-card-count-btn d-flex align-items-center justify-content-center' onClick={()=>{throttle(handleCount(count+1),1000)}}><BsFillCaretUpFill /></Button>
+                        <Button variant='danger' className='p-1 product-card-count-btn d-flex align-items-center justify-content-center' onClick={()=>{throttle(handleCount(count-1),1000)}}><BsFillCaretDownFill /></Button>
                     </div>
                 </div>
             }

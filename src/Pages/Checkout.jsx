@@ -46,6 +46,8 @@ function Checkout({}) {
     const cart = useSelector((store) => store.cart.cart);
     const products = useSelector((store) => store.products.products);
     const productsInfo = useSelector((store) => store.products.productsInfo);
+    const offers = useSelector((store) => store.offers.offers);
+
     const currentUser = useSelector((store) => store.auth.currentUser);
     const purchaseLoading = useSelector((store) => store.purchases.loading);
     const purchaseSuccess = useSelector((store) => store.purchases.purchaseSuccess);
@@ -54,6 +56,9 @@ function Checkout({}) {
     const location = useLocation();
     const prevPath = location.state ? location.state.prevPath : "/";
     const dispatch = useDispatch();
+
+    if(cart && !cart.length) navigate("/cart");
+
 
     const captchaRef = useRef();
 
@@ -130,7 +135,10 @@ function Checkout({}) {
                         order: cart.map((cartItem) => ({
                             itemId: cartItem.productId,
                             count: cartItem.count,
-                            price: products.find((product)=>product.id===cartItem.productId).price
+                            price: (()=>{
+                                let availableOffer = offers.find((offer) => offer.productId===cartItem.productId);
+                                return availableOffer ? availableOffer.newPrice : products.find((product)=>product.id===cartItem.productId).price;
+                            })()
                         })),
                         orderCount: cart.reduce((t,item)=>{return t + item.count},0),
                         details: {...purchaseData,dateOfBirth: purchaseData.dateOfBirth.toISOString().split('T')[0]},
@@ -160,12 +168,9 @@ function Checkout({}) {
         {
             const setValue = [setGeneralFormValue,setShippingFormValue,setPaymentFormValue];
             schemas.forEach((schema,index) => {
-                // console.log(schema)
                 Object.keys(schema.fields).forEach((key)=>{
-                    console.log(key);
                     if(currentUser[key])
                     {
-                        // console.log(setValue[index])
                         setValue[index](key,currentUser[key]);
                     }
                 });
@@ -175,10 +180,11 @@ function Checkout({}) {
 
 
     useEffect(()=>{
-        if(products && cart && productsInfo) setFees(getTotalFees(cart,products,productsInfo));
-    },[cart,products,productsInfo]);
+        if(products && cart && productsInfo && offers) setFees(getTotalFees(cart,products,productsInfo,offers));
+    },[cart,products,productsInfo,offers]);
 
     useEffect(()=>{
+        console.log(purchaseSuccess);
         if(purchaseSuccess) 
         {
             dispatch(emptyCart());
@@ -194,7 +200,7 @@ function Checkout({}) {
 
     useEffect(()=>{
         return ()=>{
-            setPurchaseState("loading");
+            // setPurchaseState("loading");
             window.onbeforeunload = null;
         }
     },[]);
@@ -354,22 +360,7 @@ function Checkout({}) {
                                                         </FloatingLabel>
                                                     </div>
 
-                                                    {/* <div className="d-flex">
-                                                        <div className='w-100 bg-white d-flex align-items-center gap-2 py-2 border rounded-2 position-relative'>
-                                                            <span className='position-absolute top-0 m-1 ms-3' style={{color: "rgb(160,160,160)", fontSize: "0.9rem"}}>Expiration Date</span>
-                                                            <div className='position-relative'>
-                                                                <input style={{width: "5rem"}} className='p-0 pt-3 ps-3 bg-transparent border-0 outline-0' type="number" placeholder="Month" {...registerPaymentForm("creditCardExp.creditCardExpMonth")} />
-                                                                <span className='position-absolute fs-3' style={{color: "rgb(160,160,160)",top: "0.4rem", right: "-0.7rem"}}>-</span>
-                                                            </div>
-                                                            <div>
-                                                                <input className='p-0 pt-3 ps-3 bg-transparent border-0 outline-0' type="number" placeholder="Year" {...registerPaymentForm("creditCardExp.creditCardExpYear")} />
-                                                            </div>
-                                                        </div>
-                                                        {errorsPaymentForm.creditCardExpMonth ? 
-                                                        <div className='error-message text-danger mt-2'>{errorsPaymentForm.creditCardExpMonth.message}</div> :
-                                                        errorsPaymentForm.creditCardExpYear ?
-                                                        <div className='error-message text-danger mt-2'>{errorsPaymentForm.creditCardExpYear.message}</div> : ''}
-                                                    </div> */}
+
                                                 </div>
                                             </form>
                                         </Carousel.Item>
@@ -407,7 +398,7 @@ function Checkout({}) {
                                     </div>
                                     <hr className='mt-4' />
                                 </div>
-                                <Link to={prevPath} className='btn btn-dark mt-3'>Back To Previous Page </Link>
+                                <Link to={prevPath} className='btn main-button border-0 mt-3'>Back To Previous Page </Link>
                             </Col>
                             <Col className='col-12 col-md-5 mb-4 m-md-0'>
                                 <Accordion defaultActiveKey="0">
@@ -449,7 +440,7 @@ function Checkout({}) {
                                                 :
                                                 <div className='d-flex flex-column align-items-center gap-3 py-4'>
                                                     <h2 className='text-center'>Your cart is empty.</h2>
-                                                    <Button variant='dark' className='btn-dark fs-5 p-3 px-4 text-uppercase fw-semibold'>Shop now!</Button>
+                                                    <Button variant='dark' className='btn-dark main-button border-0 fs-5 p-3 px-4 text-uppercase fw-semibold'>Shop now!</Button>
                                                 </div>
                                             }
                                         </Accordion.Body>
@@ -489,8 +480,8 @@ function Checkout({}) {
                         </div>
                         <h2>Purchase has been completed!</h2>
                         <div className="d-flex gap-2 p-0 w-100">
-                            <Link to={prevPath} className='btn btn-dark mt-3 w-100'>Back To Previous Page </Link>
-                            <Link to={"/purchases"} className='btn btn-primary mt-3 w-100'>Track Purchase</Link>
+                            <Link to={prevPath} className='btn main-button border-0 mt-3 w-100'>Back To Previous Page </Link>
+                            <Link to={"/purchases"} className='btn main-button border-0 btn-primary mt-3 w-100'>Track Purchase</Link>
                         </div>
                     </div>
                     : ""

@@ -1,27 +1,38 @@
 import { createBrowserRouter } from "react-router-dom";
-import Home from "../Pages/Home";
 import App from "../App";
-import Shop from "../Pages/Shop";
-import ProductPage from "../Pages/ProductPage";
-import CartPage from "../Pages/CartPage";
-import Login from "../Pages/Login";
-import Register from "../Pages/Register";
-import FavoritesPage from "../Pages/FavoritesPage";
-import ShopExplore from "../Pages/ShopExplore";
-import Offers from "../Pages/Offers";
-import Checkout from "../Pages/Checkout";
+
 import Main from "../Layout/Main";
 import Auth from "../Layout/Auth";
-import PurchasesPage from "../Pages/PurchasesPage";
-import ProfilePage from "../Pages/ProfilePage";
 import Admin from "../Layout/Admin";
+import ErrorPage from "../Pages/ErrorPage";
+
+import Home from "../Pages/Home";
+import Offers from "../Pages/Offers";
+import ProductPage from "../Pages/ProductPage";
+import CartPage from "../Pages/CartPage";
+import Checkout from "../Pages/Checkout";
+
+import About from "../Pages/About";
+
+import ShopIndex from "../Pages/Shop/ShopIndex";
+import Shop from "../Pages/Shop/Shop";
+import ShopExplore from "../Pages/Shop/ShopExplore";
+
+import FavoritesPage from "../Pages/Profile/FavoritesPage";
+import PurchasesPage from "../Pages/Profile/PurchasesPage";
+import ProfilePage from "../Pages/Profile/ProfilePage";
+
+import Login from "../Pages/Auth/Login";
+import Register from "../Pages/Auth/Register";
+
 import Dashboard from "../Pages/Admin/Dashboard";
 import ManageClients from "../Pages/Admin/ManageClients";
 import ManagePurchases from "../Pages/Admin/ManagePurchases";
-import ManageReviews from "../Pages/Admin/ManageReviews";
 import ManageOffers from "../Pages/Admin/ManageOffers";
 import ManageProducts from "../Pages/Admin/ManageProducts";
-import ErrorPage from "../Layout/ErrorPage";
+import Contact from "../Pages/Contact";
+
+
 
 const router = createBrowserRouter([
     {
@@ -38,16 +49,20 @@ const router = createBrowserRouter([
                         element: <Home />
                     },
                     {
-                        path: "shop/q",
-                        element: <Shop />
-                    },
-                    {
                         path: "shop",
-                        element: <ShopExplore />
+                        element: <ShopIndex />
                     },
                     {
                         path: "offers",
                         element: <Offers />
+                    },
+                    {
+                        path: "about",
+                        element: <About />
+                    },
+                    {
+                        path: "contact",
+                        element: <Contact />
                     },
                     {
                         path: "product/:productId",
@@ -108,10 +123,6 @@ const router = createBrowserRouter([
                     {
                         path: "purchases",
                         element: <ManagePurchases />
-                    },
-                    {
-                        path: "reviews",
-                        element: <ManageReviews />
                     },
                     {
                         path: "offers",
