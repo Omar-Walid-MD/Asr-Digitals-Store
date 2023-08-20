@@ -80,7 +80,6 @@ function ManageOffers({}) {
 
     function startEditOffer(offer)
     {
-        console.log("yes edit");
         setFormMode("edit");
         setOfferToEdit(offer);
         handleFormModalShow();
@@ -150,7 +149,6 @@ function ManageOffers({}) {
 
     function handleOptionsScroll(e)
     {
-        console.log()
         let optionRows = e.target.querySelectorAll(".product-info-row-options");
         optionRows.forEach((optionsRow) => {
             optionsRow.style.right = "unset";
@@ -164,7 +162,6 @@ function ManageOffers({}) {
         let filteredOffers = offers;
         filteredOffers = filteredOffers.filter((offer) => {
 
-            console.log(products);
             let product = products.find((p) => p.id === offer.productId);
 
             let offerFilterObject = {
@@ -201,7 +198,7 @@ function ManageOffers({}) {
                 <h2 className='mt-5 mb-2'>Manage Offers</h2>
             </div>
             <hr className='border-3' />
-            <Accordion alwaysOpen defaultActiveKey={"0"} className='w-100'>
+            <Accordion alwaysOpen className='w-100'>
                 <Accordion.Item eventKey="0" className='border-0 bg-transparent'>
                     <Accordion.Header className='w-100 rounded-md-3 bg-secondary px-3 py-2 arrow-white'>
                         <h4 className='text-white m-0'>Filters</h4>
@@ -306,7 +303,7 @@ function ManageOffers({}) {
                 </Accordion.Item>
             </Accordion>
 
-            <div className='rounded-3 m-3 overflow-hidden'><Button variant="primary" className='w-100 d-flex main-button border-0 p-1 px-2 align-items-center justify-content-center fs-5 rounded-0' onClick={startAddOffer}><BsPlus className='fs-2'/> Add Offer</Button></div>
+            <div className='rounded-3 m-3 mx-md-0 overflow-hidden'><Button variant="primary" className='w-100 d-flex main-button border-0 p-1 px-2 align-items-center justify-content-center fs-5 rounded-0' onClick={startAddOffer}><BsPlus className='fs-2'/> Add Offer</Button></div>
 
             <div className="d-flex flex-column product-info-row-group pb-5 scrollbar light" onScroll={handleOptionsScroll}>
                 <div className='d-flex flex-column gap-3 text-white'>
@@ -347,7 +344,7 @@ function ManageOffers({}) {
                                         <Col className='col-1' style={{width: "12%"}}><p className='m-0'>{offer.start}</p></Col>
                                         <Col className='col-1' style={{width: "12%"}}><p className='m-0'>{offer.end}</p></Col>
 
-                                        <Col className='col-1'><p className={`m-0 text-capitalize`}>{offer.status}</p></Col>
+                                        <Col className='col-1'><p className={`m-0 text-capitalize status fw-semibold ${offer.status}`}>{offer.status}</p></Col>
 
                                     </Row>
                                     <div className="position-absolute product-info-row-options bg-light rounded-3 shadow d-flex align-items-center align-items-md-end">
@@ -437,7 +434,6 @@ function ManageOffers({}) {
                     :
                     formMode==="edit" ?
                     (function(){
-                        console.log("ugh?");
                         let product = products.find((p) => p.id === offerToEdit.productId);
                         return (
                             <form className='d-flex flex-column flex-md-row align-items-center align-items-md-start gap-3' id='offer-management-edit' onSubmit={handleSubmit(onSubmitEdit)}>

@@ -57,7 +57,7 @@ function ProductCartItemOverview({productObject,productId,productCount,productPr
                 product &&
                 <Card.Body className='p-0 position-relative rounded-0'>
                     <Row className='g-0'>
-                        <Col className='col-3 p-2 d-flex align-items-center'>
+                        <Col className='col-2 p-2 d-flex align-items-center'>
                             <Link to={`/product/${product.id}`} className='w-100 h-100 d-flex justify-content-center align-items-center p-2'>
                                 <div className='product-card-img position-relative overflow-hidden rounded-1'>
                                     <div className='w-100 h-100 d-flex justify-content-center align-items-center position-relative'>
@@ -66,7 +66,7 @@ function ProductCartItemOverview({productObject,productId,productCount,productPr
                                 </div>
                             </Link>
                         </Col>
-                        <Col className="col-3 p-2 d-flex align-items-center">
+                        <Col className="col-4 p-2 d-flex align-items-center">
                             <h5 className='m-0'>{product.title}</h5>
                         </Col>
                         <Col className="col-3 p-2 d-flex align-items-center">

@@ -3,9 +3,9 @@ import axios from "axios";
 
 const initialState = {
     users: [],
-    loggedIn: false,
     loading: true,
-    currentUser: null
+    currentUser: null,
+    loggedInState: "loading"
 }
 
 export const getUsers = createAsyncThunk(
@@ -125,7 +125,6 @@ export const authSlice = createSlice({
         [getUsers.fulfilled]: (state, { payload }) => {
           state.loading = false
           state.users = payload;
-          // console.log(state.users);
         },
         [getUsers.rejected]: (state) => {
           state.loading = false;
@@ -138,10 +137,10 @@ export const authSlice = createSlice({
             state.loading = true
         },
         [registerUser.fulfilled]: (state, { payload }) => {
-            state.loading = false
+            state.loading = false;
             state.users = [...state.users,payload];
             state.currentUser = payload;
-            state.loggedIn = true;
+            state.loggedInState = "yes";
         },
         [registerUser.rejected]: (state) => {
             state.loading = false
@@ -152,12 +151,12 @@ export const authSlice = createSlice({
         //loginUser
         [loginUser.pending]: (state) => {
           state.loading = true
+          state.loggedInState = "pending"
         },
         [loginUser.fulfilled]: (state, { payload }) => {
-            console.log("logged in");
-            state.loggedIn = true;
             state.loading = false
             state.currentUser = payload;
+            state.loggedInState = "yes";
           },
         [loginUser.rejected]: (state) => {
             state.loading = false
@@ -167,11 +166,20 @@ export const authSlice = createSlice({
         //getCurrentUser
         [getCurrentUser.pending]: (state) => {
           state.loading = true
+          state.loggedInState = "pending"
         },
         [getCurrentUser.fulfilled]: (state, { payload }) => {
-          if(payload) state.loggedIn = true;
+          if(payload)
+          {
+            state.loggedInState = "yes";
+          }
+          else
+          {
+            state.loggedInState = "no"
+          }
+
           state.currentUser = payload;
-          state.loading = false
+          state.loading = false;
           },
         [getCurrentUser.rejected]: (state) => {
             state.loading = false
@@ -182,11 +190,12 @@ export const authSlice = createSlice({
         //logoutUser
         [logoutUser.pending]: (state) => {
           state.loading = true
+          state.loggedInState = "pending";
         },
         [logoutUser.fulfilled]: (state) => {
             state.loading = false
             state.currentUser = null;
-            state.loggedIn = false;
+            state.loggedInState = "no";
           },
         [logoutUser.rejected]: (state) => {
             state.loading = false
@@ -200,7 +209,6 @@ export const authSlice = createSlice({
         [editUser.fulfilled]: (state, { payload }) => {
             // state.loading = false
             state.currentUser = payload;
-            // state.loggedIn = true;
           },
         [editUser.rejected]: (state) => {
             // state.loading = false
@@ -216,7 +224,7 @@ export const authSlice = createSlice({
             state.currentUser = null;
             state.users = state.users.filter((user) => user.id !== payload);
             localStorage.setItem("currentUser","");
-            state.loggedIn = false;
+            state.loggedInState = "no";
           },
         [deleteUser.rejected]: (state) => {
             state.loading = false

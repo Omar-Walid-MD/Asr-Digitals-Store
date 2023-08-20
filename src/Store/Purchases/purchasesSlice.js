@@ -3,7 +3,7 @@ import axios from "axios";
 
 const initialState = {
     purchases: [],
-    loading: false,
+    loading: true,
     purchaseSuccess: false
 }
 
@@ -29,6 +29,11 @@ export const setPurchaseStatus = createAsyncThunk(
     const res = axios.  patch(`http://localhost:8899/purchases/${purchase.id}`,{status: status});
     return (await res).data;
 });
+
+export const resetPurchaseLoading = createAsyncThunk(
+  'purchases/resetPurchaseLoading',
+   async()=>{return;}
+);
 
 export const purchasesSlice = createSlice({
     name: "purchases",
@@ -78,9 +83,23 @@ export const purchasesSlice = createSlice({
             state.loading = false;
             console.log("rejected");
         },
+
+        //resetPurchaseLoading
+        [resetPurchaseLoading.pending]: (state) => {
+          state.loading = true;
+          state.purchaseSuccess = false;
+        },
+        [resetPurchaseLoading.fulfilled]: (state) => {
+            state.loading = false
+        },
+        [resetPurchaseLoading.rejected]: (state) => {
+            state.loading = false;
+        },
         
       },
 });
+
+
 
 
 export default purchasesSlice.reducer;

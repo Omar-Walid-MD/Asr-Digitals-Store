@@ -67,12 +67,20 @@ function Login({}) {
     }
 
     return (
-        <div className='bg-light page-container d-flex align-items-center justify-content-center'>
+        <div className='bg-light-gradient page-container d-flex align-items-center justify-content-center'>
             <div className="d-flex flex-column align-items-start">
-                {/* <h4 className='my-4 bg-secondary text-white p-3 px-5 mb-3 mb-sm-2 rounded-sm-3 rounded-bottom-0 shadow d-sm-inline w-xs-100 w-sm-auto'>Log in</h4> */}
+
                 <form onSubmit={handleSubmit(onSubmit)} className='bg-light p-3 border shadow rounded-sm-2 auth-form-container'>
-                    <h1 className='text-center mb-4'>Welcome Back</h1>
-                    {/* <h4 className='mb-4'>Log in</h4> */}
+
+                    <div className='d-flex justify-content-between w-100 mb-2 gap-2' >
+                        <h2 className='text-start mb-4'>Welcome Back</h2>
+                        <div className='d-flex align-items-start gap-1 m-0' style={{width:"min(11.4rem,65vw)"}}>
+                            <img style={{width:"30%"}} src={require("../../img/logo.png")} alt="" />
+                            <img style={{width:"70%"}} src={require("../../img/logo-text.png")} alt="" />
+                        </div>
+                    </div>
+
+
                     <div className="d-flex flex-column gap-3">
                         <FloatingLabel controlId="floatingEmail" label="Email">
                             <Form.Control type="email" placeholder="Email" {...register("email")} />
@@ -101,7 +109,7 @@ function Login({}) {
                         No account? <Link to={"/register"} className='text-decoration-none'>Register now</Link>
                     </div>
                 </form>
-                <Link to={prevPath} className='fs-5 p-2 rounded-sm-2 text-dark text-decoration-none w-100 shadow border text-center mt-3 fw-semibold'> Back</Link>
+                <Link to={prevPath} className='fs-5 p-2 bg-light rounded-sm-2 text-dark text-decoration-none w-100 shadow border text-center mt-3 fw-semibold'> Back</Link>
 
             </div>
         </div>

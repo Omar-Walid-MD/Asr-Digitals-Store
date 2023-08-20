@@ -29,7 +29,7 @@ function ProductInfoRow({product, showProduct, editProduct, deleteProduct}) {
                     </div>
                 </Col>
             </Row>
-            <div className="position-absolute product-info-row-options bg-light rounded-3 shadow d-flex align-items-center align-items-md-end">
+            <div className="position-absolute product-info-row-options bg-white rounded-3 shadow d-flex align-items-center align-items-md-end">
                 <Button variant='primary' className='fs-4 d-flex align-items-center border-0 fw-bold bg-transparent text-success aspect-1 py-2 justify-content-center' onClick={()=>{showProduct(product)}}><BsFillInfoCircleFill/></Button>
                 <Link to={`/product/${product.id}`} className='fs-4 btn btn-primary d-flex align-items-center border-0 fw-bold bg-transparent text-info aspect-1 py-2 justify-content-center'><FaArrowUpRightFromSquare/></Link>
                 <Button variant='primary' className='fs-4 d-flex align-items-center border-0 fw-bold bg-transparent text-primary aspect-1 py-2 justify-content-center' onClick={()=>{editProduct(product)}}><PiPencilSimpleFill/></Button>

@@ -20,11 +20,9 @@ function Shop({products=[],searchParams}) {
 
     const [filters,setFilters] = useState(initalFilters);
     const [specFilterOptions,setSpecFilterOptions] = useState();
-    const [sort,setSort] = useState({type: "alphabetical",order: "asc"});
+    const [sort,setSort] = useState({type: "date",order: "asc"});
     const [resultsCount,setResultsCount] = useState(12);
     const [filteredProducts,setFilteredProducts] = useState(products);
-
-    const [firstFiltersSet,setFirstFiltersSet] = useState(false);
 
     function handleFilterCategories(category)
     {
@@ -81,13 +79,19 @@ function Shop({products=[],searchParams}) {
     function getSortedProducts(products)
     {
         let sortedProducts = products;
-        if(sort.type==="price")
+        if(sort.type==="date")
+        {
+            sortedProducts = sortedProducts.sort((a,b)=>{
+                return b.date - a.date;
+            });
+        }
+        else if(sort.type==="price")
         {
             sortedProducts = sortedProducts.sort((a,b)=>{
                 return b.price - a.price;
             });
         }
-        if(sort.type==="alphabetical")
+        else if(sort.type==="alphabetical")
         {
             sortedProducts = sortedProducts.sort((a,b)=>{
                 return a.title >= b.title ? 1 : -1;
@@ -124,40 +128,11 @@ function Shop({products=[],searchParams}) {
     
     }
 
-    // function setParamFilters()
-    // {
-    //     setFirstFiltersSet(false);
-    //     let updatedFilters = initalFilters;
-    //     if(searchParams.get("q"))
-    //     {
-    //         updatedFilters = {...initalFilters, search: searchParams.get("q"),categories:[]};
-    //     }
-    //     else if(searchParams.get("gr"))
-    //     {
-    //         if(productsInfo.categoryGroups[searchParams.get("gr")])
-    //         updatedFilters = {...initalFilters,search:"",categories:[...productsInfo.categoryGroups[searchParams.get("gr")]]};
-    //     }
-    //     else if(searchParams.get("cat"))
-    //     {
-    //         if(productsInfo.categories.find((category) => category.name === searchParams.get("cat")))
-    //         updatedFilters = {...initalFilters,search:"",categories:[searchParams.get("cat")]};
-    //     }
-
-    //     setSpecFilterOptions(getSpecFilterOptions(getFilteredProducts(products,updatedFilters)));
-    //     setFilters(updatedFilters);
-    //     setFirstFiltersSet(true);
-    // }
 
     useEffect(()=>{
         setFilteredProducts(getSortedProducts(getFilteredProducts(products,filters)));
     },[filters, sort, products, productsInfo]);
 
-    // useEffect(()=>{
-    //     if(productsInfo.categories)
-    //     {
-    //         // setParamFilters();
-    //     }
-    // },[searchParams, productsInfo]);
 
     useEffect(()=>{
         setSpecFilterOptions(getSpecFilterOptions(products));
@@ -181,8 +156,35 @@ function Shop({products=[],searchParams}) {
             <div>
                 <Row className='m-0 g-0 gy-3 gy-md-0 gx-sm-4 pb-4' >
                     <Col className='col-12 col-md-4 col-xl-3 d-flex flex-column align-items-start px-1 px-sm-0 px-lg-2 z-1'>
-                        <Accordion alwaysOpen defaultActiveKey={["0","1"]} className='shop-filter-accordion w-100 rounded-bottom overflow-hidden shadow'>
+                        <Accordion alwaysOpen className='shop-filter-accordion w-100 rounded-bottom overflow-hidden shadow'>
+
                             <Accordion.Item eventKey="0" className='border-0 bg-light'>
+                                <Accordion.Header className='bg-white w-100 px-3 py-2'>
+                                    <h3>Sort</h3>
+                                </Accordion.Header>
+                                <Accordion.Body className='px-0 border-top border-2'>
+                                    <div className='w-100 p-3 d-flex align-items-start justify-content-between gap-2'>
+
+                                        <Dropdown autoClose="outside">
+                                            <Dropdown.Toggle className={`d-flex align-items-center justify-content-between bg-secondary border-secondary`} variant="secondary" id="dropdown-basic">
+                                                <span className='text-capitalize'> {sort.type}</span>
+                                            </Dropdown.Toggle>
+
+                                            <Dropdown.Menu className='p-0 rounded-0 w-100' >
+                                                <Dropdown.Item className={`p-0 dropdown-select border-bottom border-dark ${sort.type==="date" ? "selected" : ""}`}><Button className='bg-transparent text-dark border-0 d-flex justify-content-between text-capitalize w-100' onClick={()=>{setSort({...sort,type: "date"})}}> Date </Button></Dropdown.Item>
+                                                <Dropdown.Item className={`p-0 dropdown-select border-bottom border-dark ${sort.type==="alphabetical" ? "selected" : ""}`}><Button className='bg-transparent text-dark border-0 d-flex justify-content-between text-capitalize w-100' onClick={()=>{setSort({...sort,type: "alphabetical"})}}> Alphabetical </Button></Dropdown.Item>
+                                                <Dropdown.Item className={`p-0 dropdown-select border-bottom border-dark ${sort.type==="price" ? "selected" : ""}`}><Button className='bg-transparent text-dark border-0 d-flex justify-content-between text-capitalize w-100' onClick={()=>{setSort({...sort,type: "price"})}}> Price </Button></Dropdown.Item>
+                                            </Dropdown.Menu>
+                                        </Dropdown>
+                                        <div className="d-flex gap-2">
+                                            <Button variant='dark' className={`border-2 ${sort.order!=="asc" ? "bg-transparent text-secondary" : ""}`} onClick={()=>{setSort({...sort,order:"asc"})}} > <FaSortAmountDown /> </Button>
+                                            <Button variant='dark' className={`border-2 ${sort.order!=="desc" ? "bg-transparent text-secondary" : ""}`} onClick={()=>{setSort({...sort,order:"desc"})}} > <FaSortAmountUpAlt /> </Button>
+                                        </div>
+                                    </div>
+                                </Accordion.Body>
+                            </Accordion.Item>
+                            
+                            <Accordion.Item eventKey="1" className='border-0 bg-light'>
                                 <Accordion.Header className='bg-white w-100 rounded-top border-bottom border-2 px-3 py-2'>
                                     <h3>Filters</h3>
                                 </Accordion.Header>
@@ -270,30 +272,7 @@ function Shop({products=[],searchParams}) {
                                 </Accordion.Body>
                             </Accordion.Item>
 
-                            <Accordion.Item eventKey="1" className='border-0 bg-light'>
-                                <Accordion.Header className='bg-white w-100 px-3 py-2'>
-                                    <h3>Sort</h3>
-                                </Accordion.Header>
-                                <Accordion.Body className='px-0 border-top border-2'>
-                                    <div className='w-100 p-3 d-flex align-items-start justify-content-between gap-2'>
-
-                                        <Dropdown autoClose="outside">
-                                            <Dropdown.Toggle className={`d-flex align-items-center justify-content-between bg-secondary border-secondary`} variant="secondary" id="dropdown-basic">
-                                                <span className='text-capitalize'> {sort.type}</span>
-                                            </Dropdown.Toggle>
-
-                                            <Dropdown.Menu className='p-0 rounded-0 w-100' >
-                                                <Dropdown.Item className={`p-0 dropdown-select border-bottom border-dark ${sort.type==="alphabetical" ? "selected" : ""}`}><Button className='bg-transparent text-dark border-0 d-flex justify-content-between text-capitalize w-100' onClick={()=>{setSort({...sort,type: "alphabetical"})}}> Alphabetical </Button></Dropdown.Item>
-                                                <Dropdown.Item className={`p-0 dropdown-select border-bottom border-dark ${sort.type==="price" ? "selected" : ""}`}><Button className='bg-transparent text-dark border-0 d-flex justify-content-between text-capitalize w-100' onClick={()=>{setSort({...sort,type: "price"})}}> Price </Button></Dropdown.Item>
-                                            </Dropdown.Menu>
-                                        </Dropdown>
-                                        <div className="d-flex gap-2">
-                                            <Button variant='secondary' className={`border-2 ${sort.order!=="asc" ? "bg-transparent text-secondary" : ""}`} onClick={()=>{setSort({...sort,order:"asc"})}} > <FaSortAmountDown /> </Button>
-                                            <Button variant='secondary' className={`border-2 ${sort.order!=="desc" ? "bg-transparent text-secondary" : ""}`} onClick={()=>{setSort({...sort,order:"desc"})}} > <FaSortAmountUpAlt /> </Button>
-                                        </div>
-                                    </div>
-                                </Accordion.Body>
-                            </Accordion.Item>
+                            
                         </Accordion>
                         
                     </Col>
@@ -308,11 +287,11 @@ function Shop({products=[],searchParams}) {
                                         </Col>                                
                                     ))
                                 }
-                                {filteredProducts && resultsCount < filteredProducts.length ? <Col className='col-12 mb-2 mt-2 mt-sm-4'><Button variant='dark' className='btn-dark w-100 5' onClick={()=>setResultsCount(c => c+12)}>Load More</Button></Col> : ""}
+                                {filteredProducts && resultsCount < filteredProducts.length ? <Col className='col-12 mb-2 mt-2 mt-sm-4 px-2'><Button variant='dark' className='btn-dark w-100 5' onClick={()=>setResultsCount(c => c+12)}>Load More</Button></Col> : ""}
                             </Row>
                         </Col>
                         :
-                        firstFiltersSet ?
+                        filters!==initalFilters ?
                         <Col className='col-12 col-md-8 col-xl-9 p-0 ps-md-2 px-lg-1'>
                             <div className='py-5 px-sm-3 shadow rounded-3 w-100 m-0 text-center'>
                                 <h3 className='mb-4'>No results for the current filters.</h3>

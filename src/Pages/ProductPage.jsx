@@ -162,13 +162,7 @@ function ProductPage({})
         }
     },[offers,product]);
 
-    useEffect(()=>{
-        if(reviews.length && product)
-        {
-            let updatedRating = getRating([...reviews.map((review)=>review.rating),rating]);
-            if(updatedRating !== product.rating) dispatch(setProductRating({productId,rating: updatedRating}));
-        }
-    },[reviews,product])
+    
 
 
     return (
@@ -201,9 +195,9 @@ function ProductPage({})
                                     <h1>{product.title}</h1>
                                     <p className='m-0'>{product.desc}</p>
                                     {
-                                        reviews.length >= 5 ?
+                                        reviews.length >= 3 ?
                                         <div className="d-flex flex-column flex-md-row gap-2">
-                                            <p className='m-0 fs-5 text-warning-emphasis fw-semibold'>{product.rating} ({reviews.length} reviews)</p>
+                                            <p className='m-0 fs-5 text-warning-emphasis text-center text-sm-start fw-semibold'>{product.rating} ({reviews.length} reviews)</p>
                                             <div className="d-flex gap-2">
                                                 {
                                                     [1,2,3,4,5].map((n)=>
@@ -222,7 +216,7 @@ function ProductPage({})
                                     {
                                         offerPrice ?
                                         <div className='mt-2'>
-                                            <h6 className='m-0 text-uppercase text-danger fw-bold mb-2' style={{letterSpacing:"0.2em"}}>Limited Offer</h6>
+                                            <h6 className='m-0 text-uppercase text-danger text-center text-sm-start fw-bold mb-2' style={{letterSpacing:"0.2em"}}>Limited Offer</h6>
                                             <div className='d-flex align-items-center gap-3'>
                                                 {offerPrice ? <h5 className='price-tag mt-2 price-old m-0'>{product.price}</h5> : ""}
                                                 <h1 className='text-danger price-tag fw-semibold discount-text' style={{fontSize:"3rem"}}>{offerPrice}</h1>
@@ -346,10 +340,10 @@ function ProductPage({})
                         <Container>
                             <div className="d-flex flex-column gap-3">
                                 {
-                                    reviews.length >= 5 ?
+                                    reviews.length >= 3 ?
 
-                                    <div className='d-flex flex-column flex-md-row gap-5 py-5'>
-                                        <div className='rounded-circle p-3' style={{width: "250px", aspectRatio:"1", background: `conic-gradient(rgb(var(--bs-warning-rgb)) ${product.rating / 5 * 100}%, transparent 0)`}}>
+                                    <div className='d-flex flex-column flex-md-row align-items-center align-items-sm-start  gap-5 py-5'>
+                                        <div className='rounded-circle p-3' style={{width: "min(250px,80vw)", aspectRatio:"1", background: `conic-gradient(rgb(var(--bs-warning-rgb)) ${product.rating / 5 * 100}%, transparent 0)`}}>
                                             <div className="bg-light w-100 h-100 rounded-circle shadow-lg d-flex justify-content-center align-items-center pb-3 text-warning-emphasis" style={{fontSize: "min(5em,50vw)"}}>{product.rating}<BsStarFill className='ms-2 mt-4' style={{fontSize: "0.75em"}} /></div>
                                         </div>
                                         <div className='d-flex align-items-start justify-content-between flex-column'>
@@ -363,7 +357,7 @@ function ProductPage({})
                                             <p className='m-0 mt-3 fs-4'>{reviews.length} total reviews</p>
                                         </div>
                                     </div>
-                                    : <p className='text-center py-5 fs-4'>Be the first to review this product!</p>
+                                    : <p className='text-center py-5 fs-4'>Be from the first customers to review this product!</p>
                                 }
 
                                 <form onSubmit={handleSubmit(onSumbit)} className='bg-secondary p-3 rounded-3 d-flex flex-column gap-2 shadow'>

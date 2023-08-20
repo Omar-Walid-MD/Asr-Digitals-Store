@@ -17,7 +17,7 @@ import i18next from "i18next";
 function NavBar({}) {
 
     const location = useLocation();
-    const loggedIn = useSelector((store) => store.auth.loggedIn);
+    const loggedInState = useSelector((store) => store.auth.loggedInState);
     const currentUser = useSelector((store) => store.auth.currentUser);
     const authLoading = useSelector((store) => store.auth.loading);
     const products = useSelector((store) => store.products.products);
@@ -54,14 +54,6 @@ function NavBar({}) {
         return `/${pathname}`===location.pathname ? "active" : "";
     }
 
-    // function setLanguage(lang)
-    // {
-    //   i18next.changeLanguage(lang);
-    //   document.documentElement.setAttribute("lang",lang);
-    //   document.documentElement.setAttribute("dir",lang==="ar" ? "rtl" : "ltr");
-
-    //   localStorage.setItem("lang",lang);
-    // }
 
 
     useEffect(()=>{
@@ -73,42 +65,43 @@ function NavBar({}) {
     },[location.pathname])
 
     return (
-        <Navbar expand="md" className="bg-body-tertiary position-sticky top-0 shadow py-1 py-md-2">
-            <Container className="navbar-container d-flex align-items-center justify-content-between gap-0 gap-md-4 w-100">
-                <div className="d-flex gap-3 w-75">
-                    <Navbar.Brand as={NavLink} to={"/"}>Asr Digitals</Navbar.Brand>
-
-                    <div className="w-100 align-items-center justify-content-start d-none d-sm-flex search-container">
-                        <div className="w-100 d-flex align-items-center border border-2 border-secondary rounded-2 overflow-hidden" style={{height:"2.25rem"}}>
-                            <BsSearch className='bg-secondary fs-1 p-2 text-white h-100' />
-                            <input type='search' className='w-100  border-0 p-1 ps-2 fs-5' value={searchValue} onChange={handleSearch} />
-                        </div>
+        <Navbar expand="md" className="bg-body-tertiary position-sticky top-0 shadow py-0">
+            <Container className="navbar-container d-flex align-items-stretch justify-content-between gap-0 gap-md-2 gap-lg-3 px-2 px-sm-4 px-md-3 px-lg-5 w-md-100">
+                <Navbar.Brand className='' as={NavLink} to={"/"}>
+                    <div className='d-flex align-items-start gap-1 m-0' style={{width:"min(11.4rem,65vw)"}}>
+                        <img style={{width:"30.75%"}} src={require("../img/logo.png")} alt="" />
+                        <img style={{width:"69.25%"}} src={require("../img/logo-text.png")} alt="" />
+                    </div>
+                </Navbar.Brand>
+                <div className="w-0 w-lg-50 align-items-center justify-content-start d-none d-sm-flex search-container pe-sm-4 pe-md-0">
+                    <div className="w-100 d-flex align-items-center border border-2 border-secondary rounded-2 overflow-hidden" style={{height:"2.25rem"}}>
+                        <BsSearch className='bg-secondary fs-1 p-2 text-white h-100' />
+                        <input type='search' placeholder='Look for products...' className='w-100 border-0 p-1 ps-2' value={searchValue} onChange={handleSearch} />
                     </div>
                 </div>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" className='border-0 shadow-none p-0' />
-                <Navbar.Collapse id="basic-navbar-nav" className="align-items-center flex-grow-0">
-                    <Nav className="align-items-center gap-2 mt-3 m-md-0">
-                        <div className="d-flex d-sm-none align-items-center justify-content-center">
+                <Navbar.Toggle aria-controls="basic-navbar-nav" className='border-0 shadow-none' />
+                <Navbar.Collapse id="basic-navbar-nav" className="align-items-stretch flex-grow-0">
+                    <Nav className="align-items-center align-items-md-stretch justify-content-center gap-2 gap-lg-3 mt-2 mt-sm-1 m-md-0">
+                        <div className="d-flex w-100 d-sm-none align-items-stretch justify-content-center ">
                             <div className="w-100 d-flex align-items-center border border-2 border-secondary rounded-2 overflow-hidden" style={{height:"2.25rem"}}>
                                 <BsSearch className='bg-secondary fs-1 p-2 text-white h-100' />
-                                <input type='search' className='w-100  border-0 p-1 ps-2 fs-5' value={searchValue} onChange={handleSearch} />
+                                <input type='search' placeholder='Look for products' className='w-100 border-0 p-1 ps-2' value={searchValue} onChange={handleSearch} />
                             </div>
                         </div>
-                        <div className={`d-flex gap-3 ${!loggedIn ? "flex-column" : ""} flex-sm-row align-items-center`}>
-                            <div className="d-flex gap-3">
-                                {/* <Nav.Link className={`navbar-link position-relative d-flex justify-content-center ${linkActive("shop")}`} as={NavLink} to="/shop">Shop</Nav.Link> */}
-                                <div className='d-flex justify-content-start justify-content-xl-center navbar-dropdown-menu'>
-                                    <div className='navbar-dropdown-button'>
-                                        <Nav.Link className={`navbar-link position-relative d-flex justify-content-center ${linkActive("shop")}`}>Shop</Nav.Link>
+                        <div className={`d-flex align-items-stretch gap-md-2 gap-lg-3 ${loggedInState==="no" ? "flex-column-reverse gap-sm-3" : "navbar-small-gap  gap-sm-4"} flex-sm-row`}>
+                            <div className="d-flex align-items-stretch navbar-small-gap gap-sm-4 gap-md-2">
+                                <div className='d-flex align-items-stretch justify-content-center navbar-dropdown-menu'>
+                                    <div className={`position-relative navbar-dropdown-button d-flex align-items-center navbar-link ${linkActive("shop")}`}>
+                                        <Nav.Link className={`  `}>Shop</Nav.Link>
                                     </div>
                                     <div className="position-absolute navbar-dropdown-container">
-                                        <div className="bg-white shadow navbar-dropdown">
-                                            <Link to={"/shop"} className='px-4 py-2 border-bottom d-flex justify-content-center text-decoration-none text-capitalize fw-semibold'>Explore!</Link>
+                                        <div className="bg-white shadow navbar-dropdown ">
+                                            <Link to={"/shop"} className='px-4 py-2  border-bottom d-flex justify-content-center text-decoration-none text-capitalize fw-semibold'>Explore!</Link>
                                             {
                                                 productsInfo.categoryGroups && Object.keys(productsInfo.categoryGroups).map((menuItem) => 
                                                 
 
-                                                <div className='d-flex justify-content-end justify-content-md-start position-relative navbar-dropdown-menu'>
+                                                <div className='d-flex justify-content-start justify-content-md-start position-relative navbar-dropdown-menu'>
                                                     <div className='navbar-dropdown-button'>
                                                         <div className='px-3 py-2 gap-2 border-bottom d-flex align-items-center justify-content-end text-decoration-none text-capitalize fw-semibold'>
                                                             <BsCaretLeftFill className='d-none d-md-block' />  
@@ -140,25 +133,31 @@ function NavBar({}) {
                                     </div>
                                     
                                 </div>
-                                <Nav.Link as={Link} to={"/about"} className={`navbar-link position-relative d-flex justify-content-center ${linkActive("about")}`}>About</Nav.Link>
-                                <Nav.Link as={Link} to={"/contact"} className={`navbar-link position-relative d-flex justify-content-center ${linkActive("contact")}`}>Contact</Nav.Link>
+                                <Nav.Link as={Link} to={"/about"} className={`navbar-link position-relative d-flex align-items-center justify-content-center ${linkActive("about")}`}>About</Nav.Link>
+                                <Nav.Link as={Link} to={"/contact"} className={`navbar-link position-relative d-flex align-items-center justify-content-center ${linkActive("contact")}`}>Contact</Nav.Link>
 
-                                <Nav.Link className={`cart-link position-relative d-flex justify-content-center ${linkActive("cart")}`} as={NavLink} to="/cart">
-                                    <BsFillCartFill className='fs-4 text-secondary' />
-                                    {cartTotal ? <span className='badge bg-danger fw-bold position-absolute top-0 left-0 rounded-pill d-flex justify-content-center align-items-center text-white' style={{transform: "translate(-50%,-15%)", fontSize: "0.6rem",boxShadow:"-0.1em 0.1em 0.2em rgb(0,0,0,0.3)"}}>{cartTotal}</span> : ""}
+                                <Nav.Link className={`cart-link d-flex align-items-center justify-content-center ${linkActive("cart")}`} as={NavLink} to="/cart">
+                                    <div className='position-relative'>
+                                        <BsFillCartFill className='fs-4 text-secondary cart-icon' />
+                                        {cartTotal ? <span className='badge bg-danger fw-bold position-absolute top-0 left-0 rounded-pill d-flex justify-content-center align-items-center text-white' style={{transform: "translate(-65%,-55%)", fontSize: "0.6rem",boxShadow:"-0.1em 0.1em 0.2em rgb(0,0,0,0.3)"}}>{cartTotal}</span> : ""}
+                                    </div>
                                 </Nav.Link>
                             </div>
-                            <div>
+                            <div className='d-flex align-self-stretch mt-2 mt-sm-0'>
                             {
                                 !authLoading ?
-                                !loggedIn ?
-                                <div className='d-flex gap-3 mt-2 m-sm-0'>
-                                    <Button variant='secondary' as={Link} to="/login" state={{prevPath: location.pathname}} className=''>Login</Button>
-                                    <Button variant='secondary' as={Link} to="/register" state={{prevPath: location.pathname}} className='btn bg-transparent text-secondary border-3 fw-semibold'>Register</Button>
+                                loggedInState==="no" ?
+                                <div className='d-flex gap-3 align-self-center'>
+                                    <Button variant='secondary' as={Link} to="/login" state={{prevPath: location.pathname}} className='btn bg-secondary main-button border-0 d-flex align-items-center'>Login</Button>
+                                    <Button variant='secondary' as={Link} to="/register" state={{prevPath: location.pathname}} className='btn bg-transparent border-secondary text-secondary border-3 fw-semibold'>Register</Button>
                                 </div>
                                 :
-                                <div className='d-flex justify-content-end justify-content-xl-center navbar-dropdown-menu'>
-                                    <div className='bg-white p-1 d-flex fs-3 border rounded-circle navbar-dropdown-button'><BsFillPersonFill /></div>
+                                <div className='d-flex align-items-center justify-content-end navbar-dropdown-menu mb-2 mb-sm-0'>
+                                    <div className='navbar-dropdown-button '>
+                                        <div className='bg-white p-1 d-flex fs-3 border rounded-circle shadow-sm'>
+                                            <BsFillPersonFill />
+                                        </div>
+                                    </div>
                                     <div className="position-absolute navbar-dropdown-container">
                                         <div className="bg-white shadow navbar-dropdown overflow-hidden">
                                             <Link to={"/profile"} className='px-4 py-2 border-bottom d-flex justify-content-center text-decoration-none'>Profile</Link>
@@ -182,14 +181,14 @@ function NavBar({}) {
 
             {
                 (currentUser && currentUser.role)==="admin" ? 
-                <Link to={"/admin"} className='text-dark text-decoration-none position-absolute top-100 bg-body-tertiary px-2 py-2 rounded-1 rounded-top-0 ms-2 shadow d-flex align-items-center gap-1' style={{zIndex:"-1"}}>To Dashboard <MdDashboard/> </Link>
+                <Link to={"/admin"} className='text-dark text-decoration-none position-absolute top-100 bg-body-tertiary px-2 py-2 rounded-1 rounded-top-0 ms-2 shadow d-flex align-items-center gap-1' style={{zIndex:"-1",transform: "translateY(0.1em)"}}>To Dashboard <MdDashboard/> </Link>
                 : ""
             }
             
 
             <div className={`navbar-search-results-overlay top-100 w-100 position-absolute d-flex align-items-start justify-content-center pt-3 p-0 p-sm-3 ${searchModal ? "active" : ""}`}>
                 <div className="navbar-search-results-container bg-light rounded-sm-3 shadow overflow-hidden">
-                    <Modal.Header className='border-bottom border-2 p-3'>
+                    <Modal.Header className='border-2 p-3'>
                         <Modal.Title className='text-capitalize'>Search</Modal.Title>
                     </Modal.Header>
                     <Modal.Body className='p-0 p-sm-3 body overflow-y-scroll overflow-x-hidden scrollbar white'>
@@ -214,14 +213,14 @@ function NavBar({}) {
                             
                         </div>
                     </Modal.Body>
-                    <Modal.Footer className='p-2 position-sticky bottom-0 bg-light border-top border-2'>
-                        <div className="d-flex align-items-center w-100 gap-2 justify-content-end">
+                    <Modal.Footer className='p-2 position-sticky bottom-0 border-2'>
+                        <div className="d-flex align-items-stretch w-100 gap-2 justify-content-end">
                         {
                             getSearchResults().length > 3 ?
-                            <Link to={`/shop?q=${searchValue}`} onClick={()=>{setSearchModal(false);}} className='btn main-button w-100 border-0 fs-5'>More results</Link>
+                            <Link to={`/shop?q=${searchValue}`} onClick={()=>{setSearchModal(false);}} className='btn btn-dark w-100 fs-5 border-0 main-button'>More results</Link>
                             : ""
                         }
-                            <Button variant="secondary" className='fs-2 d-flex p-2 border-0' onClick={handleSearchModalClose}><BsX /></Button>
+                            <Button variant="secondary" className='fs-2 d-flex p-1 align-items-center px-2' onClick={handleSearchModalClose}><BsX /></Button>
                         </div>
                         
                     </Modal.Footer>

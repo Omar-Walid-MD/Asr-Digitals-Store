@@ -16,7 +16,7 @@ function Offers({}) {
     const [timerInterval,setTimerInterval] = useState(0);
     const [first,setFirst] = useState(false);
 
-    const date = new Date("1 Jan 2024");
+    const date = new Date("1 Sep 2023");
 
      
     function handleCountDown()
@@ -40,7 +40,7 @@ function Offers({}) {
 
     function getOfferProducts()
     {
-        let updatedOfferProducts = offers.map((offer) =>{
+        let updatedOfferProducts = offers.slice(0,10).map((offer) =>{
 
             let product = products.find((product) => product.id === offer.productId);
 
@@ -49,7 +49,7 @@ function Offers({}) {
                 newPrice: offer.newPrice
             }
         });
-        console.log(updatedOfferProducts.length)
+
         if(updatedOfferProducts.length < 10)
         {
             let discounts = [10,15,20,25,30,35];
@@ -59,9 +59,9 @@ function Offers({}) {
                 let product = products[Math.floor(Math.random()*products.length)];
                 updatedOfferProducts.push({product ,newPrice: product.price * (100 - discounts[Math.floor(Math.random()*discounts.length)]) / 100});
             }
-            return updatedOfferProducts;
         }
-
+        
+        return updatedOfferProducts;
     }
 
     useEffect(()=>{
@@ -129,7 +129,7 @@ function Offers({}) {
                                 </div>
                             </div>
                         </div>
-                        <h5 className='mt-4 text-center text-uppercase fw-bold'>Stay Tuned for Awesome Deals!</h5>
+                        <h5 className='mt-4 text-center text-uppercase fw-bold fs-4'>Stay Tuned for Awesome Deals!</h5>
                     </div>
                 </div>
                 <div className="position-absolute offers-header-bottom"></div>
@@ -150,10 +150,10 @@ function Offers({}) {
                         <h1>SpectraBook X1</h1>
                         <p className='text-center text-lg-start '>Immerse yourself in the world of content creation and multimedia with the SpectraBook X1, a high-performance laptop that offers a stunning display and powerful graphics capabilities.</p>
                         <div className="fw-semibold">
-                            <h6 className='text-danger mb-0'>Now Only For</h6>
+                            <h6 className='text-danger mb-0 fw-bold'>Now Only For</h6>
                             <h1 className='price-tag discount-text' style={{fontSize:"4rem"}}>3200</h1>
                         </div>
-                        <Button className='d-flex align-items-center w-xs-100 justify-content-center w-lg-auto mt-3 btn-primary text-white fs-3 gap-2 gap-sm-3 rounded-3 shadow border-3'><BsFillCartPlusFill className='fs-2' /> Add to Cart</Button>
+                        <Button className='d-flex align-items-center w-xs-100 justify-content-center w-lg-auto mt-3 btn-primary text-white fs-3 gap-2 gap-sm-3 rounded-3 shadow border-0 main-button'><BsFillCartPlusFill className='fs-2' /> Add to Cart</Button>
                     </div>
                 </div>
             </section>
@@ -161,16 +161,16 @@ function Offers({}) {
             <section className='offers-section-2'>
                 <div className='d-flex flex-column flex-lg-row-reverse align-items-center p-5'>
                     <div className='px-2 position-relative d-flex justify-content-center'>
-                        <img style={{width: "min(30rem,60vw)",filter:"drop-shadow(0 10px 20px rgb(185, 50, 255, 0.5))"}} src={require("../img/offers/offers-headphone-1.png")} alt="" />
+                        <img style={{width: "min(30rem,60vw)",filter:"drop-shadow(0 10px 20px rgb(125, 50, 255, 0.5))"}} src={require("../img/offers/offers-headphone-1.png")} alt="" />
                     </div>
                     <div className='text-center text-lg-start w-lg-50'>
                         <h1>SonicBlast Pro</h1>
                         <p className='text-center text-lg-start fs-5'>The SonicBlast Pro headphones deliver an immersive audio experience with powerful bass and crystal-clear sound quality.</p>
                         <div className="fw-semibold">
-                            <h6 className='text-danger mb-0'>Now Only For</h6>
+                            <h6 className='text-danger mb-0 fw-bold'>Now Only For</h6>
                             <h1 className='price-tag discount-text' style={{fontSize:"4rem"}}>350</h1>
                         </div>
-                        <Button className='d-flex align-items-center w-xs-100 justify-content-center w-lg-auto mt-3 btn-primary text-white fs-3 gap-2 gap-sm-3 rounded-3 shadow border-3'><BsFillCartPlusFill className='fs-2' /> Add to Cart</Button>
+                        <Button className='d-flex align-items-center w-xs-100 justify-content-center w-lg-auto mt-3 btn-primary text-white fs-3 gap-2 gap-sm-3 rounded-3 shadow border-0 main-button'><BsFillCartPlusFill className='fs-2' /> Add to Cart</Button>
                     </div>
                 </div>
             </section>
@@ -186,7 +186,7 @@ function Offers({}) {
                                 <h6 className='text-danger text-uppercase m-0'>For Only</h6>
                                 <h1 className='price-tag discount-text'>950</h1>
                                 <p>Get all you need for your desktop at once and at a good price.</p>
-                                <Button className='d-flex align-items-center justify-content-center w-100 mt-3 btn-primary text-white fs-3 gap-2 gap-sm-3 rounded-3 shadow border-3'> Get Now!</Button>
+                                <Button className='d-flex align-items-center justify-content-center w-100 mt-3 btn-primary text-white fs-3 gap-2 gap-sm-3 rounded-3 shadow border-0 main-button'> Get Now!</Button>
                             </div>
                             <div className='d-flex flex-column flex-sm-row align-items-stretch gap-5 gap-md-5 position-relative w-xs-100 w-sm-auto'>
                                 <div className='position-relative d-flex align-items-center justify-content-center'>
@@ -240,7 +240,7 @@ function Offers({}) {
                                 <h6 className='text-danger text-uppercase m-0'>For Only</h6>
                                 <h1 className='price-tag discount-text'>2100</h1>
                                 <p>Get ready for your next talk or conference with a set of quality speakers and microphone.</p>
-                                <Button className='d-flex w-100 align-items-center justify-content-center mt-3 btn-primary text-white fs-3 gap-2 gap-sm-3 rounded-3 shadow border-3'> Get Now!</Button>
+                                <Button className='d-flex w-100 align-items-center justify-content-center mt-3 btn-primary text-white fs-3 gap-2 gap-sm-3 rounded-3 shadow border-0 main-button'> Get Now!</Button>
                             </div>
                             <div className='d-flex flex-column flex-sm-row align-items-center align-items-sm-end gap-3 position-relative'>
                                 <div className='position-relative d-flex flex-column gap-2 justify-content-center me-2'>
@@ -286,7 +286,7 @@ function Offers({}) {
                                 <h6 className='text-danger text-uppercase m-0'>Exclusive Offer</h6>
                                 <h1 className='discount-text' style={{fontSize:"min(3rem,10vw)"}}>FREE SMARTPHONE</h1>
                                 <p>Want a gift for friends and family? Buy any 3 of the newest Smartphone Series and get the 4th for <b className='fs-5'>ABSOLUTELY FREE</b>.</p>
-                                <Button className='d-flex w-100 align-items-center justify-content-center mt-3 btn-primary text-white fs-3 gap-2 gap-sm-3 rounded-3 shadow border-3'> Get Now!</Button>
+                                <Button className='d-flex w-100 align-items-center justify-content-center mt-3 btn-primary text-white fs-3 gap-2 gap-sm-3 rounded-3 shadow border-0 main-button'> Get Now!</Button>
                             </div>
                             <div className='d-flex flex-column flex-sm-row align-items-center gap-xl-3 position-relative'>
                                 <img className='' src={require("../img/offers/offers-bundle-3-a.png")} style={{width:"min(16.8rem,60vw)",filter:"drop-shadow(0 0 10px lightskyblue)"}} alt="" />
@@ -330,7 +330,7 @@ function Offers({}) {
                                                             <h2>{product.product.title}</h2>
                                                             <p>{product.product.desc}</p>
                                                             <div className='d-flex flex-xl-column gap-5 gap-xl-2 align-items-center align-items-xl-start justify-content-between'>
-                                                                <h5 className='price-tag discount-text fs-5 price-old'>{product.product.price}</h5>
+                                                                <h5 className='price-tag text-dark fs-5 price-old'>{product.product.price}</h5>
                                                                 <h1 className='price-tag discount-text fs-1'>{product.newPrice}</h1>
                                                             </div>
                                                         </div>
@@ -345,7 +345,7 @@ function Offers({}) {
                                                             <h2>{offerProducts[index+1].product.title}</h2>
                                                             <p>{offerProducts[index+1].product.desc}</p>
                                                             <div className='d-flex flex-xl-column gap-5 gap-xl-2 align-items-center align-items-xl-start justify-content-between'>
-                                                                <h5 className='price-tag discount-text fs-5 price-old'>{offerProducts[index+1].product.price}</h5>
+                                                                <h5 className='price-tag text-dark fs-5 price-old'>{offerProducts[index+1].product.price}</h5>
                                                                 <h1 className='price-tag discount-text fs-1'>{offerProducts[index+1].newPrice}</h1>
                                                             </div>
                                                         </div>

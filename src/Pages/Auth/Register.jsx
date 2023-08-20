@@ -24,7 +24,7 @@ const schemas = [
     lastName: yup.string().required("Please enter your Last name..."),
     username: yup.string(),
     phone: yup.string().required("Please enter your Phone number..."),
-    dateOfBirth: yup.date("Please enter valid date").required("Please enter your date of birth"),
+    dateOfBirth: yup.date().typeError("Please enter valid date").required("Please enter your date of birth"),
     
   }).required(),
   yup.object({
@@ -33,7 +33,7 @@ const schemas = [
     address: yup.string(),
     street: yup.string(),
     zipcode: yup.string(),
-    creditCardNo: yup.number()
+    creditCardNo: yup.string()
     
   }).required(),
 
@@ -64,7 +64,7 @@ function Register({}) {
         city: "",
         address: "",
         zipcode: "",
-        creditCardNo: 0
+        creditCardNo: ""
     });
     
     const { register: registerBasic, handleSubmit: handleSubmitBasic, reset: resetBasic, formState: { errors: errorsBasic } } = useForm({ resolver: yupResolver(schemas[0]) });
@@ -142,10 +142,18 @@ function Register({}) {
     }
 
     return (
-        <div className='bg-light page-container d-flex align-items-start align-items-sm-center justify-content-center'>
+        <div className='bg-light-gradient page-container d-flex align-items-start align-items-sm-center justify-content-center py-3'>
             <div className="d-flex flex-column align-items-start">
-                <div className='p-3 shadow border rounded-sm-2 auth-form-container'>
-                    <h3 className='text-center mb-4'>Register User</h3>
+                <div className='p-3 shadow border bg-light rounded-sm-2 auth-form-container'>
+
+                    <div className='d-flex justify-content-between w-100 mb-2' >
+                        <h2 className='text-center mb-4'>Register</h2>
+                        <div className='d-flex align-items-start gap-1 m-0' style={{width:"min(11.4rem,45vw)"}}>
+                            <img style={{width:"30%"}} src={require("../../img/logo.png")} alt="" />
+                            <img style={{width:"70%"}} src={require("../../img/logo-text.png")} alt="" />
+                        </div>
+                    </div>
+
 
                     <div className="d-flex justify-content-center w-100 mb-5">
                         <div className='d-flex'>
@@ -174,17 +182,17 @@ function Register({}) {
                         <Carousel.Item>
                             <form id='register-form-1' onSubmit={handleSubmitBasic(onSubmit)} className="d-flex flex-column gap-3 p-1">
                                 <h6>Basic Account</h6>
-                                <FloatingLabel controlId="floatingEmail" label="Email">
+                                <FloatingLabel className='form-required' controlId="floatingEmail" label="Email">
                                     <Form.Control type="email" placeholder="Email" {...registerBasic("email")} />
                                     {errorsBasic.email ? <div className='error-message text-danger mt-2'>{errorsBasic.email.message}</div> : ''}
                                 </FloatingLabel>
 
-                                <FloatingLabel controlId="floatingPassword" label="Password">
+                                <FloatingLabel className='form-required' controlId="floatingPassword" label="Password">
                                     <Form.Control type="password" placeholder="Password" {...registerBasic("password")} />
                                     {errorsBasic.password ? <div className='error-message text-danger mt-2'>{errorsBasic.password.message}</div> : ''}
                                 </FloatingLabel>
 
-                                <FloatingLabel controlId="floatingconfirmPassword" label="Confirm Password">
+                                <FloatingLabel className='form-required' controlId="floatingconfirmPassword" label="Confirm Password">
                                     <Form.Control type="password" placeholder="Confirm Password" {...registerBasic("confirmPassword")} />
                                     {errorsBasic.confirmPassword ? <div className='error-message text-danger mt-2'>{errorsBasic.confirmPassword.message}</div> : ''}
                                 </FloatingLabel>
@@ -202,12 +210,12 @@ function Register({}) {
                             <form id='register-form-2' onSubmit={handleSubmitGeneral(onSubmit)} className="d-flex flex-column gap-3 p-1">
                                 <h6>General Info</h6>  
                                 <div className="d-flex w-100 gap-3">
-                                    <FloatingLabel className='w-50' controlId="floatingFirstName" label="First Name">
+                                    <FloatingLabel className='w-50 form-required' controlId="floatingFirstName" label="First Name">
                                         <Form.Control type="text" placeholder="First Name" {...registerGeneral("firstName")} />
                                         {errorsGeneral.firstName ? <div className='error-message text-danger mt-2'>{errorsGeneral.firstName.message}</div> : ''}
                                     </FloatingLabel>
 
-                                    <FloatingLabel className='w-50' controlId="floatingLastName" label="Last Name">
+                                    <FloatingLabel className='w-50 form-required' controlId="floatingLastName" label="Last Name">
                                         <Form.Control type="text" placeholder="Last Name" {...registerGeneral("lastName")} />
                                         {errorsGeneral.lastName ? <div className='error-message text-danger mt-2'>{errorsGeneral.lastName.message}</div> : ''}
                                     </FloatingLabel>
@@ -218,12 +226,12 @@ function Register({}) {
                                     {errorsGeneral.username ? <div className='error-message text-danger mt-2'>{errorsGeneral.username.message}</div> : ''}
                                 </FloatingLabel>
 
-                                <FloatingLabel controlId="floatingPhoneNumber" label="Phone Number">
+                                <FloatingLabel className='form-required' controlId="floatingPhoneNumber" label="Phone Number">
                                     <Form.Control type="text" placeholder="Phone Number" {...registerGeneral("phone")} />
                                     {errorsGeneral.phone ? <div className='error-message text-danger mt-2'>{errorsGeneral.phone.message}</div> : ''}
                                 </FloatingLabel>
 
-                                <FloatingLabel controlId="floatingDateOfBirth" label="Date of Birth">
+                                <FloatingLabel className='form-required' controlId="floatingDateOfBirth" label="Date of Birth">
                                     <Form.Control type="date" placeholder="Date of Birth" {...registerGeneral("dateOfBirth")} />
                                     {errorsGeneral.dateOfBirth ? <div className='error-message text-danger mt-2'>{errorsGeneral.dateOfBirth.message}</div> : ''}
                                 </FloatingLabel>
@@ -278,7 +286,7 @@ function Register({}) {
                     </div>
                 </div>
 
-                <Link to={prevPath} className='fs-5 p-2 rounded-sm-2 text-dark text-decoration-none w-100 shadow border text-center mt-3 fw-semibold'> Back</Link>
+                <Link to={prevPath} className='bg-light fs-5 p-2 rounded-sm-2 text-dark text-decoration-none w-100 shadow border text-center mt-3 fw-semibold'> Back</Link>
 
             </div>
         </div>

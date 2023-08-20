@@ -49,7 +49,7 @@ function ShopIndex({}) {
     return (
         <div className="page-container">
         {
-            loading ?
+            (loading || index===0) ?
             <div className='d-flex flex-column gap-5'>
                 <div className='loading-bg w-100 rounded-3' style={{height:"500px"}}></div>
                 <Container>

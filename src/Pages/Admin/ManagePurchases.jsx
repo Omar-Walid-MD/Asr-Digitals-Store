@@ -15,9 +15,12 @@ function ManagePurchases({}) {
         dateBefore: "",
         dateAfter: "",
         status: "",
-        subtotal: "",
-        delivery: "",
-        total: "",
+        subtotalMin: "",
+        subtotalMax: "",
+        deliveryMin: "",
+        deliveryMax: "",
+        totalMin: "",
+        totalMax: "",
         userId: "",
         userInfo: "",
         userAddress: "",
@@ -49,18 +52,18 @@ function ManagePurchases({}) {
         });
 
         filteredPurchases = filteredPurchases.filter((purchase) => {
-            console.log(filters.total);
+
             if(filters.dateBefore && purchase.date > new Date(filters.dateBefore).getTime()) return false;
             if(filters.dateAfter && purchase.date < new Date(filters.dateAfter).getTime()) return false;
             if(filters.status && purchase.status !== filters.status) return false;
-            if(filters.total && purchase.total !== +filters.total) return false;
-            if(filters.subtotal && purchase.subtotal !== +filters.subtotal) return false;
-            if(filters.delivery && purchase.delivery !== +filters.delivery) return false;
+
+            if((filters.totalMin && purchase.total < +filters.totalMin) || (filters.totalMax && purchase.total > +filters.totalMax)) return false;
+            if((filters.subtotalMin && purchase.subtotal < +filters.subtotalMin) || (filters.subtotalMax && purchase.subtotal > +filters.subtotalMax)) return false;
+            if((filters.deliveryMin && purchase.deliveryFees < +filters.deliveryMin) || (filters.deliveryMax && purchase.deliveryFees > +filters.deliveryMax)) return false;
 
             return true;
         })
              
-        // console.log(filteredPurchases);
         return filteredPurchases;
     }
 
@@ -75,7 +78,7 @@ function ManagePurchases({}) {
                 <h2 className='mt-5 mb-2'>Manage Purchases</h2>
             </div>
             <hr className='border-3' />
-            <Accordion alwaysOpen defaultActiveKey={"0"} className='w-100'>
+            <Accordion alwaysOpen className='w-100'>
                 <Accordion.Item eventKey="0" className='border-0 bg-transparent'>
                     <Accordion.Header className='w-100 rounded-md-3 bg-secondary px-3 py-2 arrow-white'>
                         <h4 className='text-white m-0'>Filters</h4>
@@ -136,22 +139,41 @@ function ManagePurchases({}) {
                                         <h5 className='m-0 py-2'>Fees</h5>
                                     </Accordion.Header>
                                     <Accordion.Body className='px-0'>
-                                        <Row className='gy-2 gx-3 w-100 text-dark'>
-                                            <Col className='col-12 col-sm-6 col-md-3'>
-                                                <FloatingLabel controlId="" label="Total">
-                                                    <Form.Control type="number" placeholder="Total" name='total' value={filters.total} onChange={handleFilterSearch} />
+                                        <Row className='g-2 w-100 text-dark'>
+
+                                            <Col className='col-6 col-sm-3 col-md-2'>
+                                                <FloatingLabel controlId="" label="Total Min">
+                                                    <Form.Control type="number" placeholder="Total Min" name='totalMin' value={filters.totalMin} onChange={handleFilterSearch} />
                                                 </FloatingLabel>
                                             </Col>
 
-                                            <Col className='col-12 col-sm-6 col-md-3'>
-                                                <FloatingLabel controlId="" label="Subtotal">
-                                                    <Form.Control type="number" placeholder="Subtotal" name='subtotal' value={filters.subtotal} onChange={handleFilterSearch} />
+                                            <Col className='col-6 col-sm-3 col-md-2'>
+                                                <FloatingLabel controlId="" label="Total Max">
+                                                    <Form.Control type="number" placeholder="Total Max" name='totalMax' value={filters.totalMax} onChange={handleFilterSearch} />
                                                 </FloatingLabel>
                                             </Col>
 
-                                            <Col className='col-12 col-sm-6 col-md-3'>
-                                                <FloatingLabel controlId="" label="Delivery">
-                                                    <Form.Control type="number" placeholder="Delivery" name='delivery' value={filters.delivery} onChange={handleFilterSearch} />
+                                            <Col className='col-6 col-sm-3 col-md-2'>
+                                                <FloatingLabel controlId="" label="Subtotal Min">
+                                                    <Form.Control type="number" placeholder="Subtotal Min" name='subtotalMin' value={filters.subtotalMin} onChange={handleFilterSearch} />
+                                                </FloatingLabel>
+                                            </Col>
+
+                                            <Col className='col-6 col-sm-3 col-md-2'>
+                                                <FloatingLabel controlId="" label="Subtotal Max">
+                                                    <Form.Control type="number" placeholder="Subtotal Max" name='subtotalMax' value={filters.subtotalMax} onChange={handleFilterSearch} />
+                                                </FloatingLabel>
+                                            </Col>
+
+                                            <Col className='col-6 col-sm-3 col-md-2'>
+                                                <FloatingLabel controlId="" label="Delivery Min">
+                                                    <Form.Control type="number" placeholder="Delivery Min" name='deliveryMin' value={filters.deliveryMin} onChange={handleFilterSearch} />
+                                                </FloatingLabel>
+                                            </Col>
+                                            
+                                            <Col className='col-6 col-sm-3 col-md-2'>
+                                                <FloatingLabel controlId="" label="Delivery Max">
+                                                    <Form.Control type="number" placeholder="Delivery Max" name='deliveryMax' value={filters.deliveryMax} onChange={handleFilterSearch} />
                                                 </FloatingLabel>
                                             </Col>
                                         </Row>

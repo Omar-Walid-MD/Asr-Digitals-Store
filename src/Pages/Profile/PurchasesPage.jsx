@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import ProductInfoRow from '../../Components/ProductInfoRow';
 import { Accordion, Button, Col, Container, Row } from 'react-bootstrap';
 import ProductCard from '../../Components/ProductCard';
@@ -10,14 +10,16 @@ import { BiSolidPurchaseTag } from 'react-icons/bi';
 
 function PurchasesPage({}) {
 
+    const currentUser = useSelector((store) => store.auth.currentUser);
     const purchases = useSelector((store) => store.purchases.purchases);
+    const [userPurchases,setUserPurchases] = useState([]);
 
     function getPurchaseHistory()
     {
         let purchaseHistory = [];
-        purchases.forEach(purchase => {
+        userPurchases.forEach(purchase => {
             let purchaseDate = new Date(purchase.date).toLocaleDateString("en");
-            if(!purchaseHistory.includes(purchaseDate))
+            if(!purchaseHistory.map((purchaseRecord)=>purchaseRecord.date).includes(purchaseDate))
             {
                 purchaseHistory.push({date: purchaseDate,purchases: [purchase]});
             }
@@ -34,6 +36,10 @@ function PurchasesPage({}) {
         return purchaseHistory;
     }
 
+    useEffect(()=>{
+        if(purchases && currentUser) setUserPurchases(purchases.filter((purchase) => purchase.userId === currentUser.id));
+    },[purchases,currentUser])
+
     return (
         <div className='page-container bg-light p-sm-1 px-sm-3'>
             <div className="d-flex ps-4 pt-4 gap-1 gap-sm-3 align-items-end justify-content-center justify-content-md-start">
@@ -45,8 +51,8 @@ function PurchasesPage({}) {
             <hr className='border-3 mb-3' />
             <Container className='p-0 px-md-2 pb-5'>
                 <div className="d-flex flex-column shadow rounded-sm-3">
-                    <div className='p-1 py-2 p-sm-3 p-md-4 d-flex flex-column gap-3'>
-                    <Accordion alwaysOpen defaultActiveKey={0}>
+                    <div className='p-1 py-2 p-sm-3 p-md-4 '>
+                        <Accordion alwaysOpen defaultActiveKey={0} className='d-flex flex-column gap-3'>
                         {
                             purchases.length > 0 ? getPurchaseHistory().map((purchaseRecord,index) =>(
                                     <Accordion.Item eventKey={index} className='border-0 bg-light'>
@@ -56,7 +62,7 @@ function PurchasesPage({}) {
                                                 <hr className='w-100 border-3' />
                                             </div>
                                         </Accordion.Header>
-                                        <Accordion.Body className=''>
+                                        <Accordion.Body className='d-flex flex-column gap-3'>
                                             {
                                                 purchaseRecord.purchases.map((purchase) => (
 

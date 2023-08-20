@@ -125,8 +125,13 @@ function Home({}) {
                 <div className="position-absolute top-0 left-0 w-100 h-100 homepage-header-overlay"></div>
                 <Container className='m-5 d-flex justify-content-center justify-content-md-start z-1'>
                     <div className='header-content text-white p-0 m-0 m-md-5 w-xs-100 w-md-50 d-flex flex-column gap-3 align-items-center align-items-md-start'>
-                        <h1 className='large-title text-center text-md-start'>Asr Digitals</h1>
-                        <p style={{color: "rgb(157, 186, 221)"}} className='text-center text-md-start w-xs-100 w-lg-75 fs-5 fw-bold'>The home of all the digitals you need. Get your next devices with fair costs and best qualities.</p>
+                        <div className="d-flex justify-content-center align-items-center gap-2 w-xs-100 w-sm-auto">
+                            <img style={{width:"min(10rem,30vw)"}} src={require("../img/logo-light.png")} alt="" />
+                            <img style={{width:"min(21rem,60vw)"}} src={require("../img/logo-light-text.png")} alt="" />
+
+                        </div>
+                        {/* <h1 className='large-title text-center text-md-start'>Asr Digitals</h1> */}
+                        <p style={{color: "rgb(136, 172, 206)"}} className='text-center text-md-start w-xs-100 w-lg-75 fs-5 fw-semibold'>The home of all the digitals you need. Get your next devices with fair costs and best qualities.</p>
                         <Link to={"/shop"} className='btn btn-dark fs-5 p-3 px-4 text-uppercase fw-semibold border-white border-3 main-button shadow'>Shop now!</Link>
                     </div>
                 </Container>
@@ -180,7 +185,7 @@ function Home({}) {
                         <p className='text-center text-md-start fs-5 mb-5'>
                             We always have interesting offers for you!
                         </p>
-                        <Link to={"/offers"} className='btn fs-5 p-3 px-4 text-uppercase fw-semibold border-0 main-button bg-secondary'>Don't Miss Out!</Link>
+                        <Link to={"/offers"} className='btn fs-5 p-3 px-4 text-uppercase fw-semibold border-0 main-button bg-secondary shadow'>Don't Miss Out!</Link>
                     </div>
                 </Container>
             </section>
@@ -190,13 +195,13 @@ function Home({}) {
                 <div className="w-100 position-absolute bottom-100 fs-2 fw-semibold"><div className='section-title bg-secondary text-white d-inline-block m-0 h-100 p-2 ps-4 pe-3'>About Us</div></div>
                 <Container className='d-flex align-items-center h-100 py-5'>
                     <div className="d-flex flex-column align-items-center w-100 gap-2 px-2 text-white">
-                        <h1 className='text-center'>What are <b className='text-info'>We?</b> <br /> And What Do We Offer To <b className='text-info'>You?</b></h1>
+                        <h1 className='text-center'>Who are <b className='text-info'>We?</b> <br /> And What Do We Offer To <b className='text-info'>You?</b></h1>
                         <hr className='w-50 mt-0' />
                         <p className='fs-5 text-center text-light w-xs-100 w-md-50'>
                         We are passionate about technology and strive to provide our customers with the latest and best everyday devices including smartphones, laptops, tablets, and more.
                         </p>
 
-                        <Link className='text-info fs-5 text-decoration-none'>Read More...</Link>
+                        <Link to={"/about"} className='text-info fs-5 text-decoration-none'>Read More...</Link>
                     </div>
                 </Container>
             </section>
@@ -237,9 +242,9 @@ function Home({}) {
             <section className='position-relative page-section bg-secondary bg-img-6 d-flex flex-column'>
                 <div className="w-100 position-absolute bottom-100 fs-2 fw-semibold"><div className='section-title bg-secondary text-white d-inline-block m-0 h-100 p-2 ps-4 pe-3'>Our Services</div></div>
                 <Container className='h-100 py-5'>
-                    <Row className='h-100 g-2 g-md-4'>
+                    <Row className='h-100 g-2 g-sm-3 g-md-4'>
                         <Col className='col-12 col-lg-9 h-100'>
-                            <Row className='h-100 g-2 g-md-4'>
+                            <Row className='h-100 g-2 g-sm-3 g-md-4'>
                                 <Col className='col-12 col-sm-8'>
                                     <div className='w-100 bg-light rounded-1 shadow p-4 service-card'>
                                         <h3 className='text-secondary mb-3'>Warranty and Maintenance</h3>
@@ -269,8 +274,6 @@ function Home({}) {
                                 <div>
                                     <h3 className='text-secondary text-center mb-3'>Need Any Help?</h3>
                                     <p className='fs-5 text-muted text-center'>We would love to help or simply hear your thoughts! We listen to you and strive to improve!</p>
-                                    {/* <p className='fs-5 text-muted text-center'>We listen to you and strive to improve!</p> */}
-
                                 </div>
                                 <div>
                                     <p className='mb-1 text-center'>Call us at: +201028549449</p>
@@ -279,7 +282,7 @@ function Home({}) {
                                         <span className='px-2 text-muted fw-semibold'>OR</span>
                                         <hr className='w-100 border-2' />
                                     </div>
-                                    <Button className='main-button border-0 fs-5 w-100'>Contact us now!</Button>
+                                    <Link to={"/contact"} className='main-button btn bg-secondary border-0 fs-5 w-100'>Contact us now!</Link>
                                 </div>
                             </div>
                         </Col>
@@ -624,7 +627,7 @@ function Home({}) {
                         <div className="w-100 px-3 p-sm-0">
                             <div className='text-center'>
                                 <h4>Can't find your question? Feel free to <Link to={"/contact"} className='text-decoration-none text-primary'>Contact Us</Link> for any assistance!</h4>
-                                <h4 className='text-info'>We are happy to help!</h4>
+                                <h4 style={{color:"rgb(121, 167, 211)"}}>We are happy to help!</h4>
                             </div>
                         </div>
                     </div>

@@ -35,7 +35,7 @@ function FavoritesPage({}) {
                             :
                             <div className='d-flex flex-column align-items-center gap-3 p-5'>
                                 <h2>You don't have favorites yet.</h2>
-                                <Button variant='dark' className='btn-dark main-button border-0 fs-5 p-3 px-4 text-uppercase fw-semibold'>Shop now!</Button>
+                                <Link to={"/shop"} className='btn-dark btn main-button border-0 fs-5 p-3 px-4 text-uppercase fw-semibold'>Shop now!</Link>
                             </div>
                         }
                         </Row>

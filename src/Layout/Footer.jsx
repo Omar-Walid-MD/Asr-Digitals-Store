@@ -45,8 +45,11 @@ function Footer({}) {
             <Container className="py-5">
                 <Row className=''>
                     <Col className='col-12 col-md-4 text-center text-sm-start'>
-                        <h3>Asr Digitals</h3>
-                        <h5 className='text-secondary-light'>Always here to provide.</h5>
+                        <div className='d-flex align-items-start gap-1 m-0 mb-2 justify-content-center justify-content-sm-start footer-title'>
+                            <img src={require("../img/logo-light.png")} alt="" />
+                            <img src={require("../img/logo-light-text.png")} alt="" />
+                        </div>
+                        <h5 className='text-secondary-light'>Supplying the best for you...</h5>
                         <hr />
 
                     </Col>

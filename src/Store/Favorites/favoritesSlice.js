@@ -3,7 +3,7 @@ import axios from "axios";
 
 const initialState = {
     favorites: [],
-    loading: false
+    loading: true
 }
 
 export const getFavs = createAsyncThunk(

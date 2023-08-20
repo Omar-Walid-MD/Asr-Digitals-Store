@@ -25,7 +25,7 @@ function ShopExplore({}) {
 
     function getOfferProducts()
     {
-        let updatedOfferProducts = offers.map((offer) =>{
+        let updatedOfferProducts = offers.slice(0,10).map((offer) =>{
 
             let product = products.find((product) => product.id === offer.productId);
 
@@ -34,7 +34,7 @@ function ShopExplore({}) {
                 newPrice: offer.newPrice
             }
         });
-        console.log(updatedOfferProducts.length)
+
         if(updatedOfferProducts.length < 10)
         {
             let discounts = [10,15,20,25,30,35];
@@ -44,9 +44,9 @@ function ShopExplore({}) {
                 let product = products[Math.floor(Math.random()*products.length)];
                 updatedOfferProducts.push({product ,newPrice: product.price * (100 - discounts[Math.floor(Math.random()*discounts.length)]) / 100});
             }
-            return updatedOfferProducts;
         }
-
+        
+        return updatedOfferProducts;
     }
 
     useEffect(()=>{
@@ -64,10 +64,10 @@ function ShopExplore({}) {
                 </div>
                 <div className='p-5 px-2 px-sm-5 pb-3 pb-sm-0 w-100 d-flex flex-column gap-1 gap-md-3 align-items-center align-items-sm-start text-white'>
                     <div className='pt-3 text-center text-sm-start'>
-                        <h1 className=''>Chromo Prime 12T</h1>
+                        <h1>Chromo Prime 12T</h1>
                         <p className='fs-5 fw-semibold' style={{color: "pink"}}>Stay ahead of the curve with the Chromo Prime 12T</p>
                     </div>
-                    <Link to={"/product/91571"} style={{backgroundColor: "rgba(130, 85, 195,0.8)"}} className='btn main-button text-white border-0 fs-5 p-3 px-4 text-uppercase fw-semibold'>Get now!</Link>
+                    <Link to={"/product/91571"} style={{background: "linear-gradient(to right, rgba(200, 85, 195,0.5), rgba(90, 85, 220,0.8))"}} className='btn main-button text-white border-0 fs-5 p-3 px-4 text-uppercase fw-semibold'>Get now!</Link>
                 </div>
             </header>
 
@@ -111,7 +111,7 @@ function ShopExplore({}) {
                                                             <h2>{product.product.title}</h2>
                                                             <p>{product.product.desc}</p>
                                                             <div className='d-flex flex-xl-column gap-5 gap-xl-2 align-items-center align-items-xl-start justify-content-between'>
-                                                                <h4 style={{opacity:"0.7"}} className='price-tag price-old discount-text fs-4'>{product.product.price}</h4>
+                                                                <h4 style={{opacity:"0.7"}} className='price-tag price-old text-dark fs-4'>{product.product.price}</h4>
                                                                 <h1 className='price-tag discount-text fs-1'>{product.newPrice}</h1>
                                                             </div>
                                                         </div>
@@ -126,7 +126,7 @@ function ShopExplore({}) {
                                                             <h2>{offerProducts[index+1].product.title}</h2>
                                                             <p>{offerProducts[index+1].product.desc}</p>
                                                             <div className='d-flex flex-xl-column gap-5 gap-xl-2 align-items-center align-items-xl-start justify-content-between'>
-                                                                <h4 style={{opacity:"0.7"}} className='price-tag price-old discount-text fs-4'>{offerProducts[index+1].product.price}</h4>
+                                                                <h4 style={{opacity:"0.7"}} className='price-tag price-old text-dark fs-4'>{offerProducts[index+1].product.price}</h4>
                                                                 <h1 className='price-tag discount-text fs-1'>{offerProducts[index+1].newPrice}</h1>
                                                             </div>
                                                         </div>

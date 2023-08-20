@@ -5,7 +5,7 @@ import ProductCartItemOverview from '../Components/ProductCartOverViewItem';
 function PurchaseCard({purchase, className=""}) {
     return (
         <div className={`p-3 ${className}`}>
-            <p className='m-0'>ID: {purchase.id}</p>
+            <p className='m-0 fw-semibold'>ID: {purchase.id}</p>
             <p className='m-0'>User ID: {purchase.userId}</p>
             <p className='m-0'>{new Date(purchase.date).toLocaleDateString("en")}</p>
 
@@ -81,11 +81,11 @@ function PurchaseCard({purchase, className=""}) {
                             <Accordion.Body className='px-0'>
                             <p className='fw-semibold'>Order Count: {purchase.orderCount}</p>
                             {
-                                <div className='overflow-x-scroll scrollbar light'>
-                                    <div style={{width: "500px"}}>
+                                <div className='overflow-x-scroll scrollbar white'>
+                                    <div style={{width: "600px"}}>
                                         <Row className='mb-2'>
-                                            <Col className="col-3">Image</Col>
-                                            <Col className="col-3">Name</Col>
+                                            <Col className="col-2">Image</Col>
+                                            <Col className="col-4">Name</Col>
                                             <Col className="col-3">Price</Col>
                                             <Col className="col-3">Total</Col>
                                         </Row>

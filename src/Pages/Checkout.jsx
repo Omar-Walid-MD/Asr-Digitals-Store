@@ -7,7 +7,7 @@ import * as yup from "yup";
 import { useForm } from 'react-hook-form';
 import ProductCartItemOverview from '../Components/ProductCartOverViewItem';
 import ReCAPTCHA from 'react-google-recaptcha';
-import { addPurchase } from '../Store/Purchases/purchasesSlice';
+import { addPurchase, resetPurchaseLoading } from '../Store/Purchases/purchasesSlice';
 import { getTotalFees } from '../helpers';
 import { emptyCart } from '../Store/Cart/cartSlice';
 
@@ -44,6 +44,8 @@ const schemas = [
 function Checkout({}) {
 
     const cart = useSelector((store) => store.cart.cart);
+    const cartLoading = useSelector((store) => store.cart.loading);
+
     const products = useSelector((store) => store.products.products);
     const productsInfo = useSelector((store) => store.products.productsInfo);
     const offers = useSelector((store) => store.offers.offers);
@@ -56,9 +58,6 @@ function Checkout({}) {
     const location = useLocation();
     const prevPath = location.state ? location.state.prevPath : "/";
     const dispatch = useDispatch();
-
-    if(cart && !cart.length) navigate("/cart");
-
 
     const captchaRef = useRef();
 
@@ -84,6 +83,8 @@ function Checkout({}) {
     });
     const [password,setPassword] = useState("");
     const [purchaseState,setPurchaseState] = useState("");
+    const [firstCartCheck,setFirstCartCheck] = useState(false);
+    const [purchaseTimeout,setPurchaseTimeout] = useState(0);
 
     const { register: registerGeneralForm, handleSubmit: handleSubmitGeneralForm, reset: resetGeneralForm, formState: { errors: errorsGeneralForm }, setValue: setGeneralFormValue } = useForm({ resolver: yupResolver(schemas[0]) });
     const { register: registerShippingForm, handleSubmit: handleSubmitShippingForm, reset: resetShippingForm, formState: { errors: errorsShippingForm }, setValue: setShippingFormValue } = useForm({ resolver: yupResolver(schemas[1]) });
@@ -147,7 +148,6 @@ function Checkout({}) {
                         userId: currentUser ? currentUser.id : 0,
                         date: Date.now()
                     };
-                    console.log(cart.reduce((t,item)=>{t+=item.count},0));
                     dispatch(addPurchase(newPurchase));
                 }
             }
@@ -184,7 +184,6 @@ function Checkout({}) {
     },[cart,products,productsInfo,offers]);
 
     useEffect(()=>{
-        console.log(purchaseSuccess);
         if(purchaseSuccess) 
         {
             dispatch(emptyCart());
@@ -192,18 +191,35 @@ function Checkout({}) {
             window.onbeforeunload = function() {
                 return true;
             };
-            setTimeout(() => {
+            setPurchaseTimeout(setTimeout(() => {
                 setPurchaseState("completed");
-            }, 3000);
+            }, 3000));
         }
-    },[purchaseLoading]);
+
+    },[purchaseLoading,purchaseSuccess]);
 
     useEffect(()=>{
         return ()=>{
-            // setPurchaseState("loading");
             window.onbeforeunload = null;
+            dispatch(resetPurchaseLoading());
         }
     },[]);
+
+    useEffect(()=>{
+        return ()=>{
+            console.log("clearedInterval");
+            clearInterval(purchaseTimeout);
+        };
+    },[purchaseTimeout]);
+
+    useEffect(()=>{
+        if(!cartLoading)
+        if(!firstCartCheck)
+            {
+                if(cart && !cart.length) navigate("/cart");
+                setFirstCartCheck(true);
+            }
+    },[cartLoading])
 
     return (
         <div className='page-container bg-light py-3 px-0 p-md-3'>
@@ -398,7 +414,7 @@ function Checkout({}) {
                                     </div>
                                     <hr className='mt-4' />
                                 </div>
-                                <Link to={prevPath} className='btn main-button border-0 mt-3'>Back To Previous Page </Link>
+                                <Link to={prevPath} className='btn bg-secondary main-button border-0 my-3 w-xs-100 w-md-auto'>Back To Previous Page </Link>
                             </Col>
                             <Col className='col-12 col-md-5 mb-4 m-md-0'>
                                 <Accordion defaultActiveKey="0">
@@ -460,14 +476,19 @@ function Checkout({}) {
                     </div>
                 </>
                 :
-                <div className='page-container d-flex flex-column gap-2 align-items-center justify-content-center'>
+                <div className='position-absolute top-0 left-0 w-100 h-100 bg-light-gradient d-flex flex-column gap-2 align-items-center justify-content-center'>
                 {
                     purchaseState==="loading"
                     ?
                     <>
-                        <Spinner className='fs-2 mb-1' />
-                        <h4 className='purchase-loading-text'>Processing Purchase</h4>
-                        <p>(This process might take a few moments.)</p>
+                        {/* <Spinner className='fs-2 mb-1' /> */}
+                        <div className="loading-dots-container d-flex gap-4 mb-3">
+                            <div className='rounded-circle loading-dot'></div>
+                            <div className='rounded-circle loading-dot'></div>
+                            <div className='rounded-circle loading-dot'></div>
+                        </div>
+                        <h2 className='m-0 text-center'>Thank you for shopping!</h2>
+                        <p className='text-center'>(This process might take a few moments.)</p>
                     </>
                     : purchaseState==="completed"
                     ?
@@ -479,9 +500,9 @@ function Checkout({}) {
                             </div>
                         </div>
                         <h2>Purchase has been completed!</h2>
-                        <div className="d-flex gap-2 p-0 w-100">
-                            <Link to={prevPath} className='btn main-button border-0 mt-3 w-100'>Back To Previous Page </Link>
-                            <Link to={"/purchases"} className='btn main-button border-0 btn-primary mt-3 w-100'>Track Purchase</Link>
+                        <div className="d-flex flex-column flex-sm-row gap-2 mt-3 p-0 w-100">
+                            <Link to={prevPath} className='btn main-button bg-secondary border-0 w-100 d-flex align-items-center justify-content-center'>Back To Previous Page </Link>
+                            <Link to={"/purchases"} className='btn main-button border-0 btn-primary w-100 d-flex align-items-center justify-content-center'>View Purchases</Link>
                         </div>
                     </div>
                     : ""

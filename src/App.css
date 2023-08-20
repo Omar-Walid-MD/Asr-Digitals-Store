@@ -3,6 +3,7 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+
 }
 
 /* GENERAL */
@@ -78,7 +79,7 @@ input
 }
 .bg-light-gradient
 {
-  background: linear-gradient(var(--bs-light) 75%, rgb(224, 224, 224)) !important;
+  background: linear-gradient(rgb(var(--bs-light-rgb)), rgb(186, 206, 228));
 }
 .bg-light-gray-gradient
 {
@@ -158,7 +159,7 @@ input
   transform: translateY(calc(-50% + 0.1em)) rotate(15deg);
 }
 
-.accordion-item.bg-all-transparent *
+.accordion-item.accordion-transparent *
 {
   background: transparent !important;
 }
@@ -195,7 +196,8 @@ input
 }
 .modal-header, .modal-footer
 {
-  background: var(--bs-light) !important;
+  background: rgb(221, 231, 240) !important;
+  box-shadow: 0 0 5px rgb(205, 213, 221);
   border: 0 !important;
 }
 
@@ -267,8 +269,6 @@ input
   position: relative;
   z-index: 0;
   overflow: hidden !important;
-
-  background-color: rgb(106, 97, 169);
 }
 
 .main-button::before
@@ -333,6 +333,21 @@ input
   color: var(--bs-danger)
 }
 
+.form-required
+{
+  position: relative;
+}
+.form-required::after
+{
+  content: "*";
+  font-size: 1.5em;
+  font-weight: 500;
+  color: red;
+  position: absolute;
+
+  top: -0.1em;
+  right: 0.2em;
+}
 
 .error-message
 {
@@ -513,6 +528,8 @@ input
 .nav-item > .nav-link
 {
   font-weight: 500;
+
+  /* color: rgb(121, 167, 211); */
   /* color: white !important; */
 }
 .nav-item > .nav-link.active
@@ -532,6 +549,15 @@ input
 .navbar-toggler.collapsed
 {
   transform: none;
+}
+
+.navbar-small-gap
+{
+  gap: 0.5rem;
+}
+.search-container
+{
+  justify-self: start;
 }
 .navbar-search-results-overlay
 {
@@ -567,7 +593,7 @@ input
 {
   content: "";
   position: absolute;
-  bottom: -0.25em;
+  bottom: 0 !important;
   width: 100%; height: 0.25em;
   scale: 0 1;
   background-color: deepskyblue;
@@ -584,9 +610,9 @@ input
 }
 .cart-link *
 {
-  transition: color 0.2s ease-out;
+  transition: color 0.1s ease-out;
 }
-.cart-link:hover > *:first-child
+.cart-link:hover .cart-icon
 {
   color: deepskyblue !important;
 }
@@ -639,7 +665,7 @@ input
 }
 .navbar-dropdown > *:hover
 {
-  background-color: rgb(225, 231, 233) !important;
+  background-color: var(--bs-light) !important;
 }
 
 
@@ -718,7 +744,7 @@ input
 
 .active .homepage-header-animation, .carousel-item-end .homepage-header-animation, .carousel-item-start .homepage-header-animation
 {
-  animation: homepage-header-zoom 10s linear infinite;
+  animation: homepage-header-zoom 10s linear forwards;
 
 }
 
@@ -864,14 +890,18 @@ input
   background-position: right calc(100% + 5em);
   z-index: 0;
 }
+.offers-header h1
+{
+  color: rgb(121, 39, 168);
+}
 .offers-header h4
 {
-  color: rgb(28, 79, 168);
+  color: rgb(178, 112, 194);
 }
 .offers-header h5
 {
   color: rgb(255, 255, 255);
-  text-shadow: 2px 2px 0px rgb(44, 83, 198);
+  text-shadow: 2px 2px 0px rgb(92, 13, 104), -1px -1px 0px rgb(92, 13, 104);
   letter-spacing: 3px;
 }
 .offers-header .offers-header-bottom
@@ -1013,7 +1043,13 @@ input
 
 
 /* ABOUT PAGE */
-
+.about-header
+{
+  background-color: black;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.75)), url("img/about/about-header.jpg");
+  background-size: 100%;
+  background-position: center;
+}
 .about-bg-1
 {
   background-image: url("img/about/about-bg-1.jpg");
@@ -1043,8 +1079,8 @@ input
 }
 .about-bg-4
 {
-  filter: brightness(0.5) contrast(0.5) saturate(2) blur(0.1em);
-  background-image: linear-gradient(to right, rgba(255, 166, 0, 0.5),rgba(255, 0, 0, 0.8)), url("img/about/about-bg-4.jpg");
+  filter: brightness(0.8) contrast(0.7) saturate(2) blur(0.2em) hue-rotate(180deg);
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.9),rgba(0, 0, 0, 0.6)), url("img/about/about-bg-4.jpg");
   background-size: 150%;
   background-position: top left;
   scale: 1.02;
@@ -1135,7 +1171,18 @@ input
 
 /* FOOTER */
 
-
+.footer-title
+{
+  font-size: 0.8em;
+}
+.footer-title img:first-child
+{
+  width: 5em;
+}
+.footer-title img:last-child
+{
+  width: 10.5em;
+}
 .footer-link a
 {
   transition: padding 0.2s ease-out;
@@ -1430,29 +1477,41 @@ input
 
 /* CHECKOUT PAGE */
 
+.loading-dot
+{
+  height: 50px; aspect-ratio: 1;
+  background: linear-gradient(135deg, rgb(185, 200, 255) 10%,rgb(31, 78, 207) 70%);
+
+  animation: loading-dot-bounce 1.5s infinite;
+  animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.loading-dot:nth-child(2)
+{
+  animation-delay: 0.25s;
+}
+.loading-dot:nth-child(3)
+{
+  animation-delay: 0.5s;
+}
+@keyframes loading-dot-bounce
+{
+  0% {transform: translateY(0em);}
+  20% {transform: translateY(-2em);}
+  40% {transform: translateY(0em);}
+
+}
 .purchase-detail-info
 {
   font-size: 0.8rem;
 }
 
-.purchase-loading-text::after
-{
-  content: "";
-  animation: loading-dots 2s 0.1s linear infinite;
-}
-@keyframes loading-dots {
-  0% {content: "";}
-  25% {content: ".";}
-  50% {content: "..";}
-  75% {content: "...";}
-  100% {content: "...";}
-}
+
 
 .loading-completed
 {
   font-size: 1rem;
   height: 15em; aspect-ratio: 1;
-  background-color: limegreen;
+  background: linear-gradient(135deg, rgb(185, 200, 255) 10%,rgb(31, 78, 207) 70%);
   border-radius: 50%; position: relative;
 }
 .loading-completed
@@ -1522,7 +1581,7 @@ input
 }
 .bg-img-3
 {
-  background: url("img/bg-3.png");
+  background-image: url("img/bg-3.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: right top;
@@ -1535,7 +1594,7 @@ input
   content: "";
   position: absolute;
   inset: 0;
-  opacity: 0.7;
+  opacity: 0.8;
   background-color: var(--bs-secondary);
   z-index: -1;
 }
@@ -1607,6 +1666,18 @@ input
   {
     width: 50%;
   }
+
+  .footer-title
+  {
+    font-size: 1em;
+  }
+
+  .navbar-small-gap
+  {
+    gap: 1rem;
+  }
+
+  
 }
 @media (min-width: 375px)
 {
@@ -1737,7 +1808,7 @@ input
 
   .bg-img-offer::before
   {
-    opacity: 0.5 !important;
+    opacity: 0 !important;
   }
 
   .dashboard-revenues-graph
@@ -1785,7 +1856,7 @@ input
     background-position: 50% 15%;
   }
 
-  
+
 
  
 }
@@ -1880,10 +1951,6 @@ input
   {
     background-size: 40%, 100%;
   }
-  .navbar-link::before
-  {
-    bottom: -0.5em;
-  }
 
   .navbar-dropdown-container.left
   {
@@ -1945,7 +2012,15 @@ input
     background-position: 40% 10%;
   }
 
+  .footer-title
+  {
+    font-size: 0.8em;
+  }
 
+  .search-container
+  {
+    /* width: min(20rem,25vw) !important; */
+  }
 }
 
 /* Large devices (desktops, 992px and up) */
@@ -1984,6 +2059,16 @@ input
   {
     background-size: cover, 60%;
     background-position: top center, right center;
+  }
+
+  .footer-title
+  {
+    font-size: 1em;
+  }
+
+  .search-container
+  {
+    /* width: 10rem !important; */
   }
   
 }

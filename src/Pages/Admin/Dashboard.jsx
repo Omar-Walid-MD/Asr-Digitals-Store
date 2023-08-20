@@ -96,8 +96,8 @@ function Dashboard({}) {
                             </div>
                         </Col>
                         <Col className='col-12 col-lg-6 px-0'>
-                            <Row className='h-100 g-2 g-lg-3 mx-0'>
-                                <Col className='col-12  px-0 px-sm-1 px-lg-2'>
+                            <Row className='h-100 mx-0'>
+                                <Col className='col-12 px-0 px-sm-1 px-lg-2 pb-lg-2'>
                                     <div className='dashboard-card rounded-sm-3 shadow-sm border border-2 h-100 d-flex flex-column justify-content-between'>
                                         <div className='p-3 ps-md-0  d-flex flex-column flex-md-row align-items-center align-items-md-start justify-content-between'>
                                             <div className='text-center px-4'>
@@ -127,7 +127,7 @@ function Dashboard({}) {
                                         </div>
                                     </div>
                                 </Col>
-                                <Col className='col-12 px-0 px-sm-1 px-lg-2'>
+                                <Col className='col-12 px-0 px-sm-1 px-lg-2 pt-2'>
                                     <div className='dashboard-card rounded-sm-3 shadow-sm border border-2 h-100 d-flex flex-column justify-content-between'>
                                         <div className='p-3 ps-md-0  d-flex flex-column flex-md-row align-items-center align-items-md-start justify-content-between'>
                                             <div className='text-center px-4 mb-3'>

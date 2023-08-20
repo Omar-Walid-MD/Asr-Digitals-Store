@@ -100,13 +100,13 @@ function ProductCard({productObject,productId,className,showSingle=true}) {
                             <div className="d-flex gap-2 justify-content-between w-100 align-items-stretch">
                                 {
                                     added ?
-                                    <Button className='d-flex p-2 bg-danger text-white border-3 border-transparent fs-4 rounded-3 w-100 d-flex justify-content-center main-button' onClick={()=>{throttle((()=>{dispatch(removeFromCart(product.id));setAdded(false);})(),1000);}}><BsFillCartDashFill /></Button>
+                                    <Button className='d-flex p-2 bg-danger text-white border-3 border-transparent fs-4 rounded-3 w-100 d-flex justify-content-center align-items-center main-button' onClick={()=>{throttle((()=>{dispatch(removeFromCart(product.id));setAdded(false);})(),1000);}}><BsFillCartDashFill /></Button>
                                         :
-                                    <Button variant='primary' className='d-flex p-2 text-white border-0 fs-4 rounded-3 w-100 d-flex justify-content-center main-button' onClick={()=>{throttle((()=>{dispatch(addToCart(product.id));setAdded(true);})(),1000);}}><BsFillCartPlusFill /></Button>
+                                    <Button variant='primary' className='d-flex p-2 text-white border-0 fs-4 rounded-3 w-100 d-flex justify-content-center align-items-center main-button' onClick={()=>{throttle((()=>{dispatch(addToCart(product.id));setAdded(true);})(),1000);}}><BsFillCartPlusFill /></Button>
                                 }
                                 {
                                     favorite ?
-                                    <Button className='d-flex align-items-center p-2 bg-warning border-3 border-warning fs-4 rounded-3 main-button aspect-1' onClick={()=>{throttle((()=>{dispatch(removeFromFav(product.id));setFavorite(false);})(),1000);}}><BsStarFill /></Button>
+                                    <Button className='d-flex align-items-center bg-warning border-0 border-warning fs-4 rounded-3 main-button aspect-1' style={{padding:"0.65rem"}} onClick={()=>{throttle((()=>{dispatch(removeFromFav(product.id));setFavorite(false);})(),1000);}}><BsStarFill /></Button>
                                     :
                                     <Button className='d-flex p-2 bg-transparent text-warning border-3 border-warning fs-4 rounded-3' onClick={()=>{throttle((()=>{dispatch(addToFav(product.id));setFavorite(true);})(),1000);}}><BsStarFill /></Button>
                                 }

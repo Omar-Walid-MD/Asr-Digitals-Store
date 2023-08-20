@@ -5,12 +5,12 @@ function About({}) {
 
     return (
         <div className='page-container bg-white'>
-            <header className='homepage-header pt-5 pt-md-0 d-flex align-items-center justify-content-center pb-5' style={{minHeight:"450px"}}>
+            <header className='about-header pt-5 pt-md-0 d-flex align-items-center justify-content-center pb-5' style={{minHeight:"450px"}}>
                 <Container className='m-2 m-md-5 d-flex justify-content-center justify-content-sm-start'>
                     <div className='header-content text-white m-0 d-flex flex-column gap-3 align-items-center'>
                         <h1 className='text-center'>About Us</h1>
-                        <p className='text-center fs-5 fw-bold'>
-                            Welcome to [Website Name], your ultimate destination for cutting-edge electronic devices. We are passionate about technology and strive to provide our customers with the latest everyday devices including smartphones, laptops, tablets, and more. <br /> <br /> As technology enthusiasts ourselves, we understand the importance of staying connected in today's fast-paced world. With our wide range of products and exceptional customer service, we aim to make your shopping experience a seamless and enjoyable one.
+                        <p className='text-center fs-5 fw-semibold'>
+                            Welcome to <span className='fs-5 fw-bold text-light'>Asr Digitals Store</span>, your ultimate destination for cutting-edge electronic devices. We are passionate about technology and strive to provide our customers with the latest everyday devices including smartphones, laptops, tablets, and more. <br /> <br /> As technology enthusiasts ourselves, we understand the importance of staying connected in today's fast-paced world. With our wide range of products and exceptional customer service, we aim to make your shopping experience a seamless and enjoyable one.
                         </p>
                     </div>
                 </Container>
@@ -22,7 +22,7 @@ function About({}) {
                         <Container className='px-3 px-md-4 px-lg-5 py-5 pb-2 pb-md-5'>
                             <h1 className='mb-4 text-center text-md-start'>Our Mission</h1>
                             <p className='fs-5'>
-                                At [Website Name], our mission is to empower individuals and businesses by offering top-quality electronic devices that enhance productivity, connectivity, and entertainment. <br /> <br /> We believe in delivering innovative solutions that simplify your daily life, whether you're a student, professional, or tech-savvy individual. Our team carefully curates a diverse selection of devices from renowned brands, ensuring that you have access to the best-in-class products that meet your unique needs.
+                                Our mission is to empower individuals and businesses by offering top-quality electronic devices that enhance productivity, connectivity, and entertainment. <br /> <br /> We believe in delivering innovative solutions that simplify your daily life, whether you're a student, professional, or tech-savvy individual. Our team carefully curates a diverse selection of devices from renowned brands, ensuring that you have access to the best-in-class products that meet your unique needs.
                             </p>
                         </Container>
                     </div>

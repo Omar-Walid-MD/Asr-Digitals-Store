@@ -37,37 +37,12 @@ function ManageClients({}) {
                 }
                 let flag = Object.keys(filters).every((filterKey) =>
                 filters[filterKey] ? userFilterObject[filterKey] && userFilterObject[filterKey].toLowerCase().includes(filters[filterKey].toLowerCase()) : true);                
-                console.log(flag);
                 return flag;
         });
              
-        console.log(filteredUsers);
         return filteredUsers;
     }
 
-    // function getSortedUsers(users)
-    // {
-    //     let sortedUsers = users;
-    //     // if(sort.type==="price")
-    //     // {
-    //     //     sortedUsers = sortedUsers.sort((a,b)=>{
-    //     //         console.log(a.price, b.price);
-    //     //         return b.price - a.price;
-    //     //     });
-    //     // }
-    //     // if(sort.type==="alphabetical")
-    //     // {
-    //     //     sortedUsers = sortedUsers.sort((a,b)=>{
-    //     //         return a.title >= b.title ? 1 : -1;
-    //     //     });
-    //     // }
-
-    //     if(sort.order==="desc")
-    //     {
-    //         sortedUsers.reverse();
-    //     }
-    //     return sortedUsers;
-    // }
 
     function getUserPurchases(userId)
     {
@@ -87,7 +62,7 @@ function ManageClients({}) {
             </div>
             <hr className='border-3' />
             <Accordion alwaysOpen className='w-100'>
-                <Accordion.Item eventKey="0" className='border-0 bg-transparent'>
+                <Accordion.Item eventKey="0" className='border-0'>
                     <Accordion.Header className='w-100 rounded-md-3 bg-secondary px-3 py-2 arrow-white'>
                         <h4 className='text-white m-0'>Filters</h4>
                     </Accordion.Header>
@@ -112,7 +87,7 @@ function ManageClients({}) {
                     </Accordion.Body>
                 </Accordion.Item>
             </Accordion>
-            <div className='p-0 py-2 d-flex flex-column gap-3 w-100'>
+            <div className='p-0 py-2 d-flex flex-column gap-2 w-100'>
             {
                 filteredUsers.map((user) =>
                 <div className='bg-white border rounded-md-3 p-3 shadow-sm d-flex flex-column align-items-start gap-3 w-100'>
@@ -155,7 +130,7 @@ function ManageClients({}) {
                     <div className='w-100'>
                     <Accordion alwaysOpen className='w-100'>
                         <Accordion.Item eventKey="0" className='border-0 bg-white purchase-accordion purchase-record'>
-                                <Accordion.Header>
+                                <Accordion.Header className='py-2'>
                                     <div className="d-flex w-100 position-absolute">
                                         <hr className='w-100 border-3 position-absolute' />
                                     </div>
@@ -164,7 +139,7 @@ function ManageClients({}) {
                                 <Accordion.Body className='pt-2 p-0'>
                                     <Accordion alwaysOpen className='w-100'>
                                         <Accordion.Item eventKey="0" className='border-0 bg-white purchase-accordion purchase-record'>
-                                                <Accordion.Header>
+                                                <Accordion.Header className='py-2'>
                                                     <div className="d-flex w-100 position-absolute">
                                                         <hr className='w-100 border-2 position-absolute' />
                                                     </div>
@@ -193,7 +168,7 @@ function ManageClients({}) {
                                         </Accordion.Item>
 
                                         <Accordion.Item eventKey="1" className='border-0 bg-white purchase-accordion purchase-record'>
-                                            <Accordion.Header>
+                                            <Accordion.Header className='py-2'>
                                                 <div className="d-flex w-100 position-absolute">
                                                     <hr className='w-100 border-2 position-absolute' />
                                                 </div>
@@ -230,7 +205,7 @@ function ManageClients({}) {
                                             </Accordion.Body>
                                         </Accordion.Item>
                                         <Accordion.Item eventKey="2" className='border-0 bg-white purchase-accordion purchase-record'>
-                                            <Accordion.Header>
+                                            <Accordion.Header className='py-2'>
                                                 <div className="d-flex w-100 position-absolute">
                                                     <hr className='w-100 border-2 position-absolute' />
                                                 </div>

@@ -164,21 +164,25 @@ function ManageProducts({}) {
         filteredProducts = filteredProducts.filter((product)=>Object.keys(filters.specs).every((specKey)=>
             filters.specs[specKey].length ? product.specs[specKey] && filters.specs[specKey].includes(product.specs[specKey]) : true));                
      
-        console.log(filteredProducts);
         return filteredProducts;
     }
 
     function getSortedProducts(products)
     {
         let sortedProducts = products;
-        if(sort.type==="price")
+        if(sort.type==="id")
         {
             sortedProducts = sortedProducts.sort((a,b)=>{
-                console.log(a.price, b.price);
+                return a.id >= b.id ? 1 : -1;
+            });
+        }
+        else if(sort.type==="price")
+        {
+            sortedProducts = sortedProducts.sort((a,b)=>{
                 return b.price - a.price;
             });
         }
-        if(sort.type==="alphabetical")
+        else if(sort.type==="name")
         {
             sortedProducts = sortedProducts.sort((a,b)=>{
                 return a.title >= b.title ? 1 : -1;
@@ -203,7 +207,6 @@ function ManageProducts({}) {
         {
             updatedCategories = [...filters.categories,category];
         }
-        console.log(filteredProducts);
         setFilters({...filters,categories: updatedCategories});
     }
 
@@ -234,7 +237,6 @@ function ManageProducts({}) {
         {
             let specList = productsInfo.categories;
             let specOptions = {};
-            // console.log(specList.find((cat) => "cat"));
             products.map((product)=>specList.find((cat) => cat.name === product.category).specs.map((spec)=>{specOptions[spec.code] = {...spec,availableValues:[]}}));
             for (let i = 0; i < products.length; i++)
             {
@@ -344,7 +346,7 @@ function ManageProducts({}) {
                 </Accordion.Item>
             </Accordion>
             
-            <div className='rounded-3 m-3 overflow-hidden'><Button variant="primary" className='w-100 d-flex main-button border-0 p-1 px-2 align-items-center justify-content-center fs-5 rounded-0' onClick={startAddProduct}><BsPlus className='fs-2'/> Add Product</Button></div>
+            <div className='rounded-3 m-3 mx-md-0 overflow-hidden'><Button variant="primary" className='w-100 d-flex main-button border-0 p-1 px-2 align-items-center justify-content-center fs-5 rounded-0' onClick={startAddProduct}><BsPlus className='fs-2'/> Add Product</Button></div>
 
             <div className="d-flex flex-column product-info-row-group pb-5 scrollbar light" onScroll={handleOptionsScroll}>
                 <div className='d-flex flex-column gap-3 text-white'>
@@ -432,22 +434,24 @@ function ManageProducts({}) {
                                             </Col>
 
                                             <Col className='col-12 col-sm-6'>
-                                                <div className="d-flex flex-column">
-                                                    <div className='d-flex align-items-center justify-content-center border border-bottom-0 rounded-top shadow-sm p-2 position-relative' style={{height: "200px", aspectRatio: "1"}}>
-                                                        <img className="h-100" src={productPreviewImage} onError={onImgError} />
-                                                        <span className='position-absolute bottom-0 left-0 text-muted m-2' style={{fontSize:"0.8rem"}}>Image Preview</span>
-                                                    </div>
-                                                    <FloatingLabel controlId="floatingProductImage" label="Product Image Link">
-                                                        <Form.Control className='rounded-0 rounded-bottom' type="text" placeholder="Product Image Link" {...register("image")} onInput={(e)=>{setProductPreviewImage(e.target.value);}} />
-                                                        {errors.image ? <div className='error-message text-danger mt-1'>{errors.image.message}</div> : ''}
-                                                    </FloatingLabel>
+                                                <div className='d-flex justify-content-center h-100'>
+                                                    <div className="d-flex flex-column">
+                                                        <div className='d-flex align-items-center justify-content-center border border-bottom-0 rounded-top shadow-sm p-2 position-relative w-100'  style={{height: "250px", aspectRatio: "1"}}>
+                                                            <img className="h-100" src={productPreviewImage} onError={onImgError} />
+                                                            <span className='position-absolute bottom-0 left-0 text-muted m-2' style={{fontSize:"0.8rem"}}>Image Preview</span>
+                                                        </div>
+                                                        <FloatingLabel controlId="floatingProductImage" label="Product Image Link">
+                                                            <Form.Control className='rounded-0 rounded-bottom' type="text" placeholder="Product Image Link" {...register("image")} onInput={(e)=>{setProductPreviewImage(e.target.value);}} />
+                                                            {errors.image ? <div className='error-message text-danger mt-1'>{errors.image.message}</div> : ''}
+                                                        </FloatingLabel>
 
+                                                    </div>
                                                 </div>
                                             </Col>
 
                                             <Col className='col-12 col-sm-6'>
                                                 <FloatingLabel controlId="floatingProductDesc" label="Product Description" >
-                                                    <Form.Control as="textarea"  type="text" style={{minHeight: "260px"}} placeholder="Product Description" {...register("desc")} />
+                                                    <Form.Control as="textarea"  type="text" style={{minHeight: "307.5px"}} placeholder="Product Description" {...register("desc")} />
                                                     {errors.desc ? <div className='error-message text-danger mt-1'>{errors.desc.message}</div> : ''}
                                                 </FloatingLabel>
                                             </Col>

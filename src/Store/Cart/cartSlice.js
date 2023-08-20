@@ -3,7 +3,7 @@ import axios from "axios";
 
 const initialState = {
     cart: [],
-    loading: false
+    loading: true
 }
 
 export const getCart = createAsyncThunk(
