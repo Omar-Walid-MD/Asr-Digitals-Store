@@ -61,8 +61,9 @@ function ProductCartItem({productObject,productId,className}) {
     useEffect(()=>{
         if(product && offers)
         {
-            let availableOffer = offers.find((offer) => offer.productId === product.id);
+            let availableOffer = offers.find((offer) => offer.productId === product.id  && offer.status === "running");
             if(availableOffer) setOfferPrice(availableOffer.newPrice);
+            else setOfferPrice(0);
         }
     },[offers,product])
 
@@ -83,7 +84,7 @@ function ProductCartItem({productObject,productId,className}) {
                         <Col className=" p-0">
                             <div className='py-3 pe-3 d-flex flex-column gap-2 justify-content-start justify-content-sm-between h-100'>
                                 <div>
-                                    <div className='d-flex align-items-start flex-column gap-1'>
+                                    <div className='d-flex align-items-start flex-column gap-1 ps-2'>
                                         <h2 className='m-0 product-cart-item-title'>{product.title}</h2>
                                         <div className="d-flex product-cart-item-rating">
                                         {

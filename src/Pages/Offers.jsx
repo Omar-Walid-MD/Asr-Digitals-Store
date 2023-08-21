@@ -9,7 +9,7 @@ import { onImgError } from '../helpers';
 function Offers({}) {
 
     const products = useSelector((store) => store.products.products);
-    const offers = useSelector((store) => store.offers.offers);
+    const offers = useSelector((store) => store.offers.offers.filter((offer)=>offer.status==="running"));
 
 
     const [countDown,setCountDown] = useState(0);
@@ -153,7 +153,9 @@ function Offers({}) {
                             <h6 className='text-danger mb-0 fw-bold'>Now Only For</h6>
                             <h1 className='price-tag discount-text' style={{fontSize:"4rem"}}>3200</h1>
                         </div>
-                        <Button className='d-flex align-items-center w-xs-100 justify-content-center w-lg-auto mt-3 btn-primary text-white fs-3 gap-2 gap-sm-3 rounded-3 shadow border-0 main-button'><BsFillCartPlusFill className='fs-2' /> Add to Cart</Button>
+                        <div className='w-auto d-flex align-items-start'>
+                            <Link to={"/product/83416"} className='btn btn-primary d-flex align-items-center w-xs-100 justify-content-center w-lg-auto mt-3 btn-primary text-white fs-3 gap-2 gap-sm-3 rounded-3 shadow border-0 main-button'><BsFillCartPlusFill className='fs-2' /> Add to Cart</Link>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -170,7 +172,9 @@ function Offers({}) {
                             <h6 className='text-danger mb-0 fw-bold'>Now Only For</h6>
                             <h1 className='price-tag discount-text' style={{fontSize:"4rem"}}>350</h1>
                         </div>
-                        <Button className='d-flex align-items-center w-xs-100 justify-content-center w-lg-auto mt-3 btn-primary text-white fs-3 gap-2 gap-sm-3 rounded-3 shadow border-0 main-button'><BsFillCartPlusFill className='fs-2' /> Add to Cart</Button>
+                        <div className='w-auto d-flex align-items-start'>
+                            <Link to={"/product/12355"} className='btn btn-primary d-flex align-items-center w-xs-100 justify-content-center w-lg-auto mt-3 btn-primary text-white fs-3 gap-2 gap-sm-3 rounded-3 shadow border-0 main-button'><BsFillCartPlusFill className='fs-2' /> Add to Cart</Link>
+                        </div>
                     </div>
                 </div>
             </section>

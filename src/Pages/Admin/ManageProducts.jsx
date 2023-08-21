@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Accordion, Button, Col, Container, Dropdown, FloatingLabel, Form, Modal, Row } from 'react-bootstrap';
 import ProductCard from '../../Components/ProductCard';
 import { useDispatch, useSelector } from 'react-redux';
@@ -73,6 +73,9 @@ function ManageProducts({}) {
     const handleShowModalShow = () => setShowModal(true);
     const handleShowModalClose = () => setShowModal(false);
 
+    const mainScroll = useRef();
+    const dummyScroll = useRef();
+
     function showProduct(product)
     {
         setProductToShow(product);
@@ -127,6 +130,14 @@ function ManageProducts({}) {
         dispatch(editProduct({productId: productToEdit.id,editedProduct: editedProduct}));
         reset();
         handleFormModalClose();
+    }
+
+    function syncScroll(e,targetScroll)
+    {
+        if(targetScroll)
+        {
+            targetScroll.scrollLeft = e.target.scrollLeft;
+        }
     }
 
     function handleOptionsScroll(e)
@@ -347,8 +358,14 @@ function ManageProducts({}) {
             </Accordion>
             
             <div className='rounded-3 m-3 mx-md-0 overflow-hidden'><Button variant="primary" className='w-100 d-flex main-button border-0 p-1 px-2 align-items-center justify-content-center fs-5 rounded-0' onClick={startAddProduct}><BsPlus className='fs-2'/> Add Product</Button></div>
-
-            <div className="d-flex flex-column product-info-row-group pb-5 scrollbar light" onScroll={handleOptionsScroll}>
+            
+            <div className='position-fixed right-0 left-0 w-100 px-0 px-md-3 z-3 bottom-0'>
+                <div className='overflow-x-scroll scrollbar light scrollbar-lg ' style={{backdropFilter:"none"}} ref={dummyScroll} onScroll={(e)=>{syncScroll(e,mainScroll.current)}}>
+                    <div style={{width:"1000px",height:"0.1em"}}></div>
+                </div>
+            </div>
+            
+            <div className="d-flex flex-column product-info-row-group pb-5 " ref={mainScroll} onScroll={(e)=>{handleOptionsScroll(e);syncScroll(e,dummyScroll.current)}} onMouseEnter={handleOptionsScroll} onTouchStart={handleOptionsScroll} >
                 <div className='d-flex flex-column gap-3 text-white'>
                     <Row className='bg-secondary shadow rounded-md-3 py-2 px-0 m-0 product-info-row'>
                         <Col className='col-1 pe-0'>

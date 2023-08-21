@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Accordion, Button, Carousel, Col, Container, Nav, Row, Tab, Tabs } from 'react-bootstrap';
 import ProductSlider from '../Components/ProductSlider';
 import { Link } from 'react-router-dom';
@@ -25,9 +25,10 @@ function Home({}) {
         }
     }
 
+    const products = useSelector((store) => store.products.products);
     const [branchSelect,setBranchSelect] = useState(1);
+    const [shownProducts,setShownProducts] = useState([]);
 
-    const products = useSelector((store) => store.products.products.slice(0,10));
 
     const whyChooseUs = [
         {
@@ -106,7 +107,11 @@ function Home({}) {
         }
     ]
 
-   
+   useEffect(()=>{
+    if(products.length) setShownProducts(Array.from({length:20}).map((x,i)=>{
+        return products[Math.floor(Math.random()*products.length)]
+    }))
+   },[products])
 
     return (
         <div>
@@ -140,7 +145,6 @@ function Home({}) {
 
             <section className='position-relative page-section bg-white d-flex flex-column bg-img-1'>
                 <div className="position-absolute bottom-100 w-100 fs-2 fw-semibold"><div className='section-title bg-white d-inline-block m-0 h-100 p-2 ps-4 pe-3'>Why Choose Us</div></div>
-                {/* <div className="w-100 position-absolute bottom-100 fs-2 fw-semibold"><div className='section-title bg-white d-inline-block m-0 h-100 p-2 ps-4 pe-3'>Why Choose Us</div></div> */}
                 <Container className='d-flex align-items-center justify-content-center p-0 py-5 w-100'>
                     <Row className='gy-4 py-4 w-100 h-100 align-items-start'>
                     {
@@ -172,7 +176,7 @@ function Home({}) {
                         <h3 className='text-start w-100 text-white'>Check our popular products</h3>
                         <hr className='bg-white border-3 border-white w-100 mb-0' />
                     </Container>
-                    <ProductSlider products={products} />
+                    <ProductSlider products={shownProducts} />
                 </div>
             </section>
 
@@ -221,7 +225,7 @@ function Home({}) {
                             <ProductCard productId={"82592"} className={"w-xs-50 w-md-100"} />
                         </Col>
                         <Col className='col-12 col-sm-6 col-lg-3 d-flex align-items-center justify-content-center justify-content-lg-start pb-3 pb-sm-0'>
-                            <img className='' src={require("../img/home/homepage-newest-1.png")} alt="" style={{width:"min(120%,80vw)",filter: "drop-shadow(0 2px 5px rgb(0,20,100,0.8))"}} />
+                            <img className='' src={require("../img/home/homepage-newest-1.png")} alt="" style={{width:"min(115%,75vw)",filter: "drop-shadow(0 2px 5px rgb(0,20,100,0.8))"}} />
                         </Col>
                     </Row>
                     <hr className='bg-dark w-100' />

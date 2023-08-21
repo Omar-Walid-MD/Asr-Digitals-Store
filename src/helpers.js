@@ -65,6 +65,7 @@ export const refreshOffers = function(offers,setStatusFunc)
     }
     if(offer.end <= now && offer.status==="running")
     {
+      console.log("updating...");
       setStatusFunc(offer,"closed");
     }
   })
@@ -86,7 +87,7 @@ export const getCartSubTotal = function(cart,products,offers)
     cart.forEach(cartItem => {
         let targetProduct = products.find((product) => product.id === cartItem.productId);
         if(!targetProduct) return;
-        let availableOffer = offers.find((offer) => offer.productId===targetProduct.id);
+        let availableOffer = offers.find((offer) => offer.productId===targetProduct.id && offer.status==="running");
         // console.log(availableOffer);
         total += cartItem.count * (availableOffer ? availableOffer.newPrice : targetProduct.price);
     });
@@ -450,19 +451,20 @@ export const generateRandomOffers = function(length,products)
   {
     let newOffer = {};
 
-    let start = new Date(new Date("1 Jul 2023").getTime() + Math.random() * 1000 * 3600 * 24 * 90);
-    let end = new Date(start.getTime() + Math.random() * 1000 * 3600 * 24 * 30)
+    let date = new Date(new Date("1 Jun 2023").getTime() + Math.random() * 1000 * 3600 * 24 * 60);
+    newOffer.date = date.getTime();
+    let start = new Date(date.getTime() + Math.random() * 1000 * 3600 * 24 * 30);
+    let end = new Date(start.getTime() + Math.random() * 1000 * 3600 * 24 * 30);
     newOffer.start = getDateString(start);
     newOffer.end = getDateString(end);
 
     let product = products.filter((product) => !offers.map((offer) => offer.itemId).includes(product.id))[Math.floor(Math.random()*products.length)];
 
     newOffer.productId = product.id;
-    newOffer.date = getDateString(new Date(start.getTime() - Math.random() * 1000 * 3600 * 24 * 10));
     newOffer.newPrice = parseInt(product.price * (100 - [10,15,20,25,30,35,40,50][Math.floor(Math.random()*8)])/100);
     newOffer.newPrice -= newOffer.newPrice%5;
     newOffer.status = start > Date.now() ? "upcoming" : end > Date.now() ? "running" : "closed";
-
+    newOffer.id = makeUniqueId(offers,5);
     offers.push(newOffer);
 
   }

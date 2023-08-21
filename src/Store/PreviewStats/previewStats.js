@@ -4,7 +4,7 @@ import axios from "axios";
 const initialState = {
     previewStats: [],
     loading: false,
-    loaded: true
+    loaded: false
 }
 
 export const getPreviewStats = createAsyncThunk(

@@ -157,8 +157,9 @@ function ProductPage({})
     useEffect(()=>{
         if(product && offers)
         {
-            let availableOffer = offers.find((offer) => offer.productId === productId);
+            let availableOffer = offers.find((offer) => offer.productId === productId && offer.status === "running");
             if(availableOffer) setOfferPrice(availableOffer.newPrice);
+            else setOfferPrice(0);
         }
     },[offers,product]);
 

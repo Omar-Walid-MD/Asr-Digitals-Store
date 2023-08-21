@@ -197,7 +197,6 @@ input
 .modal-header, .modal-footer
 {
   background: rgb(221, 231, 240) !important;
-  box-shadow: 0 0 5px rgb(205, 213, 221);
   border: 0 !important;
 }
 
@@ -506,13 +505,22 @@ input
   appearance: none;
   padding: 3rem;
 }
+.scrollbar.scrollbar-lg::-webkit-scrollbar
+{
+  height: 1.5rem;
+}
 .scrollbar::-webkit-scrollbar-thumb
 {
   background-color: var(--bg-color);
   border: 0.3em solid var(--border-color);
   border-radius: 0.5em;
 }
+.scrollbar.scrollbar-lg::-webkit-scrollbar-thumb
+{
+  height: 1.5rem;
+  border-radius: 1em;
 
+}
 
 /* NAVBAR */
 
@@ -520,6 +528,10 @@ input
 .navbar
 {
   z-index: 2 !important;
+}
+.navbar-logo
+{
+  outline: none !important;
 }
 .offcanvas-backdrop
 {
@@ -541,12 +553,12 @@ input
   max-width: unset !important;
   padding: 0 1rem !important;
 }
-.navbar-toggler
+.navbar-toggler .navbar-toggler-icon
 {
   transform: rotate(90deg);
   transition: transform 0.2s ease-out !important;
 }
-.navbar-toggler.collapsed
+.navbar-toggler.collapsed .navbar-toggler-icon
 {
   transform: none;
 }
@@ -585,7 +597,7 @@ input
 }
 .navbar-search-results-container .body
 {
-  height: 60vh !important;
+  height: 50vh !important;
 }
 
 
@@ -1053,7 +1065,7 @@ input
 .about-bg-1
 {
   background-image: url("img/about/about-bg-1.jpg");
-  background-size: 150%;
+  background-size: cover;
   background-position: center;
   box-shadow: inset 0 0 30px black;
   mask-image: linear-gradient(to top, white 50%, rgba(255, 255, 255, 0));
@@ -1081,7 +1093,7 @@ input
 {
   filter: brightness(0.8) contrast(0.7) saturate(2) blur(0.2em) hue-rotate(180deg);
   background-image: linear-gradient(to right, rgba(0, 0, 0, 0.9),rgba(0, 0, 0, 0.6)), url("img/about/about-bg-4.jpg");
-  background-size: 150%;
+  background-size: cover;
   background-position: top left;
   scale: 1.02;
   box-shadow: inset 0 0 30px black;
@@ -1281,7 +1293,7 @@ input
 
 .auth-form-container
 {
-  width: min(576px,100vw);
+  width: min(576px,95vw);
 }
 
 
@@ -1344,6 +1356,8 @@ input
 .product-info-row-group::-webkit-scrollbar
 {
   height: 1.5rem;
+  position: absolute;
+  top: 0;
 }
 .product-info-row-group::-webkit-scrollbar-thumb
 {
@@ -1710,7 +1724,7 @@ input
   }
   .navbar-search-results-container .body
   {
-    height: 60vh !important;
+    height: 55vh !important;
   }
 
   .offer-bundle-img-width

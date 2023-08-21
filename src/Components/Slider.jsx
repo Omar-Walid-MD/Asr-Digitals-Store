@@ -10,11 +10,11 @@ function Slider({content, className="", variant="dark", style}) {
 
     function handleScroll(direction)
     {
-      let scrollAmount = scroll.current.firstChild.firstChild.getBoundingClientRect().width;
+      let scrollAmount = scroll.current.firstChild.firstChild.firstChild.getBoundingClientRect().width;
       let scrollGap = +getComputedStyle(scroll.current.firstChild).gap.slice(0,-2);
       let scrollOffset = scroll.current.scrollLeft%(scrollAmount+scrollGap);
       if(Math.abs(scroll.current.scrollLeft===scroll.current.scrollWidth-scroll.current.clientWidth)<20) scrollOffset = 0;
-      console.log(scrollOffset);
+
       scroll.current.scrollLeft += (scrollAmount+scrollGap-scrollOffset*direction) * direction;
     }
 

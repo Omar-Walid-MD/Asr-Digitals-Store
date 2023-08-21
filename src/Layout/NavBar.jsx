@@ -65,10 +65,10 @@ function NavBar({}) {
     },[location.pathname])
 
     return (
-        <Navbar expand="md" className="bg-body-tertiary position-sticky top-0 shadow py-0">
+        <Navbar expand={loggedInState==="no" ? "lg" : "md"} className="bg-body-tertiary position-sticky top-0 shadow py-0">
             <Container className="navbar-container d-flex align-items-stretch justify-content-between gap-0 gap-md-2 gap-lg-3 px-2 px-sm-4 px-md-3 px-lg-5 w-md-100">
-                <Navbar.Brand className='' as={NavLink} to={"/"}>
-                    <div className='d-flex align-items-start gap-1 m-0' style={{width:"min(11.4rem,65vw)"}}>
+                <Navbar.Brand className='navbar-logo' as={NavLink} to={"/"}>
+                    <div className='d-flex align-items-start gap-1 m-0' style={{width:"min(11.4rem,60vw)"}}>
                         <img style={{width:"30.75%"}} src={require("../img/logo.png")} alt="" />
                         <img style={{width:"69.25%"}} src={require("../img/logo-text.png")} alt="" />
                     </div>
@@ -81,7 +81,7 @@ function NavBar({}) {
                 </div>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" className='border-0 shadow-none' />
                 <Navbar.Collapse id="basic-navbar-nav" className="align-items-stretch flex-grow-0">
-                    <Nav className="align-items-center align-items-md-stretch justify-content-center gap-2 gap-lg-3 mt-2 mt-sm-1 m-md-0">
+                    <Nav className="align-items-center align-items-lg-stretch justify-content-center gap-2 gap-lg-3 mt-2 mt-sm-1 m-md-0">
                         <div className="d-flex w-100 d-sm-none align-items-stretch justify-content-center ">
                             <div className="w-100 d-flex align-items-center border border-2 border-secondary rounded-2 overflow-hidden" style={{height:"2.25rem"}}>
                                 <BsSearch className='bg-secondary fs-1 p-2 text-white h-100' />
@@ -143,11 +143,11 @@ function NavBar({}) {
                                     </div>
                                 </Nav.Link>
                             </div>
-                            <div className='d-flex align-self-stretch mt-2 mt-sm-0'>
+                            <div className='d-flex align-self-stretch mt-2 mt-sm-0 justify-content-center'>
                             {
                                 !authLoading ?
                                 loggedInState==="no" ?
-                                <div className='d-flex gap-3 align-self-center'>
+                                <div className={`d-flex gap-3 align-self-center py-2 py-${loggedInState==="no" ? "lg" : "md"}-0 ms-2 ms-${loggedInState==="no" ? "lg" : "md"}-0`}>
                                     <Button variant='secondary' as={Link} to="/login" state={{prevPath: location.pathname}} className='btn bg-secondary main-button border-0 d-flex align-items-center'>Login</Button>
                                     <Button variant='secondary' as={Link} to="/register" state={{prevPath: location.pathname}} className='btn bg-transparent border-secondary text-secondary border-3 fw-semibold'>Register</Button>
                                 </div>
@@ -171,7 +171,9 @@ function NavBar({}) {
                                     
                                 </div>
                                 :
-                                <Spinner />
+                                <div className="h-100 d-flex align-items-center">
+                                    <Spinner />
+                                </div>
                             }
                             </div>
                         </div>

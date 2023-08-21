@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Accordion, Button, Col, Container, Row, Form, Modal, FloatingLabel } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { BsFillInfoCircleFill, BsPlus, BsTrashFill } from 'react-icons/bs';
-import { addOffer, deleteOffer, editOffer } from '../../Store/Offers/offers';
+import { addOffer, deleteOffer, editOffer, setOfferStatus } from '../../Store/Offers/offers';
 import { getDateString, makeUniqueId } from '../../helpers';
 import { FaArrowUpRightFromSquare } from 'react-icons/fa6';
 import { PiPencilSimpleFill } from 'react-icons/pi';
@@ -50,6 +50,10 @@ function ManageOffers({}) {
     const [deleteModal,setDeleteModal] = useState(false);
     const handleDeleteModalShow = () => setDeleteModal(true);
     const handleDeleteModalClose = () => setDeleteModal(false);
+
+    const mainScroll = useRef();
+    const dummyScroll = useRef();
+
 
     const initialFilters = {
         offerId: "",
@@ -136,10 +140,31 @@ function ManageOffers({}) {
 
     function onSubmitEdit(data)
     {
-        let editedOffer = {...data, start: getDateString(data.start), end: getDateString(data.end)};
-        dispatch(editOffer({offerId: offerToEdit.id,editedOffer: editedOffer}));
-        reset();
-        handleFormModalClose();
+        let product = products.find((product) => product.id === offerToEdit.productId);
+
+        if(data.newPrice >= product.price)
+        {
+            setValidationError("price");
+        }
+        else if(data.end.getTime() <= data.start.getTime())
+        {
+            setValidationError("dateEnd");
+        }
+        else
+        {
+            setValidationError("");
+            console.log(offerToEdit);
+            let editedOffer = {...offerToEdit,...data, start: getDateString(data.start), end: getDateString(data.end)};
+            dispatch(editOffer({offerId: offerToEdit.id,editedOffer: editedOffer}));
+    
+            let now = Date.now();
+            let newStatus = data.start <= now ? data.end <= now ? "closed" : "running" : "upcoming";
+            // console.log(newStatus)
+            if(newStatus !== offerToEdit.status) dispatch(setOfferStatus({offer:offerToEdit,status:newStatus}));
+    
+            reset();
+            handleFormModalClose();
+        }
     }
 
     function handleFilterSearch(e)
@@ -155,6 +180,14 @@ function ManageOffers({}) {
             optionsRow.style.left = `${e.target.scrollLeft + window.innerWidth/2 - optionsRow.getBoundingClientRect().width/2}px`;
         });
         
+    }
+
+    function syncScroll(e,targetScroll)
+    {
+        if(targetScroll)
+        {
+            targetScroll.scrollLeft = e.target.scrollLeft;
+        }
     }
 
     function getFilteredOffers(offers)
@@ -181,6 +214,11 @@ function ManageOffers({}) {
 
             return true;
         })
+
+        filteredOffers = filteredOffers.sort((a,b)=>{
+            console.log(b.date);
+            return b.date - a.date;
+        });
              
         return filteredOffers;
     }
@@ -305,7 +343,13 @@ function ManageOffers({}) {
 
             <div className='rounded-3 m-3 mx-md-0 overflow-hidden'><Button variant="primary" className='w-100 d-flex main-button border-0 p-1 px-2 align-items-center justify-content-center fs-5 rounded-0' onClick={startAddOffer}><BsPlus className='fs-2'/> Add Offer</Button></div>
 
-            <div className="d-flex flex-column product-info-row-group pb-5 scrollbar light" onScroll={handleOptionsScroll}>
+            <div className='position-fixed right-0 left-0 w-100 px-0 px-md-3 z-3 bottom-0'>
+                <div className='overflow-x-scroll scrollbar light scrollbar-lg ' style={{backdropFilter:"none"}} ref={dummyScroll} onScroll={(e)=>{syncScroll(e,mainScroll.current)}}>
+                    <div style={{width:"1000px",height:"0.1em"}}></div>
+                </div>
+            </div>
+
+            <div className="d-flex flex-column product-info-row-group pb-5" ref={mainScroll} onScroll={(e)=>{handleOptionsScroll(e);syncScroll(e,dummyScroll.current)}} onMouseEnter={handleOptionsScroll} onTouchStart={handleOptionsScroll} >
                 <div className='d-flex flex-column gap-3 text-white'>
                     <Row className='bg-secondary shadow rounded-md-3 py-2 px-0 m-0 product-info-row'>
                         <Col className='col-1' style={{width: "5%"}}>ID</Col>
@@ -407,18 +451,18 @@ function ManageOffers({}) {
                             <h2>{targetProduct.title}</h2>
                             <h4 className='text-danger price-tag price-old mb-4'>{targetProduct.price}</h4>
 
-                            <FloatingLabel controlId="floatingProductSearch" label="New Price">
+                            <FloatingLabel controlId="" label="New Price">
                                 <Form.Control className='rounded' type="number" placeholder="Enter New Price" {...register("newPrice")} />
                                 {errors.newPrice ? <div className='error-message text-danger mt-1'>{errors.newPrice.message}</div> : ''}
                                 {validationError==="price" ? <div className='error-message text-danger mt-1'>New price must be less than current price.</div> : ''}
 
                             </FloatingLabel>
-                            <div className='d-flex gap-2 mt-2'>
-                                <FloatingLabel className='w-100' controlId="floatingProductSearch" label="Offer Start">
+                            <div className='d-flex flex-column flex-sm-row gap-2 mt-2'>
+                                <FloatingLabel className='w-100' controlId="" label="Offer Start">
                                     <Form.Control className='rounded' type="date" placeholder="Enter Offer Start" {...register("start")} />
                                 </FloatingLabel>
                                 {errors.start ? <div className='error-message text-danger mt-1'>{errors.start.message}</div> : ''}
-                                <FloatingLabel className='w-100' controlId="floatingProductSearch" label="Offer End">
+                                <FloatingLabel className='w-100' controlId="" label="Offer End">
                                     <Form.Control className='rounded' type="date" placeholder="Enter Offer End" {...register("end")} />
                                 </FloatingLabel>
                                 {errors.end ? <div className='error-message text-danger mt-1'>{errors.end.message}</div> : ''}
@@ -459,7 +503,7 @@ function ManageOffers({}) {
                                         </FloatingLabel>
                                         {errors.end ? <div className='error-message text-danger mt-1'>{errors.end.message}</div> : ''}
                                     </div>
-                                    {validationError==="date" ? <div className='error-message text-danger mt-1'>End date must be after start date.</div> : ''}
+                                    {validationError==="dateEnd" ? <div className='error-message text-danger mt-1'>End date must be after start date.</div> : ''}
 
 
                                 </div>
@@ -473,7 +517,7 @@ function ManageOffers({}) {
                 {
                     ((formMode==="add" && targetProduct) || formMode==="edit") ?
                     <Modal.Footer className='position-sticky z-2 bottom-0 bg-light border-0'>
-                        <div className="d-flex align-items-center w-100 gap-2">
+                        <div className="d-flex flex-column flex-sm-row align-items-sm-center w-100 gap-2">
                             <Button form={`offer-management-${formMode}`} className='w-100 text-capitalize main-button border-0' type='submit'>{formMode} offer</Button>
                             <Button variant="danger" className='main-button border-0 px-5' onClick={handleFormModalClose}>Discard</Button>
                         </div>

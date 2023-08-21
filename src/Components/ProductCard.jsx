@@ -59,8 +59,9 @@ function ProductCard({productObject,productId,className,showSingle=true}) {
     useEffect(()=>{
         if(product && offers)
         {
-            let availableOffer = offers.find((offer) => offer.productId === product.id);
+            let availableOffer = offers.find((offer) => offer.productId === product.id  && offer.status === "running");
             if(availableOffer) setOfferPrice(availableOffer.newPrice);
+            else setOfferPrice(0);
         }
     },[offers,product]);
 

@@ -123,6 +123,14 @@ function Shop({products=[],searchParams}) {
                 }
                 
             }
+            // console.log(specOptions);
+            Object.keys(specOptions).forEach((specKey) => {
+                specOptions[specKey].availableValues = specOptions[specKey].availableValues.sort((a,b)=>{
+                    return a >= b ? 1 : -1;
+                });
+            })
+
+
             return specOptions;
         }
     
@@ -135,6 +143,7 @@ function Shop({products=[],searchParams}) {
 
 
     useEffect(()=>{
+        setFilters(initalFilters);
         setSpecFilterOptions(getSpecFilterOptions(products));
     },[searchParams])
 
@@ -156,13 +165,13 @@ function Shop({products=[],searchParams}) {
             <div>
                 <Row className='m-0 g-0 gy-3 gy-md-0 gx-sm-4 pb-4' >
                     <Col className='col-12 col-md-4 col-xl-3 d-flex flex-column align-items-start px-1 px-sm-0 px-lg-2 z-1'>
-                        <Accordion alwaysOpen className='shop-filter-accordion w-100 rounded-bottom overflow-hidden shadow'>
+                        <Accordion alwaysOpen className='shop-filter-accordion w-100 shadow'>
 
                             <Accordion.Item eventKey="0" className='border-0 bg-light'>
-                                <Accordion.Header className='bg-white w-100 px-3 py-2'>
+                                <Accordion.Header className='bg-white w-100 px-3 py-2 border-bottom border-2 '>
                                     <h3>Sort</h3>
                                 </Accordion.Header>
-                                <Accordion.Body className='px-0 border-top border-2'>
+                                <Accordion.Body className='px-0 '>
                                     <div className='w-100 p-3 d-flex align-items-start justify-content-between gap-2'>
 
                                         <Dropdown autoClose="outside">
@@ -185,10 +194,10 @@ function Shop({products=[],searchParams}) {
                             </Accordion.Item>
                             
                             <Accordion.Item eventKey="1" className='border-0 bg-light'>
-                                <Accordion.Header className='bg-white w-100 rounded-top border-bottom border-2 px-3 py-2'>
+                                <Accordion.Header className='bg-white w-100 px-3 py-2'>
                                     <h3>Filters</h3>
                                 </Accordion.Header>
-                                <Accordion.Body className='px-0'>
+                                <Accordion.Body className='px-0 border-top border-2'>
                                     <div className='w-100 p-3'>
                                         <div>
                                             <h5>Price</h5>
@@ -215,8 +224,20 @@ function Shop({products=[],searchParams}) {
                                                         <Dropdown.Menu className='p-0 rounded-0 w-100' >
                                                             <Dropdown.Item className={`p-0 dropdown-select border-bottom border-dark`}><Button className='bg-transparent border-0 d-flex justify-content-between text-danger text-capitalize w-100' onClick={()=>{console.log(filters.categories);setFilters({...filters,categories:[]})}}> None </Button></Dropdown.Item>
                                                         {
-                                                            productsInfo.categoryGroups && searchParams.get("gr") &&
+                                                            (productsInfo.categoryGroups 
+                                                            && searchParams.get("gr")) ?
                                                             productsInfo.categoryGroups[searchParams.get("gr")].map((category) => 
+                                                            <Dropdown.Item className={`p-0 dropdown-select border-bottom border-dark ${filters.categories.includes(category) ? "selected" : ""}`}><Button className='bg-transparent border-0 d-flex justify-content-between text-dark text-capitalize w-100' onClick={()=>{handleFilterCategories(category)}} >{category} <BsCheck className='dropdown-item-check d-none fs-4'/> </Button> </Dropdown.Item>
+                                                            )
+                                                            : searchParams.get("q") &&
+                                                            (function(){
+                                                                let categories = [];
+                                                                products.forEach((product)=>{
+                                                                    if(!categories.includes(product.category)) categories.push(product.category);
+                                                                });
+                                                                return categories;
+                                                                })()
+                                                                .map((category) => 
                                                             <Dropdown.Item className={`p-0 dropdown-select border-bottom border-dark ${filters.categories.includes(category) ? "selected" : ""}`}><Button className='bg-transparent border-0 d-flex justify-content-between text-dark text-capitalize w-100' onClick={()=>{handleFilterCategories(category)}} >{category} <BsCheck className='dropdown-item-check d-none fs-4'/> </Button> </Dropdown.Item>
                                                             )
                                                         }

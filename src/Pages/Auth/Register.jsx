@@ -92,7 +92,7 @@ function Register({}) {
                 }
                 else
                 {
-                    if(staffKey && staffKey!=="owmd")
+                    if(staffKey && staffKey!=="adminKey123")
                     {
                         handleValidationError("Invalid Staff key... Please enter a correct key or clear to proceed.");
                     }
@@ -108,6 +108,7 @@ function Register({}) {
         }
         else if(registerStage===1)
         {
+            console.log(data.username, users.map((user) => user.username))
             if(data.username && users.map((user) => user.username).includes(data.username))
             {
                 handleValidationError("Username already in use...");
@@ -147,7 +148,7 @@ function Register({}) {
                 <div className='p-3 shadow border bg-light rounded-sm-2 auth-form-container'>
 
                     <div className='d-flex justify-content-between w-100 mb-2' >
-                        <h2 className='text-center mb-4'>Register</h2>
+                        <h2 className='text-center mb-4 p-0 m-0'>Register</h2>
                         <div className='d-flex align-items-start gap-1 m-0' style={{width:"min(11.4rem,45vw)"}}>
                             <img style={{width:"30%"}} src={require("../../img/logo.png")} alt="" />
                             <img style={{width:"70%"}} src={require("../../img/logo-text.png")} alt="" />

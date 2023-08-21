@@ -209,6 +209,7 @@ export const authSlice = createSlice({
         [editUser.fulfilled]: (state, { payload }) => {
             // state.loading = false
             state.currentUser = payload;
+            state.users = state.users.map((user) => user.id===payload.id ? payload : user);
           },
         [editUser.rejected]: (state) => {
             // state.loading = false

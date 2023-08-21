@@ -178,7 +178,7 @@ function ManageClients({}) {
                                                 <div>
                                                 {
                                                     user.cart.length ?
-                                                    <div className=''>
+                                                    <div className='overflow-x-scroll scrollbar light'>
                                                         <div style={{width: "500px"}}>
                                                             <Row className='mb-2'>
                                                                 <Col className="col-3">Image</Col>
@@ -212,10 +212,10 @@ function ManageClients({}) {
                                                 <h6 className='m-0 bg-white'>Purchases</h6>
                                             </Accordion.Header>
                                             <Accordion.Body className='px-0 pb-5'>
-                                                <div>
+                                                <div className='d-flex flex-column gap-3'>
                                                 {
                                                     getUserPurchases(user.id).length > 0 ? getUserPurchases(user.id).map((purchase) =>
-                                                    <PurchaseCard purchase={purchase} />
+                                                    <PurchaseCard purchase={purchase} className='bg-white border rounded-md-3  shadow-sm'/>
                                                     )
                                                     : <div>User has no purchases.</div>
                                                 }

@@ -116,7 +116,7 @@ function Checkout({}) {
         const token = captchaRef.current.getValue();
         if(checkoutStage===3)
         {
-            if(password!==currentUser.password)
+            if(currentUser && password!==currentUser.password)
             {
                 handleValidationError("password");
             }
@@ -137,7 +137,7 @@ function Checkout({}) {
                             itemId: cartItem.productId,
                             count: cartItem.count,
                             price: (()=>{
-                                let availableOffer = offers.find((offer) => offer.productId===cartItem.productId);
+                                let availableOffer = offers.find((offer) => offer.productId===cartItem.productId && offer.status==="running");
                                 return availableOffer ? availableOffer.newPrice : products.find((product)=>product.id===cartItem.productId).price;
                             })()
                         })),
@@ -145,7 +145,7 @@ function Checkout({}) {
                         details: {...purchaseData,dateOfBirth: purchaseData.dateOfBirth.toISOString().split('T')[0]},
                         estimatedDeliveryHours: 2+Math.floor(Math.random()*3)+parseInt(fees.total/1000),
                         status: "pending",
-                        userId: currentUser ? currentUser.id : 0,
+                        userId: currentUser ? currentUser.id : "0",
                         date: Date.now()
                     };
                     dispatch(addPurchase(newPurchase));
@@ -391,9 +391,12 @@ function Checkout({}) {
                                                     <hr />
                                                     <h4>Total Amount: {fees.total}</h4>
                                                     <form id='checkout-form-4' onSubmit={onCheckoutSubmit} className="">
-                                                        <FloatingLabel className='w-100 mt-5' controlId="floatingCheckoutPassword" label="Enter Password">
-                                                            <Form.Control type="password" placeholder="Enter Password" value={password} onChange={(e)=>{setPassword(e.target.value)}}/>
-                                                        </FloatingLabel>
+                                                        {
+                                                            currentUser &&
+                                                            <FloatingLabel className='w-100 mt-5' controlId="floatingCheckoutPassword" label="Enter Password">
+                                                                <Form.Control type="password" placeholder="Enter Password" value={password} onChange={(e)=>{setPassword(e.target.value)}}/>
+                                                            </FloatingLabel>
+                                                        }
                                                         {validationError==="password" && <div className='error-message text-danger mt-2'>Password Incorrect...</div>}
                                                         <ReCAPTCHA ref={captchaRef} className='mt-3' sitekey={"6LctVIsnAAAAANlWcPejAxTnDV8xLmhXFN1PulUF"} />
                                                         {validationError==="ReCAPTCHA" && <div className='error-message text-danger mt-2'>ReCAPTCHA Failed...</div>}

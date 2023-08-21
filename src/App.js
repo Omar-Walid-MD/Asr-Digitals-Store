@@ -12,9 +12,9 @@ import { getCart } from './Store/Cart/cartSlice';
 import { getFavs } from './Store/Favorites/favoritesSlice';
 import { getReviews } from './Store/Reviews/reviewsSlice';
 import { getPurchases, setPurchaseStatus } from './Store/Purchases/purchasesSlice';
-import { getOffers, setOfferStatus } from './Store/Offers/offers';
+import { editOffer, getOffers, setOfferStatus } from './Store/Offers/offers';
 import ScrollToTop from './Layout/ScrollToTop';
-import { generateRandomOffers, generateRandomPurchases, generateRandomReviews, getRating, makeIdWithChars, refreshOffers, refreshPurchases } from './helpers';
+import { generateRandomOffers, generateRandomPurchases, generateRandomReviews, getRating, makeIdWithChars, makeUniqueId, refreshOffers, refreshPurchases } from './helpers';
 import { getPreviewStats } from './Store/PreviewStats/previewStats';
 
 function App() {
@@ -84,28 +84,8 @@ function App() {
   // },[reviews,products])
 
   // useEffect(()=>{
-  //   if(users.length)
-  //   {
-  //     function givePw(index)
-  //     {
-  //       if(index < users.length)
-  //       {
-  //         let user = users[index];
-  //         setTimeout(() => {
-  //               let updatedUser = {...user,password:makeIdWithChars(10)}
-  //           console.log(updatedUser); 
-  //           dispatch(editUser(updatedUser));
-
-  //           givePw(index+1);
-  //         }, 2000);
-  //       }
-  //     }
-      
-  //     givePw(0);
-
-        
-  //   }
-  // },[users])
+  //   if(products) generateRandomOffers(100,products);
+  // },[products])
 
 
   return (

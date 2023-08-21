@@ -29,8 +29,13 @@ function PurchasesPage({}) {
             }
         });
 
+        purchaseHistory.forEach((purchaseRecord) => {
+            purchaseRecord.purchases = purchaseRecord.purchases.sort((a,b)=>{
+                return new Date(b.date) - new Date(a.date);
+            })
+        })
+
         purchaseHistory = purchaseHistory.sort((a,b)=>{
-            console.log(new Date(a.date));
             return new Date(b.date) - new Date(a.date);
         });
         return purchaseHistory;
@@ -54,7 +59,7 @@ function PurchasesPage({}) {
                     <div className='p-1 py-2 p-sm-3 p-md-4 '>
                         <Accordion alwaysOpen defaultActiveKey={0} className='d-flex flex-column gap-3'>
                         {
-                            purchases.length > 0 ? getPurchaseHistory().map((purchaseRecord,index) =>(
+                            userPurchases.length > 0 ? getPurchaseHistory().map((purchaseRecord,index) =>(
                                     <Accordion.Item eventKey={index} className='border-0 bg-light'>
                                         <Accordion.Header>
                                             <div className="d-flex gap-3 w-100 pe-3 py-2">
@@ -73,9 +78,15 @@ function PurchasesPage({}) {
                                     </Accordion.Item>
                             ))
                             :
+                            currentUser ?
                             <div className='d-flex flex-column align-items-center gap-3 p-5'>
                                 <h2>You don't have purchases yet.</h2>
-                                <Button variant='dark' className='btn-dark fs-5 p-3 px-4 text-uppercase fw-semibold'>Shop now!</Button>
+                                <Link to={"/shop"} className='btn btn-dark main-button border-0 fs-5 p-3 px-4 text-uppercase fw-semibold'>Shop now!</Link>
+                            </div>
+                            :
+                            <div className='d-flex flex-column align-items-center gap-3 p-5'>
+                                <h2>Please log in to view your purchases.</h2>
+                                <Link to={"/login"} className='btn btn-dark main-button border-0 fs-5 p-2 px-4 fw-semibold'>Log in</Link>
                             </div>
                         }
                         </Accordion>                          

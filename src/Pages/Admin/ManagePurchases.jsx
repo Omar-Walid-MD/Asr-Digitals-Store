@@ -53,6 +53,7 @@ function ManagePurchases({}) {
 
         filteredPurchases = filteredPurchases.filter((purchase) => {
 
+            // console.log(filters.dateBefore, purchase.date);
             if(filters.dateBefore && purchase.date > new Date(filters.dateBefore).getTime()) return false;
             if(filters.dateAfter && purchase.date < new Date(filters.dateAfter).getTime()) return false;
             if(filters.status && purchase.status !== filters.status) return false;

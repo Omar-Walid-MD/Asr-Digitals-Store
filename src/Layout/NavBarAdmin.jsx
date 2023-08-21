@@ -27,10 +27,10 @@ function NavBarAdmin({}) {
 
     return (
         <Navbar expand="lg" className="bg-body-tertiary position-sticky top-0 shadow py-0">
-            <Container className="navbar-container d-flex align-items-stretch justify-content-between gap-0 gap-md-4 w-100">
+            <Container className="navbar-container d-flex align-items-stretch justify-content-between gap-0 gap-md-2 gap-lg-3 px-2 px-sm-4 px-md-3 px-lg-5 w-md-100">
                 <div className="d-flex gap-3">
-                    <Navbar.Brand className='' as={NavLink} to={"/"}>
-                        <div className='d-flex align-items-start gap-1 m-0' style={{width:"min(11.4rem,65vw)"}}>
+                    <Navbar.Brand className='navbar-logo' as={NavLink} to={"/"}>
+                        <div className='d-flex align-items-start gap-1 m-0' style={{width:"min(11.4rem,60vw)"}}>
                             <img style={{width:"30.75%"}} src={require("../img/logo.png")} alt="" />
                             <img style={{width:"69.25%"}} src={require("../img/logo-text.png")} alt="" />
                         </div>
@@ -55,7 +55,7 @@ function NavBarAdmin({}) {
                             <Col>
                                 <Nav.Link as={Link} to={"/admin/offers"} className={`navbar-link h-100 position-relative d-flex align-items-center justify-content-center ${linkActive("admin/offers")}`}>Offers</Nav.Link>
                             </Col>
-                            <Col className='col-12 col-md-1 d-flex justify-content-center mt-2 mb-2 my-lg-0'>
+                            <Col className='col-12 col-sm-1 d-flex justify-content-center mt-2 mb-2 my-xl-0'>
                                 {
                                     !authLoading ?
                                     loggedInState==="no" ?

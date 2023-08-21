@@ -13,7 +13,7 @@ function ShopExplore({}) {
 
     const productsInfo = useSelector((store) => store.products.productsInfo);
     const products = useSelector((store) => store.products.products);
-    const offers = useSelector((store) => store.offers.offers);
+    const offers = useSelector((store) => store.offers.offers.filter((offer)=>offer.status==="running"));
 
     const [offerProducts,setOfferProducts] = useState([]);
 

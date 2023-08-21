@@ -41,6 +41,7 @@ function Dashboard({}) {
     },[]);
 
     useEffect(()=>{
+        console.log(currentPreviewStats);
         if(previewStats.loaded) setCurrentPreviewStats(previewStats.previewStats)
     },[previewStats.loaded])
 

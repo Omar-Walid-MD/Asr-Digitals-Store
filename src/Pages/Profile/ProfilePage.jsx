@@ -31,7 +31,7 @@ const schemas = [
     address: yup.string(),
     street: yup.string(),
     zipcode: yup.string(),
-    creditCardNo: yup.number()
+    creditCardNo: yup.string()
     
   }).required(),
  
@@ -69,6 +69,7 @@ function ProfilePage({}) {
         city: "",
         address: "",
         zipcode: "",
+        street:"",
         creditCardNo: 0,
         id: 0
     });
@@ -96,7 +97,7 @@ function ProfilePage({}) {
         }
         else
         {
-            if(data.username && users.map((user) => user.username).includes(data.username))
+            if(data.username && users.map((user) => user.id!==currentUser.id && user.username).includes(data.username))
             {
                 handleValidationError("username");
                 return;
