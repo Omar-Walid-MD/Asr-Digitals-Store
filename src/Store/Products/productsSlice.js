@@ -66,12 +66,10 @@ export const productsSlice = createSlice({
         },
         [getProducts.fulfilled]: (state, { payload }) => {
             state.loading = false
-            console.log("pending");
             state.products = payload;
         },
         [getProducts.rejected]: (state) => {
             state.loading = false;
-            console.log("rejected");
         },
 
         //getProductsInfo
@@ -80,12 +78,10 @@ export const productsSlice = createSlice({
         },
         [getProductsInfo.fulfilled]: (state, { payload }) => {
             state.loading = false
-            console.log("pending");
             state.productsInfo = payload;
         },
         [getProductsInfo.rejected]: (state) => {
             state.loading = false;
-            console.log("rejected");
         },
 
         //addProduct
@@ -98,13 +94,11 @@ export const productsSlice = createSlice({
         },
         [addProduct.rejected]: (state) => {
             state.loading = false;
-            console.log("rejected");
         },
 
         //editProduct
         [editProduct.pending]: (state) => {
           state.loading = true;
-          console.log("pending edit")
         },
         [editProduct.fulfilled]: (state, { payload }) => {
             state.loading = false;
@@ -112,7 +106,6 @@ export const productsSlice = createSlice({
         },
         [editProduct.rejected]: (state) => {
             state.loading = false;
-            console.log("rejected");
         },
 
         //deleteProduct
@@ -125,7 +118,6 @@ export const productsSlice = createSlice({
         },
         [deleteProduct.rejected]: (state) => {
             state.loading = false;
-            console.log("rejected");
         },
 
         //setProductRating
@@ -134,12 +126,10 @@ export const productsSlice = createSlice({
         },
         [setProductRating.fulfilled]: (state, { payload }) => {
             state.loading = false
-            console.log(payload);
             state.products = state.products.map((product) => product.id===payload.id ? payload : product);
         },
         [setProductRating.rejected]: (state) => {
             state.loading = false;
-            console.log("rejected");
         },
         
       },

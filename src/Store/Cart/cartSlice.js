@@ -149,7 +149,6 @@ export const cartSlice = createSlice({
         },
         [getCart.rejected]: (state) => {
             state.loading = false;
-            console.log("rejected");
         },
 
 
@@ -160,56 +159,45 @@ export const cartSlice = createSlice({
         [addToCart.fulfilled]: (state, { payload }) => {
             state.loading = false
             state.cart = payload;
-            console.log("added item");
         },
         [addToCart.rejected]: (state) => {
             state.loading = false;
-            console.log("rejected");
         },
 
         //removeFromCart 
         [removeFromCart.pending]: (state) => {
             state.loading = true
-            console.log("removing item");
         },
         [removeFromCart.fulfilled]: (state, { payload }) => {
             state.loading = false;
-            console.log("removed item");
             state.cart = payload;
         },
         [removeFromCart.rejected]: (state) => {
             state.loading = false;
-            console.log("rejected");
         },
 
         //emptyCart 
         [emptyCart.pending]: (state) => {
             state.loading = true
-            console.log("removing item");
         },
         [emptyCart.fulfilled]: (state) => {
             state.loading = false;
-            console.log("removed item");
             state.cart = [];
         },
         [emptyCart.rejected]: (state) => {
             state.loading = false;
-            console.log("rejected");
         },
 
         //setProductCount 
         [setProductCount.pending]: (state) => {
             state.loading = true;
-            console.log("setting product count");
         },
         [setProductCount.fulfilled]: (state, { payload }) => {
             state.loading = false
             state.cart = payload;
-            console.log("set product count");
         },
         [setProductCount.rejected]: (state) => {
             state.loading = false;
-            console.log("rejected");
         },
         
       },

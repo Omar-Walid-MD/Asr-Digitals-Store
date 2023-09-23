@@ -33,7 +33,6 @@ function App() {
   const [refreshInterval,setRefreshInterval] = useState();
 
   useEffect(()=>{
-    console.log("fetching all data");
     dispatch(getUsers());
     dispatch(getProducts());
     dispatch(getProductsInfo());
@@ -57,35 +56,6 @@ function App() {
     }, 1000 * 60 * 5);
     return ()=> clearInterval(interval);  
   },[purchases,offers]);
-
-  // useEffect(()=>{
-  //   if(users.length && products.length && !reviewsCheck)
-  //   {
-  //     function checkProduct(index)
-  //     {
-  //       if(index < products.length)
-  //       {
-  //         let product = products[index];
-  //         setTimeout(() => {
-  //           let updatedRating = getRating(reviews.filter((review)=>review.productId===product.id).map((review)=>+review.rating));
-  //           console.log(updatedRating); 
-  //           if(updatedRating !== product.rating) dispatch(setProductRating({productId: product.id,rating: updatedRating}));
-
-  //           checkProduct(index+1);
-  //         }, 1000);
-  //       }
-  //     }
-      
-  //     checkProduct(0);
-
-        
-  //     setReviewsCheck(true);
-  //   }
-  // },[reviews,products])
-
-  // useEffect(()=>{
-  //   if(products) generateRandomOffers(100,products);
-  // },[products])
 
 
   return (

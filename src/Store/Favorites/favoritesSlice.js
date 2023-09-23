@@ -96,7 +96,6 @@ export const favoritesSlice = createSlice({
         },
         [getFavs.rejected]: (state) => {
             state.loading = false;
-            console.log("rejected");
         },
 
 
@@ -110,7 +109,6 @@ export const favoritesSlice = createSlice({
         },
         [addToFav.rejected]: (state) => {
             state.loading = false;
-            console.log("rejected");
         },
 
         //removeFromFav 
@@ -123,7 +121,6 @@ export const favoritesSlice = createSlice({
         },
         [removeFromFav.rejected]: (state) => {
             state.loading = false;
-            console.log("rejected");
         },
         
       },

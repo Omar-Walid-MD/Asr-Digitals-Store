@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axios from "axios";
 
 const initialState = {
     previewStats: [],
@@ -29,13 +28,11 @@ export const previewStatsSlice = createSlice({
         },
         [getPreviewStats.fulfilled]: (state, { payload }) => {
             state.loading = false;
-            console.log("pending");
             state.previewStats = payload;
             state.loaded = true;
         },
         [getPreviewStats.rejected]: (state) => {
             state.loading = false;
-            console.log("rejected");
         },
         
       },

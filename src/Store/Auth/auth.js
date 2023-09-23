@@ -83,7 +83,6 @@ export const getCurrentUser = createAsyncThunk(
     }
     else
     {
-      console.log(userId)
       localStorage.setItem("currentUser","");
       return null;
     }
@@ -128,7 +127,7 @@ export const authSlice = createSlice({
         },
         [getUsers.rejected]: (state) => {
           state.loading = false;
-          console.log("rejected");
+          
         },
 
 
@@ -144,7 +143,7 @@ export const authSlice = createSlice({
         },
         [registerUser.rejected]: (state) => {
             state.loading = false
-            console.log("rejected");
+            
         },
 
 
@@ -160,7 +159,7 @@ export const authSlice = createSlice({
           },
         [loginUser.rejected]: (state) => {
             state.loading = false
-            console.log("rejected");
+            
         },
 
         //getCurrentUser
@@ -183,7 +182,7 @@ export const authSlice = createSlice({
           },
         [getCurrentUser.rejected]: (state) => {
             state.loading = false
-            console.log("rejected");
+            
         },
 
 
@@ -199,7 +198,7 @@ export const authSlice = createSlice({
           },
         [logoutUser.rejected]: (state) => {
             state.loading = false
-            console.log("rejected");
+            
         },
 
         //editUser
@@ -213,7 +212,7 @@ export const authSlice = createSlice({
           },
         [editUser.rejected]: (state) => {
             // state.loading = false
-            console.log("rejected");
+            
         },
 
         //deleteUser
@@ -229,7 +228,7 @@ export const authSlice = createSlice({
           },
         [deleteUser.rejected]: (state) => {
             state.loading = false
-            console.log("rejected");
+            
         },
       },
 });

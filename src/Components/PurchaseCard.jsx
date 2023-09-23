@@ -92,7 +92,7 @@ function PurchaseCard({purchase, className=""}) {
                                         <Row className='g-2 g-sm-3 g-md-4'>
                                         {
                                             purchase.order.map((product) =>(
-                                                <Col className='col-12'>
+                                                <Col className='col-12' key={`purchase-order-item-${product.id}`}>
                                                     <ProductCartItemOverview productId={product.itemId} productCount={product.count} productPrice={product.price} />
                                                 </Col>                            
                                             ))

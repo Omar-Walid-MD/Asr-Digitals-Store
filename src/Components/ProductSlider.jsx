@@ -3,7 +3,7 @@ import ProductCard from './ProductCard';
 import Slider from "./Slider";
 import { Button, Container, Row } from 'react-bootstrap';
 import { BsCaretLeftFill, BsCaretRightFill } from 'react-icons/bs';
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 function ProductSlider({className, variant="dark", style, products=[]}) {
 
@@ -15,7 +15,7 @@ function ProductSlider({className, variant="dark", style, products=[]}) {
         {
           Array.from({length:products.length/2}).map((x,index) => 
           
-            <div style={{width:"min(12rem,50vw)"}} className="">
+            <div key={`product-slider-product-${index*2}`} style={{width:"min(12rem,50vw)"}} className="">
               <ProductCard productObject={products[index*2]} className="w-100 h-100" />
             </div>
           )
@@ -25,7 +25,7 @@ function ProductSlider({className, variant="dark", style, products=[]}) {
         {
           Array.from({length:products.length/2}).map((x,index) => 
           
-            <div style={{width:"min(12rem,50vw)"}} className="">
+            <div key={`product-slider-product-${index*2+1}`} style={{width:"min(12rem,50vw)"}} className="">
               <ProductCard productObject={products[index*2+1]} className="w-100 h-100" />
             </div>
           )
@@ -48,20 +48,3 @@ function ProductSlider({className, variant="dark", style, products=[]}) {
 }
 
 export default ProductSlider;
-
-
-{/* // products.map((product,index) => 
-        
-        //   index % 2 === 0
-        //   &&
-        //   <div key={"product-carousel-product-"+product.id+"-"+index} className='d-flex align-items-center flex-column flex-md-row gap-2 gap-md-4'>
-        //     <div style={{width:"min(12rem,50vw)"}} className="h-100">
-        //       <ProductCard productObject={product} className="w-100 h-100" />
-        //       </div>
-        //     {
-        //       index+1 < products.length && 
-        //       <div style={{width:"min(12rem,50vw)"}} className="h-100">
-        //         <ProductCard productObject={products[index+1]} className="w-100 h-100" />
-        //       </div>}
-        //   </div>          
-        // ) */}

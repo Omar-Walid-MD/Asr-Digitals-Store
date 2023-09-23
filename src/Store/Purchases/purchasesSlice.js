@@ -26,7 +26,7 @@ export const addPurchase = createAsyncThunk(
 export const setPurchaseStatus = createAsyncThunk(
   'purchases/setPurchaseStatus',
   async ({purchase,status}) => {
-    const res = axios.  patch(`http://localhost:8899/purchases/${purchase.id}`,{status: status});
+    const res = axios.patch(`http://localhost:8899/purchases/${purchase.id}`,{status: status});
     return (await res).data;
 });
 
@@ -47,12 +47,10 @@ export const purchasesSlice = createSlice({
         },
         [getPurchases.fulfilled]: (state, { payload }) => {
             state.loading = false
-            console.log("pending");
             state.purchases = payload;
         },
         [getPurchases.rejected]: (state) => {
             state.loading = false;
-            console.log("rejected");
         },
 
         //addPurchase
@@ -67,7 +65,6 @@ export const purchasesSlice = createSlice({
         },
         [addPurchase.rejected]: (state) => {
             state.loading = false;
-            console.log("rejected");
         },
 
         //setPurchaseStatus
@@ -76,12 +73,10 @@ export const purchasesSlice = createSlice({
         },
         [setPurchaseStatus.fulfilled]: (state, { payload }) => {
             state.loading = false
-            console.log(payload);
             state.purchases = state.purchases.map((purchase) => purchase.id===payload.id ? {...purchase,status:payload.status} : purchase);
         },
         [setPurchaseStatus.rejected]: (state) => {
             state.loading = false;
-            console.log("rejected");
         },
 
         //resetPurchaseLoading

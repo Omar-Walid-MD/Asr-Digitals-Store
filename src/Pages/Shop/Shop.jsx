@@ -123,7 +123,6 @@ function Shop({products=[],searchParams}) {
                 }
                 
             }
-            // console.log(specOptions);
             Object.keys(specOptions).forEach((specKey) => {
                 specOptions[specKey].availableValues = specOptions[specKey].availableValues.sort((a,b)=>{
                     return a >= b ? 1 : -1;
@@ -163,8 +162,8 @@ function Shop({products=[],searchParams}) {
 
             <hr className='border-3 mb-4' />
             <div>
-                <Row className='m-0 g-0 gy-3 gy-md-0 gx-sm-4 pb-4' >
-                    <Col className='col-12 col-md-4 col-xl-3 d-flex flex-column align-items-start px-1 px-sm-0 px-lg-2 z-1'>
+                <div className='d-flex m-0 pb-4 flex-column flex-md-row' >
+                    <div className='d-flex flex-column align-items-start px-1 px-sm-0 px-lg-2 z-1 shopping-filter-column'>
                         <Accordion alwaysOpen className='shop-filter-accordion w-100 shadow'>
 
                             <Accordion.Item eventKey="0" className='border-0 bg-light'>
@@ -222,12 +221,12 @@ function Shop({products=[],searchParams}) {
                                                         </Dropdown.Toggle>
 
                                                         <Dropdown.Menu className='p-0 rounded-0 w-100' >
-                                                            <Dropdown.Item className={`p-0 dropdown-select border-bottom border-dark`}><Button className='bg-transparent border-0 d-flex justify-content-between text-danger text-capitalize w-100' onClick={()=>{console.log(filters.categories);setFilters({...filters,categories:[]})}}> None </Button></Dropdown.Item>
+                                                            <Dropdown.Item className={`p-0 dropdown-select border-bottom border-dark`}><Button className='bg-transparent border-0 d-flex justify-content-between text-danger text-capitalize w-100' onClick={()=>{setFilters({...filters,categories:[]})}}> None </Button></Dropdown.Item>
                                                         {
                                                             (productsInfo.categoryGroups 
                                                             && searchParams.get("gr")) ?
                                                             productsInfo.categoryGroups[searchParams.get("gr")].map((category) => 
-                                                            <Dropdown.Item className={`p-0 dropdown-select border-bottom border-dark ${filters.categories.includes(category) ? "selected" : ""}`}><Button className='bg-transparent border-0 d-flex justify-content-between text-dark text-capitalize w-100' onClick={()=>{handleFilterCategories(category)}} >{category} <BsCheck className='dropdown-item-check d-none fs-4'/> </Button> </Dropdown.Item>
+                                                            <Dropdown.Item key={`product-filter-category-${category}`} className={`p-0 dropdown-select border-bottom border-dark ${filters.categories.includes(category) ? "selected" : ""}`}><Button className='bg-transparent border-0 d-flex justify-content-between text-dark text-capitalize w-100' onClick={()=>{handleFilterCategories(category)}} >{category} <BsCheck className='dropdown-item-check d-none fs-4'/> </Button> </Dropdown.Item>
                                                             )
                                                             : searchParams.get("q") &&
                                                             (function(){
@@ -238,7 +237,7 @@ function Shop({products=[],searchParams}) {
                                                                 return categories;
                                                                 })()
                                                                 .map((category) => 
-                                                            <Dropdown.Item className={`p-0 dropdown-select border-bottom border-dark ${filters.categories.includes(category) ? "selected" : ""}`}><Button className='bg-transparent border-0 d-flex justify-content-between text-dark text-capitalize w-100' onClick={()=>{handleFilterCategories(category)}} >{category} <BsCheck className='dropdown-item-check d-none fs-4'/> </Button> </Dropdown.Item>
+                                                            <Dropdown.Item key={`product-filter-category-${category}`} className={`p-0 dropdown-select border-bottom border-dark ${filters.categories.includes(category) ? "selected" : ""}`}><Button className='bg-transparent border-0 d-flex justify-content-between text-dark text-capitalize w-100' onClick={()=>{handleFilterCategories(category)}} >{category} <BsCheck className='dropdown-item-check d-none fs-4'/> </Button> </Dropdown.Item>
                                                             )
                                                         }
                                                         </Dropdown.Menu>
@@ -256,7 +255,7 @@ function Shop({products=[],searchParams}) {
                                             {
                                                 specFilterOptions ? Object.keys(specFilterOptions).map((spec) =>
                                                 
-                                                <Col className='col-12'>
+                                                <Col className='col-12' key={`spec-filter-${spec}`}>
                                                     <Dropdown autoClose="outside">
                                                         <Dropdown.Toggle className={`w-100 d-flex align-items-center justify-content-between text-capitalize ${(filters.specs[spec] && filters.specs[spec].length) ? "bg-primary border-primary" : "bg-secondary"}`} style={{width: "6em"}} variant="secondary" id="dropdown-basic">
                                                             {specFilterOptions[spec].name}
@@ -266,7 +265,7 @@ function Shop({products=[],searchParams}) {
                                                             <Dropdown.Item className={`p-0 dropdown-select border-bottom border-dark`}><Button className='bg-transparent border-0 d-flex justify-content-between text-danger text-capitalize w-100' onClick={()=>{handleFilterSpecs(spec)}}> None </Button></Dropdown.Item>
                                                         {
                                                             specFilterOptions[spec].availableValues.map((specValue) => 
-                                                            <Dropdown.Item className={`p-0 dropdown-select border-bottom border-dark ${(filters.specs[spec] && filters.specs[spec].includes(specValue)) ? "selected" : ""}`}><Button className='bg-transparent border-0 d-flex justify-content-between text-dark text-capitalize w-100' onClick={()=>{handleFilterSpecs(spec,specValue)}}>{specValue} <BsCheck className='dropdown-item-check d-none fs-4'/> </Button> </Dropdown.Item>
+                                                            <Dropdown.Item key={`spec-filter-value-${specValue}`} className={`p-0 dropdown-select border-bottom border-dark ${(filters.specs[spec] && filters.specs[spec].includes(specValue)) ? "selected" : ""}`}><Button className='bg-transparent border-0 d-flex justify-content-between text-dark text-capitalize w-100' onClick={()=>{handleFilterSpecs(spec,specValue)}}>{specValue} <BsCheck className='dropdown-item-check d-none fs-4'/> </Button> </Dropdown.Item>
                                                             )
                                                         }
                                                         </Dropdown.Menu>
@@ -275,7 +274,7 @@ function Shop({products=[],searchParams}) {
                                                 )
                                                 :
                                                 [1,2,3,4,5].map((n) =>
-                                                <Col className='col-12'>
+                                                <Col className='col-12' key={`filter-loading-${n}`}>
                                                     <div className='loading-bg w-100 rounded-3 shadow' style={{height: "2.2rem"}}></div>
                                                 </Col>
                                                 )
@@ -296,44 +295,47 @@ function Shop({products=[],searchParams}) {
                             
                         </Accordion>
                         
-                    </Col>
+                    </div>
+                    <div className='p-0 ps-md-2 px-lg-1'>
                     {
                         filteredProducts.length ?
-                        <Col className='col-12 col-md-8 col-xl-9 p-0 ps-md-2 px-lg-1'>
+                        <>
                             <Row className='g-0 p-0 p-sm-3 shadow rounded-3 w-100 m-0'>
                                 {
                                     filteredProducts && filteredProducts.slice(0,resultsCount).map((product) =>(
-                                        <Col className='col-6 col-sm-4 col-xl-3 p-1 p-xl-2'>
+                                        <Col className='col-6 col-sm-4 col-md-6 col-lg-4 col-xl-3 p-1 p-xl-2' key={`product-card-${product.id}`}>
                                             <ProductCard productObject={product} key={`shop-page-${product.id}`} />
                                         </Col>                                
                                     ))
                                 }
                                 {filteredProducts && resultsCount < filteredProducts.length ? <Col className='col-12 mb-2 mt-2 mt-sm-4 px-2'><Button variant='dark' className='btn-dark w-100 5' onClick={()=>setResultsCount(c => c+12)}>Load More</Button></Col> : ""}
                             </Row>
-                        </Col>
+                        </>
                         :
                         filters!==initalFilters ?
-                        <Col className='col-12 col-md-8 col-xl-9 p-0 ps-md-2 px-lg-1'>
+                        <>
                             <div className='py-5 px-sm-3 shadow rounded-3 w-100 m-0 text-center'>
                                 <h3 className='mb-4'>No results for the current filters.</h3>
                                 <Button variant='dark' className='btn fs-4' onClick={()=>{setFilters(initalFilters)}}>Clear Filters</Button>
                                 
                             </div>
-                        </Col>
+                        </>
                         :
-                        <Col className='col-12 col-md-8 col-xl-9 p-0 ps-md-2 px-lg-1'>
+                        <>
                             <Row className='g-0 p-0 p-sm-3 shadow rounded-3 w-100 m-0'>
                             {
                                 [1,2,3,4,5,6,7,8].map((n) =>
-                                <Col className='col-6 col-sm-4 col-xl-3 p-1 p-xl-2'>
+                                <Col className='col-6 col-sm-4 col-xl-3 p-1 p-xl-2' key={`product-loading-${n}`}>
                                     <div className='loading-bg w-100 rounded-3 shadow' style={{height: "25rem"}}></div>
                                 </Col>
                                 )
                             }
                             </Row>
-                        </Col>
+                        </>
                     }
-                </Row>
+                    </div>
+                    
+                </div>
             </div>
         </div>
     );

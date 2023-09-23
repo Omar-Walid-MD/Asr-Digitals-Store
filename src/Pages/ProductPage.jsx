@@ -84,7 +84,7 @@ function ProductPage({})
     function onSumbit(data)
     {
         
-        dispatch(addReview({...data,productId:productId,userId:currentUser.id,date: Date.now()}));
+        dispatch(addReview({...data,productId:productId,userId:currentUser ? currentUser.id : 0,date: Date.now()}));
         dispatch(setProductRating({productId: product.id,rating: getRating([...reviews.map((review)=>review.rating),rating])}));
         reset();
         setRating(5);
@@ -117,7 +117,7 @@ function ProductPage({})
                 return false;
             });
 
-            relatedProducts =[...relatedProducts,...filteredProducts.filter((productInList) => {
+            relatedProducts = [...relatedProducts,...filteredProducts.filter((productInList) => {
                 if(relatedProducts.includes(productInList)) return false;
                 if(productInList.category!==product.category) return false;
 
@@ -125,11 +125,16 @@ function ProductPage({})
                 Object.keys(product.specs).forEach((specKey) => {
                     if(product.specs[specKey]===productInList.specs[specKey]) sharedSpecCount++;
                 });
-                // console.log(sharedSpecCount);
                 return sharedSpecCount > 2;
             })];
 
-            console.log(relatedProducts);
+            
+            while(relatedProducts.length<5)
+            {
+                filteredProducts = filteredProducts.filter((productInList)=>!relatedProducts.includes(productInList));
+                relatedProducts.push(filteredProducts[Math.floor(Math.random()*filteredProducts.length)]);
+            }
+
             return relatedProducts;
         }
     }
@@ -202,7 +207,7 @@ function ProductPage({})
                                             <div className="d-flex gap-2">
                                                 {
                                                     [1,2,3,4,5].map((n)=>
-                                                    <div className='position-relative'>
+                                                    <div className='position-relative' key={`star-${n}`}>
                                                         <BsStarFill key={"pr-p-g-s-"+n} className={"text-dark fs-3 d-flex justify-content-center"} />
                                                         <div style={{width: `${n <= product.rating ? 100 : n === Math.ceil(product.rating) ? product.rating % 1 * 100 : 0}%`}} className='position-absolute top-0 overflow-hidden'>
                                                             <BsStarFill key={"pr-p-g-s-"+n} className={"text-warning fs-3 d-flex justify-content-center"} />
@@ -367,8 +372,8 @@ function ProductPage({})
                                         <input className='w-100 opacity-0' type="range" min={1} max={5} value={rating} onInput={handleRating} {...register("rating")} style={{cursor: "pointer"}} />
                                         <div className="position-absolute left-0 w-100 d-flex justify-content-between" style={{pointerEvents: "none"}}>
                                         {
-                                            [1,2,3,4,5].map((n,index) =>
-                                            <BsStarFill key={"product-page-review-input-rating-"+index} className={`fs-4 ${n <= rating ? "text-warning" : "text-light"}`} />
+                                            [1,2,3,4,5].map((n) =>
+                                            <BsStarFill key={`product-page-review-input-rating-${n}`} className={`fs-4 ${n <= rating ? "text-warning" : "text-light"}`} />
                                             )
                                         }
                                         </div>
@@ -391,8 +396,8 @@ function ProductPage({})
                                 </div>
                                 <div className="d-flex flex-column gap-4 align-items-center">
                                 {
-                                    reviews.length > 0 ? reviews.slice(0,reviewsCount).map((review,index) => 
-                                    <ProductReview key={"product-page-review-"+index} review={review}/>
+                                    reviews.length > 0 ? reviews.slice(0,reviewsCount).map((review) => 
+                                    <ProductReview key={`product-page-review-${review.id}`} review={review}/>
                                     )
                                     :
                                     <div className='w-100 text-center p-5 rounded-3 shadow'>

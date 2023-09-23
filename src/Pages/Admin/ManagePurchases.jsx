@@ -53,7 +53,6 @@ function ManagePurchases({}) {
 
         filteredPurchases = filteredPurchases.filter((purchase) => {
 
-            // console.log(filters.dateBefore, purchase.date);
             if(filters.dateBefore && purchase.date > new Date(filters.dateBefore).getTime()) return false;
             if(filters.dateAfter && purchase.date < new Date(filters.dateAfter).getTime()) return false;
             if(filters.status && purchase.status !== filters.status) return false;
@@ -244,7 +243,7 @@ function ManagePurchases({}) {
             {
                 purchases.length ? filteredPurchases.map((purchase) => (
 
-                <PurchaseCard purchase={purchase} className='bg-white border rounded-md-3  shadow-sm' />
+                <PurchaseCard key={`purchase-card-${purchase.id}`} purchase={purchase} className='bg-white border rounded-md-3  shadow-sm' />
                 ))
                 :
                 ""

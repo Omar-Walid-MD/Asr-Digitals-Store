@@ -90,7 +90,7 @@ function ManageClients({}) {
             <div className='p-0 py-2 d-flex flex-column gap-2 w-100'>
             {
                 filteredUsers.map((user) =>
-                <div className='bg-white border rounded-md-3 p-3 shadow-sm d-flex flex-column align-items-start gap-3 w-100'>
+                <div className='bg-white border rounded-md-3 p-3 shadow-sm d-flex flex-column align-items-start gap-3 w-100' key={`user-card-${user.id}`}>
                     <div className='d-flex flex-column flex-lg-row align-items-start gap-3 w-100'>
                         <div>
                             <BsFillPersonFill fontSize={"5rem"} className='rounded-3 shadow-sm border border-2' />
@@ -215,7 +215,7 @@ function ManageClients({}) {
                                                 <div className='d-flex flex-column gap-3'>
                                                 {
                                                     getUserPurchases(user.id).length > 0 ? getUserPurchases(user.id).map((purchase) =>
-                                                    <PurchaseCard purchase={purchase} className='bg-white border rounded-md-3  shadow-sm'/>
+                                                    <PurchaseCard purchase={purchase} key={`user-purchase-card-${purchase.id}`} className='bg-white border rounded-md-3  shadow-sm'/>
                                                     )
                                                     : <div>User has no purchases.</div>
                                                 }

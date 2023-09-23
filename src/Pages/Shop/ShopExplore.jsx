@@ -98,7 +98,7 @@ function ShopExplore({}) {
                     <Container className='pt-5 p-0'>
                         <Carousel className='w-100' interval={3000} controls={false}>
                             {
-                                     offerProducts.map((product,index) => 
+                                    offerProducts.map((product,index) => 
 
                                     (index%2===0 && index+1<offerProducts.length) &&
                                     <Carousel.Item>

@@ -86,7 +86,6 @@ function ProfilePage({}) {
 
     function onSubmit(data)
     {
-        // console.log(userData.id);
         
         let updatedUserData = {...userData,...data,password: passwordEdit.password};
 

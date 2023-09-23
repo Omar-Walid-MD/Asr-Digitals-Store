@@ -48,12 +48,12 @@ function CartSideBar() {
             <Offcanvas.Title><h4>Cart</h4></Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body className='p-1 p-sm-3 '>
-                <Row className='g-0 gy-sm-4 m-0 mx-sm-2 pt-2'>
+                <div className='d-flex flex-column gap-4 align-items-center justify-content-start p-3'>
                 {
-                    cart.length ? cart.map((product,index) =>(
-                        <Col key={"cart-side-bar-item-"+index} className='col-6 px-1'>
+                    cart.length ? cart.map((product) =>(
+                        <div key={`cart-side-bar-item-${product.id}`} className='w-100'>
                             <ProductCard productId={product.productId} showSingle={false} />
-                        </Col>                            
+                        </div>                            
                     ))
                     :
                     <div className='d-flex flex-column align-items-center gap-3 h-100'>
@@ -61,19 +61,14 @@ function CartSideBar() {
                         <Link to={"/shop"} className='btn btn-dark main-button fs-5 p-3 px-4 text-uppercase fw-semibold'>Shop now!</Link>
                     </div>
                 }
-                </Row>
+                </div>
             </Offcanvas.Body>
             {
                 cart.length>0 ?
                 <div className='bg-secondary p-3 cart-sidebar-bottom text-white'>
-                    <Row>
-                        <Col>
-                            <p className='fs-6 m-0'>Subtotal: <span className='price-tag fw-semibold'>{fees.subtotal}</span></p>
-                        </Col>
-                        <Col>
-                            <p className='fs-6 m-0'>Delivery: <span className='price-tag fw-semibold'>{fees.delivery}</span></p>
-                        </Col>
-                    </Row>
+                    <p className='fs-6 m-0'>Subtotal: <span className='price-tag fw-semibold'>{fees.subtotal}</span></p>
+                    <hr />
+                    <p className='fs-6 m-0'>Delivery: <span className='price-tag fw-semibold'>{fees.delivery}</span></p>
                     <hr />
                     <p className='fs-4'>Total Fees: <span className='price-tag fw-semibold'>{fees.total}</span></p>
                     <div className="d-flex gap-2">

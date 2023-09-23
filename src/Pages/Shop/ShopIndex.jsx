@@ -27,8 +27,6 @@ function ShopIndex({}) {
         setLoading(false);
     },[searchParams,productsInfo]);
 
-    console.log(loading);
-
     function getAvailableProducts()
     {
         let availableProducts = products;

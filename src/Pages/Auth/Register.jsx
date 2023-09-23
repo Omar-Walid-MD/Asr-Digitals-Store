@@ -108,7 +108,6 @@ function Register({}) {
         }
         else if(registerStage===1)
         {
-            console.log(data.username, users.map((user) => user.username))
             if(data.username && users.map((user) => user.username).includes(data.username))
             {
                 handleValidationError("Username already in use...");

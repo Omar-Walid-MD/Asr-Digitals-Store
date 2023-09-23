@@ -12,14 +12,14 @@ function ProductReview({review})
                 <div className='d-flex align-items-start gap-2'>
                     <BsFillPersonFill className='bg-light rounded-3 fs-1 shadow-sm border border-2 border-dark' />
                     <div className="d-flex flex-column">
-                        <h6 className='m-0'>{user ? user.username || `${user.firstName} ${user.lastName}` : ""}</h6>
+                        <h6 className='m-0'>{user ? (user.username || `${user.firstName} ${user.lastName}`) : "Anonymous"}</h6>
                         <p className='m-0'>{new Date(review.date).toLocaleDateString("en")}</p>
                     </div>
                 </div>
                 <div className='d-flex ms-sm-3 gap-1 shadow-sm p-2 rounded-pill'>
                     {
-                        [1,2,3,4,5].map((n,index) =>
-                            <BsStarFill key={"product-review-rating-"+index} className={n <= review.rating ? "text-warning" : "text-dark"} />
+                        [1,2,3,4,5].map((n) =>
+                            <BsStarFill key={`product-review-rating-${n}`} className={n <= review.rating ? "text-warning" : "text-dark"} />
                         )
                     }
                 </div>

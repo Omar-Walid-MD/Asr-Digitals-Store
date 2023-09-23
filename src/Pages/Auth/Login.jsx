@@ -49,13 +49,6 @@ function Login({}) {
         {
             handleValidationError("Email not registered...");
         }
-        // if(users.map((user) => user.email).includes(data.email))
-        // {
-        //     handleValidationError("Email already registered...");
-        // }
-        // else
-        // {
-        // }
     }
 
     function handleValidationError(errorMessage)

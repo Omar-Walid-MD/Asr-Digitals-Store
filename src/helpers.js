@@ -41,12 +41,9 @@ export const throttle = function(func,delay)
 export const refreshPurchases = function(purchases,setStatusFunc)
 {
   let now = Date.now();
-  console.log("running purchase checks...")
   purchases.forEach((purchase) => {
-    // console.log(purchase.date + purchase.estimatedDeliveryHours * 1000 * 3600 > now);
     if(purchase.date + purchase.estimatedDeliveryHours * 1000 * 3600 <= now && purchase.status==="pending")
     {
-      console.log("updating...");
       setStatusFunc(purchase,"success");
     }
   })
@@ -55,17 +52,13 @@ export const refreshPurchases = function(purchases,setStatusFunc)
 export const refreshOffers = function(offers,setStatusFunc)
 {
   let now = Date.now();
-  console.log("running offer checks...")
   offers.forEach((offer) => {
-    // console.log(offer.date + offer.estimatedDeliveryHours * 1000 * 3600 > now);
     if(offer.start <= now && offer.status==="upcoming")
     {
-      console.log("updating...");
       setStatusFunc(offer,"running");
     }
     if(offer.end <= now && offer.status==="running")
     {
-      console.log("updating...");
       setStatusFunc(offer,"closed");
     }
   })
@@ -88,7 +81,6 @@ export const getCartSubTotal = function(cart,products,offers)
         let targetProduct = products.find((product) => product.id === cartItem.productId);
         if(!targetProduct) return;
         let availableOffer = offers.find((offer) => offer.productId===targetProduct.id && offer.status==="running");
-        // console.log(availableOffer);
         total += cartItem.count * (availableOffer ? availableOffer.newPrice : targetProduct.price);
     });
 
@@ -103,7 +95,6 @@ export const getCartDelivery = function(cart,products,productsInfo)
         let targetProduct = products.find((product) => product.id === cartItem.productId);
         if(!targetProduct) return;
         total += cartItem.count * +productsInfo.categories.find((category) => category.name === targetProduct.category).deliveryValue;
-        console.log(productsInfo.categories.find((category) => category.name === targetProduct.category).deliveryValue); 
     });
 
     return total;
@@ -122,7 +113,6 @@ export const getRating = function(ratings)
     ratings.forEach(rating => {
         total += parseInt(rating);
     });
-    console.log(total)
     let avg = total/ratings.length;
     return +avg.toFixed(1);
 }
@@ -288,7 +278,6 @@ export const generateProductList = function(length,category,titleList)
         productList.push(product);
     }
 
-    console.log(productList);
 }
 
 export const generateRandomUsers = function(length)
@@ -377,7 +366,6 @@ export const generateRandomUsers = function(length)
 
   }
 
-  console.log(users);
 
 
 }
@@ -385,7 +373,6 @@ export const generateRandomUsers = function(length)
 export const generateRandomPurchases = function(length,products,users)
 {  
   let purchases = [];
-  console.log(products);
 
   if(products.length && users.length)
 
@@ -436,7 +423,6 @@ export const generateRandomPurchases = function(length,products,users)
 
   }
 
-  console.log(purchases);
 
 
 }
@@ -468,8 +454,6 @@ export const generateRandomOffers = function(length,products)
     offers.push(newOffer);
 
   }
-
-  console.log(offers);
 
 
 }
@@ -516,7 +500,6 @@ export const generateRandomReviews = function(length,users,products)
 
   }
 
-  console.log(reviews);
 
 
 }

@@ -28,7 +28,7 @@ function FavoritesPage({}) {
                         <Row className='g-2 g-sm-3 g-md-4'>
                         {
                             favorites.length > 0 ? favorites.map((favoriteId) =>(
-                                <Col className='col-6 col-sm-4 col-lg-3'>
+                                <Col className='col-6 col-sm-4 col-lg-3' key={`favorite-${favoriteId}`}>
                                     <ProductCard productId={favoriteId} showSingle={false} />
                                 </Col>                            
                             ))

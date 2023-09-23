@@ -41,7 +41,6 @@ function Dashboard({}) {
     },[]);
 
     useEffect(()=>{
-        console.log(currentPreviewStats);
         if(previewStats.loaded) setCurrentPreviewStats(previewStats.previewStats)
     },[previewStats.loaded])
 
@@ -62,7 +61,7 @@ function Dashboard({}) {
                                         <Nav variant='underline' className='gap-3 d-flex' activeKey={activeStat} onSelect={(eventKey)=>{setActiveStat(eventKey)}}>
                                         {
                                             stats.map((stat,index)=>
-                                                <Nav.Item className='text-center mb-4'>
+                                                <Nav.Item className='text-center mb-4' key={`stat-key-${index}`}>
                                                     <Nav.Link className='text-secondary' eventKey={index}>{stat.title}</Nav.Link>
                                                 </Nav.Item>
                                             )
@@ -76,7 +75,7 @@ function Dashboard({}) {
                                             <div className='dashboard-revenues-graph ms-5 ms-sm-0 position-relative d-flex flex-column flex-sm-row align-items-start align-items-sm-end mb-5 gap-2'>
                                             {
                                                 stats[activeStat].values.map((stat, index) =>
-                                                <div className='graph-bar-container position-relative d-flex justify-content-center' style={{"--x": stat}}>
+                                                <div className='graph-bar-container position-relative d-flex justify-content-center' style={{"--x": stat}} key={`stat-value-${index}`}>
                                                     <span className='position-absolute mb-sm-1'>{stat/100 * stats[activeStat].max}</span>
                                                     <div className='position-absolute me-2 me-sm-0 mt-sm-1 text-center d-flex flex-row-reverse gap-2 align-items-center d-sm-block'>
                                                         <p className='mb-0'>

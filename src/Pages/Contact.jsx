@@ -3,8 +3,30 @@ import { Accordion, Button, Carousel, Col, Container, FloatingLabel, Form, Row }
 import { FaLinkedin, FaSquareFacebook, FaSquareInstagram, FaSquareTwitter, FaSquareWhatsapp, FaSquareYoutube } from 'react-icons/fa6';
 import { IoSend } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { useForm } from 'react-hook-form';
+
+
+const schema = yup
+  .object({
+    name: yup.string().required("Please enter your name..."),
+    email: yup.string().email("Email must be valid...").required("Please enter your email..."),
+    subject: yup.string().required("Please enter message subject"),
+    body: yup.string().required("Please enter message body")
+})
+.required();
 
 function Contact({}) {
+
+    const [formMessage,setFormMessage] = useState();
+    const { register, handleSubmit, reset, formState: { errors } } = useForm({ resolver: yupResolver(schema) });
+
+    function onSubmit(data)
+    {
+        reset();
+        setFormMessage("Message sent!");
+    }
 
     const faqs = [
         {
@@ -71,51 +93,33 @@ function Contact({}) {
 
     const socialMedia = [
         {
-            platform: "Facebook",
-            icon: <FaSquareFacebook color='var(--bs-light)' fontSize={"min(8rem,20vw)"} />,
-            desc: "Follow our Facebook page to get all the news",
+            icon: <FaSquareFacebook color='var(--bs-light)' fontSize={"min(4rem,20vw)"} />,
             color: "linear-gradient(to right, rgb(50,170,255), rgb(13,110,253))",
-            buttonText: "Follow us",
             link: "https://facebook.com"
         },
         {
-            platform: "YouTube",
-            icon: <FaSquareYoutube color='var(--bs-light)' fontSize={"min(8rem,20vw)"} />,
-            desc: "Subscribe to our YouTube channel and stay tuned on all our offers",
+            icon: <FaSquareYoutube color='var(--bs-light)' fontSize={"min(4rem,20vw)"} />,
             color: "linear-gradient(to right, #e54757, #b82c3a)",
-            buttonText: "Subscribe",
             link: "https://youtube.com"
         },
         {
-            platform: "WhatsApp",
-            icon: <FaSquareWhatsapp color='var(--bs-light)' fontSize={"min(8rem,20vw)"} />,
-            desc: "Message us on WhatsApp for any assistance",
+            icon: <FaSquareWhatsapp color='var(--bs-light)' fontSize={"min(4rem,20vw)"} />,
             color: "linear-gradient(to right, rgb(101, 223, 101), rgb(39, 176, 39))",
-            buttonText: "Message us",
             link: "https://whatsapp.com"
         },
         {
-            platform: "Twitter",
-            icon: <FaSquareTwitter color='var(--bs-light)' fontSize={"min(8rem,20vw)"} />,
-            desc: "Don't miss our daily updates on Twitter",
+            icon: <FaSquareTwitter color='var(--bs-light)' fontSize={"min(4rem,20vw)"} />,
             color: "linear-gradient(to right, rgb(124, 222, 255), deepskyblue)",
-            buttonText: "Follow us",
             link: "https://twitter.com"
         },
         {
-            platform: "Instagram",
-            icon: <FaSquareInstagram color='var(--bs-light)' fontSize={"min(8rem,20vw)"} />,
-            desc: "Check our latest product gallery on Instagram",
+            icon: <FaSquareInstagram color='var(--bs-light)' fontSize={"min(4rem,20vw)"} />,
             color: "linear-gradient(45deg, yellow, orange 20%, magenta)",
-            buttonText: "Follow us",
             link: "https://instagram.com"
         },
         {
-            platform: "LinkedIn",
-            icon: <FaLinkedin color='var(--bs-light)' fontSize={"min(8rem,20vw)"} />,
-            desc: "Contact us through LinkedIn for partnerships",
+            icon: <FaLinkedin color='var(--bs-light)' fontSize={"min(4rem,20vw)"} />,
             color: "linear-gradient(to right, rgb(106, 97, 169), darkslateblue)",
-            buttonText: "Contact us",
             link: "https://linkedin.com"
         }
     ]
@@ -168,12 +172,12 @@ function Contact({}) {
                         <Carousel className='w-100 overflow-visible' slide={false} controls={false} indicators={false} activeIndex={faqIndex}>
                         {
                             Array.from({length:Math.ceil(faqs.length/5)}).map((p,i)=>
-                            <Carousel.Item className=''>
+                            <Carousel.Item key={`faq-slide-${i}`}>
                                 <Accordion flush className='mb-4 mt-4 m-0 w-100'>
                                 {
                                     filteredFaqs.slice(5*i,5*i+5).map((faq, j) => (
 
-                                    <Accordion.Item eventKey={j} className='border-0 rounded-3 mb-2 rounded-bottom shadow'>
+                                    <Accordion.Item key={`faq-${i}-${j}`} eventKey={j} className='border-0 rounded-3 mb-2 rounded-bottom shadow'>
                                         <Accordion.Header className='px-4 py-3 rounded-top '><h5 className='m-0'>{faq.q}</h5></Accordion.Header>
                                         <Accordion.Body className='border-top border-2 rounded-bottom fs-5'>{faq.a}</Accordion.Body>
                                     </Accordion.Item>
@@ -187,7 +191,7 @@ function Contact({}) {
                         <div className="d-flex align-items-center justify-content-start w-100 gap-3">
                         {
                             Array.from({length:Math.ceil(filteredFaqs.length/5)}).map((p,i)=>
-                            <Button className={`d-flex rounded-0 bg-transparent text-primary border-0 border-top border-3 p-3 fs-5 py-0 ${faqIndex===i ? "border-primary" : ""}`} onClick={(e)=>{setFaqIndex(i)}}>{i+1}</Button>
+                            <Button className={`d-flex rounded-0 bg-transparent text-primary border-0 border-top border-3 p-3 fs-5 py-0 ${faqIndex===i ? "border-primary" : ""}`} key={`faq-button-${i}`} onClick={(e)=>{setFaqIndex(i)}}>{i+1}</Button>
                             )
                         }
                         </div>
@@ -219,28 +223,32 @@ function Contact({}) {
                     <Container className='px-3 px-md-5 py-5'>
                         <h1 className='text-center text-sm-start'>Feedback and Suggestions</h1>
                         <p className='fs-5'> Your input is essential in shaping our offerings and ensuring that we meet your expectations. Please feel free to reach out and share your thoughts with us.</p>
-                        <form className='bg-light p-2 p-md-3 shadow rounded-3 d-flex flex-column gap-2 gap-md-3'>
+                        <form onSubmit={handleSubmit(onSubmit)} className='bg-light p-2 p-md-3 shadow rounded-3 d-flex flex-column gap-2 gap-md-3'>
                             <div className="d-flex gap-2 gap-md-3">
 
-                                <FloatingLabel className='w-100 z-0' controlId="" label="First Name">
-                                    <Form.Control type="text" placeholder="First Name" />
+                                <FloatingLabel className='w-100 z-0' controlId="" label="Name">
+                                    <Form.Control type="text" placeholder="Name" {...register("name")} />
+                                    {errors.name ? <div className='error-message text-danger mt-2'>{errors.name.message}</div> : ''}
                                 </FloatingLabel>
 
-                                <FloatingLabel className='w-100 z-0' controlId="" label="Last Name">
-                                    <Form.Control type="text" placeholder="Last Name" />
+                                <FloatingLabel className='w-100 z-0' controlId="" label="Email">
+                                    <Form.Control type="email" placeholder="Email" {...register("email")} />
+                                    {errors.email ? <div className='error-message text-danger mt-2'>{errors.email.message}</div> : ''}
                                 </FloatingLabel>
                             </div>
 
                             <FloatingLabel className='w-100 z-0' controlId="" label="Message Subject">
-                                <Form.Control type="text" placeholder="Message Subject" />
+                                <Form.Control type="text" placeholder="Message Subject" {...register("subject")} />
+                                {errors.subject ? <div className='error-message text-danger mt-2'>{errors.subject.message}</div> : ''}
                             </FloatingLabel>
 
                             <FloatingLabel className='w-100 z-0' controlId="" label="Message Body">
-                                <Form.Control style={{minHeight:"300px"}} as={"textarea"} type="text" placeholder="Message Body" />
+                                <Form.Control style={{minHeight:"300px"}} as={"textarea"} type="text" placeholder="Message Body" {...register("body")} />
+                                {errors.body ? <div className='error-message text-danger mt-2'>{errors.body.message}</div> : ''}
                             </FloatingLabel>
 
+                            {formMessage && <p className='text-info'>{formMessage}</p>}
                             <Button variant='btn-secondary' className='main-button bg-primary border-0 d-flex align-items-center justify-content-center gap-2 fs-5' type='submit'>Send <IoSend/></Button>
-
                         </form>
                     </Container>
                 </div>
@@ -268,18 +276,16 @@ function Contact({}) {
                             <p className='fs-5'>
                                 Stay connected with us on social media! Follow us on your favorite platforms to receive updates on new products, promotions, and company news. Our social media channels are also a great place to engage with our community and share your experiences.
                             </p>
-                            <Row className='gy-4'>
+                            <Row className='gy-4 mt-2'>
                             {
-                                socialMedia.map((s) =>
-                                <Col className='col-12 col-lg-6'>
-                                    <div className="d-flex flex-column flex-sm-row align-items-center align-items-sm-stretch p-3 rounded-3 gap-3 shadow" style={{background:"linear-gradient(white,var(--bs-light))"}}>
-                                        <div className='p-2 rounded-4 shadow-sm' style={{background:s.color}}>
-                                            {s.icon}
-                                        </div>
-                                        <div className='text-start py-1 d-flex flex-column align-items-start justify-content-between w-100'>
-                                            <h5 className='text-center text-sm-start'>{s.desc}</h5>
-                                            <Link target='blank' to={s.link} className='btn main-button w-xs-100 w-sm-auto align-self-end text-decoration-none fs-5 text-white fw-semibold px-4 border-0 shadow-sm' style={{background: s.color}}> {s.buttonText}</Link>
-                                        </div>
+                                socialMedia.map((s,i) =>
+                                <Col className='col-4 col-md-2' key={`social-media-card-${i}`}>
+                                    <div className='d-flex justify-content-center align-items-center'>
+                                        <Link to={s.link}>
+                                            <div className='p-2 rounded-4 shadow-sm' style={{background:s.color}} >
+                                                {s.icon}
+                                            </div>
+                                        </Link>
                                     </div>
                                 </Col>
                                 )

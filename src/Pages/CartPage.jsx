@@ -42,7 +42,7 @@ function CartPage({}) {
                                 <Row className='g-2 g-sm-3 g-md-4'>
                                 {
                                     cart.length > 0 ? cart.map((product) =>(
-                                        <Col className='col-12'>
+                                        <Col className='col-12' key={`cart-item-${product.id}`}>
                                             <ProductCartItem productId={product.productId} showSingle={false} />
                                         </Col>                            
                                     ))

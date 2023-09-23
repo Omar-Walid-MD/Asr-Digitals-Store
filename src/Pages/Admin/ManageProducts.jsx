@@ -316,7 +316,7 @@ function ManageProducts({}) {
                                         <Row className='gy-2 m-0'>
                                         {
                                             productsInfo.categories && productsInfo.categories.map((category) =>
-                                            <Col className='px-1 col-6 col-sm-3 col-md-2'><Button variant='secondary' className={`w-100 d-flex btn-secondary align-items-center justify-content-between text-capitalize ${filters.categories.includes(category.name) ? "bg-primary border-primary" : "bg-secondary"}`} onClick={()=>{handleFilterCategories(category.name)}}>{category.name}</Button></Col>
+                                            <Col className='px-1 col-6 col-sm-3 col-md-2' key={`product-filter-category-${category}`}><Button variant='secondary' className={`w-100 d-flex btn-secondary align-items-center justify-content-between text-capitalize ${filters.categories.includes(category.name) ? "bg-primary border-primary" : "bg-secondary"}`} onClick={()=>{handleFilterCategories(category.name)}}>{category.name}</Button></Col>
                                             )
                                         }
                                         </Row>
@@ -327,9 +327,9 @@ function ManageProducts({}) {
                                     <p className='me-1 m-0 text-white fw-semibold'>Specs</p>
                                     <Row className='gy-2 m-0'>
                                     {
-                                        specFilterOptions && Object.keys(specFilterOptions).map((spec) =>
+                                        specFilterOptions && Object.keys(specFilterOptions).map((spec,index) =>
                                         
-                                        <Col className='px-1'>
+                                        <Col className='px-1' key={`product-filter-spec-${index}`}>
                                             <Dropdown autoClose="outside">
                                                 <Dropdown.Toggle className={`w-100 d-flex align-items-center justify-content-between text-capitalize ${(filters.specs[spec] && filters.specs[spec].length) ? "bg-primary border-primary" : "bg-secondary"}`} style={{width: "6em"}} variant="secondary" id="dropdown-basic">
                                                     {specFilterOptions[spec].name}
@@ -338,8 +338,8 @@ function ManageProducts({}) {
                                                 <Dropdown.Menu className='p-0 rounded-2 overflow-hidden w-100 dropdown-select-menu' >
                                                     <Dropdown.Item className={`p-0 dropdown-select border-bottom border-dark`}><Button className='bg-transparent border-0 d-flex justify-content-between text-danger text-capitalize w-100' onClick={()=>{handleFilterSpecs(spec)}}> None </Button></Dropdown.Item>
                                                 {
-                                                    specFilterOptions[spec].availableValues.map((specValue) => 
-                                                    <Dropdown.Item className={`p-0 dropdown-select border-bottom border-dark ${(filters.specs[spec] && filters.specs[spec].includes(specValue)) ? "selected" : ""}`}><Button className='bg-transparent border-0 d-flex justify-content-between text-dark text-capitalize w-100' onClick={()=>{handleFilterSpecs(spec,specValue)}}>{specValue} <BsCheck className='dropdown-item-check d-none fs-4'/> </Button> </Dropdown.Item>
+                                                    specFilterOptions[spec].availableValues.map((specValue,index) => 
+                                                    <Dropdown.Item className={`p-0 dropdown-select border-bottom border-dark ${(filters.specs[spec] && filters.specs[spec].includes(specValue)) ? "selected" : ""}`} key={`product-filter-spec-value-${index}`}><Button className='bg-transparent border-0 d-flex justify-content-between text-dark text-capitalize w-100' onClick={()=>{handleFilterSpecs(spec,specValue)}}>{specValue} <BsCheck className='dropdown-item-check d-none fs-4'/> </Button> </Dropdown.Item>
                                                     )
                                                 }
                                                 </Dropdown.Menu>
@@ -591,7 +591,7 @@ function ManageProducts({}) {
                                                         <option  value="">--Select Category--</option>
                                                     {
                                                         productsInfo.categories ? productsInfo.categories.map((category) =>
-                                                        <option  value={category.name}>{category.name}</option>
+                                                        <option  value={category.name} key={`product-select-category-${category}`}>{category.name}</option>
                                                         )
                                                         : ""
                                                     }
@@ -609,7 +609,7 @@ function ManageProducts({}) {
                                                     {
                                                         productsInfo.categories.find((category) => category.name === productCategory).specs.map((spec) =>
                                                         
-                                                        <Col className='col-12 col-sm-6'>
+                                                        <Col className='col-12 col-sm-6' key={`product-edit-spec-${spec}`}>
                                                             <FloatingLabel controlId="" label={getCapitalized(spec.name)}>
                                                                 <Form.Control type="text" placeholder={spec.name} value={productSpecs[spec.code]} onChange={(e)=>{setProductSpecs(prev => ({...prev,[spec.code]:e.target.value}))}} />
                                                             </FloatingLabel>
@@ -691,7 +691,7 @@ function ManageProducts({}) {
                                 {
                                     productsInfo.categories.find((category) => category.name === productToShow.category).specs.map((spec) =>
                                     
-                                    <Col className='col-12 col-sm-6 px-3'>
+                                    <Col className='col-12 col-sm-6 px-3' key={`product-details-spec-${spec}`}>
                                         <Row className='h-100 border rounded-3 overflow-hidden'>
                                             <Col className="col-6 bg-light fw-semibold text-capitalize h-100 border-end p-2">{spec.name}</Col>
                                             <Col className="col-6 p-2">{productToShow.specs[spec.code] || "Not provided"}</Col>

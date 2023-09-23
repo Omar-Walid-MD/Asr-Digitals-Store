@@ -35,12 +35,10 @@ export const reviewsSlice = createSlice({
         },
         [getReviews.fulfilled]: (state, { payload }) => {
             state.loading = false
-            console.log("pending");
             state.reviews = payload;
         },
         [getReviews.rejected]: (state) => {
             state.loading = false;
-            console.log("rejected");
         },
 
         //addReview
@@ -53,7 +51,6 @@ export const reviewsSlice = createSlice({
         },
         [addReview.rejected]: (state) => {
             state.loading = false;
-            console.log("rejected");
         },
         
       },

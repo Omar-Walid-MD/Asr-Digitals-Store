@@ -55,12 +55,10 @@ export const offersSlice = createSlice({
         },
         [getOffers.fulfilled]: (state, { payload }) => {
             state.loading = false
-            console.log("pending");
             state.offers = payload;
         },
         [getOffers.rejected]: (state) => {
             state.loading = false;
-            console.log("rejected");
         },
 
         //addOffer
@@ -73,13 +71,11 @@ export const offersSlice = createSlice({
         },
         [addOffer.rejected]: (state) => {
             state.loading = false;
-            console.log("rejected");
         },
 
         //editOffer
         [editOffer.pending]: (state) => {
           state.loading = true;
-          console.log("pending edit")
         },
         [editOffer.fulfilled]: (state, { payload }) => {
             state.loading = false;
@@ -87,7 +83,6 @@ export const offersSlice = createSlice({
         },
         [editOffer.rejected]: (state) => {
             state.loading = false;
-            console.log("rejected");
         },
 
         //deleteOffer
@@ -100,7 +95,6 @@ export const offersSlice = createSlice({
         },
         [deleteOffer.rejected]: (state) => {
             state.loading = false;
-            console.log("rejected");
         },
 
         //setOfferStatus
@@ -109,12 +103,10 @@ export const offersSlice = createSlice({
         },
         [setOfferStatus.fulfilled]: (state, { payload }) => {
             state.loading = false
-            console.log(payload);
             state.offers = state.offers.map((offer) => offer.id===payload.id ? {...offer,status:payload.status} : offer);
         },
         [setOfferStatus.rejected]: (state) => {
             state.loading = false;
-            console.log("rejected");
         },
 
       },

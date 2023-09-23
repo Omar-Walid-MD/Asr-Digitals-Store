@@ -71,7 +71,7 @@ function PurchasesPage({}) {
                                             {
                                                 purchaseRecord.purchases.map((purchase) => (
 
-                                                <PurchaseCard purchase={purchase} className='border shadow-sm rounded-3 bg-white' />
+                                                <PurchaseCard key={`purchase-card-${purchase}`} purchase={purchase} className='border shadow-sm rounded-3 bg-white' />
                                                 ))
                                             }
                                         </Accordion.Body>

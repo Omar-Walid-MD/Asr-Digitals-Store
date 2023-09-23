@@ -21,8 +21,8 @@ function ProductInfoRow({product, showProduct, editProduct, deleteProduct}) {
                     <div>
                     {
                         product.specs &&
-                        Object.keys(product.specs).map((spec) =>
-                        <div className='d-inline-block rounded-pill border border-2 border-primary p-1 px-2 m-1 shadow-sm'>{product.specs[spec]}</div>
+                        Object.keys(product.specs).map((spec,index) =>
+                        <div className='d-inline-block rounded-pill border border-2 border-primary p-1 px-2 m-1 shadow-sm' key={`product-spec-${index}`}>{product.specs[spec]}</div>
                         
                         )
                     }

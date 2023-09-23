@@ -207,7 +207,6 @@ function Checkout({}) {
 
     useEffect(()=>{
         return ()=>{
-            console.log("clearedInterval");
             clearInterval(purchaseTimeout);
         };
     },[purchaseTimeout]);
@@ -444,7 +443,7 @@ function Checkout({}) {
                                                                     <Row className='g-2 g-sm-3 g-md-4'>
                                                                     {
                                                                         cart.map((product) =>(
-                                                                            <Col className='col-12'>
+                                                                            <Col className='col-12' key={`checkout-cart-overview-item-${product.id}`}>
                                                                                 <ProductCartItemOverview productId={product.productId} />
                                                                             </Col>                            
                                                                         ))

@@ -148,9 +148,9 @@ function Home({}) {
                 <Container className='d-flex align-items-center justify-content-center p-0 py-5 w-100'>
                     <Row className='gy-4 py-4 w-100 h-100 align-items-start'>
                     {
-                        whyChooseUs.map((w) => (
+                        whyChooseUs.map((w,index) => (
 
-                        <Col className='col-12 col-sm-6 col-lg-3 d-flex align-items-center justify-content-center posotion-relative px-2 px-md-3'>
+                        <Col className='col-12 col-sm-6 col-lg-3 d-flex align-items-center justify-content-center posotion-relative px-2 px-md-3' key={`wcu-${index}`}>
                             <div className="wcu-card w-100">
                                 <div className="d-flex align-items-center wcu-card-header bg-dark text-white p-3 position-relative shadow-sm">
                                     <div className="d-flex position-absolute wcu-card-icon bg-dark rounded-circle border border-4 border-white p-3">{w.icon}</div>
@@ -573,7 +573,7 @@ function Home({}) {
                                 <Nav variant='underline' className='branch-nav gap-0 d-flex justify-content-between' activeKey={branchSelect} onSelect={(eventKey)=>{setBranchSelect(eventKey)}}>
                                 {
                                     branches.map((branch,index)=>
-                                        <Nav.Item className='text-center'>
+                                        <Nav.Item className='text-center' key={`branch-link-${index}`}>
                                             <Nav.Link eventKey={`${index+1}`}>{branch.title}</Nav.Link>
                                         </Nav.Item>
                                     )
@@ -585,7 +585,7 @@ function Home({}) {
                                     {
                                         branches.map((branch,index)=>
 
-                                        <Carousel.Item style={{zIndex:"0"}}>
+                                        <Carousel.Item style={{zIndex:"0"}} key={`branch-slide-${index}`}>
                                             <div className='text-white p-2 shadow rounded-3'>
                                                 <div className="d-flex flex-column align-items-center align-items-lg-start flex-xl-row gap-2 justify-content-between gap-xl-5 w-100">
                                                     <div className="d-flex flex-column text-md-start text-center align-items-center align-items-lg-start gap-2">
@@ -621,7 +621,7 @@ function Home({}) {
                         {
                             faqs.map((faq, index) => (
 
-                            <Accordion.Item eventKey={index} className='border-0 rounded-3 mb-2 rounded-bottom overflow-hidden shadow'>
+                            <Accordion.Item key={`faq-${index}`} eventKey={index} className='border-0 rounded-3 mb-2 rounded-bottom overflow-hidden shadow'>
                                 <Accordion.Header className='px-4 py-3 rounded-top '><h5 className='m-0'>{faq.q}</h5></Accordion.Header>
                                 <Accordion.Body className='border-top border-2 rounded-bottom fs-5'>{faq.a}</Accordion.Body>
                             </Accordion.Item>

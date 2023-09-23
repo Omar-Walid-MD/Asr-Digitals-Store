@@ -153,13 +153,11 @@ function ManageOffers({}) {
         else
         {
             setValidationError("");
-            console.log(offerToEdit);
             let editedOffer = {...offerToEdit,...data, start: getDateString(data.start), end: getDateString(data.end)};
             dispatch(editOffer({offerId: offerToEdit.id,editedOffer: editedOffer}));
     
             let now = Date.now();
             let newStatus = data.start <= now ? data.end <= now ? "closed" : "running" : "upcoming";
-            // console.log(newStatus)
             if(newStatus !== offerToEdit.status) dispatch(setOfferStatus({offer:offerToEdit,status:newStatus}));
     
             reset();
@@ -216,7 +214,6 @@ function ManageOffers({}) {
         })
 
         filteredOffers = filteredOffers.sort((a,b)=>{
-            console.log(b.date);
             return b.date - a.date;
         });
              
@@ -428,7 +425,7 @@ function ManageOffers({}) {
                             {
                                 getProductResults().map((product) =>
                                 
-                                <Col as={Button} className='p-1 bg-transparent border-0' onClick={()=>{setTargetProduct(product); setValue("newPrice",product.price); setValue("start",new Date().toISOString().split('T')[0]); setValue("end",new Date(Date.now()+(1000*60*60*24*30)).toISOString().split('T')[0]);}}>
+                                <Col as={Button} className='p-1 bg-transparent border-0' key={`product-offer-result-${product.id}`} onClick={()=>{setTargetProduct(product); setValue("newPrice",product.price); setValue("start",new Date().toISOString().split('T')[0]); setValue("end",new Date(Date.now()+(1000*60*60*24*30)).toISOString().split('T')[0]);}}>
                                     <div className='p-3 rounded-3 shadow-sm border h-100 d-flex flex-column align-items-center text-dark'>
                                         <p>ID: {product.id}</p>
                                         <div className='rounded-2 overflow-hidden' style={{width:"min(10rem,30vw)"}}><img className='w-100' src={product.image} alt="" /></div>

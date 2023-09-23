@@ -38,13 +38,13 @@ function NavBar({}) {
         if(e.target.value.length < 3) {if(searchModal) setSearchModal(false);}
         else {if(!searchModal) setSearchModal(true);}
         e.target.focus();
-        console.log(e.target.value);
     }
 
     function getSearchResults()
     {
         if(searchValue.length<3) return [];
-        return products.filter((product) => product.title.toLowerCase().includes(searchValue.toLowerCase())).slice(0,4);
+        let results = products.filter((product) => product.title.toLowerCase().includes(searchValue.toLowerCase())).slice(0,4);
+        return results;
     }
 
     const [cartTotal, setCartTotal]  = useState(0);
@@ -98,10 +98,10 @@ function NavBar({}) {
                                         <div className="bg-white shadow navbar-dropdown ">
                                             <Link to={"/shop"} className='px-4 py-2  border-bottom d-flex justify-content-center text-decoration-none text-capitalize fw-semibold'>Explore!</Link>
                                             {
-                                                productsInfo.categoryGroups && Object.keys(productsInfo.categoryGroups).map((menuItem) => 
+                                                productsInfo.categoryGroups && Object.keys(productsInfo.categoryGroups).map((menuItem,index) => 
                                                 
 
-                                                <div className='d-flex justify-content-start justify-content-md-start position-relative navbar-dropdown-menu'>
+                                                <div className='d-flex justify-content-start justify-content-md-start position-relative navbar-dropdown-menu' key={`shop-group-link-${index}`}>
                                                     <div className='navbar-dropdown-button'>
                                                         <div className='px-3 py-2 gap-2 border-bottom d-flex align-items-center justify-content-end text-decoration-none text-capitalize fw-semibold'>
                                                             <BsCaretLeftFill className='d-none d-md-block' />  
@@ -113,8 +113,8 @@ function NavBar({}) {
                                                         <div className="bg-white shadow navbar-dropdown overflow-hidden">
 
                                                         {
-                                                            productsInfo.categoryGroups[menuItem].map((category) =>
-                                                            <Link to={`/shop?cat=${category}`} onClick={()=>{handleSearchModalClose();}} className='py-2 border-bottom d-flex align-items-center gap-2 justify-content-center text-decoration-none text-capitalize fw-semibold'> {category}s </Link>
+                                                            productsInfo.categoryGroups[menuItem].map((category,index) =>
+                                                            <Link to={`/shop?cat=${category}`} onClick={()=>{handleSearchModalClose();}} className='py-2 border-bottom d-flex align-items-center gap-2 justify-content-center text-decoration-none text-capitalize fw-semibold' key={`shop-category-link-${index}`}> {category}s </Link>
                                                             )
                                                         }
                                                         <Link to={`/shop?gr=${menuItem}`} onClick={()=>{handleSearchModalClose();}} className='py-2 border-bottom d-flex align-items-center gap-2 justify-content-center text-decoration-none text-capitalize fw-semibold'> All </Link>
@@ -201,7 +201,7 @@ function NavBar({}) {
                                 {
                                     
                                     getSearchResults().map((product) => 
-                                    <Col className='col-sm-4 col-md-3 p-1 px-sm-2'>
+                                    <Col className='col-sm-4 col-md-3 p-1 px-sm-2' key={`product-result-${product.id}`}>
                                         <ProductCard productObject={product} />
                                     </Col>
                                     )

@@ -68,28 +68,28 @@ function ProductCartItem({productObject,productId,className}) {
     },[offers,product])
 
     return (
-        <Card className={`h-100 position-relative product-cart-item shadow border border-1 rounded-2 ${className}`}>
+        <Card className={`h-100 p-3 position-relative product-cart-item shadow border border-1 rounded-2 ${className}`}>
             <div className='overflow-hidden'>
             {
                 product &&
                 <Card.Body className='p-0 position-relative rounded-0'>
                     <Row className='g-0'>
                         <Col className='col-6 col-sm-5 p-sm-0'>
-                            <Link to={`/product/${product.id}`} className='w-100 h-100 d-flex justify-content-center align-items-start align-items-md-center p-3'>
+                            <Link to={`/product/${product.id}`} className='w-100 h-100 d-flex justify-content-center align-items-start align-items-md-center pb-3 pb-sm-0 pe-3'>
                                 <div className='product-card-img position-relative overflow-hidden rounded-3' style={{width:"min(20rem,40vw)"}}>
                                     <img src={product.image} onError={onImgError} />
                                 </div>
                             </Link>
                         </Col>
-                        <Col className=" p-0">
-                            <div className='py-3 pe-3 d-flex flex-column gap-2 justify-content-start justify-content-sm-between h-100'>
+                        <Col className="p-0">
+                            <div className='d-flex flex-column justify-content-start justify-content-sm-between h-100'>
                                 <div>
-                                    <div className='d-flex align-items-start flex-column gap-1 ps-2'>
+                                    <div className='d-flex align-items-start flex-column gap-1'>
                                         <h2 className='m-0 product-cart-item-title'>{product.title}</h2>
                                         <div className="d-flex product-cart-item-rating">
                                         {
                                             [1,2,3,4,5].map((n)=>
-                                            <div className='position-relative'>
+                                            <div className='position-relative' key={`star-${n}`}>
                                                 <BsStarFill key={"pr-p-g-s-"+n} className={"text-dark d-flex justify-content-center"} />
                                                 <div style={{width: `${n <= product.rating ? 100 : n === Math.ceil(product.rating) ? product.rating % 1 * 100 : 0}%`}} className='position-absolute top-0 overflow-hidden'>
                                                     <BsStarFill key={"pr-p-g-s-"+n} className={"text-warning d-flex justify-content-center"} />
@@ -102,10 +102,10 @@ function ProductCartItem({productObject,productId,className}) {
                                             offerPrice ?
                                             <div className='mt-1 mb-2'>
                                                 <h6 className='m-0 price-old price-tag text-muted'>{product.price}</h6>
-                                                <h4 className='m-0 price-tag text-danger'>{offerPrice}</h4>
+                                                <h5 className='m-0 price-tag text-danger'>{offerPrice}</h5>
                                             </div>
                                             :
-                                            <h4 className='m-0 mt-1 mb-2 price-tag text-danger'>{product.price}</h4>
+                                            <h5 className='m-0 mt-1 mb-2 price-tag text-danger'>{product.price}</h5>
                                         }
                                     </div>
                                 </div>
@@ -122,7 +122,7 @@ function ProductCartItem({productObject,productId,className}) {
                                 </div>
                             </div>
                         </Col>
-                        <Col className='col-12 p-3 pt-0 product-card-item-small-col'>
+                        <Col className='col-12 product-card-item-small-col'>
                             <div className="d-flex flex-column align-items-center justify-content-between gap-2 w-100">
                                 <div className="d-flex flex-column align-items-center gap-2 w-100">
                                     <div className='d-flex justify-content-center w-100 product-cart-item-options'>
