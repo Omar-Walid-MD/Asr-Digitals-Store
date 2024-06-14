@@ -1,5 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from "axios";
+import { child, get, ref } from 'firebase/database';
+import { database } from '../../Firebase/firebase';
 
 const initialState = {
     products: [],
@@ -10,19 +12,49 @@ const initialState = {
 export const getProducts = createAsyncThunk(
   'products/getProducts',
   async () => {
-    const res = await fetch('http://localhost:8899/products').then(
-    (data) => data.json()
-  )
-  return res;
+    return [];
+    return await get(child(ref(database), "products")).then((snapshot) => {
+      if(snapshot.exists())
+      {
+        const productsObject = snapshot.val()
+        const productsList = Object.keys(productsObject).map((productId)=>({
+          ...productsObject[productId],
+          id: productId
+        }))
+        return productsList;
+      }
+  });
 });
 
 export const getProductsInfo = createAsyncThunk(
   'products/getProductsInfo',
   async () => {
-    const res = await fetch('http://localhost:8899/productsInfo').then(
-    (data) => data.json()
-  )
-  return res;
+    return await get(child(ref(database), "productsInfo")).then((snapshot) => {
+      if(snapshot.exists())
+      {
+        let productsInfoObject = snapshot.val();
+        productsInfoObject.categories = Object.keys(productsInfoObject.categories).map((categoryName)=>{
+
+          let specs = productsInfoObject.categories[categoryName].specs;
+          specs = Object.keys(specs).map((s)=>({
+            code: s,
+            name: specs[s]
+          }));
+
+          return {
+            ...productsInfoObject.categories[categoryName],
+            name: categoryName,
+            specs
+          }
+        });
+
+        Object.keys(productsInfoObject.categoryGroups).forEach((categoryGroup)=>{
+          productsInfoObject.categoryGroups[categoryGroup] = Object.keys(productsInfoObject.categoryGroups[categoryGroup]);
+        })
+        
+        return productsInfoObject;
+      }
+  });
 });
 
 export const addProduct = createAsyncThunk(
@@ -58,81 +90,86 @@ export const productsSlice = createSlice({
     name: "products",
     initialState,
     reducers: {},
-    extraReducers: {
-
+    extraReducers: (builder) => {
+        builder
         //getProducts
-        [getProducts.pending]: (state) => {
+        .addCase(getProducts.pending,(state) => {
             state.loading = true
-        },
-        [getProducts.fulfilled]: (state, { payload }) => {
+        })
+        .addCase(getProducts.fulfilled,(state, { payload }) => {
             state.loading = false
             state.products = payload;
-        },
-        [getProducts.rejected]: (state) => {
+        })
+        .addCase(getProducts.rejected,(state) => {
             state.loading = false;
-        },
+        })
+        
 
         //getProductsInfo
-        [getProductsInfo.pending]: (state) => {
+        .addCase(getProductsInfo.pending,(state) => {
           state.loading = true
-        },
-        [getProductsInfo.fulfilled]: (state, { payload }) => {
+        })
+        .addCase(getProductsInfo.fulfilled,(state, { payload }) => {
             state.loading = false
             state.productsInfo = payload;
-        },
-        [getProductsInfo.rejected]: (state) => {
+        })
+        .addCase(getProductsInfo.rejected,(state) => {
             state.loading = false;
-        },
+        })
+        
 
         //addProduct
-        [addProduct.pending]: (state) => {
+        .addCase(addProduct.pending,(state) => {
           state.loading = true
-        },
-        [addProduct.fulfilled]: (state, { payload }) => {
+        })
+        .addCase(addProduct.fulfilled,(state, { payload }) => {
             state.loading = false
             state.products = [...state.products,payload];
-        },
-        [addProduct.rejected]: (state) => {
+        })
+        .addCase(addProduct.rejected,(state) => {
             state.loading = false;
-        },
+        })
+        
 
         //editProduct
-        [editProduct.pending]: (state) => {
+        .addCase(editProduct.pending,(state) => {
           state.loading = true;
-        },
-        [editProduct.fulfilled]: (state, { payload }) => {
+        })
+        .addCase(editProduct.fulfilled,(state, { payload }) => {
             state.loading = false;
             state.products = state.products.map((product) => product.id===payload.id ? payload : product);
-        },
-        [editProduct.rejected]: (state) => {
+        })
+        .addCase(editProduct.rejected,(state) => {
             state.loading = false;
-        },
+        })
+        
 
         //deleteProduct
-        [deleteProduct.pending]: (state) => {
+        .addCase(deleteProduct.pending,(state) => {
           state.loading = true
-        },
-        [deleteProduct.fulfilled]: (state, { payload }) => {
+        })
+        .addCase(deleteProduct.fulfilled,(state, { payload }) => {
             state.loading = false;
             state.products = state.products.filter((product) => product.id!==payload);
-        },
-        [deleteProduct.rejected]: (state) => {
+        })
+        .addCase(deleteProduct.rejected,(state) => {
             state.loading = false;
-        },
+        })
+        
 
         //setProductRating
-        [setProductRating.pending]: (state) => {
+        .addCase(setProductRating.pending,(state) => {
           state.loading = true
-        },
-        [setProductRating.fulfilled]: (state, { payload }) => {
+        })
+        .addCase(setProductRating.fulfilled,(state, { payload }) => {
             state.loading = false
             state.products = state.products.map((product) => product.id===payload.id ? payload : product);
-        },
-        [setProductRating.rejected]: (state) => {
+        })
+        .addCase(setProductRating.rejected,(state) => {
             state.loading = false;
-        },
+        })
         
-      },
+      }
 });
 
 export default productsSlice.reducer;

@@ -44,6 +44,7 @@ function ManageProducts({}) {
     const [filteredProducts,setFilteredProducts] = useState(products);
     const [sort,setSort] = useState({type: "id",order: "asc"});
     const [formAccordKey,setFormAccordKey] = useState("0");
+    const [resultsCount,setResultsCount] = useState(50);
 
     const { register, handleSubmit, reset, formState: { errors }, setValue } = useForm({ resolver: yupResolver(schema) });
     
@@ -409,10 +410,11 @@ function ManageProducts({}) {
                     </Row>
                     <div className="d-flex flex-column w-100 gap-1 pb-5">
                     {
-                        filteredProducts && filteredProducts.map((product) =>
+                        filteredProducts && filteredProducts.slice(0,resultsCount).map((product) =>
                         <ProductInfoRow product={product} showProduct={showProduct} editProduct={startEditProduct}  deleteProduct={startDeleteProduct} />
                         )
                     }
+                    {filteredProducts && resultsCount < filteredProducts.length ? <Col className='col-12 my-2'><Button variant='dark' className='btn-dark w-100' onClick={()=>setResultsCount(c => c+50)}>Load More</Button></Col> : ""}
                     </div>
                 </div>
             </div>

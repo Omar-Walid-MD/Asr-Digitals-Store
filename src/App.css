@@ -6,9 +6,19 @@
 
 }
 
-html
+html[font="small"]
 {
-  font-size: 10pt;
+  font-size: 9pt;
+}
+
+html[font="medium"]
+{
+  font-size: 10.5pt;
+}
+
+html[font="large"]
+{
+  font-size: 12pt;
 }
 
 /* GENERAL */
@@ -860,10 +870,6 @@ input
 
 /* SHOPPING PAGE */
 
-.shopping-filter-column
-{
-  width: 100%;
-}
 .shopping-category-link
 {
   transition: scale 0.2s ease-out;
@@ -1904,11 +1910,6 @@ input
   .product-card-price
   {
     font-size: 1.6em;
-  }
-
-  .shopping-filter-column
-  {
-    width: 400px !important;
   }
 
   .w-md-auto {width: auto !important;}

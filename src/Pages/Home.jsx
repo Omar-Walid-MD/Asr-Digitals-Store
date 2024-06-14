@@ -107,10 +107,23 @@ function Home({}) {
         }
     ]
 
+    function getShownProducts()
+    {
+        let productList = []
+        for (let i = 0; i < 20; i++)
+        {
+            let product;
+            do
+            {
+                product = products[Math.floor(Math.random()*products.length)]
+            } while (productList.includes(product));
+            productList.push(product)
+        }
+        return productList;
+    }
+
    useEffect(()=>{
-    if(products.length) setShownProducts(Array.from({length:20}).map((x,i)=>{
-        return products[Math.floor(Math.random()*products.length)]
-    }))
+    if(products.length) setShownProducts(getShownProducts())
    },[products])
 
     return (

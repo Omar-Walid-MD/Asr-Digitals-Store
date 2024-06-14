@@ -28,6 +28,7 @@ function ManagePurchases({}) {
     };
     const [filters,setFilters] = useState(initialFilters);
     const [filteredPurchases,setFilteredPurchases] = useState(purchases);
+    const [resultsCount,setResultsCount] = useState(50);
 
     function handleFilterSearch(e)
     {
@@ -241,13 +242,14 @@ function ManagePurchases({}) {
             </Accordion> 
             <div className='pt-2 d-flex flex-column gap-3 w-100'>
             {
-                purchases.length ? filteredPurchases.map((purchase) => (
+                purchases.length ? filteredPurchases.slice(0,resultsCount).map((purchase) => (
 
                 <PurchaseCard key={`purchase-card-${purchase.id}`} purchase={purchase} className='bg-white border rounded-md-3  shadow-sm' />
                 ))
                 :
                 ""
             }
+            {filteredPurchases && resultsCount < filteredPurchases.length ? <Col className='col-12 my-2'><Button variant='dark' className='btn-dark w-100' onClick={()=>setResultsCount(c => c+50)}>Load More</Button></Col> : ""}
             </div>
         </div>
     );

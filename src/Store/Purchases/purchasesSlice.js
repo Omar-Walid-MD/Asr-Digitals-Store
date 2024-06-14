@@ -39,59 +39,62 @@ export const purchasesSlice = createSlice({
     name: "purchases",
     initialState,
     reducers: {},
-    extraReducers: {
-
+    extraReducers: (builder) => {
+        builder
         //getPurchases
-        [getPurchases.pending]: (state) => {
+        .addCase(getPurchases.pending,(state) => {
             state.loading = true
-        },
-        [getPurchases.fulfilled]: (state, { payload }) => {
+        })
+        .addCase(getPurchases.fulfilled,(state, { payload }) => {
             state.loading = false
             state.purchases = payload;
-        },
-        [getPurchases.rejected]: (state) => {
+        })
+        .addCase(getPurchases.rejected,(state) => {
             state.loading = false;
-        },
+        })
+       
 
         //addPurchase
-        [addPurchase.pending]: (state) => {
-          state.loading = true;
-          state.purchaseSuccess = false;
-        },
-        [addPurchase.fulfilled]: (state, { payload }) => {
+        .addCase(addPurchase.pending,(state) => {
+            state.loading = true;
+            state.purchaseSuccess = false;
+        })
+        .addCase(addPurchase.fulfilled,(state, { payload }) => {
             state.loading = false
             state.purchases = [...state.purchases,payload];
             state.purchaseSuccess = true;
-        },
-        [addPurchase.rejected]: (state) => {
+        })
+		.addCase(addPurchase.rejected,(state) => {
             state.loading = false;
-        },
+        })
+
 
         //setPurchaseStatus
-        [setPurchaseStatus.pending]: (state) => {
-          state.loading = true;
-        },
-        [setPurchaseStatus.fulfilled]: (state, { payload }) => {
+		.addCase(setPurchaseStatus.pending,(state) => {
+			state.loading = true;
+		})
+        .addCase(setPurchaseStatus.fulfilled,(state, { payload }) => {
             state.loading = false
             state.purchases = state.purchases.map((purchase) => purchase.id===payload.id ? {...purchase,status:payload.status} : purchase);
-        },
-        [setPurchaseStatus.rejected]: (state) => {
+        })
+        .addCase(setPurchaseStatus.rejected,(state) => {
             state.loading = false;
-        },
+        })
 
+		
         //resetPurchaseLoading
-        [resetPurchaseLoading.pending]: (state) => {
-          state.loading = true;
-          state.purchaseSuccess = false;
-        },
-        [resetPurchaseLoading.fulfilled]: (state) => {
+		.addCase(resetPurchaseLoading.pending,(state) => {
+			state.loading = true;
+			state.purchaseSuccess = false;
+		})
+        .addCase(resetPurchaseLoading.fulfilled,(state) => {
             state.loading = false
-        },
-        [resetPurchaseLoading.rejected]: (state) => {
+        })
+        .addCase(resetPurchaseLoading.rejected,(state) => {
             state.loading = false;
-        },
+        })
         
-      },
+      }
 });
 
 

@@ -20,22 +20,22 @@ export const previewStatsSlice = createSlice({
     name: "previewStats",
     initialState,
     reducers: {},
-    extraReducers: {
-
+    extraReducers: (builder) => {
+        builder
         //getPreviewStats
-        [getPreviewStats.pending]: (state) => {
+        .addCase(getPreviewStats.pending,(state) => {
             state.loading = true;
-        },
-        [getPreviewStats.fulfilled]: (state, { payload }) => {
+        })
+        .addCase(getPreviewStats.fulfilled,(state, { payload }) => {
             state.loading = false;
             state.previewStats = payload;
             state.loaded = true;
-        },
-        [getPreviewStats.rejected]: (state) => {
+        })
+        .addCase(getPreviewStats.rejected,(state) => {
             state.loading = false;
-        },
+        })
         
-      },
+      }
 });
 
 export default previewStatsSlice.reducer;

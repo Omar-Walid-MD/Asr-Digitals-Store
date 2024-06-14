@@ -162,8 +162,8 @@ function Shop({products=[],searchParams}) {
 
             <hr className='border-3 mb-4' />
             <div>
-                <div className='d-flex m-0 pb-4 flex-column flex-md-row' >
-                    <div className='d-flex flex-column align-items-start px-1 px-sm-0 px-lg-2 z-1 shopping-filter-column'>
+                <Row className='m-0 pb-4 gy-3 gx-0 gy-md-0 gx-md-3' >
+                    <Col className='col-12 col-md-4 col-lg-3 d-flex flex-column align-items-start shopping-filter-column'>
                         <Accordion alwaysOpen className='shop-filter-accordion w-100 shadow'>
 
                             <Accordion.Item eventKey="0" className='border-0 bg-light'>
@@ -295,8 +295,8 @@ function Shop({products=[],searchParams}) {
                             
                         </Accordion>
                         
-                    </div>
-                    <div className='p-0 ps-md-2 px-lg-1'>
+                    </Col>
+                    <Col className='col-12 col-md-8 col-lg-9'>
                     {
                         filteredProducts.length ?
                         <>
@@ -333,9 +333,9 @@ function Shop({products=[],searchParams}) {
                             </Row>
                         </>
                     }
-                    </div>
+                    </Col>
                     
-                </div>
+                </Row>
             </div>
         </div>
     );

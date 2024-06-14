@@ -8,11 +8,13 @@ import { BsCaretLeft, BsCaretLeftFill, BsCaretRightFill, BsFillCartFill, BsFillP
 import { Button, Col, Dropdown, DropdownButton, Modal, Row, Spinner } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCurrentUser, logoutUser } from '../Store/Auth/auth';
-import { getCartTotalCount } from '../helpers';
+import { getCartTotalCount, throttle } from '../helpers';
 import ProductCard from '../Components/ProductCard';
 import { MdDashboard } from "react-icons/md";
+import { RiFontSize } from 'react-icons/ri';
 
 import i18next from "i18next";
+import { setFontSize } from '../Store/Settings/settingsSlice';
 
 function NavBar({}) {
 
@@ -23,6 +25,7 @@ function NavBar({}) {
     const products = useSelector((store) => store.products.products);
     const cart = useSelector((store) => store.cart.cart);
     const productsInfo = useSelector((store) => store.products.productsInfo);
+    const fontSize = useSelector((store) => store.settings.fontSize);
 
     const [searchModal,setSearchModal] = useState(false);
     const handleSearchModalShow = () => setSearchModal(true);
@@ -34,6 +37,7 @@ function NavBar({}) {
 
     function handleSearch(e)
     {
+        console.log(e.target.value)
         setSearchValue(e.target.value);
         if(e.target.value.length < 3) {if(searchModal) setSearchModal(false);}
         else {if(!searchModal) setSearchModal(true);}
@@ -52,6 +56,22 @@ function NavBar({}) {
     function linkActive(pathname)
     {
         return `/${pathname}`===location.pathname ? "active" : "";
+    }
+
+    function toggleFontSize()
+    {
+        if(fontSize===""||fontSize==="small")
+        {
+            dispatch(setFontSize("medium"));
+        }
+        else if(fontSize==="medium")
+        {
+            dispatch(setFontSize("large"));
+        }
+        else if(fontSize==="large")
+        {
+            dispatch(setFontSize("small"));
+        }
     }
 
 
@@ -76,7 +96,7 @@ function NavBar({}) {
                 <div className="w-0 w-lg-50 align-items-center justify-content-start d-none d-sm-flex search-container pe-sm-4 pe-md-0">
                     <div className="w-100 d-flex align-items-center border border-2 border-secondary rounded-2 overflow-hidden" style={{height:"2.25rem"}}>
                         <BsSearch className='bg-secondary fs-1 p-2 text-white h-100' />
-                        <input type='search' placeholder='Look for products...' className='w-100 border-0 p-1 ps-2' value={searchValue} onChange={handleSearch} />
+                        <input type='search' placeholder='Look for products...' className='w-100 border-0 p-1 ps-2' value={searchValue} onChange={(e)=>throttle(handleSearch(e),100)} />
                     </div>
                 </div>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" className='border-0 shadow-none' />
@@ -85,11 +105,11 @@ function NavBar({}) {
                         <div className="d-flex w-100 d-sm-none align-items-stretch justify-content-center ">
                             <div className="w-100 d-flex align-items-center border border-2 border-secondary rounded-2 overflow-hidden" style={{height:"2.25rem"}}>
                                 <BsSearch className='bg-secondary fs-1 p-2 text-white h-100' />
-                                <input type='search' placeholder='Look for products' className='w-100 border-0 p-1 ps-2' value={searchValue} onChange={handleSearch} />
+                                <input type='search' placeholder='Look for products' className='w-100 border-0 p-1 ps-2' value={searchValue} onChange={(e)=>throttle(handleSearch(e),100)} />
                             </div>
                         </div>
                         <div className={`d-flex align-items-stretch gap-md-2 gap-lg-3 ${loggedInState==="no" ? "flex-column-reverse gap-sm-3" : "navbar-small-gap  gap-sm-4"} flex-sm-row`}>
-                            <div className="d-flex align-items-stretch navbar-small-gap gap-sm-4 gap-md-2">
+                            <div className="d-flex align-items-stretch justify-content-center navbar-small-gap gap-sm-4 gap-md-2">
                                 <div className='d-flex align-items-stretch justify-content-center navbar-dropdown-menu'>
                                     <div className={`position-relative navbar-dropdown-button d-flex align-items-center navbar-link ${linkActive("shop")}`}>
                                         <Nav.Link className={`  `}>Shop</Nav.Link>
@@ -143,7 +163,7 @@ function NavBar({}) {
                                     </div>
                                 </Nav.Link>
                             </div>
-                            <div className='d-flex align-self-stretch mt-2 mt-sm-0 justify-content-center'>
+                            <div className='d-flex align-self-stretch mt-2 mt-sm-0 justify-content-center gap-2'>
                             {
                                 !authLoading ?
                                 loggedInState==="no" ?
@@ -175,7 +195,13 @@ function NavBar({}) {
                                     <Spinner />
                                 </div>
                             }
+                            {/* <div className='d-flex align-items-center justify-content-center'> */}
+                                <Button variant='transparent p-0' onClick={()=>{toggleFontSize();}}>
+                                    <RiFontSize fontSize={"1.25rem"} />
+                                </Button>
+                            {/* </div> */}
                             </div>
+                            
                         </div>
                     </Nav>
                 </Navbar.Collapse>

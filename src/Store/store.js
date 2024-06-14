@@ -7,6 +7,7 @@ import reviewsReducer from './Reviews/reviewsSlice';
 import purchasesReducer from './Purchases/purchasesSlice';
 import offersReducer from './Offers/offers';
 import previewStatsReducer from './PreviewStats/previewStats';
+import settingsReducer from './Settings/settingsSlice';
 
 export default configureStore({
   reducer: {
@@ -17,6 +18,7 @@ export default configureStore({
     reviews: reviewsReducer,
     purchases: purchasesReducer,
     offers: offersReducer,
-    previewStats: previewStatsReducer
+    previewStats: previewStatsReducer,
+    settings: settingsReducer
   },
 })

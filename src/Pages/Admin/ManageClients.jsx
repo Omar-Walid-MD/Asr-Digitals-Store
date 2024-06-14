@@ -6,7 +6,7 @@ import { BsFillPersonFill } from 'react-icons/bs';
 import { PiUsersThreeFill } from "react-icons/pi";
 import ProductCartItemOverview from '../../Components/ProductCartOverViewItem';
 import PurchaseCard from '../../Components/PurchaseCard';
-import { getCapitalized } from '../../helpers';
+import { getCapitalized, throttle } from '../../helpers';
 
 function ManageClients({}) {
 
@@ -16,6 +16,7 @@ function ManageClients({}) {
     const initialFilters = {generalSearch:"",userId:"",email:"",username:"",name:"",phone:"",address:""}
     const [filters,setFilters] = useState(initialFilters);
     const [filteredUsers,setFilteredUsers] = useState(users);
+    const [resultsCount,setResultsCount] = useState(50);
 
     function handleFilterSearch(e)
     {
@@ -71,13 +72,13 @@ function ManageClients({}) {
                             <div className='d-flex flex-column w-100  gap-2 align-items-start'>
                                 <h5 className='me-1 m-0 text-white'>Search</h5>
                                 <Row className='g-1 w-100'>
-                                    <Col className='col-12 col-md-6 p-1'><Form.Control type="search" placeholder="Search by General" name='generalSearch'  value={filters.generalSearch} onChange={handleFilterSearch} /></Col>
-                                    <Col className='col-12 col-sm-6 col-md-3 p-1'><Form.Control type="search" placeholder="Search by ID" name='userId' value={filters.userId} onChange={handleFilterSearch} /></Col>
-                                    <Col className='col-12 col-sm-6 col-md-3 p-1'><Form.Control type="search" placeholder="Search by Email" name='email'  value={filters.email} onChange={handleFilterSearch} /></Col>
-                                    <Col className='col-12 col-sm-6 col-md-3 p-1'><Form.Control type="search" placeholder="Search by Username" name='username'  value={filters.username} onChange={handleFilterSearch} /></Col>
-                                    <Col className='col-12 col-sm-6 col-md-3 p-1'><Form.Control type="search" placeholder="Search by Name" name='name'  value={filters.name} onChange={handleFilterSearch} /></Col>
-                                    <Col className='col-12 col-sm-6 col-md-3 p-1'><Form.Control type="search" placeholder="Search by Phone" name='phone'  value={filters.phone} onChange={handleFilterSearch} /></Col>
-                                    <Col className='col-12 col-sm-6 col-md-3 p-1'><Form.Control type="search" placeholder="Search by Address" name='address'  value={filters.address} onChange={handleFilterSearch} /></Col>
+                                    <Col className='col-12 col-md-6 p-1'><Form.Control type="search" placeholder="Search by General" name='generalSearch'  value={filters.generalSearch} onChange={(e)=>throttle(handleFilterSearch(e),1000)} /></Col>
+                                    <Col className='col-12 col-sm-6 col-md-3 p-1'><Form.Control type="search" placeholder="Search by ID" name='userId' value={filters.userId} onChange={(e)=>throttle(handleFilterSearch(e),1000)} /></Col>
+                                    <Col className='col-12 col-sm-6 col-md-3 p-1'><Form.Control type="search" placeholder="Search by Email" name='email'  value={filters.email} onChange={(e)=>throttle(handleFilterSearch(e),1000)} /></Col>
+                                    <Col className='col-12 col-sm-6 col-md-3 p-1'><Form.Control type="search" placeholder="Search by Username" name='username'  value={filters.username} onChange={(e)=>throttle(handleFilterSearch(e),1000)} /></Col>
+                                    <Col className='col-12 col-sm-6 col-md-3 p-1'><Form.Control type="search" placeholder="Search by Name" name='name'  value={filters.name} onChange={(e)=>throttle(handleFilterSearch(e),1000)} /></Col>
+                                    <Col className='col-12 col-sm-6 col-md-3 p-1'><Form.Control type="search" placeholder="Search by Phone" name='phone'  value={filters.phone} onChange={(e)=>throttle(handleFilterSearch(e),1000)} /></Col>
+                                    <Col className='col-12 col-sm-6 col-md-3 p-1'><Form.Control type="search" placeholder="Search by Address" name='address'  value={filters.address} onChange={(e)=>throttle(handleFilterSearch(e),1000)} /></Col>
 
 
                                 </Row>
@@ -89,7 +90,7 @@ function ManageClients({}) {
             </Accordion>
             <div className='p-0 py-2 d-flex flex-column gap-2 w-100'>
             {
-                filteredUsers.map((user) =>
+                filteredUsers.slice(0,resultsCount).map((user) =>
                 <div className='bg-white border rounded-md-3 p-3 shadow-sm d-flex flex-column align-items-start gap-3 w-100' key={`user-card-${user.id}`}>
                     <div className='d-flex flex-column flex-lg-row align-items-start gap-3 w-100'>
                         <div>
@@ -231,6 +232,7 @@ function ManageClients({}) {
                 </div>
                 )
             }
+            {filteredUsers && resultsCount < filteredUsers.length ? <Col className='col-12 my-2'><Button variant='dark' className='btn-dark w-100' onClick={()=>setResultsCount(c => c+50)}>Load More</Button></Col> : ""}
             </div>
         </div>
     );

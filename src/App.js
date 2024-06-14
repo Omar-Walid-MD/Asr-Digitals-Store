@@ -1,9 +1,5 @@
-import logo from './logo.svg';
 import './App.css';
 import { Outlet } from 'react-router';
-import NavBar from './Layout/NavBar';
-import Footer from './Layout/Footer';
-import CartSideBar from './Layout/CartSideBar';
 import { useDispatch, useSelector } from 'react-redux';
 import { editUser, getCurrentUser, getUsers } from './Store/Auth/auth';
 import { useEffect, useState } from 'react';
@@ -16,7 +12,8 @@ import { editOffer, getOffers, setOfferStatus } from './Store/Offers/offers';
 import ScrollToTop from './Layout/ScrollToTop';
 import { generateRandomOffers, generateRandomPurchases, generateRandomReviews, getRating, makeIdWithChars, makeUniqueId, refreshOffers, refreshPurchases } from './helpers';
 import { getPreviewStats } from './Store/PreviewStats/previewStats';
-
+import { getFontSize } from './Store/Settings/settingsSlice';
+//ykl5VLeGYBaxWfiQ
 function App() {
 
   const dispatch = useDispatch();
@@ -41,6 +38,7 @@ function App() {
     dispatch(getPurchases());
     dispatch(getOffers());
     dispatch(getPreviewStats());
+    dispatch(getFontSize());
   },[]);
   
   useEffect(()=>{

@@ -27,33 +27,34 @@ export const reviewsSlice = createSlice({
     name: "reviews",
     initialState,
     reducers: {},
-    extraReducers: {
-
+    extraReducers: (builder) => {
+        builder
         //getReviews
-        [getReviews.pending]: (state) => {
+        .addCase(getReviews.pending,(state) => {
             state.loading = true
-        },
-        [getReviews.fulfilled]: (state, { payload }) => {
+        })
+        .addCase(getReviews.fulfilled,(state, { payload }) => {
             state.loading = false
             state.reviews = payload;
-        },
-        [getReviews.rejected]: (state) => {
+        })
+        .addCase(getReviews.rejected,(state) => {
             state.loading = false;
-        },
+        })
+        
 
         //addReview
-        [addReview.pending]: (state) => {
+        .addCase(addReview.pending,(state) => {
             state.loading = true
-        },
-        [addReview.fulfilled]: (state, { payload }) => {
+        })
+        .addCase(addReview.fulfilled,(state, { payload }) => {
             state.loading = false
             state.reviews = [...state.reviews,payload];
-        },
-        [addReview.rejected]: (state) => {
+        })
+        .addCase(addReview.rejected,(state) => {
             state.loading = false;
-        },
+        })
         
-      },
+      }
 });
 
 export default reviewsSlice.reducer;

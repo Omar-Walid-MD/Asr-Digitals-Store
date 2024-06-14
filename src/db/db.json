@@ -11,12 +11,20 @@
       "city": "Al-Madinah",
       "address": "Al- Awali Abo Zoaib Al-Hazly 3530",
       "zipcode": "42221",
-      "creditCardNo": 3134343,
+      "creditCardNo": "31343434545",
       "street": "",
       "role": "client",
       "cart": [
         {
           "productId": "79424",
+          "count": 1
+        },
+        {
+          "productId": "72112",
+          "count": 1
+        },
+        {
+          "productId": "19367",
           "count": 1
         }
       ],
@@ -54,22 +62,10 @@
       "zipcode": "42221",
       "creditCardNo": "1",
       "street": "43 Street",
-      "cart": [
-        {
-          "productId": "59166",
-          "count": 1
-        },
-        {
-          "productId": "48135",
-          "count": 1
-        },
-        {
-          "productId": "37256",
-          "count": 1
-        }
-      ],
+      "cart": [],
       "favorites": [
-        "96693"
+        "96693",
+        "69555"
       ],
       "role": "admin",
       "id": 3
@@ -6644,7 +6640,7 @@
         "keyType": "Membrane",
         "keysNumber": "68"
       },
-      "rating": 3.2,
+      "rating": 3.3,
       "image": "https://i.imgur.com/6Sbggef.png",
       "date": 1692062764878
     },
@@ -18643,6 +18639,17 @@
       "userId": 0,
       "date": 1695301320750,
       "id": "-RyKbOT"
+    },
+    {
+      "cons": "",
+      "pros": "Very good",
+      "rating": 4,
+      "body": "Liked it",
+      "title": "Good",
+      "productId": "11759",
+      "userId": 3,
+      "date": 1695474728808,
+      "id": "b7lMQSa"
     }
   ],
   "purchases": [
@@ -39850,6 +39857,126 @@
       "status": "success",
       "userId": "73421837",
       "id": "71653845"
+    },
+    {
+      "total": 20935,
+      "subtotal": 20800,
+      "deliveryFees": 135,
+      "order": [
+        {
+          "itemId": "65296",
+          "count": 6,
+          "price": 2800
+        },
+        {
+          "itemId": "48135",
+          "count": 1,
+          "price": 4000
+        }
+      ],
+      "orderCount": 7,
+      "details": {
+        "firstName": "Omar",
+        "lastName": "Diab",
+        "email": "omar.madinah49@yahoo.com",
+        "phone": "+966560917203",
+        "dateOfBirth": "2023-09-18",
+        "city": "Al-Madinah",
+        "address": "Al- Awali Abo Zoaib Al-Hazly 3530",
+        "street": "A",
+        "zipcode": "42221",
+        "creditCardNo": 45454,
+        "creditCardPin": 545,
+        "creditCardExp": {
+          "creditCardExpYear": 23,
+          "creditCardExpMonth": 1
+        }
+      },
+      "estimatedDeliveryHours": 22,
+      "status": "success",
+      "userId": "0",
+      "date": 1695474368177,
+      "id": "jUryJwh"
+    },
+    {
+      "total": 52320,
+      "subtotal": 52000,
+      "deliveryFees": 320,
+      "order": [
+        {
+          "itemId": "37256",
+          "count": 1,
+          "price": 1000
+        },
+        {
+          "itemId": "57919",
+          "count": 10,
+          "price": 5100
+        }
+      ],
+      "orderCount": 11,
+      "details": {
+        "firstName": "Omar",
+        "lastName": "Diab",
+        "email": "admin@admin.com",
+        "phone": "+966560917203",
+        "dateOfBirth": "2023-08-21",
+        "city": "Alexandria",
+        "address": "Al- Awali Abo Zoaib Al-Hazly 3530",
+        "street": "43 Street",
+        "zipcode": "42221",
+        "creditCardNo": 1757,
+        "creditCardPin": 75757,
+        "creditCardExp": {
+          "creditCardExpYear": 23,
+          "creditCardExpMonth": 1
+        }
+      },
+      "estimatedDeliveryHours": 54,
+      "status": "success",
+      "userId": 3,
+      "date": 1697003326905,
+      "id": "R7R50fC"
+    },
+    {
+      "total": 3330,
+      "subtotal": 3240,
+      "deliveryFees": 90,
+      "order": [
+        {
+          "itemId": "39513",
+          "count": 1,
+          "price": 240
+        },
+        {
+          "itemId": "69555",
+          "count": 3,
+          "price": 1000
+        }
+      ],
+      "orderCount": 4,
+      "details": {
+        "firstName": "Omar",
+        "lastName": "Diab",
+        "email": "admin@admin.com",
+        "phone": "+966560917203",
+        "dateOfBirth": "2023-08-21",
+        "city": "Alexandria",
+        "address": "Al- Awali Abo Zoaib Al-Hazly 3530",
+        "street": "43 Street",
+        "zipcode": "42221",
+        "creditCardNo": 1,
+        "creditCardPin": 1,
+        "creditCardExp": {
+          "creditCardExpYear": 23,
+          "creditCardExpMonth": 1
+        }
+      },
+      "estimatedDeliveryHours": 6,
+      "status": "success",
+      "userId": 3,
+      "date": 1710449522149,
+      "id": "9ZXn4lW"
     }
   ],
   "offers": [
@@ -40769,6 +40896,24 @@
       "productId": "22238",
       "date": 1692554066628,
       "id": "37639",
+      "status": "running"
+    },
+    {
+      "end": "2023-10-23",
+      "start": "2023-09-23",
+      "newPrice": 2000,
+      "productId": "18565",
+      "date": 1695474633699,
+      "id": "97531",
+      "status": "running"
+    },
+    {
+      "end": "2023-11-10",
+      "start": "2023-10-11",
+      "newPrice": 4500,
+      "productId": "28378",
+      "date": 1697003583781,
+      "id": "23735",
       "status": "running"
     }
   ],

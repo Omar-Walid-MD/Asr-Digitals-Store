@@ -8,6 +8,8 @@ const initialState = {
     loggedInState: "loading"
 }
 
+
+//done
 export const getUsers = createAsyncThunk(
   'auth/getUsers',
   async () => {
@@ -17,6 +19,8 @@ export const getUsers = createAsyncThunk(
   return res
 });
 
+
+//done not tested
 export const registerUser = createAsyncThunk(
   'auth/registerUser',
   async (newUser) => {
@@ -41,7 +45,6 @@ export const registerUser = createAsyncThunk(
         return newUserRes;
       }
 });
-
 
 export const loginUser = createAsyncThunk(
   'auth/loginUser',
@@ -69,7 +72,7 @@ export const loginUser = createAsyncThunk(
 
 });
 
-
+//done
 export const getCurrentUser = createAsyncThunk(
   'auth/getCurrentUser',
   async () => {
@@ -115,122 +118,122 @@ export const authSlice = createSlice({
     name: "auth",
     initialState,
     reducers: {},
-    extraReducers: {
+    extraReducers: (builder) => {
 
         //getUsers
-        [getUsers.pending]: (state) => {
-          state.loading = true
-        },
-        [getUsers.fulfilled]: (state, { payload }) => {
-          state.loading = false
+        builder
+        .addCase(getUsers.pending,(state) => {
+          state.loading = true;
+        })
+        .addCase(getUsers.fulfilled,(state, { payload }) => {
+          state.loading = false;
           state.users = payload;
-        },
-        [getUsers.rejected]: (state) => {
+        })
+        .addCase(getUsers.rejected,(state) => {
           state.loading = false;
           
-        },
+        })
 
 
         //registerUser
-        [registerUser.pending]: (state) => {
-            state.loading = true
-        },
-        [registerUser.fulfilled]: (state, { payload }) => {
-            state.loading = false;
-            state.users = [...state.users,payload];
-            state.currentUser = payload;
-            state.loggedInState = "yes";
-        },
-        [registerUser.rejected]: (state) => {
-            state.loading = false
-            
-        },
+        .addCase(registerUser.pending,(state) => {
+          state.loading = true;
+        })
+        .addCase(registerUser.fulfilled,(state, { payload }) => {
+          state.loading = false;
+          state.users = [...state.users,payload];
+          state.currentUser = payload;
+          state.loggedInState = "yes";
+        })
+        .addCase(registerUser.rejected,(state) => {
+          state.loading = false;
+          
+        })
 
 
         //loginUser
-        [loginUser.pending]: (state) => {
-          state.loading = true
-          state.loggedInState = "pending"
-        },
-        [loginUser.fulfilled]: (state, { payload }) => {
-            state.loading = false
-            state.currentUser = payload;
-            state.loggedInState = "yes";
-          },
-        [loginUser.rejected]: (state) => {
-            state.loading = false
-            
-        },
+        .addCase(loginUser.pending,(state) => {
+          state.loading = true;
+          state.loggedInState = "pending";
+        })
+        .addCase(loginUser.fulfilled,(state, { payload }) => {
+          state.loading = false;
+          state.currentUser = payload;
+          state.loggedInState = "yes";
+        })
+        .addCase(loginUser.rejected,(state) => {
+          state.loading = false;
+        })
+        
 
         //getCurrentUser
-        [getCurrentUser.pending]: (state) => {
-          state.loading = true
-          state.loggedInState = "pending"
-        },
-        [getCurrentUser.fulfilled]: (state, { payload }) => {
+        .addCase(getCurrentUser.pending,(state) => {
+          state.loading = true;
+          state.loggedInState = "pending";
+        })
+        .addCase(getCurrentUser.fulfilled,(state, { payload }) => {
           if(payload)
           {
             state.loggedInState = "yes";
           }
           else
           {
-            state.loggedInState = "no"
+            state.loggedInState = "no";
           }
 
           state.currentUser = payload;
           state.loading = false;
-          },
-        [getCurrentUser.rejected]: (state) => {
-            state.loading = false
-            
-        },
+        })
+        .addCase(getCurrentUser.rejected,(state) => {
+          state.loading = false;
+        })
 
 
         //logoutUser
-        [logoutUser.pending]: (state) => {
-          state.loading = true
+        .addCase(logoutUser.pending,(state) => {
+          state.loading = true;
           state.loggedInState = "pending";
-        },
-        [logoutUser.fulfilled]: (state) => {
-            state.loading = false
-            state.currentUser = null;
-            state.loggedInState = "no";
-          },
-        [logoutUser.rejected]: (state) => {
-            state.loading = false
-            
-        },
+        })
+        .addCase(logoutUser.fulfilled,(state) => {
+          state.loading = false;
+          state.currentUser = null;
+          state.loggedInState = "no";
+        })
+        .addCase(logoutUser.rejected,(state) => {
+          state.loading = false;  
+        })
+        
 
         //editUser
-        [editUser.pending]: (state) => {
+        .addCase(editUser.pending,(state) => {
           // state.loading = true
-        },
-        [editUser.fulfilled]: (state, { payload }) => {
-            // state.loading = false
-            state.currentUser = payload;
-            state.users = state.users.map((user) => user.id===payload.id ? payload : user);
-          },
-        [editUser.rejected]: (state) => {
-            // state.loading = false
-            
-        },
+        })
+        .addCase(editUser.fulfilled,(state, { payload }) => {
+          // state.loading = false
+          state.currentUser = payload;
+          state.users = state.users.map((user) => user.id===payload.id ? payload : user);
+        })
+        .addCase(editUser.rejected,(state) => {
+          // state.loading = false
+        })
 
         //deleteUser
-        [deleteUser.pending]: (state) => {
+        .addCase(deleteUser.pending,(state) => {
           state.loading = true
-        },
-        [deleteUser.fulfilled]: (state, { payload }) => {
-            state.loading = false
-            state.currentUser = null;
-            state.users = state.users.filter((user) => user.id !== payload);
-            localStorage.setItem("currentUser","");
-            state.loggedInState = "no";
-          },
-        [deleteUser.rejected]: (state) => {
-            state.loading = false
-            
-        },
-      },
+        })
+        .addCase(deleteUser.fulfilled,(state, { payload }) => {
+          state.loading = false
+          state.currentUser = null;
+          state.users = state.users.filter((user) => user.id !== payload);
+          localStorage.setItem("currentUser","");
+          state.loggedInState = "no";
+        })
+        .addCase(deleteUser.rejected,(state) => {
+          state.loading = false
+          
+      })
+        
+      }
 });
 
 export default authSlice.reducer;

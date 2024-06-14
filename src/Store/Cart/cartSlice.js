@@ -137,68 +137,71 @@ export const cartSlice = createSlice({
     name: "cart",
     initialState,
     reducers: {},
-    extraReducers: {
-
+    extraReducers: (builder) => {
+        builder
         //getCart
-        [getCart.pending]: (state) => {
+        .addCase(getCart.pending,(state) => {
             state.loading = true
-        },
-        [getCart.fulfilled]: (state, { payload }) => {
+        })
+        .addCase(getCart.fulfilled,(state, { payload }) => {
             state.loading = false
             state.cart = payload;
-        },
-        [getCart.rejected]: (state) => {
+        })
+        .addCase(getCart.rejected,(state) => {
             state.loading = false;
-        },
+        })
 
 
-        //addToCart 
-        [addToCart.pending]: (state) => {
+        //addToCart
+        .addCase(addToCart.pending,(state) => {
             state.loading = true
-        },
-        [addToCart.fulfilled]: (state, { payload }) => {
+        })
+        .addCase(addToCart.fulfilled,(state, { payload }) => {
             state.loading = false
             state.cart = payload;
-        },
-        [addToCart.rejected]: (state) => {
+        })
+        .addCase(addToCart.rejected,(state) => {
             state.loading = false;
-        },
+        })
+        
 
-        //removeFromCart 
-        [removeFromCart.pending]: (state) => {
+        //removeFromCart
+        .addCase(removeFromCart.pending,(state) => {
             state.loading = true
-        },
-        [removeFromCart.fulfilled]: (state, { payload }) => {
+        })
+        .addCase(removeFromCart.fulfilled,(state, { payload }) => {
             state.loading = false;
             state.cart = payload;
-        },
-        [removeFromCart.rejected]: (state) => {
+        })
+        .addCase(removeFromCart.rejected,(state) => {
             state.loading = false;
-        },
+        })
+        
 
-        //emptyCart 
-        [emptyCart.pending]: (state) => {
+        //emptyCart
+        .addCase(emptyCart.pending,(state) => {
             state.loading = true
-        },
-        [emptyCart.fulfilled]: (state) => {
+        })
+        .addCase(emptyCart.fulfilled,(state) => {
             state.loading = false;
             state.cart = [];
-        },
-        [emptyCart.rejected]: (state) => {
+        })
+        .addCase(emptyCart.rejected,(state) => {
             state.loading = false;
-        },
+        })
+        
 
-        //setProductCount 
-        [setProductCount.pending]: (state) => {
+        //setProductCount
+        .addCase(setProductCount.pending,(state) => {
             state.loading = true;
-        },
-        [setProductCount.fulfilled]: (state, { payload }) => {
+        })
+        .addCase(setProductCount.fulfilled,(state, { payload }) => {
             state.loading = false
             state.cart = payload;
-        },
-        [setProductCount.rejected]: (state) => {
+        })
+        .addCase(setProductCount.rejected,(state) => {
             state.loading = false;
-        },
+        }) 
         
       },
 });

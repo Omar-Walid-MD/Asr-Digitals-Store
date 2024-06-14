@@ -47,69 +47,74 @@ export const offersSlice = createSlice({
     name: "offers",
     initialState,
     reducers: {},
-    extraReducers: {
+    extraReducers: (builder) => {
 
+        builder
         //getOffers
-        [getOffers.pending]: (state) => {
+        .addCase(getOffers.pending,(state) => {
             state.loading = true
-        },
-        [getOffers.fulfilled]: (state, { payload }) => {
+        })
+        .addCase(getOffers.fulfilled,(state, { payload }) => {
             state.loading = false
             state.offers = payload;
-        },
-        [getOffers.rejected]: (state) => {
+        })
+        .addCase(getOffers.rejected,(state) => {
             state.loading = false;
-        },
+        })
+        
 
         //addOffer
-        [addOffer.pending]: (state) => {
+        .addCase(addOffer.pending,(state) => {
           state.loading = true
-        },
-        [addOffer.fulfilled]: (state, { payload }) => {
+        })
+        .addCase(addOffer.fulfilled,(state, { payload }) => {
             state.loading = false
             state.offers = [...state.offers,payload];
-        },
-        [addOffer.rejected]: (state) => {
+        })
+        .addCase(addOffer.rejected,(state) => {
             state.loading = false;
-        },
+        })
+        
 
         //editOffer
-        [editOffer.pending]: (state) => {
+        .addCase(editOffer.pending,(state) => {
           state.loading = true;
-        },
-        [editOffer.fulfilled]: (state, { payload }) => {
+        })
+        .addCase(editOffer.fulfilled,(state, { payload }) => {
             state.loading = false;
             state.offers = state.offers.map((offer) => offer.id===payload.id ? payload : offer);
-        },
-        [editOffer.rejected]: (state) => {
+        })
+        .addCase(editOffer.rejected,(state) => {
             state.loading = false;
-        },
+        })
+        
 
         //deleteOffer
-        [deleteOffer.pending]: (state) => {
+        .addCase(deleteOffer.pending,(state) => {
           state.loading = true
-        },
-        [deleteOffer.fulfilled]: (state, { payload }) => {
+        })
+        .addCase(deleteOffer.fulfilled,(state, { payload }) => {
             state.loading = false;
             state.offers = state.offers.filter((offer) => offer.id!==payload);
-        },
-        [deleteOffer.rejected]: (state) => {
+        })
+        .addCase(deleteOffer.rejected,(state) => {
             state.loading = false;
-        },
+        })
+        
 
         //setOfferStatus
-        [setOfferStatus.pending]: (state) => {
+        .addCase(setOfferStatus.pending,(state) => {
           state.loading = true;
-        },
-        [setOfferStatus.fulfilled]: (state, { payload }) => {
+        })
+        .addCase(setOfferStatus.fulfilled,(state, { payload }) => {
             state.loading = false
             state.offers = state.offers.map((offer) => offer.id===payload.id ? {...offer,status:payload.status} : offer);
-        },
-        [setOfferStatus.rejected]: (state) => {
+        })
+        .addCase(setOfferStatus.rejected,(state) => {
             state.loading = false;
-        },
+        })
 
-      },
+      }
 });
 
 export default offersSlice.reducer;

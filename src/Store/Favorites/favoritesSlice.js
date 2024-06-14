@@ -84,46 +84,48 @@ export const favoritesSlice = createSlice({
     name: "favorites",
     initialState,
     reducers: {},
-    extraReducers: {
+    extraReducers: (builder) => {
 
+        builder
         //getFavs
-        [getFavs.pending]: (state) => {
+        .addCase(getFavs.pending,(state) => {
             state.loading = true
-        },
-        [getFavs.fulfilled]: (state, { payload }) => {
+        })
+        .addCase(getFavs.fulfilled,(state, { payload }) => {
             state.loading = false
             state.favorites = payload;
-        },
-        [getFavs.rejected]: (state) => {
+        })
+        .addCase(getFavs.rejected,(state) => {
             state.loading = false;
-        },
-
-
-        //addToFav 
-        [addToFav.pending]: (state) => {
-            state.loading = true
-        },
-        [addToFav.fulfilled]: (state, { payload }) => {
-            state.loading = false
-            state.favorites = payload;
-        },
-        [addToFav.rejected]: (state) => {
-            state.loading = false;
-        },
-
-        //removeFromFav 
-        [removeFromFav.pending]: (state) => {
-            state.loading = true
-        },
-        [removeFromFav.fulfilled]: (state, { payload }) => {
-            state.loading = false
-            state.favorites = payload;
-        },
-        [removeFromFav.rejected]: (state) => {
-            state.loading = false;
-        },
+        })
         
-      },
+
+
+        //addToFav
+        .addCase(addToFav.pending,(state) => {
+            state.loading = true
+        })
+        .addCase(addToFav.fulfilled,(state, { payload }) => {
+            state.loading = false
+            state.favorites = payload;
+        })
+        .addCase(addToFav.rejected,(state) => {
+            state.loading = false;
+        })
+        
+
+        //removeFromFav
+        .addCase(removeFromFav.pending,(state) => {
+            state.loading = true
+        })
+       .addCase(removeFromFav.fulfilled,(state, { payload }) => {
+            state.loading = false
+            state.favorites = payload;
+        })
+        .addCase(removeFromFav.rejected,(state) => {
+            state.loading = false;
+        }) 
+      }
 });
 
 export default favoritesSlice.reducer;
