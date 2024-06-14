@@ -1,5 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from "axios";
+import { child, get, ref, set, update } from 'firebase/database';
+import { database } from '../../Firebase/firebase';
 
 const initialState = {
     offers: [],
@@ -9,40 +11,46 @@ const initialState = {
 export const getOffers = createAsyncThunk(
   'offers/getOffers',
   async () => {
-    const res = await fetch('http://localhost:8899/offers').then(
-    (data) => data.json()
-  )
-  return res;
+    return await get(child(ref(database), "offers")).then((snapshot) => {
+        if(snapshot.exists())
+        {
+            return snapshot.val();
+        }
+    });
 });
 
 
 export const addOffer = createAsyncThunk(
   'offers/addOffer',
   async (newOffer) => {
-    const res = axios.post('http://localhost:8899/offers',newOffer);
-    return (await res).data;
+    set(ref(database, 'offers/' + newOffer.id), newOffer);
+    return newOffer
 });
 
 export const editOffer = createAsyncThunk(
   'offers/editOffer',
   async ({offerId,editedOffer}) => {
-    const res = axios.patch(`http://localhost:8899/offers/${offerId}`,editedOffer);
-    return (await res).data;
+    update(ref(database, 'offers/' + offerId), editedOffer);
+    return editedOffer;
+
 });
 
 export const deleteOffer = createAsyncThunk(
   'offers/deleteOffer',
   async ({offerId}) => {
-    const res = axios.delete(`http://localhost:8899/offers/${offerId}`);
+    ref(database, 'offers/' + offerId).remove();
     return offerId;
 });
 
 export const setOfferStatus = createAsyncThunk(
   'offers/setOfferStatus',
   async ({offer,status}) => {
-    const res = axios.  patch(`http://localhost:8899/offers/${offer.id}`,{status: status});
-    return (await res).data;
+    update(ref(database, 'offers/' + offer.id), {status:status});
+    return {...offer,status};
 });
+
+
+
 export const offersSlice = createSlice({
     name: "offers",
     initialState,

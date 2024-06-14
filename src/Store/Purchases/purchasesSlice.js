@@ -1,5 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from "axios";
+import { child, get, ref, set, update } from 'firebase/database';
+import { database } from '../../Firebase/firebase';
 
 const initialState = {
     purchases: [],
@@ -10,24 +12,26 @@ const initialState = {
 export const getPurchases = createAsyncThunk(
   'purchases/getPurchases',
   async () => {
-    const res = await fetch('http://localhost:8899/purchases').then(
-    (data) => data.json()
-  )
-  return res;
+    return await get(child(ref(database), "purchases")).then((snapshot) => {
+        if(snapshot.exists())
+        {
+            return snapshot.val();
+        }
+    });
 });
 
 export const addPurchase = createAsyncThunk(
   'purchases/addPurchase',
   async (newPurchase) => {
-    const res = axios.post('http://localhost:8899/purchases',newPurchase);
-    return (await res).data;
+    set(ref(database, 'purchases/' + newPurchase.id), newPurchase);
+    return newPurchase;
 });
 
 export const setPurchaseStatus = createAsyncThunk(
   'purchases/setPurchaseStatus',
   async ({purchase,status}) => {
-    const res = axios.patch(`http://localhost:8899/purchases/${purchase.id}`,{status: status});
-    return (await res).data;
+    update(ref(database, 'purchases/' + purchase.id), {status:status});
+    return {...purchase,status};
 });
 
 export const resetPurchaseLoading = createAsyncThunk(

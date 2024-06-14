@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from "axios";
-import { child, get, ref } from 'firebase/database';
+import { child, get, ref, set, update } from 'firebase/database';
 import { database } from '../../Firebase/firebase';
 
 const initialState = {
@@ -60,30 +60,29 @@ export const getProductsInfo = createAsyncThunk(
 export const addProduct = createAsyncThunk(
   'products/addProduct',
   async (newProduct) => {
-    const res = axios.post('http://localhost:8899/products',newProduct);
-    return (await res).data;
+    set(ref(database, 'products/' + newProduct.id), newProduct);
+    return newProduct;
 });
 
 export const editProduct = createAsyncThunk(
   'products/editProduct',
   async ({productId,editedProduct}) => {
-    const res = axios.patch(`http://localhost:8899/products/${productId}`,editedProduct);
-    return (await res).data;
+    update(ref(database, 'products/' + productId), editedProduct);
+    return editedProduct;
 });
 
 export const deleteProduct = createAsyncThunk(
   'products/deleteProduct',
   async ({productId}) => {
-    const res = axios.delete(`http://localhost:8899/products/${productId}`);
+    ref(database, 'products/' + productId).remove();
     return productId;
 });
 
 export const setProductRating = createAsyncThunk(
   'products/setProductRating',
   async ({productId,rating}) => {
-    const res = axios.patch(`http://localhost:8899/products/${productId}`,{rating: rating}).then(
-    (data) => data)
-  return (await res).data;
+    update(ref(database, 'products/' + productId), {rating: rating});
+    return {id:productId,rating};
 });
 
 export const productsSlice = createSlice({
@@ -163,7 +162,7 @@ export const productsSlice = createSlice({
         })
         .addCase(setProductRating.fulfilled,(state, { payload }) => {
             state.loading = false
-            state.products = state.products.map((product) => product.id===payload.id ? payload : product);
+            state.products = state.products.map((product) => product.id===payload.id ? ({...product,rating:payload.rating}) : product);
         })
         .addCase(setProductRating.rejected,(state) => {
             state.loading = false;

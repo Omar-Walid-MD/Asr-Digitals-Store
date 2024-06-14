@@ -1,4 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { child, get, ref } from 'firebase/database';
+import { database } from '../../Firebase/firebase';
 
 const initialState = {
     previewStats: [],
@@ -9,10 +11,12 @@ const initialState = {
 export const getPreviewStats = createAsyncThunk(
   'previewStats/getPreviewStats',
   async () => {
-    const res = await fetch('http://localhost:8899/previewStats').then(
-    (data) => data.json()
-  )
-  return res;
+    return await get(child(ref(database), "previewStats")).then((snapshot) => {
+      if(snapshot.exists())
+      {
+          return snapshot.val();
+      }
+  });
 });
 
 
