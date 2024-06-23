@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from "axios";
-import { child, get, ref, set, update } from 'firebase/database';
+import { child, get, ref, set, update, remove } from 'firebase/database';
 import { database } from '../../Firebase/firebase';
 
 const initialState = {
@@ -12,7 +12,7 @@ const initialState = {
 export const getProducts = createAsyncThunk(
   'products/getProducts',
   async () => {
-    return [];
+    // return [];
     return await get(child(ref(database), "products")).then((snapshot) => {
       if(snapshot.exists())
       {
@@ -20,7 +20,7 @@ export const getProducts = createAsyncThunk(
         const productsList = Object.keys(productsObject).map((productId)=>({
           ...productsObject[productId],
           id: productId
-        }))
+        }));
         return productsList;
       }
   });
@@ -74,7 +74,7 @@ export const editProduct = createAsyncThunk(
 export const deleteProduct = createAsyncThunk(
   'products/deleteProduct',
   async ({productId}) => {
-    ref(database, 'products/' + productId).remove();
+    remove(ref(database, 'products/' + productId))
     return productId;
 });
 

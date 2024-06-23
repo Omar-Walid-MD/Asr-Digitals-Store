@@ -17,9 +17,12 @@ function CartPage({}) {
     const offers = useSelector((store) => store.offers.offers);
     const location = useLocation();
 
+    console.log(cart)
+
     const [fees, setFees]  = useState({subtotal:0,delivery:0,total:0});
 
     useEffect(()=>{
+        console.log(offers)
         if(products && cart && productsInfo && offers) setFees(getTotalFees(cart,products,productsInfo,offers));
     },[cart,products,productsInfo,offers]);
   
@@ -42,7 +45,7 @@ function CartPage({}) {
                                 <Row className='g-2 g-sm-3 g-md-4'>
                                 {
                                     cart.length > 0 ? cart.map((product) =>(
-                                        <Col className='col-12' key={`cart-item-${product.id}`}>
+                                        <Col className='col-12' key={`cart-item-${product.productId}`}>
                                             <ProductCartItem productId={product.productId} showSingle={false} />
                                         </Col>                            
                                     ))

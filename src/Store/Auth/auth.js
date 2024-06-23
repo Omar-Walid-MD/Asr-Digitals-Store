@@ -1,5 +1,9 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from "axios";
+import { child, get, ref, set, update, remove } from 'firebase/database';
+import {v4 as uuid4} from "uuid";
+import { auth, database } from '../../Firebase/firebase';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 
 const initialState = {
     users: [],
@@ -9,7 +13,6 @@ const initialState = {
 }
 
 
-//done
 export const getUsers = createAsyncThunk(
   'auth/getUsers',
   async () => {
@@ -20,97 +23,75 @@ export const getUsers = createAsyncThunk(
 });
 
 
-//done not tested
+
 export const registerUser = createAsyncThunk(
   'auth/registerUser',
-  async (newUser) => {
-      const res = axios.post("http://localhost:8899/users",newUser);
-      const newUserRes = (await res).data;
-      localStorage.setItem("currentUser",newUserRes.id);
-      let localCart = JSON.parse(localStorage.getItem("userCart"));
-      let localFavs = JSON.parse(localStorage.getItem("userFavorites"));
+  async (registerInfo) => {
 
-      let update = {};
-      if(localCart.length > 0) update.cart = localCart;
-      if(localCart.length > 0) update.favorites = localFavs;
+    const userCred = await createUserWithEmailAndPassword(auth,registerInfo.email,registerInfo.password);
+    console.log(userCred);
+
+    set(ref(database, 'users/' + userCred.user.uid), registerInfo);
+    return {id: userCred.user.uid,...registerInfo}
+
+
+    // LATER
+    // let localCart = JSON.parse(localStorage.getItem("userCart"));
+    // let localFavs = JSON.parse(localStorage.getItem("userFavorites"));
+
+    // let update = {};
+    // if(localCart.length > 0) update.cart = localCart;
+    // if(localCart.length > 0) update.favorites = localFavs;
   
-      if(Object.keys(update).length > 0)
-      {
-          const res = axios.patch(`http://localhost:8899/users/${newUserRes.id}`,update).then(
-          (data) => data)
-          return (await res).data;
-      }
-      else
-      {
-        return newUserRes;
-      }
+    // if(Object.keys(update).length > 0)
+    // {
+    //     const res = axios.patch(`http://localhost:8899/users/${newUserRes.id}`,update).then(
+    //     (data) => data)
+    //     return (await res).data;
+    // }
+    // else
+    // {
+    //   return newUserRes;
+    // }
 });
 
-export const loginUser = createAsyncThunk(
-  'auth/loginUser',
-  async ({user,remember}) => {
 
-    if(remember) localStorage.setItem("currentUser",user.id);
-    else sessionStorage.setItem("currentUser",user.id);
-    let localCart = JSON.parse(localStorage.getItem("userCart"));
-    let localFavs = JSON.parse(localStorage.getItem("userFavorites"));
+export const authenticateCurrentUser = createAsyncThunk(
+  'auth/authenticateCurrentUser',
+  async (user) => {
 
-    let update = {};
-    if(user.cart.length===0 && localCart.length > 0) update.cart = localCart;
-    if(user.favorites.length===0 && localCart.length > 0) update.favorites = localFavs;
-
-    if(Object.keys(update).length > 0)
+    
+    if(user)
     {
-        const res = axios.patch(`http://localhost:8899/users/${user.id}`,update).then(
-        (data) => data)
-        return (await res).data;
+      const userInfo = await get(child(ref(database), `users/${user.uid}`)).then((snapshot) => {
+          return snapshot.exists() ? snapshot.val() : {};
+      });
+      return {id: user.uid,...userInfo}
     }
-    else
-    {
-      return user;
-    }
-
-});
-
-//done
-export const getCurrentUser = createAsyncThunk(
-  'auth/getCurrentUser',
-  async () => {
-    let userId = localStorage.getItem("currentUser");
-    if(userId)
-    {
-        const res = await fetch(`http://localhost:8899/users/${userId}`).then(
-        (data) => data.json()
-      )
-      return res;
-    }
-    else
-    {
-      localStorage.setItem("currentUser","");
-      return null;
-    }
+    else return null;
 });
 
 export const logoutUser = createAsyncThunk(
   'auth/logoutUser',
   async () => {
-    localStorage.setItem("currentUser","");
-    sessionStorage.setItem("currentUser","");
-    localStorage.setItem("userCart",JSON.stringify([]));
-    localStorage.setItem("userFavorites",JSON.stringify([])); 
+    auth.signOut()
+    // localStorage.setItem("userCart",JSON.stringify([]));
+    // localStorage.setItem("userFavorites",JSON.stringify([])); 
 });
 
+
+//LATER
 export const editUser = createAsyncThunk(
   'auth/editUser',
   async (updatedUser) => {
-    const res = axios.patch(`http://localhost:8899/users/${updatedUser.id}`,updatedUser);
-    return (await res).data;
+    update(ref(database, 'users/' + updatedUser.id), updatedUser);
+    return updatedUser;
 });
 
 export const deleteUser = createAsyncThunk(
   'auth/deleteUser',
   async (userId) => {
-    const res = axios.delete(`http://localhost:8899/users/${userId}`);
+    remove(ref(database, 'users/' + userId));
     return userId;
 });
 
@@ -150,28 +131,13 @@ export const authSlice = createSlice({
           
         })
 
-
-        //loginUser
-        .addCase(loginUser.pending,(state) => {
-          state.loading = true;
-          state.loggedInState = "pending";
-        })
-        .addCase(loginUser.fulfilled,(state, { payload }) => {
-          state.loading = false;
-          state.currentUser = payload;
-          state.loggedInState = "yes";
-        })
-        .addCase(loginUser.rejected,(state) => {
-          state.loading = false;
-        })
         
-
-        //getCurrentUser
-        .addCase(getCurrentUser.pending,(state) => {
+        //authenticateCurrentUser
+        .addCase(authenticateCurrentUser.pending,(state) => {
           state.loading = true;
           state.loggedInState = "pending";
         })
-        .addCase(getCurrentUser.fulfilled,(state, { payload }) => {
+        .addCase(authenticateCurrentUser.fulfilled,(state, { payload }) => {
           if(payload)
           {
             state.loggedInState = "yes";
@@ -184,7 +150,7 @@ export const authSlice = createSlice({
           state.currentUser = payload;
           state.loading = false;
         })
-        .addCase(getCurrentUser.rejected,(state) => {
+        .addCase(authenticateCurrentUser.rejected,(state) => {
           state.loading = false;
         })
 

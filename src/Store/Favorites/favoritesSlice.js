@@ -1,44 +1,61 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from "axios";
+import { ref, set } from 'firebase/database';
+import { auth, database } from '../../Firebase/firebase';
 
 const initialState = {
     favorites: [],
     loading: true
 }
 
+function getFavsArray(favsObject){return Object.keys(favsObject).map((key)=>key);}
+function getFavsObject(favsArray)
+{
+    let favsObject = {};
+    favsArray.forEach((favItem)=>{favsObject[favItem] = true;});
+    return favsObject;
+}
+
 export const getFavs = createAsyncThunk(
 'favorites/getFavs',
-async () => {
-    let res;
-    let currentUserId = localStorage.getItem("currentUser")
-    if(currentUserId)
+async (args,{getState}) => {
+
+    let localFavs = JSON.parse(localStorage.getItem("userFavorites"));
+
+    if(auth.currentUser)
     {
-        res = await fetch(`http://localhost:8899/users/${currentUserId}`).then(
-        (data) => data.json());
-        return res.favorites;
+        const userFavsObject = getState().auth.currentUser.favorites || [];
+        const userFavs = getFavsArray(userFavsObject);
+
+        if(userFavs.length===0 && localFavs.length > 0)
+        {
+            set(ref(database, `users/${auth.currentUser.uid}/favorites`), localFavs);
+            return localFavs;
+        }
+        else
+        {
+            return userFavs;
+        }
     }
     else
     {
-        if(!JSON.parse(localStorage.getItem("userFavorites")))
+        if(!localFavs)
         {
             localStorage.setItem("userFavorites",JSON.stringify([]))
         }
-        res = JSON.parse(localStorage.getItem("userFavorites"));
-        return res;
+        return localFavs;
     }
 });
 
 export const addToFav = createAsyncThunk(
 'favorites/addToFav',
 async (productId, {getState}) => {
-    let res;
-    let currentUserId = localStorage.getItem("currentUser");
-    if(currentUserId)
-    {
 
+    if(auth.currentUser)
+    {
         let updatedFavs = [...getState().favorites.favorites,productId];
-        res = axios.patch(`http://localhost:8899/users/${currentUserId}`,{favorites: updatedFavs}).then(
-        (data) => data);
+
+        set(ref(database, `users/${auth.currentUser.uid}/favorites`), getFavsObject(updatedFavs));
         return updatedFavs;
     }
     else
@@ -57,21 +74,20 @@ async (productId, {getState}) => {
 export const removeFromFav = createAsyncThunk(
 'favorites/removeFromFav',
 async (productId, {getState}) => {
-    let res;
-    let currentUserId = localStorage.getItem("currentUser");
-    if(currentUserId)
+
+    if(auth.currentUser)
     {
-        let updatedFavs = getState().favorites.favorites.filter((fav) => fav !== productId);
-        res = axios.patch(`http://localhost:8899/users/${currentUserId}`,{favorites: updatedFavs}).then(
-        (data) => data);
+        let updatedFavs = getState().favorites.favorites.filter((favorite) => favorite !== productId);
+
+        set(ref(database, `users/${auth.currentUser.uid}/favorites`), getFavsObject(updatedFavs));
         return updatedFavs;
     }
     else
     {
-        let localFavs = JSON.parse(localStorage.getItem("userFavorites"));
+        let localFavs = JSON.parse(localStorage.getItem("userFavorites"))
         if(localFavs)
         {
-            localFavs = localFavs.filter((fav) => fav !== productId);
+            localFavs = localFavs.filter((favorite) => favorite !== productId);
             localStorage.setItem("userFavorites",JSON.stringify(localFavs));
             return localFavs;
         }

@@ -9,10 +9,12 @@ import * as yup from "yup";
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart, removeFromCart, setProductCount } from '../Store/Cart/cartSlice';
-import { addReview, getReviews } from '../Store/Reviews/reviewsSlice';
+import { addReview, getReviews, getReviewsArray } from '../Store/Reviews/reviewsSlice';
 import { addToFav, getFavs, removeFromFav } from '../Store/Favorites/favoritesSlice';
 import { setProductRating } from '../Store/Products/productsSlice';
 import { getRating, getRatingCount, onImgError, throttle } from '../helpers';
+import { child, get, ref } from 'firebase/database';
+import { database } from '../Firebase/firebase';
 
 
 const schema = yup
@@ -33,9 +35,10 @@ function ProductPage({})
     const currentUser = useSelector((store) => store.auth.currentUser);
     const cart = useSelector((store) => store.cart.cart);
     const favorites = useSelector((store) => store.favorites.favorites);
-    const reviews = useSelector((store) => store.reviews.reviews.filter((review) => review.productId === productId).reverse());
     const productsInfo = useSelector((store) => store.products.productsInfo);
     const offers = useSelector((store) => store.offers.offers);
+
+    const [reviews,setReviews] = useState();
 
     const dispatch = useDispatch();
     const { register, handleSubmit, reset, formState: { errors } } = useForm({ resolver: yupResolver(schema) });
@@ -83,11 +86,12 @@ function ProductPage({})
 
     function onSumbit(data)
     {
-        
-        dispatch(addReview({...data,productId:productId,userId:currentUser ? currentUser.id : 0,date: Date.now()}));
+        const newReview = {...data,userId:currentUser ? currentUser.id : 0,date: Date.now()}
+        dispatch(addReview({productId,newReview}));
         dispatch(setProductRating({productId: product.id,rating: getRating([...reviews.map((review)=>review.rating),rating])}));
         reset();
         setRating(5);
+        setReviews([...reviews,newReview])
     }
 
     function getRelatedProducts()
@@ -168,6 +172,17 @@ function ProductPage({})
         }
     },[offers,product]);
 
+    useEffect(()=>{
+        if(!reviews)
+        {
+            (async()=>{
+                await get(child(ref(database), `reviews/${productId}`)).then((snapshot) => {
+                    setReviews(snapshot.exists() ? getReviewsArray(snapshot.val()) : []);
+               });
+            })()
+        }
+    },[reviews]);
+
     
 
 
@@ -201,7 +216,7 @@ function ProductPage({})
                                     <h1>{product.title}</h1>
                                     <p className='m-0'>{product.desc}</p>
                                     {
-                                        reviews.length >= 3 ?
+                                        reviews?.length >= 3 ?
                                         <div className="d-flex flex-column flex-md-row gap-2">
                                             <p className='m-0 fs-5 text-warning-emphasis text-center text-sm-start fw-semibold'>{product.rating} ({reviews.length} reviews)</p>
                                             <div className="d-flex gap-2">

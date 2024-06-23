@@ -6,6 +6,8 @@ import * as yup from "yup";
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUsers, loginUser, registerUser } from '../../Store/Auth/auth';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../../Firebase/firebase';
 
 
 const schema = yup
@@ -30,25 +32,40 @@ function Login({}) {
 
     const [remember,setRemember] = useState(true);
 
-    function onSubmit(data)
+    async function onSubmit(data)
     {
-        let targetUser = users.find((user) => user.email === data.email);
-        if(targetUser && targetUser !== -1)
-        {
-            if(targetUser.password === data.password)
+        let userCred;
+        try {
+            userCred = await signInWithEmailAndPassword(auth,data.email,data.password);
+        } catch (error) {
+            if(error.code==="auth/invalid-credential")
             {
-                dispatch(loginUser({user: targetUser,remember}));
-                navigate(prevPath);
+                handleValidationError("Email or Password is incorrect.");
             }
-            else
-            {
-                handleValidationError("Password incorrect...")
-            }
+            return;
         }
-        else
+
+        if(userCred?.user)
         {
-            handleValidationError("Email not registered...");
+            // dispatch(loginUser({user: userCred.user,remember}));
+            navigate(prevPath);
         }
+        // let targetUser = users.find((user) => user.email === data.email);
+        // if(targetUser && targetUser !== -1)
+        // {
+        //     if(targetUser.password === data.password)
+        //     {
+        //         
+        //     }
+        //     else
+        //     {
+        //         handleValidationError("Password incorrect...")
+        //     }
+        // }
+        // else
+        // {
+        //     handleValidationError("Email not registered...");
+        // }
     }
 
     function handleValidationError(errorMessage)

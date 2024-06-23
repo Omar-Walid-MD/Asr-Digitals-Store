@@ -1,10 +1,31 @@
+import { child, get, ref } from 'firebase/database';
 import React, { useEffect, useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { BsStarFill, BsFillPersonFill } from "react-icons/bs";
 import { useSelector } from 'react-redux';
+import { database } from '../Firebase/firebase';
 function ProductReview({review})
 {
-    const user = useSelector((store)=>store.auth.users.find((user) => user.id === review.userId));
+    const [username,setUsername] = useState("");
+
+    useEffect(()=>{
+        if(!username)
+        {
+            (async()=>{
+                await get(child(ref(database), `users/${review.userId}`)).then(async (snapshot) => {
+                    if(snapshot.exists())
+                    {
+                        const user = snapshot.val();
+                        setUsername(user.username || `${user.firstName} ${user.lastName}`)
+                    }
+                    else
+                    {
+                        setUsername("Anonymous")
+                    }
+               });
+            })()
+        }
+    },[username])
     
     return (
         <div className="w-100 bg-white-gradient border-3 border-bottom border-secondary-subtle rounded-3 p-3 shadow-sm">
@@ -12,7 +33,7 @@ function ProductReview({review})
                 <div className='d-flex align-items-start gap-2'>
                     <BsFillPersonFill className='bg-light rounded-3 fs-1 shadow-sm border border-2 border-dark' />
                     <div className="d-flex flex-column">
-                        <h6 className='m-0'>{user ? (user.username || `${user.firstName} ${user.lastName}`) : "Anonymous"}</h6>
+                        <h6 className='m-0'>{username}</h6>
                         <p className='m-0'>{new Date(review.date).toLocaleDateString("en")}</p>
                     </div>
                 </div>

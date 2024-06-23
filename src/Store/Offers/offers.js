@@ -12,10 +12,7 @@ export const getOffers = createAsyncThunk(
   'offers/getOffers',
   async () => {
     return await get(child(ref(database), "offers")).then((snapshot) => {
-        if(snapshot.exists())
-        {
-            return snapshot.val();
-        }
+        return snapshot.exists() ? snapshot.val() : [];
     });
 });
 

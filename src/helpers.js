@@ -41,27 +41,33 @@ export const throttle = function(func,delay)
 export const refreshPurchases = function(purchases,setStatusFunc)
 {
   let now = Date.now();
-  purchases.forEach((purchase) => {
-    if(purchase.date + purchase.estimatedDeliveryHours * 1000 * 3600 <= now && purchase.status==="pending")
-    {
-      setStatusFunc(purchase,"success");
-    }
-  })
+  if(purchases)
+  {
+    purchases.forEach((purchase) => {
+      if(purchase.date + purchase.estimatedDeliveryHours * 1000 * 3600 <= now && purchase.status==="pending")
+      {
+        setStatusFunc(purchase,"success");
+      }
+    })
+  }
 }
 
 export const refreshOffers = function(offers,setStatusFunc)
 {
   let now = Date.now();
-  offers.forEach((offer) => {
-    if(offer.start <= now && offer.status==="upcoming")
-    {
-      setStatusFunc(offer,"running");
-    }
-    if(offer.end <= now && offer.status==="running")
-    {
-      setStatusFunc(offer,"closed");
-    }
-  })
+  if(offers)
+  {
+    offers.forEach((offer) => {
+      if(offer.start <= now && offer.status==="upcoming")
+      {
+        setStatusFunc(offer,"running");
+      }
+      if(offer.end <= now && offer.status==="running")
+      {
+        setStatusFunc(offer,"closed");
+      }
+    })
+  }
 }
 
 export const getCartTotalCount = function(cart)
@@ -83,7 +89,6 @@ export const getCartSubTotal = function(cart,products,offers)
         let availableOffer = offers.find((offer) => offer.productId===targetProduct.id && offer.status==="running");
         total += cartItem.count * (availableOffer ? availableOffer.newPrice : targetProduct.price);
     });
-
     return total;
 }
 

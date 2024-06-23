@@ -13,10 +13,7 @@ export const getPurchases = createAsyncThunk(
   'purchases/getPurchases',
   async () => {
     return await get(child(ref(database), "purchases")).then((snapshot) => {
-        if(snapshot.exists())
-        {
-            return snapshot.val();
-        }
+        return snapshot.exists() ? snapshot.val() : [];
     });
 });
 

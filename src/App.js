@@ -1,7 +1,7 @@
 import './App.css';
 import { Outlet } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import { editUser, getCurrentUser, getUsers } from './Store/Auth/auth';
+import { authenticateCurrentUser, editUser, getCurrentUser, getUsers } from './Store/Auth/auth';
 import { useEffect, useState } from 'react';
 import { getProducts, getProductsInfo, setProductRating } from './Store/Products/productsSlice';
 import { getCart } from './Store/Cart/cartSlice';
@@ -13,6 +13,7 @@ import ScrollToTop from './Layout/ScrollToTop';
 import { generateRandomOffers, generateRandomPurchases, generateRandomReviews, getRating, makeIdWithChars, makeUniqueId, refreshOffers, refreshPurchases } from './helpers';
 import { getPreviewStats } from './Store/PreviewStats/previewStats';
 import { getFontSize } from './Store/Settings/settingsSlice';
+import { auth } from './Firebase/firebase';
 //ykl5VLeGYBaxWfiQ
 function App() {
 
@@ -33,12 +34,23 @@ function App() {
     dispatch(getUsers());
     dispatch(getProducts());
     dispatch(getProductsInfo());
-    dispatch(getCurrentUser());
+    // dispatch(getCurrentUser());
     dispatch(getReviews());
     dispatch(getPurchases());
     dispatch(getOffers());
     dispatch(getPreviewStats());
     dispatch(getFontSize());
+
+
+    auth.onAuthStateChanged(function(user) {
+      if(user)
+      {
+        (async()=>{
+          dispatch(authenticateCurrentUser(user))
+        })();
+      }
+      else dispatch(authenticateCurrentUser(null));
+    });
   },[]);
   
   useEffect(()=>{

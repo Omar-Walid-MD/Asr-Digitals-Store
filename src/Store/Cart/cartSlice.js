@@ -1,30 +1,43 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from "axios";
+import { auth } from '../../Firebase/firebase';
+import { database } from '../../Firebase/firebase';
+import { ref, set } from 'firebase/database';
 
 const initialState = {
     cart: [],
     loading: true
 }
 
+
+function getCartArray(cartObject){return Object.keys(cartObject).map((key)=>({productId:key,count:cartObject[key]}));}
+function getCartObject(cartArray)
+{
+    let cartObject = {};
+    cartArray.forEach((cartItem)=>{cartObject[cartItem.productId] = cartItem.count;});
+    return cartObject;
+}
+
 export const getCart = createAsyncThunk(
   'cart/getCart',
-  async () => {
-    let res;
-    let currentUserId = localStorage.getItem("currentUser");
+  async (args,{getState}) => {
+    
     let localCart = JSON.parse(localStorage.getItem("userCart"));
-    if(currentUserId)
+
+    if(auth.currentUser)
     {
-        res = await fetch(`http://localhost:8899/users/${currentUserId}`).then(
-        (data) => data.json());
+        const userCartObject = getState().auth.currentUser.cart || [];
+        const userCart = getCartArray(userCartObject);
 
-        // if(res.cart.length===0 && localCart.length > 0)
-        // {
-        //     axios.patch(`http://localhost:8899/users/${currentUserId}`,{cart: localCart});
-        //     return localCart;
-        // }
-
-        return res.cart;
-
+        if(userCart.length===0 && localCart.length > 0)
+        {
+            set(ref(database, `users/${auth.currentUser.uid}/cart`), localCart);
+            return localCart;
+        }
+        else
+        {
+            return userCart;
+        }
     }
     else
     {
@@ -32,22 +45,19 @@ export const getCart = createAsyncThunk(
         {
             localStorage.setItem("userCart",JSON.stringify([]))
         }
-        res = localCart;
-        return res;
+        return localCart;
     }
 });
 
 export const addToCart = createAsyncThunk(
 'cart/addToCart',
 async (productId, {getState}) => {
-    let res;
-    let currentUserId = localStorage.getItem("currentUser");
-    if(currentUserId)
-    {
 
+    if(auth.currentUser)
+    {
         let updatedCart = [...getState().cart.cart,{productId: productId, count: 1}];
-        res = axios.patch(`http://localhost:8899/users/${currentUserId}`,{cart: updatedCart}).then(
-        (data) => data);
+
+        set(ref(database, `users/${auth.currentUser.uid}/cart`), getCartObject(updatedCart));
         return updatedCart;
     }
     else
@@ -65,13 +75,12 @@ async (productId, {getState}) => {
 export const removeFromCart = createAsyncThunk(
 'cart/removeFromCart',
 async (productId, {getState}) => {
-    let res;
-    let currentUserId = localStorage.getItem("currentUser");
-    if(currentUserId)
+
+    if(auth.currentUser)
     {
         let updatedCart = getState().cart.cart.filter((product) => product.productId !== productId);
-        res = axios.patch(`http://localhost:8899/users/${currentUserId}`,{cart: updatedCart}).then(
-        (data) => data);
+
+        set(ref(database, `users/${auth.currentUser.uid}/cart`), getCartObject(updatedCart));
         return updatedCart;
     }
     else
@@ -87,50 +96,48 @@ async (productId, {getState}) => {
 });
 
 export const setProductCount = createAsyncThunk(
-    'cart/setProductCount',
-    async ({productId, count}, {getState}) => {
-        let res;
-        let currentUserId = localStorage.getItem("currentUser");
-        if(currentUserId)
+'cart/setProductCount',
+async ({productId, count}, {getState}) => {
+
+    if(auth.currentUser)
+    {
+        let updatedCart = getState().cart.cart.map((product) => product.productId === productId ? {productId: productId, count: count} : product);
+
+        set(ref(database, `users/${auth.currentUser.uid}/cart`), getCartObject(updatedCart));
+        return updatedCart;
+    }
+    else
+    {
+        let localCart = JSON.parse(localStorage.getItem("userCart"))
+        if(localCart)
         {
-            let updatedCart = getState().cart.cart.map((product) => product.productId === productId ? {productId: productId, count: count} : product);
-            res = axios.patch(`http://localhost:8899/users/${currentUserId}`,{cart: updatedCart}).then(
-            (data) => data);
-            return updatedCart;
+            localCart = localCart.map((product) => product.productId === productId ? {productId: productId, count: count} : product);
+            localStorage.setItem("userCart",JSON.stringify(localCart));
+            return localCart;
         }
-        else
-        {
-            let localCart = JSON.parse(localStorage.getItem("userCart"))
-            if(localCart)
-            {
-                localCart = localCart.map((product) => product.productId === productId ? {productId: productId, count: count} : product);
-                localStorage.setItem("userCart",JSON.stringify(localCart));
-                return localCart;
-            }
-        }
+    }
 });
 
 export const emptyCart = createAsyncThunk(
     'cart/emptyCart',
-    async (productId, {getState}) => {
-        let res;
-        let currentUserId = localStorage.getItem("currentUser");
-        if(currentUserId)
+async () => {
+
+    if(auth.currentUser)
+    {
+
+        set(ref(database, `users/${auth.currentUser.uid}/cart`), {});
+        return;
+    }
+    else
+    {
+        let localCart = JSON.parse(localStorage.getItem("userCart"))
+        if(localCart)
         {
-            res = axios.patch(`http://localhost:8899/users/${currentUserId}`,{cart: []}).then(
-            (data) => data);
+            localCart = [];
+            localStorage.setItem("userCart",JSON.stringify(localCart));
             return;
         }
-        else
-        {
-            let localCart = JSON.parse(localStorage.getItem("userCart"))
-            if(localCart)
-            {
-                localCart = [];
-                localStorage.setItem("userCart",JSON.stringify(localCart));
-                return;
-            }
-        }
+    }
 }); 
 
 export const cartSlice = createSlice({
