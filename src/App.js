@@ -33,7 +33,7 @@ function App() {
   // const [refreshInterval,setRefreshInterval] = useState();
 
   useEffect(()=>{
-    dispatch(getUsers());
+    // dispatch(getUsers());
     dispatch(getProducts());
     dispatch(getProductsInfo());
     // dispatch(getCurrentUser());
