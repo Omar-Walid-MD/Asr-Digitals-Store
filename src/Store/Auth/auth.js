@@ -83,13 +83,13 @@ export const logoutUser = createAsyncThunk(
 //LATER
 export const editUser = createAsyncThunk(
   'auth/editUser',
-  async (updatedUser) => {
-    update(ref(database, 'users/' + updatedUser.id), updatedUser);
+  async ({id,updatedUser}) => {
+    update(ref(database, `users/${id}`), updatedUser);
     return updatedUser;
 });
 
-export const deleteUser = createAsyncThunk(
-  'auth/deleteUser',
+export const removeUser = createAsyncThunk(
+  'auth/removeUser',
   async (userId) => {
     remove(ref(database, 'users/' + userId));
     return userId;
@@ -183,18 +183,18 @@ export const authSlice = createSlice({
           // state.loading = false
         })
 
-        //deleteUser
-        .addCase(deleteUser.pending,(state) => {
+        //removeUser
+        .addCase(removeUser.pending,(state) => {
           state.loading = true
         })
-        .addCase(deleteUser.fulfilled,(state, { payload }) => {
+        .addCase(removeUser.fulfilled,(state, { payload }) => {
           state.loading = false
           state.currentUser = null;
           state.users = state.users.filter((user) => user.id !== payload);
           localStorage.setItem("currentUser","");
           state.loggedInState = "no";
         })
-        .addCase(deleteUser.rejected,(state) => {
+        .addCase(removeUser.rejected,(state) => {
           state.loading = false
           
       })

@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from "axios";
 import { child, get, ref, set, update } from 'firebase/database';
 import { database } from '../../Firebase/firebase';
+import {v4 as uuid4} from "uuid";
 
 const initialState = {
     purchases: [],
@@ -20,14 +21,14 @@ export const getPurchases = createAsyncThunk(
 export const addPurchase = createAsyncThunk(
   'purchases/addPurchase',
   async (newPurchase) => {
-    set(ref(database, 'purchases/' + newPurchase.id), newPurchase);
+    set(ref(database, `purchases/${newPurchase.userId}/${uuid4()}`), newPurchase);
     return newPurchase;
 });
 
 export const setPurchaseStatus = createAsyncThunk(
   'purchases/setPurchaseStatus',
   async ({purchase,status}) => {
-    update(ref(database, 'purchases/' + purchase.id), {status:status});
+    update(ref(database, `purchases/${purchase.userId}/${purchase.id}`), {status:status});
     return {...purchase,status};
 });
 

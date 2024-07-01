@@ -6,9 +6,11 @@ import { Accordion, Button, Carousel, Col, Container, FloatingLabel, Form, Modal
 import { useDispatch, useSelector } from 'react-redux';
 import { BsFillEraserFill, BsFillPencilFill, BsPersonFill } from 'react-icons/bs';
 import { FaSave } from "react-icons/fa";
-import { deleteUser, editUser } from '../../Store/Auth/auth';
+import { editUser, logoutUser, removeUser } from '../../Store/Auth/auth';
 import { useNavigate } from 'react-router';
 import { getDateString } from '../../helpers';
+import { auth } from '../../Firebase/firebase';
+import { deleteUser, updatePassword } from 'firebase/auth';
 
 const schemas = [
     yup.object({
@@ -54,6 +56,7 @@ function ProfilePage({}) {
 
     const users = useSelector((store) => store.auth.users);
     const [validationError,setValidationError] = useState("");
+    const [requireLogin,setRequireLogin] = useState(false);
 
     const [navSelect,setNavSelect] = useState(1);
     const [edit,setEdit] = useState(false);
@@ -84,46 +87,56 @@ function ProfilePage({}) {
     const handleDeleteModalShow = () => setDeleteModal(true);
     const handleDeleteModalClose = () => setDeleteModal(false);
 
+    const [passwordChangeModal,setPasswordChangeModal] = useState(false);
+    const handlePasswordChangeModalShow = () => setPasswordChangeModal(true);
+    const handlePasswordChangeModalClose = () => setPasswordChangeModal(false);
+
     function onSubmit(data)
     {
-        
-        let updatedUserData = {...userData,...data,password: passwordEdit.password};
+        let updatedUserData = {...currentUser,...userData,...data};
 
-        if(currentUser.email !== data.email && users.map((user) => user.email).includes(data.email))
-        {
-            handleValidationError("email");
-            return;
-        }
-        else
-        {
-            if(data.username && users.map((user) => user.id!==currentUser.id && user.username).includes(data.username))
-            {
-                handleValidationError("username");
-                return;
-            }
-            else
-            {               
-                if(currentUser.password!==passwordEdit.password && passwordEdit.password!==passwordEdit.confirmPassword)
-                {
+        console.log(updatedUserData);
+        handleValidationError("");
+        if(typeof(updatedUserData.dateOfBirth)==="object") updatedUserData.dateOfBirth = getDateString(updatedUserData.dateOfBirth);
+        dispatch(editUser({id:auth.currentUser.uid,updatedUser:updatedUserData}));
+        setEdit(false);
+        setPasswordEdit({...passwordEdit,confirmPassword:""});
+
+        // if(currentUser.email !== data.email && users.map((user) => user.email).includes(data.email))
+        // {
+        //     handleValidationError("email");
+        //     return;
+        // }
+        // else
+        // {
+        //     if(data.username && users.map((user) => user.id!==currentUser.id && user.username).includes(data.username))
+        //     {
+        //         handleValidationError("username");
+        //         return;
+        //     }
+        //     else
+        //     {               
+        //         if(currentUser.password!==passwordEdit.password && passwordEdit.password!==passwordEdit.confirmPassword)
+        //         {
         
-                    handleValidationError("passwordMismatch");
-                    return;
-                }
-                else if(!passwordEdit.password)
-                {
-                    handleValidationError("passwordNull");
-                    return;
-                }
-                else
-                {
-                    handleValidationError("");
-                    if(typeof(updatedUserData.dateOfBirth)==="object") updatedUserData.dateOfBirth = getDateString(updatedUserData.dateOfBirth);
-                    dispatch(editUser(updatedUserData));
-                    setEdit(false);
-                    setPasswordEdit({...passwordEdit,confirmPassword:""})
-                }
-            }
-        }
+        //             handleValidationError("passwordMismatch");
+        //             return;
+        //         }
+        //         else if(!passwordEdit.password)
+        //         {
+        //             handleValidationError("passwordNull");
+        //             return;
+        //         }
+        //         else
+        //         {
+        //             handleValidationError("");
+        //             if(typeof(updatedUserData.dateOfBirth)==="object") updatedUserData.dateOfBirth = getDateString(updatedUserData.dateOfBirth);
+        //             dispatch(editUser(updatedUserData));
+        //             setEdit(false);
+        //             setPasswordEdit({...passwordEdit,confirmPassword:""})
+        //         }
+        //     }
+        // }
 
 
        
@@ -144,7 +157,6 @@ function ProfilePage({}) {
             });
         });
         setEdit(false);
-        setPasswordEdit({password: currentUser.password, confirmPassword: ""})
     }
 
     function handleValidationError(errorMessage)
@@ -155,13 +167,43 @@ function ProfilePage({}) {
         }, 0);
     }
 
-    function onSubmitConfirmDelete(data)
+    async function onSubmitConfirmDelete(data)
     {
-        if(data.confirmDelete === `${currentUser.firstName}-${currentUser.password}`)
+        if(data.confirmDelete === `${currentUser.firstName}-${currentUser.lastName}`)
         {
-            dispatch(deleteUser(currentUser.id));
-            navigate("/");
+            let error;
+            try {
+                await deleteUser(auth.currentUser);
+            } catch (err) {
+                error = err;
+            }
+
+            if(error?.code==="auth/requires-recent-login")
+            {
+                setRequireLogin(true);
+            }
+            else
+            {
+                dispatch(removeUser(auth.currentUser));
+                navigate("/");
+            }
+            
         }
+    }
+
+    function onSumbitChangePassword(e)
+    {
+        e.preventDefault();
+        if(passwordEdit.password === passwordEdit.confirmPassword)
+        {
+            updatePassword(auth.currentUser, passwordEdit.password).then(() => {
+                // Update successful.
+              }).catch((error) => {
+                if(error.code==="auth/weak-password") setValidationError("shortPassword")
+                else if(error.code==="auth/requires-recent-login") setRequireLogin(true);
+              });
+        }
+        else setValidationError("passwordMismatch")
     }
 
     useEffect(()=>{
@@ -181,7 +223,7 @@ function ProfilePage({}) {
                     }
                 });
             });
-            setPasswordEdit({...passwordEdit,password:updatedUserData.password});
+            // setPasswordEdit({...passwordEdit,password:updatedUserData.password});
         }
     },[currentUser]);
 
@@ -242,26 +284,30 @@ function ProfilePage({}) {
                                                         {validationError==="email" && <div className='error-message text-danger mt-2'>Email already registered...</div>}
                                                     </FloatingLabel>
 
-                                                    <FloatingLabel controlId="floatingPassword" label="Password">
+                                                    <Button variant='dark' className='border-0 main-button'
+                                                    onClick={handlePasswordChangeModalShow}
+                                                    >Change Password</Button>
+
+                                                    {/* <FloatingLabel controlId="floatingPassword" label="Password">
                                                         <Form.Control disabled={!edit} type="password" placeholder="Password" 
                                                         // {...registerBasic("password")}
                                                         value={passwordEdit.password} onChange={(e)=>{setPasswordEdit({...passwordEdit,password:e.target.value});}}
                                                             />
                                                         {errorsBasic.password ? <div className='error-message text-danger mt-2'>{errorsBasic.password.message}</div> : ''}
                                                         {validationError==="passwordNull" && <div className='error-message text-danger mt-2'>Please enter a password...</div>}
-                                                    </FloatingLabel>
+                                                    </FloatingLabel> */}
 
                                                     {
-                                                            currentUser && passwordEdit.password !== currentUser.password &&
+                                                        //     currentUser && passwordEdit.password !== currentUser.password &&
 
-                                                        <FloatingLabel controlId="floatingconfirmPassword" label="Confirm Password">
-                                                            <Form.Control disabled={!edit} type="confirmpassword" placeholder="Confirm Password" 
-                                                            value={passwordEdit.confirmPassword} onChange={(e)=>{setPasswordEdit({...passwordEdit,confirmPassword:e.target.value});}}
-                                                            />
-                                                            {errorsBasic.confirmPassword ? <div className='error-message text-danger mt-2'>{errorsBasic.confirmPassword.message}</div> : ''}
-                                                            {validationError==="passwordMismatch" && <div className='error-message text-danger mt-2'>Password Mismatch...</div>}
+                                                        // <FloatingLabel controlId="floatingconfirmPassword" label="Confirm Password">
+                                                        //     <Form.Control disabled={!edit} type="confirmpassword" placeholder="Confirm Password" 
+                                                        //     value={passwordEdit.confirmPassword} onChange={(e)=>{setPasswordEdit({...passwordEdit,confirmPassword:e.target.value});}}
+                                                        //     />
+                                                        //     {errorsBasic.confirmPassword ? <div className='error-message text-danger mt-2'>{errorsBasic.confirmPassword.message}</div> : ''}
+                                                        //     {validationError==="passwordMismatch" && <div className='error-message text-danger mt-2'>Password Mismatch...</div>}
 
-                                                        </FloatingLabel>
+                                                        // </FloatingLabel>
                                                     }
                                                     
                                                     <div className="d-flex justify-content-end align-items-end" style={{height:"150px"}}>
@@ -345,12 +391,57 @@ function ProfilePage({}) {
                             <Modal.Title className='text-capitalize'>Delete Account</Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
+                        {
+                            requireLogin ?
+                            <div className='d-flex flex-column align-items-center gap-3'>
+                                <h5 className='text-center'>To ensure security, please log out then log in again to be able to delete your account.</h5>
+                                <Button type='danger' className='main-button border-0'
+                                onClick={()=>{dispatch(logoutUser());}}
+                                >Log out</Button>
+                            </div>
+                            :
                             <form className="d-flex flex-column align-items-center gap-3" onSubmit={handleSubmitConfirmDelete(onSubmitConfirmDelete)}>
                                 <strong className='text-danger text-center'>HOLD UP! You are going to delete your account! You will lose all your stored cart, favorites, and purchase history.</strong>
                                 <p className='m-0 mt-3 text-center'>If you are sure, please enter your first name and password. <br /> (Ex: "Omar-123")</p>
                                 <Form.Control type="text" {...registerConfirmDelete("confirmDelete")}/>
                                 <Button className='w-100 border-0 main-button' variant='danger' type='submit'>Delete Account</Button>
                             </form>
+                        }
+                        </Modal.Body>
+                    </Modal>
+
+                    <Modal show={passwordChangeModal} onHide={handlePasswordChangeModalClose} centered={true} className='bg-transparent'>
+                        <Modal.Header closeButton>
+                            <Modal.Title className='text-capitalize'>Change Password</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                        {
+                            requireLogin ?
+                            <div className='d-flex flex-column align-items-center gap-3'>
+                                <h5 className='text-center'>To ensure security, please log out then log in again to be able to change your password.</h5>
+                                <Button type='danger' className='main-button border-0'
+                                onClick={()=>{dispatch(logoutUser());}}
+                                >Log out</Button>
+                            </div>
+                            :
+                            <form className="d-flex flex-column align-items-center gap-3" onSubmit={onSumbitChangePassword}>
+                                <p>Please enter and confirm your new password.</p>
+                                <FloatingLabel label="New Password" className='w-100'>
+                                    <Form.Control type="password" placeholder="New Password" value={passwordEdit.password} onChange={(e)=>setPasswordEdit(p => ({...p,password:e.target.value}))}/>
+                                    {errorsExtra.address ? <div className='error-message text-danger mt-2'>{errorsExtra.address.message}</div> : ''}
+                                </FloatingLabel>
+                                <FloatingLabel label="Confirm New Password" className='w-100'>
+                                    <Form.Control type="password" placeholder="Confirm New Password" value={passwordEdit.confirmPassword} onChange={(e)=>setPasswordEdit(p => ({...p,confirmPassword:e.target.value}))}/>
+                                    {errorsExtra.address ? <div className='error-message text-danger mt-2'>{errorsExtra.address.message}</div> : ''}
+                                </FloatingLabel>
+
+                                {validationError==="shortPassword" && <div className='error-message text-danger mt-2'>Password should be at least 6 characters.</div>}
+                                {validationError==="passwordMismatch" && <div className='error-message text-danger mt-2'>Password Mismatch...</div>}
+
+                                {/* <Form.Control type="text" {...registerConfirmDelete("confirmDelete")}/> */}
+                                <Button className='w-100 border-0 main-button' variant='primary' type='submit'>Change Password</Button>
+                            </form>
+                        }
                         </Modal.Body>
                     </Modal>
                 </>

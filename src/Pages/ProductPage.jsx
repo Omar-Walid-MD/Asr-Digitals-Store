@@ -183,8 +183,7 @@ function ProductPage({})
         }
     },[reviews]);
 
-    
-
+    console.log(reviews)
 
     return (
         <div className='bg-light'>

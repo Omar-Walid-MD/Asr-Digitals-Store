@@ -10,6 +10,8 @@ import ReCAPTCHA from 'react-google-recaptcha';
 import { addPurchase, resetPurchaseLoading } from '../Store/Purchases/purchasesSlice';
 import { getTotalFees } from '../helpers';
 import { emptyCart } from '../Store/Cart/cartSlice';
+import { auth } from '../Firebase/firebase';
+import { EmailAuthCredential, reauthenticateWithCredential } from 'firebase/auth';
 
 const schemas = [
     yup.object({
@@ -26,7 +28,7 @@ const schemas = [
         city: yup.string().required("Please enter your city..."),
         address: yup.string().required("Please enter your address..."),
         street: yup.string().required("Please enter your street..."),
-        zipcode: yup.string().required("Please enter your zipcode..."),
+        zipcode: yup.number().required("Please enter your zipcode..."),
 
   }).required(),
   yup.object({
@@ -110,47 +112,41 @@ function Checkout({}) {
         }
     }
 
-    function onCheckoutSubmit(e)
+    async function onCheckoutSubmit(e)
     {
         e.preventDefault();
         const token = captchaRef.current.getValue();
         if(checkoutStage===3)
         {
-            if(currentUser && password!==currentUser.password)
+            if(!token && false)
             {
-                handleValidationError("password");
+                handleValidationError("ReCAPTCHA");
             }
-            else 
+            else
             {
-                if(!token && false)
-                {
-                    handleValidationError("ReCAPTCHA");
-                }
-                else
-                {
-                    
-                    let newPurchase = {
-                        total: fees.total,
-                        subtotal: fees.subtotal,
-                        deliveryFees: fees.delivery,
-                        order: cart.map((cartItem) => ({
-                            itemId: cartItem.productId,
-                            count: cartItem.count,
-                            price: (()=>{
-                                let availableOffer = offers.find((offer) => offer.productId===cartItem.productId && offer.status==="running");
-                                return availableOffer ? availableOffer.newPrice : products.find((product)=>product.id===cartItem.productId).price;
-                            })()
-                        })),
-                        orderCount: cart.reduce((t,item)=>{return t + item.count},0),
-                        details: {...purchaseData,dateOfBirth: purchaseData.dateOfBirth.toISOString().split('T')[0]},
-                        estimatedDeliveryHours: 2+Math.floor(Math.random()*3)+parseInt(fees.total/1000),
-                        status: "pending",
-                        userId: currentUser ? currentUser.id : "0",
-                        date: Date.now()
-                    };
-                    dispatch(addPurchase(newPurchase));
-                }
+                
+                let newPurchase = {
+                    total: fees.total,
+                    subtotal: fees.subtotal,
+                    deliveryFees: fees.delivery,
+                    order: cart.map((cartItem) => ({
+                        itemId: cartItem.productId,
+                        count: cartItem.count,
+                        price: (()=>{
+                            let availableOffer = offers.find((offer) => offer.productId===cartItem.productId && offer.status==="running");
+                            return availableOffer ? availableOffer.newPrice : products.find((product)=>product.id===cartItem.productId).price;
+                        })()
+                    })),
+                    orderCount: cart.reduce((t,item)=>{return t + item.count},0),
+                    details: {...purchaseData,dateOfBirth: purchaseData.dateOfBirth.toISOString().split('T')[0]},
+                    estimatedDeliveryHours: 2+Math.floor(Math.random()*3)+parseInt(fees.total/1000),
+                    status: "pending",
+                    userId: currentUser ? currentUser.id : "0",
+                    date: Date.now()
+                };
+                dispatch(addPurchase(newPurchase));
             }
+            
         }
 
     }
@@ -307,7 +303,7 @@ function Checkout({}) {
                                                     </FloatingLabel>
 
                                                     <FloatingLabel className='w-100' controlId="floatingZipcode" label="Zipcode">
-                                                        <Form.Control type="text" placeholder="Zipcode" {...registerShippingForm("zipcode")} />
+                                                        <Form.Control type="text" maxLength="5" placeholder="Zipcode" {...registerShippingForm("zipcode")} />
                                                         {errorsShippingForm.zipcode ? <div className='error-message text-danger mt-2'>{errorsShippingForm.zipcode.message}</div> : ''}
                                                     </FloatingLabel>
                                                 </div>
@@ -329,13 +325,13 @@ function Checkout({}) {
                                                 <h6>Payment</h6>
 
                                                 <FloatingLabel controlId="floatingCreditCardNo" label="Credt Card Number">
-                                                    <Form.Control type="text" placeholder="First Name" {...registerPaymentForm("creditCardNo")} />
+                                                    <Form.Control type="number" placeholder="First Name" {...registerPaymentForm("creditCardNo")} />
                                                     {errorsPaymentForm.creditCardNo ? <div className='error-message text-danger mt-2'>{errorsPaymentForm.creditCardNo.message}</div> : ''}
                                                 </FloatingLabel>
 
                                                 <div className="d-flex flex-column flex-sm-row w-100 gap-3">
                                                     <FloatingLabel className='w-sm-50' controlId="floatingCreditCardPin" label="Credit Card PIN">
-                                                        <Form.Control type="text" placeholder="Credit Card PIN" {...registerPaymentForm("creditCardPin")} />
+                                                        <Form.Control type="number" maxLength="3" placeholder="Credit Card PIN" {...registerPaymentForm("creditCardPin")} />
                                                         {errorsPaymentForm.creditCardPin ? <div className='error-message text-danger mt-2'>{errorsPaymentForm.creditCardPin.message}</div> : ''}
                                                     </FloatingLabel>
 
@@ -391,7 +387,7 @@ function Checkout({}) {
                                                     <h4>Total Amount: {fees.total}</h4>
                                                     <form id='checkout-form-4' onSubmit={onCheckoutSubmit} className="">
                                                         {
-                                                            currentUser &&
+                                                            currentUser && false &&
                                                             <FloatingLabel className='w-100 mt-5' controlId="floatingCheckoutPassword" label="Enter Password">
                                                                 <Form.Control type="password" placeholder="Enter Password" value={password} onChange={(e)=>{setPassword(e.target.value)}}/>
                                                             </FloatingLabel>

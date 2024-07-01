@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, current } from '@reduxjs/toolkit';
 import axios from "axios";
 import { child, get, ref, set } from 'firebase/database';
 import { database } from '../../Firebase/firebase';
@@ -75,6 +75,7 @@ export const reviewsSlice = createSlice({
         .addCase(addReview.fulfilled,(state, { payload }) => {
             state.loading = false
             state.reviews = [...state.reviews,payload];
+            console.log(current(state).reviews)
         })
         .addCase(addReview.rejected,(state) => {
             state.loading = false;

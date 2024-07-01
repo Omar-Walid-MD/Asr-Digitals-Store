@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from "axios";
 import { child, get, ref, set, update, remove } from 'firebase/database';
 import { database } from '../../Firebase/firebase';
+import { current } from '@reduxjs/toolkit'
 
 const initialState = {
     products: [],
@@ -68,7 +69,7 @@ export const editProduct = createAsyncThunk(
   'products/editProduct',
   async ({productId,editedProduct}) => {
     update(ref(database, 'products/' + productId), editedProduct);
-    return editedProduct;
+    return {id:productId,...editedProduct};
 });
 
 export const deleteProduct = createAsyncThunk(
@@ -81,7 +82,7 @@ export const deleteProduct = createAsyncThunk(
 export const setProductRating = createAsyncThunk(
   'products/setProductRating',
   async ({productId,rating}) => {
-    update(ref(database, 'products/' + productId), {rating: rating});
+    set(ref(database, `products/${productId}/rating`), rating);
     return {id:productId,rating};
 });
 
@@ -137,7 +138,7 @@ export const productsSlice = createSlice({
         .addCase(editProduct.fulfilled,(state, { payload }) => {
             state.loading = false;
             state.products = state.products.map((product) => product.id===payload.id ? payload : product);
-        })
+          })
         .addCase(editProduct.rejected,(state) => {
             state.loading = false;
         })

@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from "axios";
-import { child, get, ref, set, update } from 'firebase/database';
+import { child, get, ref, remove, set, update } from 'firebase/database';
 import { database } from '../../Firebase/firebase';
 
 const initialState = {
@@ -8,11 +8,20 @@ const initialState = {
     loading: true
 }
 
+function getOffersArray(offersObject){return Object.keys(offersObject).map((key)=>({id:key,...offersObject[key]}));}
+function getOffersObject(offersArray)
+{
+    let offersObject = {};
+    offersArray.forEach((offer)=>{offersObject[offer.id] = offer;});
+    return offersObject;
+}
+
+
 export const getOffers = createAsyncThunk(
   'offers/getOffers',
   async () => {
     return await get(child(ref(database), "offers")).then((snapshot) => {
-        return snapshot.exists() ? snapshot.val() : [];
+        return snapshot.exists() ? getOffersArray(snapshot.val()) : [];
     });
 });
 
@@ -35,7 +44,7 @@ export const editOffer = createAsyncThunk(
 export const deleteOffer = createAsyncThunk(
   'offers/deleteOffer',
   async ({offerId}) => {
-    ref(database, 'offers/' + offerId).remove();
+    remove(ref(database, 'offers/' + offerId));
     return offerId;
 });
 

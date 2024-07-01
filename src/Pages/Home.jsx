@@ -232,10 +232,10 @@ function Home({}) {
                             <h1>Electro Series</h1>
                             <p className='text-dark fs-5'>Fresh new set of Smartphones with design and performance equally astonishing.</p>
                         </Col>
-                        <Col className="col-6 col-md-4 col-lg-2 order-1 order-lg-0 px-1 px-sm-2"><ProductCard productId={"12546"} /></Col>
-                        <Col className="col-6 col-md-4 col-lg-2 order-1 order-lg-0 px-1 px-sm-2"><ProductCard productId={"24329"} /></Col>
+                        <Col className="col-6 col-md-4 col-lg-2 order-1 order-lg-0 px-1 px-sm-2"><ProductCard productId={"6ea1ab48-93a6-4733-bd6a-0721639ef0db"} /></Col>
+                        <Col className="col-6 col-md-4 col-lg-2 order-1 order-lg-0 px-1 px-sm-2"><ProductCard productId={"21ab0d62-2969-4423-a16e-742ef3d85a01"} /></Col>
                         <Col className="col-12 col-md-4 col-lg-2 order-1 order-lg-0 px-1 px-sm-2 d-flex justify-content-center">
-                            <ProductCard productId={"82592"} className={"w-xs-50 w-md-100"} />
+                            <ProductCard productId={"98abcfde-51ea-4c2f-a3a8-fd006b2660e1"} className={"w-xs-50 w-md-100"} />
                         </Col>
                         <Col className='col-12 col-sm-6 col-lg-3 d-flex align-items-center justify-content-center justify-content-lg-start pb-3 pb-sm-0'>
                             <img className='' src={require("../img/home/homepage-newest-1.png")} alt="" style={{width:"min(115%,75vw)",filter: "drop-shadow(0 2px 5px rgb(0,20,100,0.8))"}} />
@@ -246,8 +246,8 @@ function Home({}) {
                         <Col className='col-12 col-sm-6 col-md-6 col-lg-3 order-1 order-lg-0 d-flex align-items-center justify-content-center justify-content-lg-end pb-3 pb-sm-0'>
                             <img className='' src={require("../img/home/homepage-newest-2.png")} alt="" style={{width:"min(120%,80vw)",filter: "drop-shadow(0 2px 5px rgb(0,20,100,0.8))"}} />
                         </Col>
-                        <Col className="col-6 col-md-4 col-lg-2 order-1 order-lg-0 px-1 px-sm-2"><ProductCard productId={"11241"} col={4} /></Col>
-                        <Col className="col-6 col-md-4 col-lg-2 order-1 order-lg-0 px-1 px-sm-2"><ProductCard productId={"99461"} col={4} /></Col>
+                        <Col className="col-6 col-md-4 col-lg-2 order-1 order-lg-0 px-1 px-sm-2"><ProductCard productId={"b6036809-458f-49c2-ac05-c308d02ad0be"} col={4} /></Col>
+                        <Col className="col-6 col-md-4 col-lg-2 order-1 order-lg-0 px-1 px-sm-2"><ProductCard productId={"845e5d84-f429-488e-b271-f51c0fe8b194"} col={4} /></Col>
                         <Col className="col-12 col-sm-6 col-md-6 col-lg-4 ps-sm-5 text-center text-sm-start">
                             <h1>Zoom</h1>
                             <p className='text-dark fs-5'>Zoom faster into the future's tech with Zoom's Lightweight, Professional Smartphones.</p>

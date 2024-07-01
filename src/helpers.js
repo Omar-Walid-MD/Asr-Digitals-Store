@@ -505,8 +505,6 @@ export const generateRandomReviews = function(length,users,products)
 
   }
 
-
-
 }
 
 export const onImgError = function(e)

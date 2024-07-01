@@ -64,7 +64,7 @@ function ManageOffers({}) {
         endMonth: "",
         oldPrice: "",
         newPrice: "",
-        status: "",
+        status: ""
     };
 
     const [filteredOffers,setFilteredOffers] = useState(offers);

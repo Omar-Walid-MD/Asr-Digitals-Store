@@ -273,8 +273,10 @@ function ManageProducts({}) {
     useEffect(()=>{
         setFilteredProducts(getSortedProducts(getFilteredProducts(products)));
         setSpecFilterOptions(getSpecFilterOptions(products));
+
     },[filters, sort, products, productsInfo]);
 
+    console.log(products[0]);
 
     return (
         <div className='py-3 px-0 p-md-3'>
@@ -317,7 +319,7 @@ function ManageProducts({}) {
                                         <Row className='gy-2 m-0'>
                                         {
                                             productsInfo.categories && productsInfo.categories.map((category) =>
-                                            <Col className='px-1 col-6 col-sm-3 col-md-2' key={`product-filter-category-${category}`}><Button variant='secondary' className={`w-100 d-flex btn-secondary align-items-center justify-content-between text-capitalize ${filters.categories.includes(category.name) ? "bg-primary border-primary" : "bg-secondary"}`} onClick={()=>{handleFilterCategories(category.name)}}>{category.name}</Button></Col>
+                                            <Col className='px-1 col-6 col-sm-3 col-md-2' key={`product-filter-category-${category.name}`}><Button variant='secondary' className={`w-100 d-flex btn-secondary align-items-center justify-content-between text-capitalize ${filters.categories.includes(category.name) ? "bg-primary border-primary" : "bg-secondary"}`} onClick={()=>{handleFilterCategories(category.name)}}>{category.name}</Button></Col>
                                             )
                                         }
                                         </Row>
@@ -593,7 +595,7 @@ function ManageProducts({}) {
                                                         <option  value="">--Select Category--</option>
                                                     {
                                                         productsInfo.categories ? productsInfo.categories.map((category) =>
-                                                        <option  value={category.name} key={`product-select-category-${category}`}>{category.name}</option>
+                                                        <option  value={category.name} key={`product-select-category-${category.name}`}>{category.name}</option>
                                                         )
                                                         : ""
                                                     }
@@ -611,7 +613,7 @@ function ManageProducts({}) {
                                                     {
                                                         productsInfo.categories.find((category) => category.name === productCategory).specs.map((spec) =>
                                                         
-                                                        <Col className='col-12 col-sm-6' key={`product-edit-spec-${spec}`}>
+                                                        <Col className='col-12 col-sm-6' key={`product-edit-spec-${spec.name}`}>
                                                             <FloatingLabel controlId="" label={getCapitalized(spec.name)}>
                                                                 <Form.Control type="text" placeholder={spec.name} value={productSpecs[spec.code]} onChange={(e)=>{setProductSpecs(prev => ({...prev,[spec.code]:e.target.value}))}} />
                                                             </FloatingLabel>
@@ -693,7 +695,7 @@ function ManageProducts({}) {
                                 {
                                     productsInfo.categories.find((category) => category.name === productToShow.category).specs.map((spec) =>
                                     
-                                    <Col className='col-12 col-sm-6 px-3' key={`product-details-spec-${spec}`}>
+                                    <Col className='col-12 col-sm-6 px-3' key={`product-details-spec-${spec.name}`}>
                                         <Row className='h-100 border rounded-3 overflow-hidden'>
                                             <Col className="col-6 bg-light fw-semibold text-capitalize h-100 border-end p-2">{spec.name}</Col>
                                             <Col className="col-6 p-2">{productToShow.specs[spec.code] || "Not provided"}</Col>

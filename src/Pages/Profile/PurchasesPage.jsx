@@ -7,12 +7,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import ProductCartItemOverview from '../../Components/ProductCartOverViewItem';
 import PurchaseCard from '../../Components/PurchaseCard';
 import { BiSolidPurchaseTag } from 'react-icons/bi';
+import { child, get, ref } from 'firebase/database';
+import { database } from '../../Firebase/firebase';
 
 function PurchasesPage({}) {
 
     const currentUser = useSelector((store) => store.auth.currentUser);
-    const purchases = useSelector((store) => store.purchases.purchases);
+    const [purchases,setPurchases] = useState();
     const [userPurchases,setUserPurchases] = useState([]);
+
 
     function getPurchaseHistory()
     {
@@ -43,7 +46,23 @@ function PurchasesPage({}) {
 
     useEffect(()=>{
         if(purchases && currentUser) setUserPurchases(purchases.filter((purchase) => purchase.userId === currentUser.id));
-    },[purchases,currentUser])
+    },[purchases,currentUser]);
+
+    useEffect(()=>{
+        if(!purchases)
+        {
+            (async()=>{
+                return await get(child(ref(database), `purchases/${currentUser.id}`)).then((snapshot) => {
+                    if(snapshot.exists())
+                    {
+                        const purchasesObject = snapshot.val();
+                        setPurchases(Object.keys(purchasesObject).map((purchaseId)=>({id:purchaseId,...purchasesObject[purchaseId]})));
+                    }
+                    else setPurchases([]);
+                });
+            })();
+        }
+    },[]);
 
     return (
         <div className='page-container bg-light p-sm-1 px-sm-3'>
