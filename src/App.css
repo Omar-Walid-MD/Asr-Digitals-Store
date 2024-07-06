@@ -726,7 +726,50 @@ input
 }
 
 
+/* POPUPS */
+.popup
+{
+  width: min(400px,calc(100% - 40px));
+  animation: popup-animation 5s forwards;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
 
+.popup.close
+{
+  animation: popup-close 0.5s forwards linear !important;
+
+}
+
+.popup::after
+{
+  content: "";
+  width: 100%;
+  height: 5px;
+  background-color: greenyellow;
+  position: absolute;
+  bottom: 5px;
+  
+  animation: popup-bar-animation 4s forwards linear;
+}
+
+@keyframes popup-animation {
+  0% {transform: translateY(100px);}
+  10% {transform: translateY(0);}
+  90% {transform: translateY(0);}
+  100% {transform: translateY(100px);}
+}
+
+@keyframes popup-close {
+  /* 0% {transform: translateY(0);} */
+  100% {transform: translateY(200px);}
+}
+
+@keyframes popup-bar-animation {
+  0% {width: 100%;}
+  100% {width: 0;}
+}
 
 /* HOME PAGE */
 

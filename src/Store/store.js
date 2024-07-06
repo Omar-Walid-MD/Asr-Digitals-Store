@@ -8,6 +8,7 @@ import purchasesReducer from './Purchases/purchasesSlice';
 import offersReducer from './Offers/offers';
 import previewStatsReducer from './PreviewStats/previewStats';
 import settingsReducer from './Settings/settingsSlice';
+import popupsReducer from './Popups/popupsSlice';
 
 export default configureStore({
   reducer: {
@@ -19,6 +20,7 @@ export default configureStore({
     purchases: purchasesReducer,
     offers: offersReducer,
     previewStats: previewStatsReducer,
-    settings: settingsReducer
+    settings: settingsReducer,
+    popups: popupsReducer
   },
 })

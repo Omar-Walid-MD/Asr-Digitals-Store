@@ -53,12 +53,14 @@ export const addToCart = createAsyncThunk(
 'cart/addToCart',
 async (productId, {getState}) => {
 
+    const product = getState().products.products.find((p)=>p.id === productId);
+
     if(auth.currentUser)
     {
         let updatedCart = [...getState().cart.cart,{productId: productId, count: 1}];
 
         set(ref(database, `users/${auth.currentUser.uid}/cart`), getCartObject(updatedCart));
-        return updatedCart;
+        return {product,cart:updatedCart};
     }
     else
     {
@@ -67,7 +69,7 @@ async (productId, {getState}) => {
         {
             localCart = [...localCart,{productId: productId, count: 1}];
             localStorage.setItem("userCart",JSON.stringify(localCart));
-            return localCart;
+            return {product,cart:localCart};
         }
     }
 });
@@ -76,12 +78,14 @@ export const removeFromCart = createAsyncThunk(
 'cart/removeFromCart',
 async (productId, {getState}) => {
 
+    const product = getState().products.products.find((p)=>p.id === productId);
+
     if(auth.currentUser)
     {
         let updatedCart = getState().cart.cart.filter((product) => product.productId !== productId);
 
         set(ref(database, `users/${auth.currentUser.uid}/cart`), getCartObject(updatedCart));
-        return updatedCart;
+        return {product,cart:updatedCart};
     }
     else
     {
@@ -90,7 +94,7 @@ async (productId, {getState}) => {
         {
             localCart = localCart.filter((product) => product.productId !== productId);
             localStorage.setItem("userCart",JSON.stringify(localCart));
-            return localCart;
+            return {product,cart:localCart};
         }
     }
 });
@@ -99,12 +103,14 @@ export const setProductCount = createAsyncThunk(
 'cart/setProductCount',
 async ({productId, count}, {getState}) => {
 
+    const product = getState().products.products.find((p)=>p.id === productId);
+
     if(auth.currentUser)
     {
         let updatedCart = getState().cart.cart.map((product) => product.productId === productId ? {productId: productId, count: count} : product);
 
-        set(ref(database, `users/${auth.currentUser.uid}/cart`), getCartObject(updatedCart));
-        return updatedCart;
+        set(ref(database, `users/${auth.currentUser.uid}/cart/${productId}`), count);
+        return {product,count,cart:updatedCart};
     }
     else
     {
@@ -113,7 +119,7 @@ async ({productId, count}, {getState}) => {
         {
             localCart = localCart.map((product) => product.productId === productId ? {productId: productId, count: count} : product);
             localStorage.setItem("userCart",JSON.stringify(localCart));
-            return localCart;
+            return {product,count,cart:localCart};
         }
     }
 });
@@ -165,7 +171,7 @@ export const cartSlice = createSlice({
         })
         .addCase(addToCart.fulfilled,(state, { payload }) => {
             state.loading = false
-            state.cart = payload;
+            state.cart = payload.cart;
         })
         .addCase(addToCart.rejected,(state) => {
             state.loading = false;
@@ -178,7 +184,7 @@ export const cartSlice = createSlice({
         })
         .addCase(removeFromCart.fulfilled,(state, { payload }) => {
             state.loading = false;
-            state.cart = payload;
+            state.cart = payload.cart;
         })
         .addCase(removeFromCart.rejected,(state) => {
             state.loading = false;
@@ -204,7 +210,7 @@ export const cartSlice = createSlice({
         })
         .addCase(setProductCount.fulfilled,(state, { payload }) => {
             state.loading = false
-            state.cart = payload;
+            state.cart = payload.cart;
         })
         .addCase(setProductCount.rejected,(state) => {
             state.loading = false;
