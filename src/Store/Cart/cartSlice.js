@@ -26,7 +26,7 @@ export const getCart = createAsyncThunk(
 
     if(auth.currentUser)
     {
-        const userCartObject = getState().auth.currentUser.cart || [];
+        const userCartObject = getState().auth.currentUser.cart || {};
         const userCart = getCartArray(userCartObject);
 
         if(userCart.length===0 && localCart.length > 0)
@@ -41,11 +41,15 @@ export const getCart = createAsyncThunk(
     }
     else
     {
-        if(!localCart)
+        if(localCart)
+        {
+            return localCart;
+        }
+        else
         {
             localStorage.setItem("userCart",JSON.stringify([]))
+            return [];
         }
-        return localCart;
     }
 });
 

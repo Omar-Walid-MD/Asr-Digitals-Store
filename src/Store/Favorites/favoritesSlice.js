@@ -39,11 +39,15 @@ async (args,{getState}) => {
     }
     else
     {
-        if(!localFavs)
+        if(localFavs)
+        {
+            return localFavs;
+        }
+        else
         {
             localStorage.setItem("userFavorites",JSON.stringify([]))
+            return [];
         }
-        return localFavs;
     }
 });
 

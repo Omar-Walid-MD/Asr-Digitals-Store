@@ -31,6 +31,7 @@ function CartSideBar() {
     if(products && cart && productsInfo && offers) setFees(getTotalFees(cart,products,productsInfo,offers));
 },[cart,products,productsInfo,offers]);
 
+
   return (
     <>
 
