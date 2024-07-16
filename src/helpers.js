@@ -129,7 +129,8 @@ export const getRatingCount = function(reviews,rating)
 
 export const getCapitalized = function(string)
 {
-   return string.split(" ").map((word) => word[0].toUpperCase() + word.slice(1)).join(" ");
+  if(!string) return "";
+  return string.split(" ").map((word) => word[0].toUpperCase() + word.slice(1)).join(" ");
 }
 
 export const getDateString = function(dateObject)

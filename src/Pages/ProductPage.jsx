@@ -183,8 +183,6 @@ function ProductPage({})
         }
     },[reviews]);
 
-    console.log(reviews)
-
     return (
         <div className='bg-light'>
             <div className='page-section'>

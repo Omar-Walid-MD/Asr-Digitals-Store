@@ -16,9 +16,8 @@ function Offers({}) {
     const [timerInterval,setTimerInterval] = useState(0);
     const [first,setFirst] = useState(false);
 
-    const date = new Date("1 Sep 2023");
+    const date = new Date("1 Sep 2024");
 
-     
     function handleCountDown()
     {
         let timeLeft = date.getTime() - Date.now();

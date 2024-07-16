@@ -15,22 +15,24 @@ import { getPreviewStats } from './Store/PreviewStats/previewStats';
 import { getFontSize } from './Store/Settings/settingsSlice';
 import { auth, database } from './Firebase/firebase';
 import { ref, set } from 'firebase/database';
+import usePageTitle from './Hooks/usePageTitle';
 //ykl5VLeGYBaxWfiQ
 function App() {
 
   const dispatch = useDispatch();
   const currentUser = useSelector((store) => store.auth.currentUser);
+  const products = useSelector((store) => store.products.products);
+
+  usePageTitle();
 
   // const purchases = useSelector((store) => store.purchases.purchases);
   // const offers = useSelector((store) => store.offers.offers);
 
   // const users = useSelector((store) => store.auth.users);
-  const products = useSelector((store) => store.products.products);
   // const reviews = useSelector((store) => store.reviews.reviews);
-
   // const [reviewsCheck,setReviewsCheck] = useState(false);
-
   // const [refreshInterval,setRefreshInterval] = useState();
+
 
   useEffect(()=>{
     // dispatch(getUsers());

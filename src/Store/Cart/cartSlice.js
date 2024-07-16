@@ -29,15 +29,17 @@ export const getCart = createAsyncThunk(
         const userCartObject = getState().auth.currentUser.cart || {};
         const userCart = getCartArray(userCartObject);
 
-        if(userCart.length===0 && localCart.length > 0)
-        {
-            set(ref(database, `users/${auth.currentUser.uid}/cart`), localCart);
-            return localCart;
-        }
-        else
-        {
-            return userCart;
-        }
+        return userCart;
+
+        // if(userCart.length===0 && localCart.length > 0)
+        // {
+        //     set(ref(database, `users/${auth.currentUser.uid}/cart`), localCart);
+        //     return localCart;
+        // }
+        // else
+        // {
+        //     return userCart;
+        // }
     }
     else
     {

@@ -27,15 +27,17 @@ async (args,{getState}) => {
         const userFavsObject = getState().auth.currentUser.favorites || [];
         const userFavs = getFavsArray(userFavsObject);
 
-        if(userFavs.length===0 && localFavs.length > 0)
-        {
-            set(ref(database, `users/${auth.currentUser.uid}/favorites`), localFavs);
-            return localFavs;
-        }
-        else
-        {
-            return userFavs;
-        }
+        return userFavs;
+
+        // if(userFavs.length===0 && localFavs.length > 0)
+        // {
+        //     set(ref(database, `users/${auth.currentUser.uid}/favorites`), localFavs);
+        //     return localFavs;
+        // }
+        // else
+        // {
+        //     return userFavs;
+        // }
     }
     else
     {

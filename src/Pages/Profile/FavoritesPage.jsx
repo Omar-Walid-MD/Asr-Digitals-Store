@@ -11,6 +11,7 @@ import { BsStarFill } from 'react-icons/bs';
 function FavoritesPage({}) {
 
     const favorites = useSelector((store) => store.favorites.favorites);
+    console.log(favorites);
 
 
     return (
