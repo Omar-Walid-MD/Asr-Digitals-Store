@@ -6,8 +6,8 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { BsFillInfoCircleFill, BsPlus, BsTrashFill } from 'react-icons/bs';
-import { addOffer, deleteOffer, editOffer, setOfferStatus } from '../../Store/Offers/offers';
-import { getDateString, makeUniqueId } from '../../helpers';
+import { addOffer, deleteOffer, editOffer, setOfferStatus } from '../../Store/Offers/offersSlice';
+import { getDateString } from '../../helpers';
 import { FaArrowUpRightFromSquare } from 'react-icons/fa6';
 import { PiPencilSimpleFill } from 'react-icons/pi';
 import { BiSolidOffer } from 'react-icons/bi';
@@ -128,7 +128,6 @@ function ManageOffers({}) {
                 end: getDateString(data.end),
                 productId: targetProduct.id,
                 date: Date.now(),
-                id: makeUniqueId(offers),
                 status: getDateString(data.start)===getDateString(new Date()) ? "running" : "upcoming"
             };
             dispatch(addOffer(newOffer));

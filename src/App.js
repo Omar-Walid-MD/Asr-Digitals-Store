@@ -8,43 +8,41 @@ import { getCart } from './Store/Cart/cartSlice';
 import { getFavs } from './Store/Favorites/favoritesSlice';
 import { getReviews } from './Store/Reviews/reviewsSlice';
 import { getPurchases, setPurchaseStatus } from './Store/Purchases/purchasesSlice';
-import { editOffer, getOffers, setOfferStatus } from './Store/Offers/offers';
+import { editOffer, getOffers, setOfferStatus } from './Store/Offers/offersSlice';
 import ScrollToTop from './Layout/ScrollToTop';
-import { generateRandomOffers, generateRandomPurchases, generateRandomReviews, getRating, makeIdWithChars, makeUniqueId, refreshOffers, refreshPurchases } from './helpers';
+import { refreshOffers, refreshPurchases } from './helpers';
 import { getPreviewStats } from './Store/PreviewStats/previewStats';
 import { getFontSize } from './Store/Settings/settingsSlice';
 import { auth, database } from './Firebase/firebase';
 import { ref, set } from 'firebase/database';
 import usePageTitle from './Hooks/usePageTitle';
-//ykl5VLeGYBaxWfiQ
+
 function App() {
 
-  const dispatch = useDispatch();
-  const currentUser = useSelector((store) => store.auth.currentUser);
-  const products = useSelector((store) => store.products.products);
+    const dispatch = useDispatch();
+    const currentUser = useSelector((store) => store.auth.currentUser);
+    const products = useSelector((store) => store.products.products);
 
-  usePageTitle();
+    usePageTitle();
 
-  // const purchases = useSelector((store) => store.purchases.purchases);
-  // const offers = useSelector((store) => store.offers.offers);
+    const purchases = useSelector((store) => store.purchases.purchases);
+    const offers = useSelector((store) => store.offers.offers);
 
-  // const users = useSelector((store) => store.auth.users);
-  // const reviews = useSelector((store) => store.reviews.reviews);
-  // const [reviewsCheck,setReviewsCheck] = useState(false);
-  // const [refreshInterval,setRefreshInterval] = useState();
-
+    // const users = useSelector((store) => store.auth.users);
+    // const reviews = useSelector((store) => store.reviews.reviews);
+    // const [reviewsCheck,setReviewsCheck] = useState(false);
+    // const [refreshInterval,setRefreshInterval] = useState();
+    
 
   useEffect(()=>{
-    // dispatch(getUsers());
+    dispatch(getUsers());
     dispatch(getProducts());
     dispatch(getProductsInfo());
-    // dispatch(getCurrentUser());
     dispatch(getReviews());
     dispatch(getPurchases());
     dispatch(getOffers());
     dispatch(getPreviewStats());
-    dispatch(getFontSize());
-
+    // dispatch(getFontSize());
 
     auth.onAuthStateChanged(function(user) {
       if(user)
@@ -63,14 +61,14 @@ function App() {
   },[currentUser]);
 
 
-  // useEffect(()=>{
-  //   const interval = setInterval(() => {
-  //     refreshPurchases(purchases,(purchase,status)=>{dispatch(setPurchaseStatus({purchase,status}))})
-  //     refreshOffers(offers,(offer,status)=>{dispatch(setOfferStatus({offer,status}))})
+  useEffect(()=>{
+    const interval = setInterval(() => {
+      refreshPurchases(purchases,(purchase,status)=>{dispatch(setPurchaseStatus({purchase,status}))})
+      refreshOffers(offers,(offer,status)=>{dispatch(setOfferStatus({offer,status}))})
 
-  //   }, 1000 * 60 * 5);
-  //   return ()=> clearInterval(interval);  
-  // },[purchases,offers]);
+    }, 1000 * 60 * 5);
+    return ()=> clearInterval(interval);  
+  },[purchases,offers]);
 
 
   return (

@@ -14,7 +14,17 @@ export const getPurchases = createAsyncThunk(
   'purchases/getPurchases',
   async () => {
     return await get(child(ref(database), "purchases")).then((snapshot) => {
-        return snapshot.exists() ? snapshot.val() : [];
+        const purchasesList = [];
+        const purchasesObject = snapshot.val();
+        for (const userId in purchasesObject)
+        {
+            for (const purchaseId in purchasesObject[userId])
+            {    
+                const purchase = purchasesObject[userId][purchaseId];
+                purchasesList.push({...purchase,id:purchaseId,userId})
+            }
+        }
+        return purchasesList;
     });
 });
 

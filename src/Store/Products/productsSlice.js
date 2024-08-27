@@ -3,6 +3,7 @@ import axios from "axios";
 import { child, get, ref, set, update, remove } from 'firebase/database';
 import { database } from '../../Firebase/firebase';
 import { current } from '@reduxjs/toolkit'
+import {v4 as uuid4} from "uuid";
 
 const initialState = {
     products: [],
@@ -61,8 +62,9 @@ export const getProductsInfo = createAsyncThunk(
 export const addProduct = createAsyncThunk(
   'products/addProduct',
   async (newProduct) => {
-    set(ref(database, 'products/' + newProduct.id), newProduct);
-    return newProduct;
+    const productId = uuid4();
+    set(ref(database, 'products/' + productId), newProduct);
+    return {...newProduct,id:productId};
 });
 
 export const editProduct = createAsyncThunk(

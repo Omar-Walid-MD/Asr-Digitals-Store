@@ -195,11 +195,9 @@ function NavBar({}) {
                                     <Spinner />
                                 </div>
                             }
-                            {/* <div className='d-flex align-items-center justify-content-center'> */}
-                                <Button variant='transparent p-0' onClick={()=>{toggleFontSize();}}>
+                                {/* <Button variant='transparent p-0' onClick={()=>{toggleFontSize();}}>
                                     <RiFontSize fontSize={"1.25rem"} />
-                                </Button>
-                            {/* </div> */}
+                                </Button> */}
                             </div>
                             
                         </div>

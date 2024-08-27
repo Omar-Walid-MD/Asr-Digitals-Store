@@ -8,7 +8,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import ProductInfoRow from '../../Components/ProductInfoRow';
 import { BsCaretDown, BsCaretDownFill, BsCaretUpFill, BsPlus, BsStarFill, BsCheck, BsFillPhoneFill } from 'react-icons/bs';
-import { getCapitalized, makeUniqueId, onImgError } from '../../helpers';
+import { getCapitalized, onImgError } from '../../helpers';
 import TwoRangeSlider from '../../Components/TwoRangeSlider';
 import { BiSolidCopy } from 'react-icons/bi';
 const schema = yup
@@ -118,19 +118,29 @@ function ManageProducts({}) {
 
     function onSubmitAdd(data)
     {
-        let newProduct = {...data,specs: productSpecs, rating: 0, id: makeUniqueId(products)};
-        dispatch(addProduct(newProduct));
-        reset();
-        handleFormModalClose();
-        setProductToEdit(null);
+        const productCategorySpecs = productsInfo.categories.find((category) => category.name === productCategory).specs;
+        if(Object.keys(productSpecs).length == Object.keys(productCategorySpecs).length)
+        {
+
+            let newProduct = {...data,specs: productSpecs, rating: 0};
+            dispatch(addProduct(newProduct));
+            reset();
+            handleFormModalClose();
+            setProductToEdit(null);
+        }
     }
 
     function onSubmitEdit(data)
     {
-        let editedProduct = {...data,specs: productSpecs};
-        dispatch(editProduct({productId: productToEdit.id,editedProduct: editedProduct}));
-        reset();
-        handleFormModalClose();
+        const productCategorySpecs = productsInfo.categories.find((category) => category.name === productCategory).specs;
+        if(Object.keys(productSpecs).length == Object.keys(productCategorySpecs).length)
+        {
+            let editedProduct = {...data,specs: productSpecs};
+            dispatch(editProduct({productId: productToEdit.id,editedProduct: editedProduct}));
+            reset();
+            handleFormModalClose();
+            setProductToEdit(null);
+        }
     }
 
     function syncScroll(e,targetScroll)

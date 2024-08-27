@@ -5,7 +5,7 @@ import cartReducer from './Cart/cartSlice';
 import favoritesReducer from './Favorites/favoritesSlice';
 import reviewsReducer from './Reviews/reviewsSlice';
 import purchasesReducer from './Purchases/purchasesSlice';
-import offersReducer from './Offers/offers';
+import offersReducer from './Offers/offersSlice';
 import previewStatsReducer from './PreviewStats/previewStats';
 import settingsReducer from './Settings/settingsSlice';
 import popupsReducer from './Popups/popupsSlice';

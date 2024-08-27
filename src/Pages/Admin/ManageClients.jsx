@@ -18,6 +18,8 @@ function ManageClients({}) {
     const [filteredUsers,setFilteredUsers] = useState(users);
     const [resultsCount,setResultsCount] = useState(50);
 
+    console.log(users);
+
     function handleFilterSearch(e)
     {
         setFilters({...filters,[e.target.name]:e.target.value});
@@ -178,7 +180,7 @@ function ManageClients({}) {
                                             <Accordion.Body className='px-0 pb-5'>
                                                 <div>
                                                 {
-                                                    user.cart.length ?
+                                                    user?.cart?.length ?
                                                     <div className='overflow-x-scroll scrollbar light'>
                                                         <div style={{width: "500px"}}>
                                                             <Row className='mb-2'>
@@ -205,7 +207,7 @@ function ManageClients({}) {
                                                 </div>
                                             </Accordion.Body>
                                         </Accordion.Item>
-                                        <Accordion.Item eventKey="2" className='border-0 bg-white purchase-accordion purchase-record'>
+                                        {/* <Accordion.Item eventKey="2" className='border-0 bg-white purchase-accordion purchase-record'>
                                             <Accordion.Header className='py-2'>
                                                 <div className="d-flex w-100 position-absolute">
                                                     <hr className='w-100 border-2 position-absolute' />
@@ -222,7 +224,7 @@ function ManageClients({}) {
                                                 }
                                                 </div>
                                             </Accordion.Body>
-                                        </Accordion.Item>
+                                        </Accordion.Item> */}
                                     </Accordion>
                                 </Accordion.Body>
                             </Accordion.Item>

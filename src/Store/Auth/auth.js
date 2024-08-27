@@ -6,9 +6,8 @@ import { auth, database } from '../../Firebase/firebase';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 
 const initialState = {
-    users: [],
-    loading: true,
     currentUser: null,
+    loading: true,
     loggedInState: "loading"
 }
 
@@ -16,10 +15,12 @@ const initialState = {
 export const getUsers = createAsyncThunk(
   'auth/getUsers',
   async () => {
-    const res = await fetch('http://localhost:8899/users').then(
-    (data) => data.json()
-  )
-  return res
+    return await get(child(ref(database), "users")).then((snapshot) => {
+      if(snapshot.exists())
+      {
+        return Object.values(snapshot.val());
+      }
+  });
 });
 
 
@@ -29,30 +30,25 @@ export const registerUser = createAsyncThunk(
   async (registerInfo) => {
 
     const userCred = await createUserWithEmailAndPassword(auth,registerInfo.email,registerInfo.password);
-    console.log(userCred);
 
     set(ref(database, 'users/' + userCred.user.uid), registerInfo);
-    return {id: userCred.user.uid,...registerInfo}
+
+    let localCart = JSON.parse(localStorage.getItem("userCart"));
+    let localFavs = JSON.parse(localStorage.getItem("userFavorites"));
 
 
-    // LATER
-    // let localCart = JSON.parse(localStorage.getItem("userCart"));
-    // let localFavs = JSON.parse(localStorage.getItem("userFavorites"));
-
-    // let update = {};
-    // if(localCart.length > 0) update.cart = localCart;
-    // if(localCart.length > 0) update.favorites = localFavs;
+    // if local cart/favorites is not empty, move them to account
+    let userUpdate = {};
+    if(localCart.length > 0) userUpdate.cart = localCart;
+    if(localCart.length > 0) userUpdate.favorites = localFavs;
   
-    // if(Object.keys(update).length > 0)
-    // {
-    //     const res = axios.patch(`http://localhost:8899/users/${newUserRes.id}`,update).then(
-    //     (data) => data)
-    //     return (await res).data;
-    // }
-    // else
-    // {
-    //   return newUserRes;
-    // }
+    if(Object.keys(userUpdate).length > 0)
+    {
+        update(ref(database, 'users/' + userCred.user.uid), userUpdate);
+    }
+
+    return {id: userCred.user.uid,...registerInfo, ...userUpdate};
+
 });
 
 
@@ -60,7 +56,6 @@ export const authenticateCurrentUser = createAsyncThunk(
   'auth/authenticateCurrentUser',
   async (user) => {
 
-    
     if(user)
     {
       const userInfo = await get(child(ref(database), `users/${user.uid}`)).then((snapshot) => {
@@ -75,12 +70,9 @@ export const logoutUser = createAsyncThunk(
   'auth/logoutUser',
   async () => {
     auth.signOut()
-    // localStorage.setItem("userCart",JSON.stringify([]));
-    // localStorage.setItem("userFavorites",JSON.stringify([])); 
 });
 
 
-//LATER
 export const editUser = createAsyncThunk(
   'auth/editUser',
   async ({id,updatedUser}) => {

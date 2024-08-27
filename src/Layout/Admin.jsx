@@ -26,8 +26,7 @@ function Admin({}) {
 
             </div>
             :
-            //DISABLED ADMIN FOR NOW
-            (loggedInState==="yes" && currentUser.role==="admin" && false) ?
+            (loggedInState==="yes" && currentUser.role==="admin") ?
             <div className='bg-light bg-img-dashboard page-container'>
                 <NavBarAdmin />
                 <Outlet />

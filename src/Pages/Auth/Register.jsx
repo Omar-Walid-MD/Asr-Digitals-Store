@@ -7,6 +7,8 @@ import * as yup from "yup";
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUsers, loginUser, registerUser } from '../../Store/Auth/auth';
+import { auth } from '../../Firebase/firebase';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 
 
@@ -71,7 +73,7 @@ function Register({}) {
     const { register: registerGeneral, handleSubmit: handleSubmitGeneral, reset: resetGeneral, formState: { errors: errorsGeneral } } = useForm({ resolver: yupResolver(schemas[1]) });
     const { register: registerExtra, handleSubmit: handleSubmitExtra, reset: resetExtra, formState: { errors: errorsExtra } } = useForm({ resolver: yupResolver(schemas[2]) });
 
-    function onSubmit(data)
+    async function onSubmit(data)
     {
         let updatedUserData = {...userData,...data};
         setUserData(updatedUserData);
@@ -84,7 +86,12 @@ function Register({}) {
             }
             else
             {
-                if(data.password!==data.confirmPassword)
+                if(data.password.length < 6)
+                {
+                    handleValidationError("Password must be 6 characters or more.");
+                    return;
+                }
+                else if(data.password!==data.confirmPassword)
                 {
         
                     handleValidationError("Password mismatch...");
@@ -92,7 +99,7 @@ function Register({}) {
                 }
                 else
                 {
-                    if(staffKey && staffKey!=="adminKey123")
+                    if(staffKey && staffKey!=="admin_key_123")
                     {
                         handleValidationError("Invalid Staff key... Please enter a correct key or clear to proceed.");
                     }
@@ -125,6 +132,8 @@ function Register({}) {
             let newUser = {...updatedUserData,cart:[],favorites:[], role: staffKey ? "admin" : "client"};
             delete newUser.confirmPassword;
             newUser.dateOfBirth = newUser.dateOfBirth.toISOString().split('T')[0];
+
+            
             dispatch(registerUser(newUser));
             navigate(prevPath);
         }
@@ -227,7 +236,7 @@ function Register({}) {
                                 </FloatingLabel>
 
                                 <FloatingLabel className='form-required' controlId="floatingPhoneNumber" label="Phone Number">
-                                    <Form.Control type="text" placeholder="Phone Number" {...registerGeneral("phone")} />
+                                    <Form.Control type="number" placeholder="Phone Number" {...registerGeneral("phone")} />
                                     {errorsGeneral.phone ? <div className='error-message text-danger mt-2'>{errorsGeneral.phone.message}</div> : ''}
                                 </FloatingLabel>
 

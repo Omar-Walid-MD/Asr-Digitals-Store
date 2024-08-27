@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from "axios";
 import { child, get, ref, remove, set, update } from 'firebase/database';
 import { database } from '../../Firebase/firebase';
+import {v4 as uuid4} from "uuid";
 
 const initialState = {
     offers: [],
@@ -29,8 +30,9 @@ export const getOffers = createAsyncThunk(
 export const addOffer = createAsyncThunk(
   'offers/addOffer',
   async (newOffer) => {
-    set(ref(database, 'offers/' + newOffer.id), newOffer);
-    return newOffer
+    const offerId = uuid4();
+    set(ref(database, 'offers/' + offerId), newOffer);
+    return {...newOffer,offerId}
 });
 
 export const editOffer = createAsyncThunk(
