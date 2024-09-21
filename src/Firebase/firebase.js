@@ -3,13 +3,13 @@ import { getAuth } from "firebase/auth";
 import { getDatabase } from "firebase/database";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDh2CFK1BleUHpJA2e2sD28SR1uxhKLw_k",
-  authDomain: "asr-digitals-store.firebaseapp.com",
-  databaseURL: "https://asr-digitals-store-default-rtdb.firebaseio.com",
-  projectId: "asr-digitals-store",
-  storageBucket: "asr-digitals-store.appspot.com",
-  messagingSenderId: "643856999023",
-  appId: "1:643856999023:web:4aad2431cabbe43deb639a"
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID
 };
 
 // Initialize Firebase
