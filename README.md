@@ -1,6 +1,6 @@
 # Asr Digitals Store
 
-![Asr Digitals Store Logo](https://asr-digitals-store.netlify.app/static/media/logo-light.692375527eadc8078c5a.png =250x)  
+![Asr Digitals Store Logo](https://asr-digitals-store.netlify.app/static/media/logo-light.692375527eadc8078c5a.png)  
 
 ## Website URL
 
