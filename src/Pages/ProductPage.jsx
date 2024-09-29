@@ -38,7 +38,7 @@ function ProductPage({})
     const productsInfo = useSelector((store) => store.products.productsInfo);
     const offers = useSelector((store) => store.offers.offers);
 
-    const [reviews,setReviews] = useState();
+    const [reviews,setReviews] = useState([]);
 
     const dispatch = useDispatch();
     const { register, handleSubmit, reset, formState: { errors } } = useForm({ resolver: yupResolver(schema) });
@@ -86,7 +86,9 @@ function ProductPage({})
 
     function onSumbit(data)
     {
-        const newReview = {...data,userId:currentUser ? currentUser.id : 0,date: Date.now()}
+        const newReview = {...data,userId:currentUser ? currentUser.id : 0,date: Date.now()};
+        newReview.title = newReview.title.trim();
+        newReview.body = newReview.body.trim();
         dispatch(addReview({productId,newReview}));
         dispatch(setProductRating({productId: product.id,rating: getRating([...reviews.map((review)=>review.rating),rating])}));
         reset();
@@ -172,16 +174,13 @@ function ProductPage({})
         }
     },[offers,product]);
 
-    useEffect(()=>{
-        if(!reviews)
-        {
-            (async()=>{
-                await get(child(ref(database), `reviews/${productId}`)).then((snapshot) => {
-                    setReviews(snapshot.exists() ? getReviewsArray(snapshot.val()) : []);
-               });
-            })()
-        }
-    },[reviews]);
+    useEffect(()=>{ 
+        (async()=>{
+            await get(child(ref(database), `reviews/${productId}`)).then((snapshot) => {
+                setReviews(snapshot.exists() ? getReviewsArray(snapshot.val()) : []);
+            });
+        })()
+    },[productId]);
 
     return (
         <div className='bg-light'>

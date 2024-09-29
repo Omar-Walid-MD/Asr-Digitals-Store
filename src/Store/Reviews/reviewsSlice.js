@@ -34,11 +34,11 @@ export const getReviews = createAsyncThunk(
 //   return res;
 });
 
-export const getProductReviews = createAsyncThunk(
-    'reviews/getProductReviews',
-    async (productId) => {
+// export const getProductReviews = createAsyncThunk(
+//     'reviews/getProductReviews',
+//     async (productId) => {
         
-  });
+//   });
 
 
 export const addReview = createAsyncThunk(
@@ -74,8 +74,8 @@ export const reviewsSlice = createSlice({
         })
         .addCase(addReview.fulfilled,(state, { payload }) => {
             state.loading = false
-            state.reviews = [...state.reviews,payload];
-            console.log(current(state).reviews)
+            // state.reviews = [...state.reviews,payload];
+            // console.log(current(state).reviews)
         })
         .addCase(addReview.rejected,(state) => {
             state.loading = false;
